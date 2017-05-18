@@ -343,7 +343,7 @@ public class Field {
     }
 
     public List<String> getSelectOptionValuesIfSelectable() {
-        if (!isSelectField()){
+        if (!(isSelectField() || isRadioButton())){
             throw new IllegalStateException("Filed is not multiple selectable");
         }
         String language = PrimeroAppConfiguration.getDefaultLanguage();
