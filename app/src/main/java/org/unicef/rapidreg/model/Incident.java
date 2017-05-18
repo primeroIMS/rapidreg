@@ -3,6 +3,8 @@ package org.unicef.rapidreg.model;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.Table;
 
+import java.util.Date;
+
 import org.unicef.rapidreg.PrimeroDatabaseConfiguration;
 
 import static org.unicef.rapidreg.model.Incident.COLUMN_INCIDENT_CASE_ID;
@@ -15,6 +17,7 @@ public class Incident extends RecordModel {
     public static final String COLUMN_LOCATION = "location";
     public static final String COLUMN_CASE_UNIQUE_ID = "case_unique_id";
     public static final String COLUMN_INCIDENT_CASE_ID = "incident_case_id";
+    public static final String COLUMN_DATE_OF_FIRST_REPORT = "date_of_first_report";
 
     @Column(name = COLUMN_SURVIVOR_CODE)
     private String survivorCode;
@@ -30,6 +33,9 @@ public class Incident extends RecordModel {
 
     @Column(name = COLUMN_INCIDENT_CASE_ID)
     private String incidentCaseId;
+
+    @Column(name = COLUMN_DATE_OF_FIRST_REPORT)
+    private Date dateOfFirstReport;
 
     public Incident() {}
 
@@ -75,5 +81,13 @@ public class Incident extends RecordModel {
 
     public void setIncidentCaseId(String incidentCaseId) {
         this.incidentCaseId = incidentCaseId;
+    }
+
+    public Date getDateOfFirstReport() {
+        return dateOfFirstReport;
+    }
+
+    public void setDateOfFirstReport(Date dateOfFirstReport) {
+        this.dateOfFirstReport = dateOfFirstReport;
     }
 }
