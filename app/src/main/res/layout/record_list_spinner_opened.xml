@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/rectangle_with_border"
     android:gravity="center_vertical"
-    android:padding="@dimen/size_10">
+    android:padding="@dimen/size_14">
 
     <ImageView
         android:id="@+id/indicator"
@@ -19,5 +19,5 @@
         android:layout_weight="9"
         android:paddingLeft="@dimen/size_5"
         android:textColor="@color/primero_font_dark"
-        android:textSize="@dimen/text_size_14" />
+        android:textSize="@dimen/text_size_16" />
 </LinearLayout>
