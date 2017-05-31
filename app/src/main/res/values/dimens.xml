@@ -10,7 +10,9 @@
     <dimen name="size_5">5dp</dimen>
     <dimen name="size_minus_5">-5dp</dimen>
     <dimen name="size_10">10dp</dimen>
+    <dimen name="size_11">11dp</dimen>
     <dimen name="size_12">12dp</dimen>
+    <dimen name="size_14">14dp</dimen>
     <dimen name="size_15">15dp</dimen>
     <dimen name="size_24">24dp</dimen>
     <dimen name="size_30">30dp</dimen>
@@ -23,6 +25,7 @@
     <dimen name="size_300">300dp</dimen>
     <dimen name="size_400">400dp</dimen>
     <dimen name="text_size_6">6sp</dimen>
+    <dimen name="text_size_8">8sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_14">14sp</dimen>
     <dimen name="text_size_16">16sp</dimen>
@@ -42,7 +45,7 @@
     <dimen name="dialog_button_text_size">@dimen/text_size_14</dimen>
     <dimen name="dialog_filter_text_size">@dimen/text_size_14</dimen>
     <dimen name="dialog_photo_upload_text_size">@dimen/text_size_16</dimen>
-    <dimen name="toast_text_size">@dimen/text_size_6</dimen>
+    <dimen name="toast_text_size">@dimen/text_size_8</dimen>
 
 
     <!--row in list start-->
@@ -77,6 +80,7 @@
     <!--search start-->
     <dimen name="search_bar_left_margin">20dp</dimen>
     <dimen name="search_bar_right_margin">20dp</dimen>
+    <dimen name="search_bar_top_margin">10dp</dimen>
     <dimen name="search_bar_left_padding">20dp</dimen>
     <dimen name="search_bar_right_padding">20dp</dimen>
     <dimen name="search_bar_item_height">44.3dp</dimen>

@@ -16,6 +16,7 @@
             android:layout_marginLeft="@dimen/search_bar_left_margin"
             android:layout_marginRight="@dimen/search_bar_right_margin"
             android:layout_marginStart="@dimen/search_bar_left_margin"
+            android:layout_marginTop="@dimen/search_bar_top_margin"
             android:gravity="center_vertical">
 
             <TextView
