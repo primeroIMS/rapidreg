@@ -349,7 +349,6 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
         String registrationDate = incidentsJsonObject.get(RecordService.DATE_OF_INTERVIEW).getAsString();
 
         if (item != null) {
-            item.setIncidentCaseId(incidentsJsonObject.get(COLUMN_INCIDENT_CASE_ID).getAsString());
             setIncidentProperties(item, incidentsJsonObject);
             item.update();
         } else {
