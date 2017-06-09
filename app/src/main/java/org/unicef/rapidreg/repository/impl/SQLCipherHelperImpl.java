@@ -27,6 +27,7 @@ public class SQLCipherHelperImpl extends SQLCipherOpenHelper {
         if (BuildConfig.DEBUG) {
             secret = "primero";
         } else {
+            //TODO: this is basic Keystore handling security needs to be enforced by the use of PIN/PASSWORD/PATTERN
             secret = KeyStoreUtils.readKeyFromKeyStore(KeyStoreUtils.KEY_STORE_ALIAS);
             if (secret == null) {
                 secret = generateEncryptionKey();
