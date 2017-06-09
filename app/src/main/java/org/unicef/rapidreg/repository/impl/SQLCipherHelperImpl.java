@@ -13,6 +13,8 @@ import org.unicef.rapidreg.BuildConfig;
 import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.utils.EncryptHelper;
 
+import org.unicef.rapidreg.utils.KeyStoreUtils;
+
 public class SQLCipherHelperImpl extends SQLCipherOpenHelper {
 
     public SQLCipherHelperImpl(DatabaseDefinition definition, DatabaseHelperListener listener) {
@@ -21,7 +23,18 @@ public class SQLCipherHelperImpl extends SQLCipherOpenHelper {
 
     @Override
     protected String getCipherSecret() {
-        return BuildConfig.DEBUG ? "primero" : generateEncryptionKey();
+        String secret = "";
+        if (BuildConfig.DEBUG) {
+            secret = "primero";
+        } else {
+            //TODO: this is basic Keystore handling security needs to be enforced by the use of PIN/PASSWORD/PATTERN
+            secret = KeyStoreUtils.readKeyFromKeyStore(KeyStoreUtils.KEY_STORE_ALIAS);
+            if (secret == null) {
+                secret = generateEncryptionKey();
+                KeyStoreUtils.storeKey(KeyStoreUtils.KEY_STORE_ALIAS, secret);
+            }
+        }
+        return secret;
     }
 
     private String generateEncryptionKey() {
@@ -38,4 +51,5 @@ public class SQLCipherHelperImpl extends SQLCipherOpenHelper {
 
         return EncryptHelper.encrypt(buildInfo + deviceId + androidId);
     }
+
 }
