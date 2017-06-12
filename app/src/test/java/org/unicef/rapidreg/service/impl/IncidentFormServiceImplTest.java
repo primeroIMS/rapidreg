@@ -4,30 +4,25 @@ import com.raizlabs.android.dbflow.data.Blob;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
-import org.unicef.rapidreg.model.Session;
 import org.unicef.rapidreg.repository.IncidentFormDao;
-import org.unicef.rapidreg.repository.impl.IncidentFormDaoImpl;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.forms.IncidentTemplateForm;
 import org.unicef.rapidreg.forms.Section;
 import org.unicef.rapidreg.model.IncidentForm;
-import org.unicef.rapidreg.service.IncidentFormService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -154,5 +149,125 @@ public class IncidentFormServiceImplTest {
         incidentFormService.saveOrUpdate(incidentForm);
         verify(existingIncidentForm,times(1)).setForm(incidentForm.getForm());
         verify(existingIncidentForm,times(1)).update();
+    }
+
+    @Test
+    public void should_load_incident_location_list_() {
+        formForm = "{\n" +
+                "  \"Incidents\": [\n" +
+                "    {\n" +
+                "      \"base_language\": \"en\",\n" +
+                "      \"fields\": [{\n" +
+                "        \"display_name\": {\n" +
+                "          \"en\": \"Incident Location\"\n" +
+                "        },\n" +
+                "        \"editable\": true,\n" +
+                "        \"help_text\": {\n" +
+                "          \"en\": \"\"\n" +
+                "        },\n" +
+                "        \"index\": -1,\n" +
+                "        \"show_on_minify_form\": false,\n" +
+                "        \"multi_select\": false,\n" +
+                "        \"name\": \"incident_location\",\n" +
+                "        \"option_strings_text\": {\n" +
+                "          \"en\": [\n" +
+                "            \"Syria::Other\",\n" +
+                "            \"Syria::Tartus\",\n" +
+                "            \"Syria::Damascus\"\n" +
+                "          ]\n" +
+                "        },\n" +
+                "        \"required\": false,\n" +
+                "        \"type\": \"select_box\"\n" +
+                "      }],\n" +
+                "      \"help_text\": {\n" +
+                "        \"en\": \"\"\n" +
+                "      },\n" +
+                "      \"name\": {\n" +
+                "        \"en\": \"GBV Incident\"\n" +
+                "      },\n" +
+                "      \"order\": 10\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
+        IncidentForm incidentForm = new IncidentForm();
+        incidentForm.setForm(new Blob(formForm.getBytes()));
+        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
+        List<String> selectOptions = incidentFormService.getLocationList();
+
+        assertThat(selectOptions.size(), is(3));
+
+        List<String> expectedList = Arrays.asList(new String[]{"Syria::Other", "Syria::Tartus", "Syria::Damascus"});
+        assertTrue(expectedList.equals(selectOptions));
+    }
+
+    @Test
+    public void should_be_incident_location_list_empty() {
+        formForm = "{\"Incidents\":[]}";
+        IncidentForm incidentForm = new IncidentForm();
+        incidentForm.setForm(new Blob(formForm.getBytes()));
+        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
+        List<String> selectOptions = incidentFormService.getLocationList();
+        assertThat(selectOptions.size(), is(0));
+    }
+
+    @Test
+    public void should_load_violence_type_list_() {
+        formForm = "{\n" +
+                "  \"Incidents\": [\n" +
+                "    {\n" +
+                "      \"base_language\": \"en\",\n" +
+                "      \"fields\": [{\n" +
+                "        \"display_name\": {\n" +
+                "          \"en\": \"Type of Incident Violence\"\n" +
+                "        },\n" +
+                "        \"editable\": true,\n" +
+                "        \"help_text\": {\n" +
+                "          \"en\": \"\"\n" +
+                "        },\n" +
+                "        \"index\": -1,\n" +
+                "        \"show_on_minify_form\": false,\n" +
+                "        \"multi_select\": false,\n" +
+                "        \"name\": \"gbv_sexual_violence_type\",\n" +
+                "        \"option_strings_text\": {\n" +
+                "          \"en\": [\n" +
+                "          \"Rape\",\n" +
+                "          \"Sexual Assault\",\n" +
+                "          \"Physical Assault\"\n" +
+                "          ]\n" +
+                "        },\n" +
+                "        \"required\": false,\n" +
+                "        \"type\": \"select_box\"\n" +
+                "      }],\n" +
+                "      \"help_text\": {\n" +
+                "        \"en\": \"\"\n" +
+                "      },\n" +
+                "      \"name\": {\n" +
+                "        \"en\": \"Type of Violence\"\n" +
+                "      },\n" +
+                "      \"order\": 40\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
+        IncidentForm incidentForm = new IncidentForm();
+        incidentForm.setForm(new Blob(formForm.getBytes()));
+        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
+        List<String> selectOptions = incidentFormService.getViolenceTypeList();
+
+        assertThat(selectOptions.size(), is(3));
+
+        List<String> expectedList = Arrays.asList(new String[]{"Rape", "Sexual Assault", "Physical Assault"});
+        assertTrue(expectedList.equals(selectOptions));
+    }
+
+    @Test
+    public void should_be_violence_type_list_empty() {
+        formForm = "{\"Incidents\":[]}";
+        IncidentForm incidentForm = new IncidentForm();
+        incidentForm.setForm(new Blob(formForm.getBytes()));
+        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
+        List<String> selectOptions = incidentFormService.getViolenceTypeList();
+        assertThat(selectOptions.size(), is(0));
     }
 }
