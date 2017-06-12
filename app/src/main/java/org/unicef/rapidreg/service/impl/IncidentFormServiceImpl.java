@@ -11,6 +11,7 @@ import org.unicef.rapidreg.forms.IncidentTemplateForm;
 import org.unicef.rapidreg.model.IncidentForm;
 import org.unicef.rapidreg.service.IncidentFormService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IncidentFormServiceImpl implements IncidentFormService {
@@ -63,42 +64,51 @@ public class IncidentFormServiceImpl implements IncidentFormService {
     public List<String> getViolenceTypeList() {
         IncidentTemplateForm incidentTemplateForm = getGBVTemplate();
         List<Section> sections = incidentTemplateForm.getSections();
+        List<String> selectOptions = new ArrayList<String>();
         Section violenceSection = null;
-        for (Section section : sections) {
-            if (SECTION_TYPE_OF_VIOLENCE.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
-                violenceSection = section;
-                break;
+        if (sections != null) {
+            for (Section section : sections) {
+                if (SECTION_TYPE_OF_VIOLENCE.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
+                    violenceSection = section;
+                    break;
+                }
+            }
+            if (violenceSection != null) {
+                List<Field> fields = violenceSection.getFields();
+                for (Field field : fields) {
+                    if (FIELD_INCIDENT_TYPE_OF_VIOLENCE.equals(field.getName())) {
+                        selectOptions = field.getSelectOptions();
+                        break;
+                    }
+                }
             }
         }
-        List<Field> fields = violenceSection.getFields();
-        Field violenceTypeField = null;
-        for (Field field : fields) {
-            if (FIELD_INCIDENT_TYPE_OF_VIOLENCE.equals(field.getName())) {
-                violenceTypeField = field;
-                break;
-            }
-        }
-        return violenceTypeField.getSelectOptions();
+        return selectOptions;
     }
 
     @Override
     public List<String> getLocationList() {
         IncidentTemplateForm incidentTemplateForm = getGBVTemplate();
         List<Section> sections = incidentTemplateForm.getSections();
+        List<String> selectOptions = new ArrayList<String>();
         Section locationSection = null;
-        for (Section section : sections) {
-            if (SECTION_GBV_INCIDENT.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
-                locationSection = section;
-                break;
+        if (sections != null) {
+            for (Section section : sections) {
+                if (SECTION_GBV_INCIDENT.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
+                    locationSection = section;
+                    break;
+                }
+            }
+            if (locationSection != null) {
+                List<Field> fields = locationSection.getFields();
+                for (Field field : fields) {
+                    if (FIELD_LOCATION_INCIDENT.equals(field.getName())) {
+                        selectOptions = field.getSelectOptions();
+                        break;
+                    }
+                }
             }
         }
-        Field locationField = null;
-        for (Field field : locationSection.getFields()) {
-            if (FIELD_LOCATION_INCIDENT.equals(field.getName())) {
-                locationField = field;
-                break;
-            }
-        }
-        return locationField.getSelectOptions();
+        return selectOptions;
     }
 }
