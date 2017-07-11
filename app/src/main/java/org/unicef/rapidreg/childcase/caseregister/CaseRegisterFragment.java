@@ -17,6 +17,7 @@ import org.unicef.rapidreg.childcase.CaseActivity;
 import org.unicef.rapidreg.childcase.CaseFeature;
 import org.unicef.rapidreg.childcase.casephoto.CasePhotoAdapter;
 import org.unicef.rapidreg.service.RecordService;
+import org.unicef.rapidreg.forms.Field;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ import static org.unicef.rapidreg.childcase.CaseFeature.DETAILS_CP_MINI;
 import static org.unicef.rapidreg.childcase.CaseFeature.DETAILS_GBV_MINI;
 import static org.unicef.rapidreg.childcase.CaseFeature.EDIT_MINI;
 import static org.unicef.rapidreg.service.RecordService.MODULE;
+import static org.unicef.rapidreg.childcase.caseregister.CaseRegisterPresenter.MODULE_CASE_CP;
 
 public class CaseRegisterFragment extends RecordRegisterFragment {
     @Inject
@@ -49,8 +51,13 @@ public class CaseRegisterFragment extends RecordRegisterFragment {
 
     @Override
     protected RecordRegisterAdapter createRecordRegisterAdapter() {
+        List<Field> fields = caseRegisterPresenter.getValidFields(FragmentPagerItem.getPosition(getArguments()));
+
+        int position = caseRegisterPresenter.getCaseType().equals(MODULE_CASE_CP) ? 1 : 0;
+        addProfileFieldForDetailsPage(position, fields);
+
         RecordRegisterAdapter recordRegisterAdapter = new RecordRegisterAdapter(getActivity(),
-                caseRegisterPresenter.getValidFields(FragmentPagerItem.getPosition(getArguments())),
+                fields,
                 caseRegisterPresenter.getDefaultItemValues(),
                 caseRegisterPresenter.getFieldValueVerifyResult(),
                 false);
