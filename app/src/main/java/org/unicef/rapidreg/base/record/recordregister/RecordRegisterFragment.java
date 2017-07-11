@@ -26,6 +26,7 @@ import org.unicef.rapidreg.injection.module.FragmentModule;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
+import org.unicef.rapidreg.base.Feature;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -152,11 +153,8 @@ public abstract class RecordRegisterFragment extends MvpFragment<RecordRegisterV
     }
 
     protected void addProfileFieldForDetailsPage(int position, String miniFormType, List<Field> fields) {
-        if (fields.isEmpty()) {
-            return;
-        }
-
-        if (((RecordActivity) getActivity()).getCurrentFeature().isDetailMode()) {
+        Feature currentFeature = ((RecordActivity) getActivity()).getCurrentFeature();
+        if (currentFeature.isDetailMode() || currentFeature.isEditMode()) {
             Field field = new Field();
             field.setType(miniFormType);
             try {

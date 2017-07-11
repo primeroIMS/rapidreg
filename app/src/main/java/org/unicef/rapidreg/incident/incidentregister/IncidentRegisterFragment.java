@@ -17,11 +17,14 @@ import org.unicef.rapidreg.base.record.recordregister.RecordRegisterFragment;
 import org.unicef.rapidreg.incident.IncidentFeature;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.utils.Utils;
+import org.unicef.rapidreg.forms.Field;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.OnClick;
 
+import static org.unicef.rapidreg.forms.Field.TYPE_INCIDENT_MINI_FORM_PROFILE;
 import static org.unicef.rapidreg.service.CaseService.CASE_ID;
 
 public class IncidentRegisterFragment extends RecordRegisterFragment {
@@ -39,8 +42,11 @@ public class IncidentRegisterFragment extends RecordRegisterFragment {
 
     @Override
     protected RecordRegisterAdapter createRecordRegisterAdapter() {
+        List<Field> fields = incidentRegisterPresenter.getValidFields(FragmentPagerItem.getPosition(getArguments()));
+        addProfileFieldForDetailsPage(0, TYPE_INCIDENT_MINI_FORM_PROFILE, fields);
+
         RecordRegisterAdapter recordRegisterAdapter = new RecordRegisterAdapter(getActivity(),
-                incidentRegisterPresenter.getValidFields(FragmentPagerItem.getPosition(getArguments())),
+                fields,
                 incidentRegisterPresenter.getDefaultItemValues(),
                 incidentRegisterPresenter.getFieldValueVerifyResult(),
                 false);
