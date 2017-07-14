@@ -346,7 +346,11 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
     private void saveDownloadedIncidents(JsonObject incidentsJsonObject) {
         String internalId = incidentsJsonObject.get("_id").getAsString();
         Incident item = incidentService.getByInternalId(internalId);
-        String registrationDate = incidentsJsonObject.get(RecordService.DATE_OF_INTERVIEW).getAsString();
+        JsonElement dateOfInterview = incidentsJsonObject.get(RecordService.DATE_OF_INTERVIEW);
+        String registrationDate = "";
+        if (dateOfInterview != null) {
+            registrationDate = dateOfInterview.getAsString();
+        }
 
         if (item != null) {
             setIncidentProperties(item, incidentsJsonObject);
