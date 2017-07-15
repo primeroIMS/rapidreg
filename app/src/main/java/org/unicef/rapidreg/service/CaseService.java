@@ -23,6 +23,9 @@ import org.unicef.rapidreg.utils.ImageCompressUtil;
 import org.unicef.rapidreg.utils.StreamUtil;
 import org.unicef.rapidreg.utils.TextUtils;
 import org.unicef.rapidreg.utils.Utils;
+import org.unicef.rapidreg.repository.impl.CaseDaoImpl;
+import org.unicef.rapidreg.repository.impl.CasePhotoDaoImpl;
+import org.unicef.rapidreg.repository.impl.IncidentDaoImpl;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -46,6 +49,10 @@ public class CaseService extends RecordService {
         this.caseDao = caseDao;
         this.casePhotoDao = casePhotoDao;
         this.incidentDao = incidentDao;
+    }
+
+    public static CaseService getInstance() {
+        return new CaseService(new CaseDaoImpl(), new CasePhotoDaoImpl(), new IncidentDaoImpl());
     }
 
     public List<Case> getAll() {

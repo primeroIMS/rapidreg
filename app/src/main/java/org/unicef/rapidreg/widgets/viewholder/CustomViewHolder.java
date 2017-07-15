@@ -15,7 +15,12 @@ import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.event.Event;
 import org.unicef.rapidreg.forms.Field;
+import org.unicef.rapidreg.service.CaseService;
+import org.unicef.rapidreg.service.IncidentService;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
+import org.unicef.rapidreg.event.RedirectIncidentEvent;
+import static org.unicef.rapidreg.service.cache.ItemValuesMap.RecordProfile.INCIDENT_LINKS;
+import org.unicef.rapidreg.model.Incident;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -62,14 +67,42 @@ public class CustomViewHolder extends BaseViewHolder<Field> {
     }
 
     private void restoreItemList(boolean clickable) {
-        LinkedHashMap<String, Event> childrenArray = itemValues.getChildrenAsLinkedHashMap(fieldName);
+        // obtain remote records
+        // TODO in the case of incident links they are not being downloaded from server
+        // as soon as Incidents created in Cases start to be downloaded from server they should show up in incident_links field
+        List<String> childrenArray = itemValues.getAsList(fieldName);
         if (childrenArray == null) {
             return;
         }
 
-        if (!clickable) {
-            for (Map.Entry<String, Event> entry : childrenArray.entrySet()) {
-                childrenArray.put(entry.getKey(), null);
+        LinkedHashMap<String, Event> events = new LinkedHashMap<String, Event>();
+
+        // look for local stored incident links
+        if (fieldName.equals(INCIDENT_LINKS)) {
+            String caseId = itemValues.getAsString(CaseService.CASE_ID);
+            // TODO Inject CaseService
+            if (caseId != null) {
+                List<String> incidentList = CaseService.getInstance().getIncidentsByCaseId(caseId);
+                if (incidentList != null) {
+                    for (String uniqueId : incidentList) {
+                        events.put(uniqueId, new RedirectIncidentEvent(uniqueId));
+                    }
+                }
+            }
+        }
+
+        for (String internalId : childrenArray) {
+            if (clickable) {
+                if (fieldName.equals(INCIDENT_LINKS)) {
+                    // everything that comes from server carries internalIds, but we print uniqueIds
+                    // ensure that the Incident was downloaded
+                    Incident incident = new IncidentService().getByInternalId(internalId);
+                    if (incident != null) {
+                        events.put(incident.getUniqueId(), new RedirectIncidentEvent(incident.getUniqueId()));
+                    }
+                }
+            } else {
+                events.put(internalId, null);
             }
         }
 
@@ -77,7 +110,7 @@ public class CustomViewHolder extends BaseViewHolder<Field> {
         layout.setAutoMeasureEnabled(true);
         itemListView.setLayoutManager(layout);
 
-        CustomAdapter adapter = new CustomAdapter(childrenArray);
+        CustomAdapter adapter = new CustomAdapter(events);
         itemListView.setAdapter(adapter);
 
         enableContainer();

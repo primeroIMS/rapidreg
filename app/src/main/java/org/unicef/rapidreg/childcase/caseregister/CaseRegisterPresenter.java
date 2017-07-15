@@ -19,7 +19,6 @@ import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.JsonUtils;
-import static org.unicef.rapidreg.service.cache.ItemValuesMap.RecordProfile.INCIDENT_LINKS;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -116,9 +115,6 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
                 (caseJson, JsonObject.class)));
         itemValues.addStringItem(CASE_ID, caseItem.getUniqueId());
 
-        if (itemValues.has(INCIDENT_LINKS)) {
-            cleanIncidentLinks(itemValues);
-        }
         List<String> incidentList = caseService.getIncidentsByCaseId(caseItem.getUniqueId());
         addProfileItems(itemValues, caseItem.getRegistrationDate(), caseItem.getUniqueId(),
                 incidentList, recordId);
@@ -133,10 +129,7 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
                 (caseJson, JsonObject.class)));
         itemValues.addStringItem(CASE_ID, caseItem.getUniqueId());
 
-        if (itemValues.has(INCIDENT_LINKS)) {
-            cleanIncidentLinks(itemValues);
-        }
-        List<String> incidentList = incidentList = caseService.getIncidentsByCaseId(caseItem.getUniqueId());
+        List<String> incidentList = caseService.getIncidentsByCaseId(caseItem.getUniqueId());
         addProfileItems(itemValues, caseItem.getRegistrationDate(), caseItem.getUniqueId(),
                 incidentList, caseItem.getId());
         return itemValues;
@@ -214,17 +207,5 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
         }
 
         return itemValuesMap;
-    }
-
-    /**
-    * Removes incident_links field shipped with the Case to allow displaying only Incidents that can be opened allowing to :
-    * 1) be able to load the Action Plans section without the app crashing because incident_links is rendered as List instead of required LinkedHashMap
-    * 2) prevents the app from crashing when trying to open an orphan incident link whose Incident record was not downloaded
-    **/
-    // TODO: fix inconsistency in download/upload, as incidents links created in server won't show up in mobile and links created in mobile won't appear in web
-    private void cleanIncidentLinks(ItemValuesMap itemValues) {
-        if (itemValues.getAsList(INCIDENT_LINKS) instanceof List) {
-            itemValues.removeItem(INCIDENT_LINKS);
-        }
     }
 }
