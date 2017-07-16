@@ -85,7 +85,9 @@ public class CustomViewHolder extends BaseViewHolder<Field> {
                 List<String> incidentList = CaseService.getInstance().getIncidentsByCaseId(caseId);
                 if (incidentList != null) {
                     for (String uniqueId : incidentList) {
-                        events.put(uniqueId, new RedirectIncidentEvent(uniqueId));
+                        if (!events.containsKey(uniqueId)) {
+                            events.put(uniqueId, new RedirectIncidentEvent(uniqueId));
+                        }
                     }
                 }
             }
