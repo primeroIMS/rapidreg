@@ -11,7 +11,6 @@ import org.json.JSONException;
 import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterView.SaveRecordCallback;
-import org.unicef.rapidreg.event.RedirectIncidentEvent;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.forms.RecordForm;
 import org.unicef.rapidreg.service.RecordService;
@@ -31,7 +30,6 @@ import java.util.Locale;
 import static org.unicef.rapidreg.base.record.recordregister.RecordRegisterFragment
         .INVALID_RECORD_ID;
 import static org.unicef.rapidreg.base.record.recordregister.RecordRegisterFragment.INVALID_UNIQUE_ID;
-import static org.unicef.rapidreg.service.cache.ItemValuesMap.RecordProfile.INCIDENT_LINKS;
 
 public abstract class RecordRegisterPresenter extends MvpBasePresenter<RecordRegisterView> {
 
@@ -72,7 +70,7 @@ public abstract class RecordRegisterPresenter extends MvpBasePresenter<RecordReg
     }
 
     public void addProfileItems(ItemValuesMap itemValues, Date registrationDate, String
-            uniqueId, List<String> incidentIds, long recordId) {
+            uniqueId, long recordId) {
         String shortUUID = recordService.getShortUUID(uniqueId);
         DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
         itemValues.addStringItem(ItemValuesMap.RecordProfile.ID_NORMAL_STATE, shortUUID);
@@ -81,14 +79,6 @@ public abstract class RecordRegisterPresenter extends MvpBasePresenter<RecordReg
         if (registrationDate != null) {
             itemValues.addStringItem(ItemValuesMap.RecordProfile.REGISTRATION_DATE,
                     dateFormat.format(registrationDate));
-        }
-
-        if (incidentIds != null) {
-            LinkedHashMap<String, RedirectIncidentEvent> incidentEvents = new LinkedHashMap<>();
-            for (String incidentId : incidentIds) {
-                incidentEvents.put(incidentId, new RedirectIncidentEvent(incidentId));
-            }
-            itemValues.addLinkedHashMap(INCIDENT_LINKS, incidentEvents);
         }
 
     }
