@@ -164,6 +164,7 @@ public class RecordService {
 
     public static final class RelatedItemColumn {
         public static final String GBV_SURVIVOR_CODE = "survivor_code";
+        public static final String GBV_SURVIVOR_CODE_NO = "survivor_code_no";
         public static final String GBV_SEX = "sex";
         public static final String GBV_DATE_OF_BIRTH = "date_of_birth";
         public static final String GBV_AGE = "age";
@@ -178,6 +179,7 @@ public class RecordService {
 
         public static final String[] GBV_RELATED_ITEMS = new String[]{
                 GBV_SURVIVOR_CODE,
+                GBV_SURVIVOR_CODE_NO,
                 GBV_SEX,
                 GBV_DATE_OF_BIRTH,
                 GBV_AGE,

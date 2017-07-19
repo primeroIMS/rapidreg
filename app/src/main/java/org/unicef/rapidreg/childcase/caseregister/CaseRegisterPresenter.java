@@ -199,6 +199,11 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
         ItemValuesMap itemValuesMap = new ItemValuesMap();
         for (String itemKey : RecordService.RelatedItemColumn.GBV_RELATED_ITEMS) {
             if (recordRegisterData.has(itemKey)) {
+                if (itemKey.equals(RecordService.RelatedItemColumn.GBV_SURVIVOR_CODE_NO)) {
+                    String newKey = RecordService.RelatedItemColumn.GBV_SURVIVOR_CODE;
+                    itemValuesMap.addItem(newKey, recordRegisterData.getAsObject(itemKey));
+                }
+
                 itemValuesMap.addItem(itemKey, recordRegisterData.getAsObject(itemKey));
             }
         }
