@@ -16,6 +16,8 @@ import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,6 +49,7 @@ public class RecordService {
     public static final String SEX = "sex";
     public static final String INQUIRY_DATE = "inquiry_date";
     public static final String SURVIVOR_CODE = "survivor_code";
+
     public static final String TYPE_OF_VIOLENCE = "type_of_incident_violence";
     public static final String LOCATION = "location";
     public static final String INCIDENT_LOCATION = "incident_location";
@@ -169,13 +172,35 @@ public class RecordService {
         public static final String GBV_DATE_OF_BIRTH = "date_of_birth";
         public static final String GBV_AGE = "age";
         public static final String GBV_ETHNICITY = "gbv_ethnicity";
+        public static final String ETHNICITY = "ethnicity";
         public static final String GBV_NATIONALITY = "gbv_nationality";
+        public static final String NATIONALITY = "nationality";
         public static final String GBV_RELIGION = "gbv_religion";
+        public static final String RELIGION = "religion";
         public static final String GBV_COUNTRY_OF_ORIGIN = "country_of_origin";
         public static final String GBV_DISPLACEMENT_STATUS = "gbv_displacement_status";
+        public static final String DISPLACEMENT_STATUS = "displacement_status";
         public static final String GBV_MARITAL_STATUS = "marital_status";
+        public static final String MARITAL_STATUS = "maritial_status";
         public static final String GBV_DISABILITY_TYPE = "gbv_disability_type";
+        public static final String DISABILITY_TYPE = "disability_type";
         public static final String GBV_UNACCOMPANIED_SEPARATED_STATUS = "unaccompanied_separated_status";
+
+        public static final Map<String, String> GBV_FIELD_DICT = Collections.unmodifiableMap(
+            new HashMap<String, String>() {{
+                put(GBV_SURVIVOR_CODE_NO, GBV_SURVIVOR_CODE);
+                put(GBV_SEX, GBV_SEX);
+                put(GBV_DATE_OF_BIRTH, GBV_DATE_OF_BIRTH);
+                put(GBV_AGE, GBV_AGE);
+                put(GBV_ETHNICITY, ETHNICITY);
+                put(GBV_NATIONALITY, NATIONALITY);
+                put(GBV_RELIGION, RELIGION);
+                put(GBV_DISPLACEMENT_STATUS, DISPLACEMENT_STATUS);
+                put(GBV_MARITAL_STATUS, MARITAL_STATUS);
+                put(GBV_DISABILITY_TYPE, DISABILITY_TYPE);
+                put(GBV_COUNTRY_OF_ORIGIN, GBV_COUNTRY_OF_ORIGIN);
+                put(GBV_UNACCOMPANIED_SEPARATED_STATUS, GBV_UNACCOMPANIED_SEPARATED_STATUS);
+            }});
 
         public static final String[] GBV_RELATED_ITEMS = new String[]{
                 GBV_SURVIVOR_CODE,

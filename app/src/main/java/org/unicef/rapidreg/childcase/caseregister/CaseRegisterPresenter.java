@@ -23,6 +23,7 @@ import org.unicef.rapidreg.utils.JsonUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 import javax.inject.Inject;
@@ -197,14 +198,12 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
 
     public ItemValuesMap filterGBVRelatedItemValues(ItemValuesMap recordRegisterData) {
         ItemValuesMap itemValuesMap = new ItemValuesMap();
-        for (String itemKey : RecordService.RelatedItemColumn.GBV_RELATED_ITEMS) {
-            if (recordRegisterData.has(itemKey)) {
-                if (itemKey.equals(RecordService.RelatedItemColumn.GBV_SURVIVOR_CODE_NO)) {
-                    String newKey = RecordService.RelatedItemColumn.GBV_SURVIVOR_CODE;
-                    itemValuesMap.addItem(newKey, recordRegisterData.getAsObject(itemKey));
-                }
 
-                itemValuesMap.addItem(itemKey, recordRegisterData.getAsObject(itemKey));
+        Map<String, String> gbvFieldsDict = RecordService.RelatedItemColumn.GBV_FIELD_DICT;
+
+        for (String itemKey : gbvFieldsDict.keySet()) {
+            if (recordRegisterData.has(itemKey)) {
+                itemValuesMap.addItem(gbvFieldsDict.get(itemKey), recordRegisterData.getAsObject(itemKey));
             }
         }
 
