@@ -49,7 +49,6 @@ public class RecordService {
     public static final String SEX = "sex";
     public static final String INQUIRY_DATE = "inquiry_date";
     public static final String SURVIVOR_CODE = "survivor_code";
-
     public static final String TYPE_OF_VIOLENCE = "type_of_incident_violence";
     public static final String LOCATION = "location";
     public static final String INCIDENT_LOCATION = "incident_location";
@@ -204,7 +203,6 @@ public class RecordService {
 
         public static final String[] GBV_RELATED_ITEMS = new String[]{
                 GBV_SURVIVOR_CODE,
-                GBV_SURVIVOR_CODE_NO,
                 GBV_SEX,
                 GBV_DATE_OF_BIRTH,
                 GBV_AGE,
