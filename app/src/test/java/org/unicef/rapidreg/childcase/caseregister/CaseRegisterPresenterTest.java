@@ -161,7 +161,7 @@ public class CaseRegisterPresenterTest {
 
         ItemValuesMap actual = caseRegisterPresenter.getItemValuesByRecordId(123L);
 
-        assertThat("Should have same size of items", actual.getValues().size(), is(14));
+        assertThat("Should have same size of items", actual.getValues().size(), is(13));
         assertThat("safety_plan_main_concern should be right", actual.getAsString("safety_plan_main_concern"), is
                 ("kkkk"));
         assertThat("safety_plan_resources_economic should be right", actual.getAsString
