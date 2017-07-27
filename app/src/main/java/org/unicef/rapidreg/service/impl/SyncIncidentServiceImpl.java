@@ -29,6 +29,7 @@ public class SyncIncidentServiceImpl extends BaseRetrofitService<SyncIncidentRep
         itemValuesMap.removeItem("_attachments");
 
         JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("incident_case_id", item.getIncidentCaseId());
         jsonObject.add("incident", new Gson().fromJson(new Gson().toJson(
                 itemValuesMap.getValues()), JsonObject.class));
 
