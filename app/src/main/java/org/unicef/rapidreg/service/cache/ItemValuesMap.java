@@ -160,6 +160,7 @@ public class ItemValuesMap implements Serializable {
         public static final String ID_NORMAL_STATE = "_id_normal_state";
         public static final String REGISTRATION_DATE = "_registration_date";
         public static final String ID = "_primary_id";
+        //by no means Incident links field should be tampered as it contains server side internal IDs
         public static final String INCIDENT_LINKS = "incident_links";
     }
 

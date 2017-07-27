@@ -72,7 +72,7 @@ public class TracingRegisterPresenter extends RecordRegisterPresenter {
         clearProfileItems(itemValuesMap);
         try {
             Tracing record = tracingService.saveOrUpdate(itemValuesMap, photoPaths);
-            addProfileItems(itemValuesMap, record.getRegistrationDate(), record.getUniqueId(), null,
+            addProfileItems(itemValuesMap, record.getRegistrationDate(), record.getUniqueId(),
                     record.getId());
             clearImagesCache();
             callback.onSaveSuccessful(record.getId());
@@ -87,7 +87,7 @@ public class TracingRegisterPresenter extends RecordRegisterPresenter {
         String tracingJson = new String(tracingItem.getContent().getBlob());
         final ItemValuesMap itemValues = new ItemValuesMap(JsonUtils.toMap(new Gson().fromJson(tracingJson, JsonObject.class)));
         itemValues.addStringItem(TRACING_ID, tracingItem.getUniqueId());
-        addProfileItems(itemValues, tracingItem.getRegistrationDate(), tracingItem.getUniqueId(), null,
+        addProfileItems(itemValues, tracingItem.getRegistrationDate(), tracingItem.getUniqueId(),
                 tracingItem.getId());
 
         return itemValues;
@@ -99,7 +99,7 @@ public class TracingRegisterPresenter extends RecordRegisterPresenter {
         String tracingJson = new String(tracingItem.getContent().getBlob());
         final ItemValuesMap itemValues = new ItemValuesMap(JsonUtils.toMap(new Gson().fromJson(tracingJson, JsonObject.class)));
         itemValues.addStringItem(TRACING_ID, tracingItem.getUniqueId());
-        addProfileItems(itemValues, tracingItem.getRegistrationDate(), uniqueId, null,
+        addProfileItems(itemValues, tracingItem.getRegistrationDate(), uniqueId,
                 tracingItem.getId());
 
         return itemValues;

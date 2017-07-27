@@ -22,7 +22,6 @@ import org.unicef.rapidreg.utils.JsonUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -99,9 +98,8 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
         try {
             Case record = caseService.saveOrUpdate(itemValuesMap, photoPaths);
 
-            List<String> incidentList = caseService.getIncidentsByCaseId(record.getUniqueId());
             addProfileItems(itemValuesMap, record.getRegistrationDate(), record.getUniqueId(),
-                    incidentList, record.getId());
+                    record.getId());
             clearImagesCache();
             callback.onSaveSuccessful(record.getId());
         } catch (IOException e) {
@@ -117,9 +115,8 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
                 (caseJson, JsonObject.class)));
         itemValues.addStringItem(CASE_ID, caseItem.getUniqueId());
 
-        List<String> incidentList = caseService.getIncidentsByCaseId(caseItem.getUniqueId());
         addProfileItems(itemValues, caseItem.getRegistrationDate(), caseItem.getUniqueId(),
-                incidentList, recordId);
+                recordId);
         return itemValues;
     }
 
@@ -131,9 +128,8 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
                 (caseJson, JsonObject.class)));
         itemValues.addStringItem(CASE_ID, caseItem.getUniqueId());
 
-        List<String> incidentList = caseService.getIncidentsByCaseId(caseItem.getUniqueId());
         addProfileItems(itemValues, caseItem.getRegistrationDate(), caseItem.getUniqueId(),
-                incidentList, caseItem.getId());
+                caseItem.getId());
         return itemValues;
     }
 
@@ -202,9 +198,12 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
 
     public ItemValuesMap filterGBVRelatedItemValues(ItemValuesMap recordRegisterData) {
         ItemValuesMap itemValuesMap = new ItemValuesMap();
-        for (String itemKey : RecordService.RelatedItemColumn.GBV_RELATED_ITEMS) {
+
+        Map<String, String> gbvFieldsDict = RecordService.RelatedItemColumn.GBV_FIELD_DICT;
+
+        for (String itemKey : gbvFieldsDict.keySet()) {
             if (recordRegisterData.has(itemKey)) {
-                itemValuesMap.addItem(itemKey, recordRegisterData.getAsObject(itemKey));
+                itemValuesMap.addItem(gbvFieldsDict.get(itemKey), recordRegisterData.getAsObject(itemKey));
             }
         }
 
