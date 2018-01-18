@@ -5,7 +5,7 @@ android:
     - platform-tools
     - tools
     - build-tools-23.0.3
-    - andorid-23
+    - android-23
     - addon-google_apis_x86-google-21
     - extra-android-support
     - extra-android-m2repository
@@ -19,7 +19,6 @@ cache:
     - $HOME/.android/build-cache
 script: ./gradlew testDebugUnitTest
 branches:
- - travisci
  - development
 notifications:
   hipchat:
