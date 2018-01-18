@@ -19,6 +19,7 @@ cache:
     - $HOME/.android/build-cache
 script: ./gradlew testDebugUnitTest
 branches:
+ - travisci
  - development
 notifications:
   hipchat:
