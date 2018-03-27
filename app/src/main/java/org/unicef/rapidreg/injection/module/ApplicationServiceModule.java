@@ -8,6 +8,7 @@ import org.unicef.rapidreg.repository.CaseFormDao;
 import org.unicef.rapidreg.repository.CasePhotoDao;
 import org.unicef.rapidreg.repository.IncidentDao;
 import org.unicef.rapidreg.repository.IncidentFormDao;
+import org.unicef.rapidreg.repository.LookupDao;
 import org.unicef.rapidreg.repository.SystemSettingsDao;
 import org.unicef.rapidreg.repository.TracingDao;
 import org.unicef.rapidreg.repository.TracingFormDao;
@@ -21,6 +22,7 @@ import org.unicef.rapidreg.service.FormRemoteService;
 import org.unicef.rapidreg.service.IncidentFormService;
 import org.unicef.rapidreg.service.IncidentService;
 import org.unicef.rapidreg.service.LoginService;
+import org.unicef.rapidreg.service.LookupService;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.SyncCaseService;
 import org.unicef.rapidreg.service.SyncIncidentService;
@@ -34,6 +36,7 @@ import org.unicef.rapidreg.service.impl.CaseFormServiceImpl;
 import org.unicef.rapidreg.service.impl.FormRemoteServiceImpl;
 import org.unicef.rapidreg.service.impl.IncidentFormServiceImpl;
 import org.unicef.rapidreg.service.impl.LoginServiceImpl;
+import org.unicef.rapidreg.service.impl.LookupServiceImpl;
 import org.unicef.rapidreg.service.impl.SyncCaseServiceImpl;
 import org.unicef.rapidreg.service.impl.SyncIncidentServiceImpl;
 import org.unicef.rapidreg.service.impl.SyncTracingServiceImpl;
@@ -136,6 +139,12 @@ public class ApplicationServiceModule {
     @Singleton
     public SystemSettingsService provideSystemSettingsService(SystemSettingsDao systemSettingsDao) {
         return new SystemSettingsServiceImpl(systemSettingsDao);
+    }
+
+    @Provides
+    @Singleton
+    public LookupService provideLookupService(LookupDao lookupDao) {
+        return new LookupServiceImpl(lookupDao);
     }
 
     @Provides

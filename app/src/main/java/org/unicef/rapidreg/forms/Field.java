@@ -70,6 +70,9 @@ public class Field {
     @SerializedName("option_strings_text")
     @Expose
     private Map<String, List> optionStringsText;
+    @SerializedName("option_strings_source")
+    @Expose
+    private String optionStringSource;
     @SerializedName("subform")
     @Expose
     private Section subForm;
@@ -146,6 +149,12 @@ public class Field {
 
     public void setOptionStringsText(Map<String, List> optionStringsText) {
         this.optionStringsText = optionStringsText;
+    }
+
+    public void getOptionStringSource() { return optionStringSource; }
+
+    public void setOptionStringSource(String source) {
+        this.optionStringSource = source;
     }
 
     public Section getSubForm() {
@@ -303,6 +312,7 @@ public class Field {
         newField.setDisplayName(displayName);
         newField.setHelpText(helpText);
         newField.setOptionStringsText(optionStringsText);
+        newField.setOptionStringSource(optionStringSource);
         newField.setSubForm(subForm);
         newField.setShowOnMiniForm(isShowOnMiniForm);
         newField.setParent(parent);

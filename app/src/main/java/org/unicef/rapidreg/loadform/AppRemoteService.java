@@ -16,6 +16,7 @@ import org.unicef.rapidreg.event.LoadGBVCaseFormEvent;
 import org.unicef.rapidreg.event.LoadGBVIncidentFormEvent;
 import org.unicef.rapidreg.event.LoadSystemSettingEvent;
 import org.unicef.rapidreg.event.LoadTracingFormEvent;
+import org.unicef.rapidreg.event.LoadLookupsEvent;
 
 import javax.inject.Inject;
 
@@ -122,6 +123,13 @@ public class AppRemoteService extends Service {
                 appRemoteBinder.setIncidentFormSyncFail(true);
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 1)
+    public void onLoadLookupEvent(LoadLookupsEvent event) {
+        Log.d(TAG, "Loading Lookups");
+        EventBus.getDefault().removeStickyEvent(event);
+        appRemotePresenter.loadLookups();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 1)
