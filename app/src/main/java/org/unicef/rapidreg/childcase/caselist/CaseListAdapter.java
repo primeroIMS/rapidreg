@@ -1,29 +1,17 @@
 package org.unicef.rapidreg.childcase.caselist;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.facebook.stetho.inspector.protocol.module.Database;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.raizlabs.android.dbflow.config.DatabaseConfig;
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
-import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
-import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
-import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
-import org.unicef.rapidreg.PrimeroDatabaseConfiguration;
 import org.unicef.rapidreg.base.Feature;
 import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordlist.RecordListAdapter;
 import org.unicef.rapidreg.childcase.CaseFeature;
 import org.unicef.rapidreg.injection.ActivityContext;
-import org.unicef.rapidreg.model.Gender;
 import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.RecordService;
@@ -60,19 +48,14 @@ public class CaseListAdapter extends RecordListAdapter {
         final String recordJson = new String(record.getContent().getBlob());
         final ItemValuesMap itemValues = new ItemValuesMap(JsonUtils.toMap(new Gson().fromJson
                 (recordJson, JsonObject.class)));
-        Gender gender;
-        try {
-            gender = Gender.valueOf(itemValues.getAsString(RecordService.SEX).toUpperCase());
-        } catch (Exception e) {
-            gender = Gender.PLACEHOLDER;
-        }
+
         final String shortUUID = caseService.getShortUUID(record.getUniqueId());
 
         if (GBV == PrimeroAppConfiguration.getCurrentUser().getRoleType()) {
             holder.disableRecordImageView();
         }
         String age = itemValues.getAsString(RecordService.AGE);
-        holder.setValues(gender, shortUUID, age, record);
+        holder.setValues(itemValues.getAsString(RecordService.SEX), shortUUID, age, record);
         holder.setViewOnClickListener(v -> {
             Bundle args = new Bundle();
             String moduleId = itemValues.getAsString(MODULE);
