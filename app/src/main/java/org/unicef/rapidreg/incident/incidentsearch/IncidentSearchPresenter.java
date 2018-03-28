@@ -36,11 +36,11 @@ public class IncidentSearchPresenter extends RecordSearchPresenter {
         return incidentService.getSearchResult(id, survivorCode, ageFrom, ageTo, typeOfViolence, location);
     }
 
-    public List<String> getViolenceTypeList() {
-        return incidentFormService.getViolenceTypeList();
-    }
-
-    public List<String> getIncidentLocationList() {
-        return incidentFormService.getLocationList();
-    }
+//    public List<Object> getViolenceTypeList() {
+//        return incidentFormService.getViolenceTypeList();
+//    }
+//
+//    public List<String> getIncidentLocationList() {
+//        return incidentFormService.getLocationList();
+//    }
 }

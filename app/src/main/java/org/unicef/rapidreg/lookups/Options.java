@@ -2,6 +2,9 @@ package org.unicef.rapidreg.lookups;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Options {
     private String id;
     @SerializedName("display_text")

@@ -7,6 +7,7 @@ import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.login.AccountManager;
 import org.unicef.rapidreg.model.User;
 import org.unicef.rapidreg.service.cache.GlobalLocationCache;
+import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 
 import javax.inject.Inject;
 
@@ -22,6 +23,8 @@ public class BasePresenter extends MvpBasePresenter<BaseView> {
         if (AccountManager.isSignIn()) {
             AccountManager.doSignOut();
         }
+
+        GlobalLookupCache.clearLookups();
         GlobalLocationCache.clearSimpleLocationCache();
     }
 }

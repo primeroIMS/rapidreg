@@ -6,14 +6,14 @@ import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
-import org.unicef.rapidreg.forms.LookupOptions;
 import org.unicef.rapidreg.model.Lookup;
 import org.unicef.rapidreg.repository.LookupDao;
 import org.unicef.rapidreg.repository.remote.LookupRepository;
 import org.unicef.rapidreg.service.BaseRetrofitService;
 import org.unicef.rapidreg.service.LookupService;
+import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -67,14 +67,7 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
         } else {
             lookupDao.update(currentLookups);
         }
-    }
 
-    @Override
-    public List<LookupOptions> getLookupOptions(String id) {
-        Lookup lookups = lookupDao.getByServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
-        lookups.getLookupsJson();
-
-        final ItemValuesMap itemValues = new ItemValuesMap(JsonUtils.toMap(new Gson().fromJson(tracingJson, JsonObject.class)));
-
+        GlobalLookupCache.initLookupOptions(lookups);
     }
 }

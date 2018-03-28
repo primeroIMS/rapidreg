@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import org.unicef.rapidreg.R;
+import org.unicef.rapidreg.lookups.Options;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,7 +50,7 @@ public class SearchAbleDialog extends Dialog {
     private Context context;
 
 
-    public SearchAbleDialog(Context context, String title, List<String> items, int selectIndex) {
+    public SearchAbleDialog(Context context, String title, List<Options> items, int selectIndex) {
         super(context);
         this.context = context;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -115,12 +116,12 @@ public class SearchAbleDialog extends Dialog {
 
     public class MyAdapter extends BaseAdapter implements Filterable {
 
-        List<String> arrayList;
-        List<String> mOriginalValues; // Original Values
+        List<Options> arrayList;
+        List<Options> mOriginalValues; // Original Values
         LayoutInflater inflater;
         SearchAbleDialogOnClickListener listener = null;
 
-        public MyAdapter(Context context, List<String> arrayList) {
+        public MyAdapter(Context context, List<Options> arrayList) {
             this.arrayList = arrayList;
             inflater = LayoutInflater.from(context);
         }
@@ -163,8 +164,8 @@ public class SearchAbleDialog extends Dialog {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
-            holder.textView.setText(arrayList.get(position));
+            String selected = arrayList.get(position).getDisplayText();
+            holder.textView.setText(arrayList.get(position).getDisplayText());
             holder.textView.setOnClickListener(v -> {
                 index = position;
                 notifyDataSetChanged();
@@ -174,7 +175,7 @@ public class SearchAbleDialog extends Dialog {
                     .setOnCheckedChangeListener((buttonView, isChecked) -> {
                         if (isChecked) {
                             index = position;
-                            listener.onClick(arrayList.get(index));
+                            listener.onClick(arrayList.get(index).getDisplayText());
                             notifyDataSetChanged();
                         }
                     });
@@ -195,7 +196,7 @@ public class SearchAbleDialog extends Dialog {
                 @Override
                 protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                    arrayList = (List<String>) results.values; // has the filtered values
+                    arrayList = (List<Options>) results.values; // has the filtered values
                     notifyDataSetChanged();  // notifies the data with new filtered values
                 }
 
@@ -216,7 +217,7 @@ public class SearchAbleDialog extends Dialog {
                     } else {
                         constraint = constraint.toString().toLowerCase();
                         for (int i = 0; i < mOriginalValues.size(); i++) {
-                            String data = mOriginalValues.get(i);
+                            String data = mOriginalValues.get(i).getDisplayText();
                             if (data.toLowerCase().contains(constraint.toString())) {
                                 FilteredArrList.add(data);
                             }

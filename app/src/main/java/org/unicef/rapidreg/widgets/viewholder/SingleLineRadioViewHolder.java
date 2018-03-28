@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.forms.Field;
+import org.unicef.rapidreg.lookups.Options;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class SingleLineRadioViewHolder extends BaseViewHolder<Field> {
     @BindView(R.id.second_radio_button)
     RadioButton secondRadioButton;
 
-    private List<String> options;
+    private List<Options> options;
 
     private String result;
 
@@ -69,7 +70,7 @@ public class SingleLineRadioViewHolder extends BaseViewHolder<Field> {
         }
     }
 
-    private void initRadioGroupView(List<String> options, boolean editable) {
+    private void initRadioGroupView(List<Options> options, boolean editable) {
         if (options.isEmpty()){
             firstRadioButtonTV.setVisibility(View.GONE);
             firstRadioButton.setVisibility(View.GONE);
@@ -80,11 +81,11 @@ public class SingleLineRadioViewHolder extends BaseViewHolder<Field> {
         if (1 == options.size()) {
             secondRadioButtonTV.setVisibility(View.GONE);
             secondRadioButton.setVisibility(View.GONE);
-            firstRadioButtonTV.setText((options.get(0)));
+            firstRadioButtonTV.setText((options.get(0).getDisplayText()));
             return;
         }
-        firstRadioButtonTV.setText((options.get(0)));
-        secondRadioButtonTV.setText((options.get(1)));
+        firstRadioButtonTV.setText((options.get(0).getDisplayText()));
+        secondRadioButtonTV.setText((options.get(1).getDisplayText()));
     }
 
     @Override
@@ -92,10 +93,10 @@ public class SingleLineRadioViewHolder extends BaseViewHolder<Field> {
         optionGroup.setOnCheckedChangeListener((group, checkedId) -> {
             result = null;
             if (firstRadioButton.isChecked()) {
-                result = options.get(0);
+                result = options.get(0).getId();
             }
             if (secondRadioButton.isChecked()) {
-                result = options.get(1);
+                result = options.get(1).getId();
             }
             if (!TextUtils.isEmpty(result)) {
                 itemValues.addStringItem(field.getName(), getResult());

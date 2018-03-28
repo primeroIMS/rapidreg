@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import org.unicef.rapidreg.forms.Field;
+import org.unicef.rapidreg.lookups.Options;
 import org.unicef.rapidreg.service.cache.GlobalLocationCache;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.widgets.viewholder.GenericViewHolder;
@@ -16,7 +17,7 @@ import java.util.Locale;
 public class SingleSelectDialog extends BaseDialog {
 
     private String result;
-    private List<String> optionItems;
+    private List<Options> optionItems;
 
     SearchAbleDialog dialog;
 
@@ -29,12 +30,12 @@ public class SingleSelectDialog extends BaseDialog {
 
     @Override
     public void initView() {
-        optionItems = field.getSelectOptionValuesIfSelectable();
+        optionItems = field.getSelectOptions();
 
         simplifyLocationOptionsIfLocationFiled();
 
         int selectIndex = optionItems.indexOf(result);
-        result = optionItems.contains(result) ? optionItems.get(selectIndex) : "";
+        result = field.getSingleSelectedOptions(result);
 
         dialog = new SearchAbleDialog(context, field.getDisplayName().get(Locale.getDefault()
                 .getLanguage()), optionItems, selectIndex);
@@ -58,18 +59,19 @@ public class SingleSelectDialog extends BaseDialog {
     }
 
     private void simplifyLocationOptionsIfLocationFiled() {
-        if (field.isSelectField() && GlobalLocationCache.containsLocation(field.getName())) {
-            GlobalLocationCache.initSimpleLocations(optionItems);
-            optionItems = GlobalLocationCache.getSimpleLocations();
-        }
+//        if (field.isSelectField() && GlobalLocationCache.containsLocation(field.getName())) {
+//            GlobalLocationCache.initSimpleLocations(optionItems);
+//            optionItems = GlobalLocationCache.getSimpleLocations();
+//        }
     }
 
     private String recoveryLocationValueIfLocationFiled() {
-        if (field.isSelectField() && GlobalLocationCache.containsLocation(field.getName()) && !org.unicef.rapidreg.utils
-                .TextUtils.isEmpty(getResult())) {
-            return field.getSelectOptionValuesIfSelectable().get(GlobalLocationCache.index(getResult()));
-        }
-        return getResult();
+//        if (field.isSelectField() && GlobalLocationCache.containsLocation(field.getName()) && !org.unicef.rapidreg.utils
+//                .TextUtils.isEmpty(getResult())) {
+//            return field.getSelectOptionValuesIfSelectable().get(GlobalLocationCache.index(getResult()));
+//        }
+//        return getResult();
+        return "";
     }
 
     @Override

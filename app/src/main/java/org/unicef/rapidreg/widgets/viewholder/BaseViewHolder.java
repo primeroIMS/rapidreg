@@ -7,6 +7,7 @@ import android.view.View;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.forms.Field;
+import org.unicef.rapidreg.lookups.Options;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
 
@@ -82,16 +83,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
             return res.toString();
         }
 
-        List<String> optionValues = new ArrayList<>();
-        if (field.isMultiSelect()) {
-            List<String> optionKeys = (List<String>) res;
-            List<String> selectOptionKeys = field.getSelectOptionKeysIfMultiple();
-            List<String> selectOptionValues = field.getSelectOptionValuesIfSelectable();
-            for (String optionKey : optionKeys) {
-                optionValues.add(selectOptionValues.get(selectOptionKeys.indexOf(optionKey)));
-            }
-        }
-        return Utils.toStringResult(optionValues);
+        return Utils.toStringResult(field.getSelectedOptions((List<String>) res));
     }
 
     public int getCurrentPosition() {
