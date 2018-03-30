@@ -1,19 +1,12 @@
 package org.unicef.rapidreg.widgets.viewholder;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.forms.Field;
-import org.unicef.rapidreg.model.Gender;
-import org.unicef.rapidreg.model.Incident;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.TracingService;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
@@ -23,7 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
-import static org.unicef.rapidreg.service.TracingService.TRACING_ID;
 
 public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
 
@@ -31,9 +23,6 @@ public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
 
     @BindView(R.id.id_normal_state)
     TextView idView;
-
-    @BindView(R.id.gender_badge)
-    ImageView genderBadge;
 
     @BindView(R.id.gender_name)
     TextView genderName;
@@ -58,19 +47,11 @@ public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
     @Override
     public void setValue(Field field) {
         idView.setText(itemValues.getAsString(ItemValuesMap.RecordProfile.ID_NORMAL_STATE));
-        Gender gender;
-        if (itemValues.getAsString(TracingService.SEX) != null) {
-            gender = Gender.valueOf(itemValues.getAsString(TracingService.SEX).toUpperCase());
-        } else {
-            gender = itemValues.has(TRACING_ID)
-                    ? Gender.EMPTY
-                    : Gender.PLACEHOLDER;
-        }
-        Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), gender
-                .getGenderId(), null);
-        genderBadge.setImageDrawable(drawable);
-        genderName.setText(gender.getName());
-        genderName.setTextColor(ContextCompat.getColor(context, gender.getColorId()));
+
+        // TODO: Should show display text when I18n
+        String gender = itemValues.getAsString(RecordService.SEX);
+        genderName.setText(TextUtils.isEmpty(gender) ? "---" : gender);
+
         registrationDate.setText(itemValues.getAsString(ItemValuesMap.RecordProfile
                 .REGISTRATION_DATE));
 
@@ -105,7 +86,6 @@ public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
     }
 
     public void disableRecordGenderView() {
-        genderBadge.setVisibility(GONE);
         genderName.setVisibility(GONE);
     }
 }

@@ -10,7 +10,6 @@ import com.google.gson.JsonObject;
 import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordlist.RecordListAdapter;
 import org.unicef.rapidreg.injection.ActivityContext;
-import org.unicef.rapidreg.model.Gender;
 import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.TracingService;
@@ -45,14 +44,10 @@ public class TracingListAdapter extends RecordListAdapter {
         final String recordJson = new String(record.getContent().getBlob());
         final ItemValuesMap itemValues = new ItemValuesMap(JsonUtils.toMap(new Gson().fromJson
                 (recordJson, JsonObject.class)));
-        Gender gender = Gender.EMPTY;
-        if (itemValues.has(RecordService.SEX)) {
-            gender = Gender.valueOf(itemValues.getAsString(RecordService.SEX).toUpperCase());
-        }
 
         final String shortUUID = tracingService.getShortUUID(record.getUniqueId());
         String age = itemValues.getAsString(RecordService.RELATION_AGE);
-        holder.setValues(gender, shortUUID, age, record);
+        holder.setValues(itemValues.getAsString(RecordService.SEX), shortUUID, age, record);
         holder.setViewOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
