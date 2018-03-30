@@ -41,7 +41,7 @@ public abstract class BaseTextViewHolder extends BaseViewHolder<Field> {
     }
 
     protected void initValueViewData(Field field) {
-        getValueView().setText(getValue(field));
+        getValueView().setText(getTranslatedValue(field));
 
         if (fieldValueVerifyResult != null) {
             LinkedHashMap<String, String> fieldsValueVerifyResultMap = fieldValueVerifyResult

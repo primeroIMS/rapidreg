@@ -164,7 +164,7 @@ public class SearchAbleDialog extends Dialog {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            String selected = arrayList.get(position).getDisplayText();
+
             holder.textView.setText(arrayList.get(position).getDisplayText());
             holder.textView.setOnClickListener(v -> {
                 index = position;
@@ -175,7 +175,7 @@ public class SearchAbleDialog extends Dialog {
                     .setOnCheckedChangeListener((buttonView, isChecked) -> {
                         if (isChecked) {
                             index = position;
-                            listener.onClick(arrayList.get(index).getDisplayText());
+                            listener.onClick(arrayList.get(index).getId());
                             notifyDataSetChanged();
                         }
                     });
@@ -195,7 +195,6 @@ public class SearchAbleDialog extends Dialog {
                 @SuppressWarnings("unchecked")
                 @Override
                 protected void publishResults(CharSequence constraint, FilterResults results) {
-
                     arrayList = (List<Options>) results.values; // has the filtered values
                     notifyDataSetChanged();  // notifies the data with new filtered values
                 }
@@ -203,7 +202,7 @@ public class SearchAbleDialog extends Dialog {
                 @Override
                 protected FilterResults performFiltering(CharSequence constraint) {
                     FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
-                    List<String> FilteredArrList = new ArrayList<>();
+                    List<Options> FilteredArrList = new ArrayList<>();
 
                     if (mOriginalValues == null) {
                         mOriginalValues = new ArrayList<>(arrayList); // saves the original data in mOriginalValues
@@ -217,8 +216,8 @@ public class SearchAbleDialog extends Dialog {
                     } else {
                         constraint = constraint.toString().toLowerCase();
                         for (int i = 0; i < mOriginalValues.size(); i++) {
-                            String data = mOriginalValues.get(i).getDisplayText();
-                            if (data.toLowerCase().contains(constraint.toString())) {
+                            Options data = mOriginalValues.get(i);
+                            if (data.getDisplayText().toLowerCase().contains(constraint.toString())) {
                                 FilteredArrList.add(data);
                             }
                         }

@@ -72,6 +72,20 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         return field.getParent() != null;
     }
 
+    protected String getTranslatedValue(Field field) {
+        if (itemValues == null || !itemValues.getValues().containsKey(field.getName())) {
+            return null;
+        }
+        Map<String, Object> value = itemValues.getValues();
+        Object res = value.get(field.getName());
+
+        if (!(res instanceof List)) {
+            return field.getSingleSelectedOptions(res.toString());
+        }
+
+        return Utils.toStringResult(field.getSelectedOptions((List<String>) res));
+    }
+
     protected String getValue(Field field) {
         if (itemValues == null || !itemValues.getValues().containsKey(field.getName())) {
             return null;
@@ -83,7 +97,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
             return res.toString();
         }
 
-        return Utils.toStringResult(field.getSelectedOptions((List<String>) res));
+        return Utils.toStringResult((List<String>) res);
     }
 
     public int getCurrentPosition() {

@@ -259,6 +259,8 @@ public class Field {
         return getSelectOptions().size() > 2;
     }
 
+    public boolean hasSelectOptions() { return getSelectOptions().size() > 0; }
+
     public boolean isMarkForMobileField() {
         return TextUtils.equals(this.name, FIELD_NAME_MARK_FOR_MOBILE);
     }
@@ -276,7 +278,7 @@ public class Field {
 
         List<Options> items = new ArrayList<>();
 
-        if (!getOptionStringSource().isEmpty()) {
+        if (getOptionStringSource() != null) {
             items = GlobalLookupCache.getLookup(getOptionStringSource());
         } else {
             List<Map<String, String>> list = getOptionStringsText().get(language);
@@ -286,6 +288,7 @@ public class Field {
             }
 
         }
+
         return items;
     }
 
@@ -370,14 +373,29 @@ public class Field {
     }
 
     public String getSingleSelectedOptions(String results) {
-        String selected = "";
+        String selected = results;
+
+        if (hasSelectOptions()) {
+            for (Options option: getSelectOptions()) {
+                if (option.getId().equals(results)) {
+                    selected = option.getDisplayText();
+                    break;
+                }
+            }
+        }
+
+        return selected;
+    }
+
+    public Integer getSelectOptionIndex(String results) {
+        Integer selectedIndex = 0;
 
         for (Options option: getSelectOptions()) {
             if (option.getId().contains(results.toString())) {
-                selected = option.getDisplayText();
+                selectedIndex = getSelectOptions().indexOf(option);
             }
         }
-        return selected;
+        return selectedIndex;
     }
 
 //    public List<String> getSelectOptionValuesIfSelectable() {

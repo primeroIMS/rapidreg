@@ -183,7 +183,7 @@ public class SearchAbleMultiSelectDialog extends Dialog {
 
             holder.textView.setText(arrayList.get(position).getDisplayText());
             holder.textView.setOnClickListener(view -> {
-                if (!results.contains(arrayList.get(position))) {
+                if (!results.contains(arrayList.get(position).getId())) {
                     results.add(arrayList.get(position).getId());
                 } else {
                     results.remove(arrayList.get(position).getId());
@@ -193,7 +193,7 @@ public class SearchAbleMultiSelectDialog extends Dialog {
             });
 
             holder.checkBox.setOnClickListener(view -> {
-                if (!results.contains(arrayList.get(position))) {
+                if (!results.contains(arrayList.get(position).getId())) {
                     results.add(arrayList.get(position).getId());
                 } else {
                     results.remove(arrayList.get(position).getId());
@@ -202,7 +202,7 @@ public class SearchAbleMultiSelectDialog extends Dialog {
                 notifyDataSetChanged();
             });
 
-            if (results.contains(arrayList.get(position))) {
+            if (results.contains(arrayList.get(position).getId())) {
                 holder.checkBox.setChecked(true);
             } else {
                 holder.checkBox.setChecked(false);
