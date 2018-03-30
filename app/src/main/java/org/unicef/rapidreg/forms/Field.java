@@ -397,40 +397,4 @@ public class Field {
         }
         return selectedIndex;
     }
-
-//    public List<String> getSelectOptionValuesIfSelectable() {
-//        if (!(isSelectField() || isRadioButton())){
-//            throw new IllegalStateException("Filed is not multiple selectable");
-//        }
-//        String language = PrimeroAppConfiguration.getDefaultLanguage();
-//        List<String> items = new ArrayList<>();
-//
-//        List<Object> options = getOptionStringsText().get(language);
-//        if (options.get(0) instanceof Map) {
-//            List<Map<String, String>> arrayList = getOptionStringsText().get(language);
-//            for (Map<String, String> map : arrayList) {
-//                items.add(map.get("display_text"));
-//            }
-//            return items;
-//        }
-//        return getOptionStringsText().get(language);
-//    }
-//
-//    public List<String> getSelectOptionKeysIfMultiple() {
-//        if (!isMultiSelect()){
-//            throw new IllegalStateException("Filed is not multiple selectable");
-//        }
-//        String language = PrimeroAppConfiguration.getDefaultLanguage();
-//        List<Object> options = getOptionStringsText().get(language);
-//        if (options.get(0) instanceof Map) {
-//            List<String> items = new ArrayList<>();
-//            List<Map<String, String>> arrayList = getOptionStringsText().get(language);
-//            for (Map<String, String> map : arrayList) {
-//                items.add(map.get("id"));
-//            }
-//            return items;
-//        }
-//        return getOptionStringsText().get(language);
-//    }
-
 }
