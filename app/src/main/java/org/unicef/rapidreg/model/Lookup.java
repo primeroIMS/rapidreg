@@ -1,5 +1,6 @@
 package org.unicef.rapidreg.model;
 
+import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.structure.BaseModel;
@@ -7,6 +8,7 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroDatabaseConfiguration;
+import org.unicef.rapidreg.lookups.LookupOption;
 
 @Table(database = PrimeroDatabaseConfiguration.class)
 public class Lookup extends BaseModel {
@@ -49,5 +51,10 @@ public class Lookup extends BaseModel {
 
     public Blob getLookupsJson() {
         return lookupsJson;
+    }
+
+    public LookupOption[] toGson() {
+        String lookupString = new String(getLookupsJson().getBlob());
+        return new Gson().fromJson(lookupString, LookupOption[].class);
     }
 }

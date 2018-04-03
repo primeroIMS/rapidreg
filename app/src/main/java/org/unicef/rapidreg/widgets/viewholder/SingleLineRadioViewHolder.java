@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.forms.Field;
-import org.unicef.rapidreg.lookups.Options;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class SingleLineRadioViewHolder extends BaseViewHolder<Field> {
     @BindView(R.id.second_radio_button)
     RadioButton secondRadioButton;
 
-    private List<Options> options;
+    private List<Option> options;
 
     private String result;
 
@@ -70,7 +70,7 @@ public class SingleLineRadioViewHolder extends BaseViewHolder<Field> {
         }
     }
 
-    private void initRadioGroupView(List<Options> options, boolean editable) {
+    private void initRadioGroupView(List<Option> options, boolean editable) {
         if (options.isEmpty()){
             firstRadioButtonTV.setVisibility(View.GONE);
             firstRadioButton.setVisibility(View.GONE);

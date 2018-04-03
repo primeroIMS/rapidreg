@@ -6,7 +6,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import org.unicef.rapidreg.forms.Field;
-import org.unicef.rapidreg.lookups.Options;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.widgets.viewholder.GenericViewHolder;
 
@@ -16,7 +16,7 @@ import java.util.Locale;
 public class SingleSelectDialog extends BaseDialog {
 
     private String result;
-    private List<Options> optionItems;
+    private List<Option> optionItems;
 
     SearchAbleDialog dialog;
 

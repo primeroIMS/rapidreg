@@ -20,10 +20,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import org.unicef.rapidreg.R;
-import org.unicef.rapidreg.lookups.Options;
+import org.unicef.rapidreg.lookups.Option;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,7 +49,7 @@ public class SearchAbleDialog extends Dialog {
     private Context context;
 
 
-    public SearchAbleDialog(Context context, String title, List<Options> items, int selectIndex) {
+    public SearchAbleDialog(Context context, String title, List<Option> items, int selectIndex) {
         super(context);
         this.context = context;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -116,12 +115,12 @@ public class SearchAbleDialog extends Dialog {
 
     public class MyAdapter extends BaseAdapter implements Filterable {
 
-        List<Options> arrayList;
-        List<Options> mOriginalValues; // Original Values
+        List<Option> arrayList;
+        List<Option> mOriginalValues; // Original Values
         LayoutInflater inflater;
         SearchAbleDialogOnClickListener listener = null;
 
-        public MyAdapter(Context context, List<Options> arrayList) {
+        public MyAdapter(Context context, List<Option> arrayList) {
             this.arrayList = arrayList;
             inflater = LayoutInflater.from(context);
         }
@@ -195,14 +194,14 @@ public class SearchAbleDialog extends Dialog {
                 @SuppressWarnings("unchecked")
                 @Override
                 protected void publishResults(CharSequence constraint, FilterResults results) {
-                    arrayList = (List<Options>) results.values; // has the filtered values
+                    arrayList = (List<Option>) results.values; // has the filtered values
                     notifyDataSetChanged();  // notifies the data with new filtered values
                 }
 
                 @Override
                 protected FilterResults performFiltering(CharSequence constraint) {
                     FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
-                    List<Options> FilteredArrList = new ArrayList<>();
+                    List<Option> FilteredArrList = new ArrayList<>();
 
                     if (mOriginalValues == null) {
                         mOriginalValues = new ArrayList<>(arrayList); // saves the original data in mOriginalValues
@@ -216,7 +215,7 @@ public class SearchAbleDialog extends Dialog {
                     } else {
                         constraint = constraint.toString().toLowerCase();
                         for (int i = 0; i < mOriginalValues.size(); i++) {
-                            Options data = mOriginalValues.get(i);
+                            Option data = mOriginalValues.get(i);
                             if (data.getDisplayText().toLowerCase().contains(constraint.toString())) {
                                 FilteredArrList.add(data);
                             }

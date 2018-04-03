@@ -1,8 +1,8 @@
 package org.unicef.rapidreg.incident.incidentsearch;
 
 import org.unicef.rapidreg.base.record.recordsearch.RecordSearchPresenter;
-import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.injection.PerFragment;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.IncidentFormService;
 import org.unicef.rapidreg.service.IncidentService;
 
@@ -36,11 +36,11 @@ public class IncidentSearchPresenter extends RecordSearchPresenter {
         return incidentService.getSearchResult(id, survivorCode, ageFrom, ageTo, typeOfViolence, location);
     }
 
-//    public List<Object> getViolenceTypeList() {
-//        return incidentFormService.getViolenceTypeList();
-//    }
-//
-//    public List<String> getIncidentLocationList() {
-//        return incidentFormService.getLocationList();
-//    }
+    public List<Option> getViolenceTypeList() {
+        return incidentFormService.getViolenceTypeList();
+    }
+
+    public List<Option> getIncidentLocationList() {
+        return incidentFormService.getLocationList();
+    }
 }

@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
-import org.unicef.rapidreg.lookups.Options;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 import org.unicef.rapidreg.widgets.dialog.BaseDialog;
 import org.unicef.rapidreg.widgets.dialog.DateDialog;
@@ -273,18 +273,18 @@ public class Field {
         return TextUtils.equals(this.name, FIELD_NAME_DATE_OF_BIRTH);
     }
 
-    public List<Options> getSelectOptions() {
+    public List<Option> getSelectOptions() {
         String language = PrimeroAppConfiguration.getDefaultLanguage();
 
-        List<Options> items = new ArrayList<>();
+        List<Option> items = new ArrayList<>();
 
         if (getOptionStringSource() != null) {
-            items = GlobalLookupCache.getLookup(getOptionStringSource());
+            items = GlobalLookupCache.getLookup(getOptionStringSource().replaceAll("lookup\\s", ""));
         } else {
             List<Map<String, String>> list = getOptionStringsText().get(language);
 
             for (Map<String, String> option: list) {
-                items.add(new Options(option.get("id"), option.get("display_text")));
+                items.add(new Option(option.get("id"), option.get("display_text")));
             }
 
         }
@@ -363,7 +363,7 @@ public class Field {
     public List<String> getSelectedOptions(List<String> results) {
         List<String> selected = new ArrayList<>();
 
-        for (Options option: getSelectOptions()) {
+        for (Option option: getSelectOptions()) {
             if (results.contains(option.getId())) {
                 selected.add(option.getDisplayText());
             }
@@ -376,7 +376,7 @@ public class Field {
         String selected = results;
 
         if (hasSelectOptions()) {
-            for (Options option: getSelectOptions()) {
+            for (Option option: getSelectOptions()) {
                 if (option.getId().equals(results)) {
                     selected = option.getDisplayText();
                     break;
@@ -390,7 +390,7 @@ public class Field {
     public Integer getSelectOptionIndex(String results) {
         Integer selectedIndex = 0;
 
-        for (Options option: getSelectOptions()) {
+        for (Option option: getSelectOptions()) {
             if (option.getId().contains(results.toString())) {
                 selectedIndex = getSelectOptions().indexOf(option);
             }

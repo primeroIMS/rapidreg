@@ -11,7 +11,7 @@ import org.unicef.rapidreg.base.record.recordlist.RecordListAdapter;
 import org.unicef.rapidreg.base.record.recordsearch.RecordSearchFragment;
 import org.unicef.rapidreg.base.record.recordsearch.RecordSearchPresenter;
 import org.unicef.rapidreg.incident.incidentlist.IncidentListAdapter;
-import org.unicef.rapidreg.lookups.Options;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.cache.GlobalLocationCache;
 import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 import org.unicef.rapidreg.widgets.ClearableEditText;
@@ -86,33 +86,33 @@ public class IncidentSearchFragment extends RecordSearchFragment {
     }
 
     private void initIncidentLocationField() {
-//        List<String> locationValues = incidentSearchPresenter.getIncidentLocationList();
-//        GlobalLocationCache.initSimpleLocations(locationValues.toArray(new String[0]));
+        List<Option> locationValues = incidentSearchPresenter.getIncidentLocationList();
+        GlobalLocationCache.initSimpleLocations(locationValues.toArray(new String[0]));
 //        setMultipleSelectionOnClickListener(location, GlobalLocationCache.getSimpleLocations(), getResources()
 //                .getString(R.string
 //                        .location));
     }
 
     private void initTypeOfViolenceField() {
-//        final List<Options> typeOfViolenceValues = incidentSearchPresenter.getViolenceTypeList();
-//        setMultipleSelectionOnClickListener(typeOfViolence, typeOfViolenceValues, getResources().getString(R.string
-//                .type_of_violence));
+        final List<Option> typeOfViolenceValues = incidentSearchPresenter.getViolenceTypeList();
+        setMultipleSelectionOnClickListener(typeOfViolence, typeOfViolenceValues, getResources().getString(R.string
+                .type_of_violence));
     }
 
-    private void setMultipleSelectionOnClickListener(final ClearableEditText target, final List<Object> items, final
+    private void setMultipleSelectionOnClickListener(final ClearableEditText target, final List<Option> items, final
     String title) {
-//        target.setOnClickListener(view -> {
-//            final String originalValue = target.getText();
-//            int originalIndex = items.contains(originalValue) ? items.indexOf(originalValue) : -1;
-//
-//            dialog = new SearchAbleDialog(IncidentSearchFragment.this.getContext(), title, items, originalIndex);
-//            dialog.setOnClick(result -> target.setText(result));
-//            dialog.setCancelButton(v -> {
-//                target.setText(originalValue);
-//                dialog.dismiss();
-//            });
-//            dialog.setOkButton(v -> dialog.dismiss());
-//            dialog.show();
-//        });
+        target.setOnClickListener(view -> {
+            final String originalValue = target.getText();
+            int originalIndex =  items.contains(originalValue) ? items.indexOf(originalValue) : -1;
+
+            dialog = new SearchAbleDialog(IncidentSearchFragment.this.getContext(), title, items, originalIndex);
+            dialog.setOnClick(result -> target.setText(result));
+            dialog.setCancelButton(v -> {
+                target.setText(originalValue);
+                dialog.dismiss();
+            });
+            dialog.setOkButton(v -> dialog.dismiss());
+            dialog.show();
+        });
     }
 }

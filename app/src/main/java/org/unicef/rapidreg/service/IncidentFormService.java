@@ -1,6 +1,7 @@
 package org.unicef.rapidreg.service;
 
 import org.unicef.rapidreg.forms.IncidentTemplateForm;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.model.IncidentForm;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface IncidentFormService {
 
     void saveOrUpdate(IncidentForm incidentForm);
 
-//    List<Object> getViolenceTypeList();
-//
-//    List<String> getLocationList();
+    List<Option> getViolenceTypeList();
+
+    List<Option> getLocationList();
 }

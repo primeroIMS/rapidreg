@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.unicef.rapidreg.R;
-import org.unicef.rapidreg.lookups.Options;
+import org.unicef.rapidreg.lookups.Option;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class SearchAbleMultiSelectDialog extends Dialog {
     private Context context;
     private List<String> results;
 
-    public SearchAbleMultiSelectDialog(Context context, String title, List<Options> items, List<String> selectedItems) {
+    public SearchAbleMultiSelectDialog(Context context, String title, List<Option> items, List<String> selectedItems) {
         super(context);
         this.context = context;
         results = selectedItems;
@@ -133,14 +133,14 @@ public class SearchAbleMultiSelectDialog extends Dialog {
 
     public class MyAdapter extends BaseAdapter implements Filterable {
 
-        List<Options> arrayList;
-        List<Options> mOriginalValues; // Original Values
+        List<Option> arrayList;
+        List<Option> mOriginalValues; // Original Values
         LayoutInflater inflater;
         private SearchAbleMultiSelectDialog.MyAdapter.ViewHolder holder;
 
         SearchAbleMultiSelectDialog.SearchAbleMultiSelectDialogOnClickListener listener = null;
 
-        public MyAdapter(Context context, List<Options> arrayList) {
+        public MyAdapter(Context context, List<Option> arrayList) {
             this.arrayList = arrayList;
             inflater = LayoutInflater.from(context);
         }
@@ -218,7 +218,7 @@ public class SearchAbleMultiSelectDialog extends Dialog {
                 @Override
                 protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                    arrayList = (List<Options>) results.values; // has the filtered values
+                    arrayList = (List<Option>) results.values; // has the filtered values
                     notifyDataSetChanged();  // notifies the data with new filtered values
                 }
 

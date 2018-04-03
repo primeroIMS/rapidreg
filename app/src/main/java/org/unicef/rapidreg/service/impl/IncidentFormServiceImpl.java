@@ -6,7 +6,7 @@ import com.raizlabs.android.dbflow.data.Blob;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.forms.Section;
-import org.unicef.rapidreg.lookups.Options;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.repository.IncidentFormDao;
 import org.unicef.rapidreg.forms.IncidentTemplateForm;
 import org.unicef.rapidreg.model.IncidentForm;
@@ -61,55 +61,55 @@ public class IncidentFormServiceImpl implements IncidentFormService {
         }
     }
 
-//    @Override
-//    public List<Options> getViolenceTypeList() {
-//        IncidentTemplateForm incidentTemplateForm = getGBVTemplate();
-//        List<Section> sections = incidentTemplateForm.getSections();
-//        List<Options> selectOptions = new ArrayList<>();
-//        Section violenceSection = null;
-//        if (sections != null) {
-//            for (Section section : sections) {
-//                if (SECTION_TYPE_OF_VIOLENCE.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
-//                    violenceSection = section;
-//                    break;
-//                }
-//            }
-//            if (violenceSection != null) {
-//                List<Field> fields = violenceSection.getFields();
-//                for (Field field : fields) {
-//                    if (FIELD_INCIDENT_TYPE_OF_VIOLENCE.equals(field.getName())) {
-//                        selectOptions = field.getSelectOptions();
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//        return selectOptions;
-//    }
-//
-//    @Override
-//    public List<String> getLocationList() {
-//        IncidentTemplateForm incidentTemplateForm = getGBVTemplate();
-//        List<Section> sections = incidentTemplateForm.getSections();
-//        List<String> selectOptions = new ArrayList<String>();
-//        Section locationSection = null;
-//        if (sections != null) {
-//            for (Section section : sections) {
-//                if (SECTION_GBV_INCIDENT.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
-//                    locationSection = section;
-//                    break;
-//                }
-//            }
-//            if (locationSection != null) {
-//                List<Field> fields = locationSection.getFields();
-//                for (Field field : fields) {
-//                    if (FIELD_LOCATION_INCIDENT.equals(field.getName())) {
-//                        selectOptions = field.getSelectOptions();
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//        return selectOptions;
-//    }
+    @Override
+    public List<Option> getViolenceTypeList() {
+        IncidentTemplateForm incidentTemplateForm = getGBVTemplate();
+        List<Section> sections = incidentTemplateForm.getSections();
+        List<Option> selectOptions = new ArrayList<>();
+        Section violenceSection = null;
+        if (sections != null) {
+            for (Section section : sections) {
+                if (SECTION_TYPE_OF_VIOLENCE.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
+                    violenceSection = section;
+                    break;
+                }
+            }
+            if (violenceSection != null) {
+                List<Field> fields = violenceSection.getFields();
+                for (Field field : fields) {
+                    if (FIELD_INCIDENT_TYPE_OF_VIOLENCE.equals(field.getName())) {
+                        selectOptions = field.getSelectOptions();
+                        break;
+                    }
+                }
+            }
+        }
+        return selectOptions;
+    }
+
+    @Override
+    public List<Option> getLocationList() {
+        IncidentTemplateForm incidentTemplateForm = getGBVTemplate();
+        List<Section> sections = incidentTemplateForm.getSections();
+        List<Option> selectOptions = new ArrayList<>();
+        Section locationSection = null;
+        if (sections != null) {
+            for (Section section : sections) {
+                if (SECTION_GBV_INCIDENT.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
+                    locationSection = section;
+                    break;
+                }
+            }
+            if (locationSection != null) {
+                List<Field> fields = locationSection.getFields();
+                for (Field field : fields) {
+                    if (FIELD_LOCATION_INCIDENT.equals(field.getName())) {
+                        selectOptions = field.getSelectOptions();
+                        break;
+                    }
+                }
+            }
+        }
+        return selectOptions;
+    }
 }

@@ -7,11 +7,9 @@ import android.view.View;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.forms.Field;
-import org.unicef.rapidreg.lookups.Options;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
