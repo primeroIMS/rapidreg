@@ -61,11 +61,11 @@ public class SingleLineRadioViewHolder extends BaseViewHolder<Field> {
 
         if (isSubFormField(field)) {
             if (!TextUtils.isEmpty(getValue(field))) {
-                setSelectedRadio(getValue(field));
+                setSelectedRadio(field.getSingleSelectedOptions(getValue(field)));
             }
         } else {
             if (!TextUtils.isEmpty(itemValues.getAsString(field.getName()))) {
-                setSelectedRadio(itemValues.getAsString(field.getName()));
+                setSelectedRadio(field.getSingleSelectedOptions(itemValues.getAsString(field.getName())));
             }
         }
     }
