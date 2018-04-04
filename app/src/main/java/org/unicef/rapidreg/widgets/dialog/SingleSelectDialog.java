@@ -31,8 +31,8 @@ public class SingleSelectDialog extends BaseDialog {
     public void initView() {
         optionItems = field.getSelectOptions();
 
-        int selectIndex = field.getSelectOptionIndex(result);
         result = itemValues.getAsString(field.getName());
+        int selectIndex = field.getSelectOptionIndex(result);
 
         dialog = new SearchAbleDialog(context, field.getDisplayName().get(Locale.getDefault()
                 .getLanguage()), optionItems, selectIndex);

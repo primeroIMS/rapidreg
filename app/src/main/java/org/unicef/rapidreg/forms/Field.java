@@ -372,12 +372,12 @@ public class Field {
         return selected;
     }
 
-    public String getSingleSelectedOptions(String results) {
-        String selected = results;
+    public String getSingleSelectedOptions(String result) {
+        String selected = result;
 
         if (hasSelectOptions()) {
             for (Option option: getSelectOptions()) {
-                if (option.getId().equals(results)) {
+                if (option.getId().equals(result)) {
                     selected = option.getDisplayText();
                     break;
                 }
@@ -387,11 +387,11 @@ public class Field {
         return selected;
     }
 
-    public Integer getSelectOptionIndex(String results) {
-        Integer selectedIndex = 0;
+    public int getSelectOptionIndex(String result) {
+        Integer selectedIndex = -1;
 
         for (Option option: getSelectOptions()) {
-            if (option.getId().contains(results.toString())) {
+            if (option.getId().equals(result)) {
                 selectedIndex = getSelectOptions().indexOf(option);
             }
         }

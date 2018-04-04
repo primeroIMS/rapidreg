@@ -8,10 +8,12 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroDatabaseConfiguration;
-import org.unicef.rapidreg.lookups.LookupOption;
+import org.unicef.rapidreg.lookups.LookupList;
+import org.unicef.rapidreg.lookups.Option;
 
 @Table(database = PrimeroDatabaseConfiguration.class)
 public class Lookup extends BaseModel {
+    static final String locationKey = "Location";
 
     @PrimaryKey(autoincrement = true)
     @Column
@@ -53,8 +55,18 @@ public class Lookup extends BaseModel {
         return lookupsJson;
     }
 
-    public LookupOption[] toGson() {
+    public LookupList[] toGson() {
         String lookupString = new String(getLookupsJson().getBlob());
-        return new Gson().fromJson(lookupString, LookupOption[].class);
+        LookupList[] result = new Gson().fromJson(lookupString, LookupList[].class);
+
+        for (LookupList lookupOption: result) {
+            if (lookupOption.getType().equals(locationKey)) {
+                for(Option option: lookupOption.getOptions()) {
+                    option.setLocation(true);
+                }
+             }
+        }
+
+        return result;
     }
 }

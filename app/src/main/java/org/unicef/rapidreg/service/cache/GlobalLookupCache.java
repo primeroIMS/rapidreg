@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.service.cache;
 
-import org.unicef.rapidreg.lookups.LookupOption;
+import org.unicef.rapidreg.lookups.LookupList;
 import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.model.Lookup;
 
@@ -14,7 +14,7 @@ public class GlobalLookupCache {
 
     public static void initLookupOptions(Lookup lookups) {
         if (lookupOptions.isEmpty()) {
-            for (LookupOption option : lookups.toGson()) {
+            for (LookupList option : lookups.toGson()) {
                 lookupOptions.put(option.getType(), option.getOptions());
             }
         }
@@ -31,6 +31,4 @@ public class GlobalLookupCache {
 
         return  options;
     }
-
-    public static boolean containsLocation(String key) { return key.contains("Location"); }
 }
