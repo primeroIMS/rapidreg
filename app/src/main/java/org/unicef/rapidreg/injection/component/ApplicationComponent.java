@@ -14,6 +14,7 @@ import org.unicef.rapidreg.service.FormRemoteService;
 import org.unicef.rapidreg.service.IncidentFormService;
 import org.unicef.rapidreg.service.IncidentService;
 import org.unicef.rapidreg.service.LoginService;
+import org.unicef.rapidreg.service.LookupService;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.SyncCaseService;
 import org.unicef.rapidreg.service.SyncIncidentService;
@@ -58,6 +59,8 @@ public interface ApplicationComponent {
     IncidentFormService incidentFormService();
 
     FormRemoteService formRemoteService();
+
+    LookupService lookupService();
 
     SystemSettingsService systemSettingsService();
 

@@ -6,7 +6,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import org.unicef.rapidreg.forms.Field;
-import org.unicef.rapidreg.service.cache.GlobalLocationCache;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.widgets.viewholder.GenericViewHolder;
 
@@ -16,7 +16,7 @@ import java.util.Locale;
 public class SingleSelectDialog extends BaseDialog {
 
     private String result;
-    private List<String> optionItems;
+    private List<Option> optionItems;
 
     SearchAbleDialog dialog;
 
@@ -24,17 +24,15 @@ public class SingleSelectDialog extends BaseDialog {
                               ItemValuesMap itemValues, TextView resultView, ViewSwitcher
                                       viewSwitcher) {
         super(context, field, itemValues, resultView, viewSwitcher);
-        result = resultView.getText().toString().trim();
+        result = "";
     }
 
     @Override
     public void initView() {
-        optionItems = field.getSelectOptionValuesIfSelectable();
+        optionItems = field.getSelectOptions();
 
-        simplifyLocationOptionsIfLocationFiled();
-
-        int selectIndex = optionItems.indexOf(result);
-        result = optionItems.contains(result) ? optionItems.get(selectIndex) : "";
+        result = itemValues.getAsString(field.getName());
+        int selectIndex = field.getSelectOptionIndex(result);
 
         dialog = new SearchAbleDialog(context, field.getDisplayName().get(Locale.getDefault()
                 .getLanguage()), optionItems, selectIndex);
@@ -44,32 +42,18 @@ public class SingleSelectDialog extends BaseDialog {
         dialog.setCancelButton(v -> dialog.dismiss());
 
         dialog.setOkButton(view -> {
-            if (getResult() != null && !TextUtils.isEmpty(getResult().toString())) {
+            if (getResult() != null && !TextUtils.isEmpty(getResult())) {
                 viewSwitcher.setDisplayedChild(GenericViewHolder.FORM_HAS_ANSWER_STATE);
             } else {
                 viewSwitcher.setDisplayedChild(GenericViewHolder.FORM_NO_ANSWER_STATE);
             }
-            resultView.setText(getResult() == null ? null : getResult().toString());
+            resultView.setText(getResult() == null ? null : getDisplayText());
 
-            itemValues.addItem(field.getName(), recoveryLocationValueIfLocationFiled());
+            itemValues.addItem(field.getName(), getResult());
+
             dialog.dismiss();
         });
 
-    }
-
-    private void simplifyLocationOptionsIfLocationFiled() {
-        if (field.isSelectField() && GlobalLocationCache.containsLocation(field.getName())) {
-            GlobalLocationCache.initSimpleLocations(optionItems);
-            optionItems = GlobalLocationCache.getSimpleLocations();
-        }
-    }
-
-    private String recoveryLocationValueIfLocationFiled() {
-        if (field.isSelectField() && GlobalLocationCache.containsLocation(field.getName()) && !org.unicef.rapidreg.utils
-                .TextUtils.isEmpty(getResult())) {
-            return field.getSelectOptionValuesIfSelectable().get(GlobalLocationCache.index(getResult()));
-        }
-        return getResult();
     }
 
     @Override
@@ -79,6 +63,12 @@ public class SingleSelectDialog extends BaseDialog {
         dialog.show();
         changeDialogDividerColor(context, dialog);
     }
+
+    @Override
+    protected String getDisplayText() {
+        return result == null ? null : field.getSingleSelectedOptions(result);
+    }
+
 
     @Override
     public String getResult() {

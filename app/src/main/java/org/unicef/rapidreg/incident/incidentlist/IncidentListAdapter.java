@@ -2,7 +2,6 @@ package org.unicef.rapidreg.incident.incidentlist;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -11,7 +10,6 @@ import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordlist.RecordListAdapter;
 import org.unicef.rapidreg.incident.IncidentFeature;
 import org.unicef.rapidreg.injection.ActivityContext;
-import org.unicef.rapidreg.model.Gender;
 import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.service.IncidentService;
 import org.unicef.rapidreg.service.RecordService;
@@ -45,16 +43,11 @@ public class IncidentListAdapter extends RecordListAdapter {
         final String recordJson = new String(record.getContent().getBlob());
         final ItemValuesMap itemValues = new ItemValuesMap(JsonUtils.toMap(new Gson().fromJson
                 (recordJson, JsonObject.class)));
-        Gender gender;
-        try {
-            gender = Gender.valueOf(itemValues.getAsString(RecordService.SEX).toUpperCase());
-        } catch (Exception e) {
-            gender = Gender.PLACEHOLDER;
-        }
+
         final String shortUUID = incidentService.getShortUUID(record.getUniqueId());
         String age = itemValues.getAsString(RecordService.AGE);
         holder.disableRecordImageView();
-        holder.setValues(gender, shortUUID, age, record);
+        holder.setValues(itemValues.getAsString(RecordService.SEX), shortUUID, age, record);
         holder.setViewOnClickListener(v -> {
             Bundle args = new Bundle();
             args.putLong(IncidentService.INCIDENT_PRIMARY_ID, recordId);

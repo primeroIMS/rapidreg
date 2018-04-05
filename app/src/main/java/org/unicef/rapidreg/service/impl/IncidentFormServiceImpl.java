@@ -6,6 +6,7 @@ import com.raizlabs.android.dbflow.data.Blob;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.forms.Section;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.repository.IncidentFormDao;
 import org.unicef.rapidreg.forms.IncidentTemplateForm;
 import org.unicef.rapidreg.model.IncidentForm;
@@ -61,10 +62,10 @@ public class IncidentFormServiceImpl implements IncidentFormService {
     }
 
     @Override
-    public List<String> getViolenceTypeList() {
+    public List<Option> getViolenceTypeList() {
         IncidentTemplateForm incidentTemplateForm = getGBVTemplate();
         List<Section> sections = incidentTemplateForm.getSections();
-        List<String> selectOptions = new ArrayList<String>();
+        List<Option> selectOptions = new ArrayList<>();
         Section violenceSection = null;
         if (sections != null) {
             for (Section section : sections) {
@@ -87,10 +88,10 @@ public class IncidentFormServiceImpl implements IncidentFormService {
     }
 
     @Override
-    public List<String> getLocationList() {
+    public List<Option> getLocationList() {
         IncidentTemplateForm incidentTemplateForm = getGBVTemplate();
         List<Section> sections = incidentTemplateForm.getSections();
-        List<String> selectOptions = new ArrayList<String>();
+        List<Option> selectOptions = new ArrayList<>();
         Section locationSection = null;
         if (sections != null) {
             for (Section section : sections) {

@@ -8,6 +8,7 @@ import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.event.LoadCPCaseFormEvent;
 import org.unicef.rapidreg.event.LoadGBVCaseFormEvent;
 import org.unicef.rapidreg.event.LoadGBVIncidentFormEvent;
+import org.unicef.rapidreg.event.LoadLookupsEvent;
 import org.unicef.rapidreg.event.LoadSystemSettingEvent;
 import org.unicef.rapidreg.event.LoadTracingFormEvent;
 import org.unicef.rapidreg.model.User;
@@ -98,6 +99,7 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
                     getView().configAppRuntimeEvent();
                     sendLoadFormEvent(user.getRoleType(), cookie);
                     EventBus.getDefault().postSticky(new LoadSystemSettingEvent());
+                    EventBus.getDefault().postSticky(new LoadLookupsEvent());
 
                     getView().navigateToLoginSucceedPage();
                     PrimeroApplication.getAppRuntime().storeLastLoginServerUrl(url);

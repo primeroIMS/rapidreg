@@ -2,11 +2,7 @@ package org.unicef.rapidreg.base.record.recordlist;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
-import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
-import org.unicef.rapidreg.PrimeroDatabaseConfiguration;
 import org.unicef.rapidreg.R;
-import org.unicef.rapidreg.model.Gender;
 import org.unicef.rapidreg.model.Incident;
 import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.utils.TextUtils;
@@ -142,10 +132,6 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
         holder.deleteStateCheckBox.setChecked(recordWillBeDeletedList.contains(holder.deleteStateCheckBox.getTag()));
     }
 
-    protected Drawable getDefaultGenderBadge(int genderId) {
-        return ResourcesCompat.getDrawable(context.getResources(), genderId, null);
-    }
-
     protected boolean isValidAge(String value) {
         if (value == null || "".equals(value.trim())) {
             return false;
@@ -191,9 +177,6 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
         @BindView(R.id.id_on_hidden_state)
         public TextView idHiddenState;
 
-        @BindView(R.id.gender_badge)
-        public ImageView genderBadge;
-
         @BindView(R.id.gender_name)
         public TextView genderName;
 
@@ -238,28 +221,31 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
             ButterKnife.bind(this, itemView);
         }
 
-        public void setValues(Gender gender,
+        public void setValues(String gender,
                               String shortUUID,
                               String ageContent,
                               RecordModel record) {
             this.record = record;
             int position = getAdapterPosition();
             deleteStateCheckBox.setTag(recordList.get(position));
+
+
+
             Glide
                     .with(image.getContext())
                     .load(record)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
-                    .error(context.getResources().getDrawable(gender.getAvatarId()))
+                    .error(context.getResources().getDrawable(R.drawable.avatar_placeholder))
                     .into(image);
 
             idNormalState.setText(shortUUID);
             idHiddenState.setText(shortUUID);
-            genderBadge.setImageDrawable(getDefaultGenderBadge(gender.getGenderId()));
-            genderName.setText(gender.getName());
-            genderName.setTextColor(ContextCompat.getColor(context, gender.getColorId()));
-            age.setText(isValidAge(ageContent) ? ageContent : "---");
 
+            // TODO: Should show display text when I18n
+            genderName.setText(TextUtils.isEmpty(gender) ? "---" : gender);
+
+            age.setText(isValidAge(ageContent) ? ageContent : "---");
 
             Date registrationDate = record.getRegistrationDate();
             String registrationDateText = isValidDate(registrationDate) ? dateFormat.format(registrationDate) :
@@ -319,7 +305,6 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
         }
 
         public void disableRecordGenderView() {
-            genderBadge.setVisibility(View.GONE);
             genderName.setVisibility(View.GONE);
         }
 

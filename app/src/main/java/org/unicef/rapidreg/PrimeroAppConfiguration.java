@@ -6,8 +6,6 @@ import org.unicef.rapidreg.model.SystemSettings;
 import org.unicef.rapidreg.model.User;
 import org.unicef.rapidreg.utils.TextUtils;
 
-import java.util.Locale;
-
 public class PrimeroAppConfiguration {
     public static final String MODULE_ID_GBV = "primeromodule-gbv";
     public static final int DEFAULT_DISTRICT_LEVEL = 1;
@@ -86,3 +84,4 @@ public class PrimeroAppConfiguration {
                 Settings.Secure.ANDROID_ID);
     }
 }
+
