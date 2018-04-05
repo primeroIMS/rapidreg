@@ -8,7 +8,6 @@ import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.forms.Field;
-import org.unicef.rapidreg.service.cache.GlobalLocationCache;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.TextUtils;
 
@@ -54,14 +53,6 @@ public abstract class BaseTextViewHolder extends BaseViewHolder<Field> {
                     getValueView().setError(fieldVerifyResult);
                 }
             }
-        }
-        simplifyLocationIfLocationFiled(field);
-    }
-
-    protected void simplifyLocationIfLocationFiled(Field field) {
-        if (field.isSelectField() && GlobalLocationCache.containsLocation(field.getName())) {
-            getValueView().setText(org.unicef.rapidreg.utils.TextUtils.truncateByDoubleColons(getValueView().getText
-                    ().toString(), PrimeroAppConfiguration.getCurrentSystemSettings().getDistrictLevel()));
         }
     }
 
