@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.IncidentFormService;
 import org.unicef.rapidreg.service.IncidentService;
 
@@ -49,7 +50,7 @@ public class IncidentSearchPresenterTest {
 
     @Test
     public void should_return_list_when_get_violence_type_list() throws Exception {
-        List<String> list = new ArrayList<>();
+        List<Option> list = new ArrayList<>();
 
         when(incidentFormService.getViolenceTypeList()).thenReturn(list);
 
@@ -58,7 +59,7 @@ public class IncidentSearchPresenterTest {
 
     @Test
     public void should_return_list_when_get_incident_location_list() throws Exception {
-        List<String> list = new ArrayList<>();
+        List<Option> list = new ArrayList<>();
 
         when(incidentFormService.getLocationList()).thenReturn(list);
 
