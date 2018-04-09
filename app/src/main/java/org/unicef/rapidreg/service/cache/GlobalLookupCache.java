@@ -31,4 +31,40 @@ public class GlobalLookupCache {
 
         return  options;
     }
+
+    public static int getSelectOptionIndex(List<Option> options, String result) {
+        Integer selectedIndex = -1;
+
+        for (Option option: options) {
+            if (option.getId().equals(result)) {
+                selectedIndex = options.indexOf(option);
+            }
+        }
+        return selectedIndex;
+    }
+
+    public static List<String> getSelectedOptions(List<Option> options, List<String> results) {
+        List<String> selected = new ArrayList<>();
+
+        for (Option option: options) {
+            if (results.contains(option.getId())) {
+                selected.add(option.getDisplayText());
+            }
+        }
+
+        return selected;
+    }
+
+    public static Option getSingleSelectedOptions(List<Option> options, String result) {
+        Option selected = new Option();
+
+        for (Option option: options) {
+            if (option.getId().equals(result) || option.getDisplayText().equals(result)) {
+                selected = option;
+                break;
+            }
+        }
+
+        return selected;
+    }
 }

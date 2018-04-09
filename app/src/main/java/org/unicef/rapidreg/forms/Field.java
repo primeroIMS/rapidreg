@@ -361,40 +361,18 @@ public class Field {
     }
 
     public List<String> getSelectedOptions(List<String> results) {
-        List<String> selected = new ArrayList<>();
-
-        for (Option option: getSelectOptions()) {
-            if (results.contains(option.getId())) {
-                selected.add(option.getDisplayText());
-            }
-        }
-
-        return selected;
+        return GlobalLookupCache.getSelectedOptions(getSelectOptions(), results);
     }
 
     public String getSingleSelectedOptions(String result) {
-        String selected = result;
-
         if (hasSelectOptions()) {
-            for (Option option: getSelectOptions()) {
-                if (option.getId().equals(result)) {
-                    selected = option.getDisplayText();
-                    break;
-                }
-            }
+            return GlobalLookupCache.getSingleSelectedOptions(getSelectOptions(), result).getDisplayText();
+        } else {
+            return result;
         }
-
-        return selected;
     }
 
     public int getSelectOptionIndex(String result) {
-        Integer selectedIndex = -1;
-
-        for (Option option: getSelectOptions()) {
-            if (option.getId().equals(result)) {
-                selectedIndex = getSelectOptions().indexOf(option);
-            }
-        }
-        return selectedIndex;
+        return GlobalLookupCache.getSelectOptionIndex(getSelectOptions(), result);
     }
 }
