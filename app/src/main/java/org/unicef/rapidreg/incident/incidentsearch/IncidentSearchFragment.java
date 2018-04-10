@@ -11,7 +11,8 @@ import org.unicef.rapidreg.base.record.recordlist.RecordListAdapter;
 import org.unicef.rapidreg.base.record.recordsearch.RecordSearchFragment;
 import org.unicef.rapidreg.base.record.recordsearch.RecordSearchPresenter;
 import org.unicef.rapidreg.incident.incidentlist.IncidentListAdapter;
-import org.unicef.rapidreg.service.cache.GlobalLocationCache;
+import org.unicef.rapidreg.lookups.Option;
+import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 import org.unicef.rapidreg.widgets.ClearableEditText;
 import org.unicef.rapidreg.widgets.dialog.SearchAbleDialog;
 
@@ -31,6 +32,9 @@ import static org.unicef.rapidreg.model.RecordModel.EMPTY_AGE;
 
 public class IncidentSearchFragment extends RecordSearchFragment {
     private SearchAbleDialog dialog;
+
+    private List<Option> typeOfViolenceValues;
+    private List<Option> locationValues;
 
     @Inject
     IncidentSearchPresenter incidentSearchPresenter;
@@ -58,11 +62,9 @@ public class IncidentSearchFragment extends RecordSearchFragment {
         searchValues.put(SURVIVOR_CODE, survivorCode.getText());
         searchValues.put(AGE_FROM, ageFrom.getText().isEmpty() ? String.valueOf(EMPTY_AGE) : ageFrom.getText());
         searchValues.put(AGE_TO, ageTo.getText().isEmpty() ? String.valueOf(EMPTY_AGE) : ageTo.getText());
-        searchValues.put(TYPE_OF_VIOLENCE, typeOfViolence.getText());
+        searchValues.put(TYPE_OF_VIOLENCE, GlobalLookupCache.getSingleSelectedOptions(typeOfViolenceValues, typeOfViolence.getText()).getId());
 
-        searchValues.put(LOCATION, GlobalLocationCache.containLocationValue(location.getText()) ?
-                incidentSearchPresenter.getIncidentLocationList().get(GlobalLocationCache.index(location.getText()))
-                : null);
+        searchValues.put(LOCATION, GlobalLookupCache.getSingleSelectedOptions(locationValues, location.getText()).getId());
         return searchValues;
     }
 
@@ -84,33 +86,36 @@ public class IncidentSearchFragment extends RecordSearchFragment {
     }
 
     private void initIncidentLocationField() {
-        List<String> locationValues = incidentSearchPresenter.getIncidentLocationList();
-        GlobalLocationCache.initSimpleLocations(locationValues.toArray(new String[0]));
-        setMultipleSelectionOnClickListener(location, GlobalLocationCache.getSimpleLocations(), getResources()
+        locationValues = incidentSearchPresenter.getIncidentLocationList();
+        setMultipleSelectionOnClickListener(location, locationValues, getResources()
                 .getString(R.string
                         .location));
     }
 
     private void initTypeOfViolenceField() {
-        final List<String> typeOfViolenceValues = incidentSearchPresenter.getViolenceTypeList();
+        typeOfViolenceValues = incidentSearchPresenter.getViolenceTypeList();
         setMultipleSelectionOnClickListener(typeOfViolence, typeOfViolenceValues, getResources().getString(R.string
                 .type_of_violence));
     }
 
-    private void setMultipleSelectionOnClickListener(final ClearableEditText target, final List<String> items, final
+    private void setMultipleSelectionOnClickListener(final ClearableEditText target, final List<Option> items, final
     String title) {
         target.setOnClickListener(view -> {
             final String originalValue = target.getText();
-            int originalIndex = items.contains(originalValue) ? items.indexOf(originalValue) : -1;
+            int originalIndex =  GlobalLookupCache.getSelectOptionIndex(items, originalValue);
 
             dialog = new SearchAbleDialog(IncidentSearchFragment.this.getContext(), title, items, originalIndex);
-            dialog.setOnClick(result -> target.setText(result));
+            dialog.setOnClick(result -> target.setText(resultDisplayName(items, result)));
             dialog.setCancelButton(v -> {
-                target.setText(originalValue);
+                target.setText(resultDisplayName(items, originalValue));
                 dialog.dismiss();
             });
             dialog.setOkButton(v -> dialog.dismiss());
             dialog.show();
         });
+    }
+
+    private String resultDisplayName(List<Option> options, String result) {
+        return GlobalLookupCache.getSingleSelectedOptions(options, result).getDisplayText();
     }
 }

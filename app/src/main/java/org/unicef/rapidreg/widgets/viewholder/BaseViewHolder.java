@@ -10,7 +10,6 @@ import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +70,20 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         return field.getParent() != null;
     }
 
+    protected String getTranslatedValue(Field field) {
+        if (itemValues == null || !itemValues.getValues().containsKey(field.getName())) {
+            return null;
+        }
+        Map<String, Object> value = itemValues.getValues();
+        Object res = value.get(field.getName());
+
+        if (!(res instanceof List)) {
+            return field.getSingleSelectedOptions(res.toString());
+        }
+
+        return Utils.toStringResult(field.getSelectedOptions((List<String>) res));
+    }
+
     protected String getValue(Field field) {
         if (itemValues == null || !itemValues.getValues().containsKey(field.getName())) {
             return null;
@@ -82,16 +95,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
             return res.toString();
         }
 
-        List<String> optionValues = new ArrayList<>();
-        if (field.isMultiSelect()) {
-            List<String> optionKeys = (List<String>) res;
-            List<String> selectOptionKeys = field.getSelectOptionKeysIfMultiple();
-            List<String> selectOptionValues = field.getSelectOptionValuesIfSelectable();
-            for (String optionKey : optionKeys) {
-                optionValues.add(selectOptionValues.get(selectOptionKeys.indexOf(optionKey)));
-            }
-        }
-        return Utils.toStringResult(optionValues);
+        return Utils.toStringResult((List<String>) res);
     }
 
     public int getCurrentPosition() {

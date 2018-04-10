@@ -10,6 +10,7 @@ import org.unicef.rapidreg.repository.TracingDao;
 import org.unicef.rapidreg.repository.TracingFormDao;
 import org.unicef.rapidreg.repository.TracingPhotoDao;
 import org.unicef.rapidreg.repository.UserDao;
+import org.unicef.rapidreg.repository.LookupDao;
 import org.unicef.rapidreg.repository.impl.CaseDaoImpl;
 import org.unicef.rapidreg.repository.impl.CaseFormDaoImpl;
 import org.unicef.rapidreg.repository.impl.CasePhotoDaoImpl;
@@ -20,6 +21,7 @@ import org.unicef.rapidreg.repository.impl.TracingDaoImpl;
 import org.unicef.rapidreg.repository.impl.TracingFormDaoImpl;
 import org.unicef.rapidreg.repository.impl.TracingPhotoDaoImpl;
 import org.unicef.rapidreg.repository.impl.UserDaoImpl;
+import org.unicef.rapidreg.repository.impl.LookupDaoImpl;
 
 import javax.inject.Singleton;
 
@@ -81,6 +83,10 @@ public class ApplicationDaoModule {
     public TracingFormDao provideTracingFormDao() {
         return new TracingFormDaoImpl();
     }
+
+    @Provides
+    @Singleton
+    public LookupDao provideLookupDao() { return new LookupDaoImpl(); }
 
     @Provides
     @Singleton

@@ -15,6 +15,7 @@ import org.unicef.rapidreg.service.FormRemoteService;
 import org.unicef.rapidreg.service.IncidentFormService;
 import org.unicef.rapidreg.service.SystemSettingsService;
 import org.unicef.rapidreg.service.TracingFormService;
+import org.unicef.rapidreg.service.LookupService;
 
 import javax.inject.Inject;
 
@@ -31,6 +32,7 @@ public class AppRemotePresenter {
     private TracingFormService tracingFormService;
     private IncidentFormService incidentFormService;
     private SystemSettingsService systemSettingsService;
+    private LookupService lookupService;
 
     protected final Gson gson = new Gson();
 
@@ -39,19 +41,22 @@ public class AppRemotePresenter {
                               CaseFormService caseFormService,
                               TracingFormService tracingFormService,
                               IncidentFormService incidentFormService,
+                              LookupService lookupService,
                               Lazy<SystemSettingsService> systemSettingsService) {
-        this(formRemoteService.get(), caseFormService, tracingFormService, incidentFormService, systemSettingsService.get());
+        this(formRemoteService.get(), caseFormService, tracingFormService, incidentFormService, lookupService, systemSettingsService.get());
     }
 
     public AppRemotePresenter(FormRemoteService formRemoteService,
                               CaseFormService caseFormService,
                               TracingFormService tracingFormService,
                               IncidentFormService incidentFormService,
+                              LookupService lookupService,
                               SystemSettingsService systemSettingsService) {
         this.formRemoteService = formRemoteService;
         this.caseFormService = caseFormService;
         this.tracingFormService = tracingFormService;
         this.incidentFormService = incidentFormService;
+        this.lookupService = lookupService;
         this.systemSettingsService = systemSettingsService;
     }
 
@@ -101,6 +106,12 @@ public class AppRemotePresenter {
         IncidentForm incidentForm = new IncidentForm(incidentFormBlob);
         incidentForm.setModuleId(MODULE_ID_GBV);
         incidentFormService.saveOrUpdate(incidentForm);
+    }
+
+    public void loadLookups() {
+        lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage(), true)
+                .subscribe(lookup -> lookupService.saveOrUpdate(lookup),
+                        throwable -> Log.e(TAG, "Lookups Error" + throwable.getMessage()));
     }
 
     public void loadSystemSettings() {

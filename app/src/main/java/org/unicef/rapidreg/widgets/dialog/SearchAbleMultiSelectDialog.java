@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.unicef.rapidreg.R;
+import org.unicef.rapidreg.lookups.Option;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class SearchAbleMultiSelectDialog extends Dialog {
     private Context context;
     private List<String> results;
 
-    public SearchAbleMultiSelectDialog(Context context, String title, List<String> items, List<String> selectedItems) {
+    public SearchAbleMultiSelectDialog(Context context, String title, List<Option> items, List<String> selectedItems) {
         super(context);
         this.context = context;
         results = selectedItems;
@@ -132,14 +133,14 @@ public class SearchAbleMultiSelectDialog extends Dialog {
 
     public class MyAdapter extends BaseAdapter implements Filterable {
 
-        List<String> arrayList;
-        List<String> mOriginalValues; // Original Values
+        List<Option> arrayList;
+        List<Option> mOriginalValues; // Original Values
         LayoutInflater inflater;
         private SearchAbleMultiSelectDialog.MyAdapter.ViewHolder holder;
 
         SearchAbleMultiSelectDialog.SearchAbleMultiSelectDialogOnClickListener listener = null;
 
-        public MyAdapter(Context context, List<String> arrayList) {
+        public MyAdapter(Context context, List<Option> arrayList) {
             this.arrayList = arrayList;
             inflater = LayoutInflater.from(context);
         }
@@ -180,28 +181,28 @@ public class SearchAbleMultiSelectDialog extends Dialog {
                 holder = (SearchAbleMultiSelectDialog.MyAdapter.ViewHolder) convertView.getTag();
             }
 
-            holder.textView.setText(arrayList.get(position));
+            holder.textView.setText(arrayList.get(position).getDisplayText());
             holder.textView.setOnClickListener(view -> {
-                if (!results.contains(arrayList.get(position))) {
-                    results.add(arrayList.get(position));
+                if (!results.contains(arrayList.get(position).getId())) {
+                    results.add(arrayList.get(position).getId());
                 } else {
-                    results.remove(arrayList.get(position));
+                    results.remove(arrayList.get(position).getId());
                 }
                 listener.onClick(results);
                 notifyDataSetChanged();
             });
 
             holder.checkBox.setOnClickListener(view -> {
-                if (!results.contains(arrayList.get(position))) {
-                    results.add(arrayList.get(position));
+                if (!results.contains(arrayList.get(position).getId())) {
+                    results.add(arrayList.get(position).getId());
                 } else {
-                    results.remove(arrayList.get(position));
+                    results.remove(arrayList.get(position).getId());
                 }
                 listener.onClick(results);
                 notifyDataSetChanged();
             });
 
-            if (results.contains(arrayList.get(position))) {
+            if (results.contains(arrayList.get(position).getId())) {
                 holder.checkBox.setChecked(true);
             } else {
                 holder.checkBox.setChecked(false);
@@ -217,7 +218,7 @@ public class SearchAbleMultiSelectDialog extends Dialog {
                 @Override
                 protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                    arrayList = (List<String>) results.values; // has the filtered values
+                    arrayList = (List<Option>) results.values; // has the filtered values
                     notifyDataSetChanged();  // notifies the data with new filtered values
                 }
 
@@ -239,7 +240,7 @@ public class SearchAbleMultiSelectDialog extends Dialog {
                     } else {
                         constraint = constraint.toString().toLowerCase();
                         for (int i = 0; i < mOriginalValues.size(); i++) {
-                            String data = mOriginalValues.get(i);
+                            String data = mOriginalValues.get(i).getDisplayText();
                             if (data.toLowerCase().contains(constraint.toString())) {
                                 FilteredArrList.add(data);
                             }

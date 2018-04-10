@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import org.unicef.rapidreg.forms.Field;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.viewholder.GenericViewHolder;
@@ -17,8 +18,7 @@ import java.util.Locale;
 public class MultipleSelectDialog extends BaseDialog {
 
     private List<String> results;
-    private List<String> optionItemValues;
-    private List<String> optionItemKeys;
+    private List<Option> optionItems;
 
     private SearchAbleMultiSelectDialog dialog;
 
@@ -30,13 +30,12 @@ public class MultipleSelectDialog extends BaseDialog {
 
     @Override
     public void initView() {
-        optionItemValues = field.getSelectOptionValuesIfSelectable();
-        optionItemKeys = field.getSelectOptionKeysIfMultiple();
+        optionItems = field.getSelectOptions();
 
-        results.addAll(parseKeysAsDisplayTexts(itemValues.getAsList(field.getName())));
+        results.addAll(itemValues.getAsList(field.getName()));
 
         dialog = new SearchAbleMultiSelectDialog(context, field.getDisplayName().get(Locale.getDefault()
-                .getLanguage()), optionItemValues, results);
+                .getLanguage()), optionItems, results);
 
         dialog.disableClearButton(true);
         dialog.disableDialogFilter(true);
@@ -52,25 +51,9 @@ public class MultipleSelectDialog extends BaseDialog {
             }
             resultView.setText(getDisplayText());
 
-            itemValues.addItem(field.getName(), parseDisplayTextsAsKeys(getResult()));
+            itemValues.addItem(field.getName(), getResult());
             dialog.dismiss();
         });
-    }
-
-    private List<String> parseKeysAsDisplayTexts(List<String> keys) {
-        List<String> result = new ArrayList<>();
-        for (String key : keys) {
-            result.add(optionItemValues.get(optionItemKeys.indexOf(key)));
-        }
-        return result;
-    }
-
-    private List<String> parseDisplayTextsAsKeys(List<String> displayTexts) {
-        List<String> result = new ArrayList<>();
-        for (String displayText : displayTexts) {
-            result.add(optionItemKeys.get(optionItemValues.indexOf(displayText)));
-        }
-        return result;
     }
 
     @Override
@@ -88,7 +71,7 @@ public class MultipleSelectDialog extends BaseDialog {
 
     @Override
     protected String getDisplayText() {
-        return results == null ? null : Utils.toStringResult(results);
+        return results == null ? null : Utils.toStringResult(field.getSelectedOptions(results));
     }
 
 }

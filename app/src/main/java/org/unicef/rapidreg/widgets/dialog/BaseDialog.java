@@ -13,7 +13,9 @@ import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.BaseAlertDialog;
 import org.unicef.rapidreg.forms.Field;
+import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
+import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.viewholder.GenericViewHolder;
 
 import java.util.ArrayList;
@@ -98,7 +100,7 @@ public abstract class BaseDialog {
     }
 
     protected String getDisplayText() {
-        return getResult() == null ? null : getResult().toString();
+        return getResult() == null ? null : field.getSingleSelectedOptions(getResult().toString());
     }
 
     public String verifyResult() {

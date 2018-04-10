@@ -6,6 +6,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.lookups.Option;
+import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 import org.unicef.rapidreg.widgets.dialog.BaseDialog;
 import org.unicef.rapidreg.widgets.dialog.DateDialog;
 import org.unicef.rapidreg.widgets.dialog.MultipleSelectDialog;
@@ -70,6 +72,9 @@ public class Field {
     @SerializedName("option_strings_text")
     @Expose
     private Map<String, List> optionStringsText;
+    @SerializedName("option_strings_source")
+    @Expose
+    private String optionStringSource;
     @SerializedName("subform")
     @Expose
     private Section subForm;
@@ -146,6 +151,12 @@ public class Field {
 
     public void setOptionStringsText(Map<String, List> optionStringsText) {
         this.optionStringsText = optionStringsText;
+    }
+
+    public String getOptionStringSource() { return optionStringSource; }
+
+    public void setOptionStringSource(String source) {
+        this.optionStringSource = source;
     }
 
     public Section getSubForm() {
@@ -248,6 +259,8 @@ public class Field {
         return getSelectOptions().size() > 2;
     }
 
+    public boolean hasSelectOptions() { return getSelectOptions().size() > 0; }
+
     public boolean isMarkForMobileField() {
         return TextUtils.equals(this.name, FIELD_NAME_MARK_FOR_MOBILE);
     }
@@ -260,18 +273,22 @@ public class Field {
         return TextUtils.equals(this.name, FIELD_NAME_DATE_OF_BIRTH);
     }
 
-    public List<String> getSelectOptions() {
+    public List<Option> getSelectOptions() {
         String language = PrimeroAppConfiguration.getDefaultLanguage();
 
-        List<String> items = new ArrayList<>();
-        if (getType().equals(Field.TYPE_MULTI_SELECT_BOX)) {
-            List<Map<String, String>> arrayList = getOptionStringsText().get(language);
-            for (Map<String, String> map : arrayList) {
-                items.add(map.get("display_text"));
-            }
+        List<Option> items = new ArrayList<>();
+
+        if (getOptionStringSource() != null) {
+            items = GlobalLookupCache.getLookup(getOptionStringSource().replaceAll("lookup\\s", ""));
         } else {
-            items = getOptionStringsText().get(language);
+            List<Map<String, String>> list = getOptionStringsText().get(language);
+
+            for (Map<String, String> option: list) {
+                items.add(new Option(option.get("id"), option.get("display_text")));
+            }
+
         }
+
         return items;
     }
 
@@ -303,6 +320,7 @@ public class Field {
         newField.setDisplayName(displayName);
         newField.setHelpText(helpText);
         newField.setOptionStringsText(optionStringsText);
+        newField.setOptionStringSource(optionStringSource);
         newField.setSubForm(subForm);
         newField.setShowOnMiniForm(isShowOnMiniForm);
         newField.setParent(parent);
@@ -342,39 +360,19 @@ public class Field {
         public static final String AGE_KEY = "age";
     }
 
-    public List<String> getSelectOptionValuesIfSelectable() {
-        if (!(isSelectField() || isRadioButton())){
-            throw new IllegalStateException("Filed is not multiple selectable");
-        }
-        String language = PrimeroAppConfiguration.getDefaultLanguage();
-        List<String> items = new ArrayList<>();
-
-        List<Object> options = getOptionStringsText().get(language);
-        if (options.get(0) instanceof Map) {
-            List<Map<String, String>> arrayList = getOptionStringsText().get(language);
-            for (Map<String, String> map : arrayList) {
-                items.add(map.get("display_text"));
-            }
-            return items;
-        }
-        return getOptionStringsText().get(language);
+    public List<String> getSelectedOptions(List<String> results) {
+        return GlobalLookupCache.getSelectedOptions(getSelectOptions(), results);
     }
 
-    public List<String> getSelectOptionKeysIfMultiple() {
-        if (!isMultiSelect()){
-            throw new IllegalStateException("Filed is not multiple selectable");
+    public String getSingleSelectedOptions(String result) {
+        if (hasSelectOptions()) {
+            return GlobalLookupCache.getSingleSelectedOptions(getSelectOptions(), result).getDisplayText();
+        } else {
+            return result;
         }
-        String language = PrimeroAppConfiguration.getDefaultLanguage();
-        List<Object> options = getOptionStringsText().get(language);
-        if (options.get(0) instanceof Map) {
-            List<String> items = new ArrayList<>();
-            List<Map<String, String>> arrayList = getOptionStringsText().get(language);
-            for (Map<String, String> map : arrayList) {
-                items.add(map.get("id"));
-            }
-            return items;
-        }
-        return getOptionStringsText().get(language);
     }
 
+    public int getSelectOptionIndex(String result) {
+        return GlobalLookupCache.getSelectOptionIndex(getSelectOptions(), result);
+    }
 }
