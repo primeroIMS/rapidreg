@@ -47,7 +47,7 @@ public class GlobalLookupCache {
         List<String> selected = new ArrayList<>();
 
         for (Option option: options) {
-            if (results.contains(option.getId())) {
+            if (results.contains(option.getId()) || results.contains(option.getDisplayText())) {
                 selected.add(option.getDisplayText());
             }
         }

@@ -19,11 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
+import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -204,9 +206,7 @@ public class IncidentFormServiceImplTest {
         expectedList.add(new Option("loc2", "Syria::Tartus"));
         expectedList.add(new Option("loc3", "Syria::Damascus"));
 
-        assertTrue(expectedList.get(0).getDisplayText().equals(selectOptions.get(0).getDisplayText()));
-        assertTrue(expectedList.get(1).getDisplayText().equals(selectOptions.get(1).getDisplayText()));
-        assertTrue(expectedList.get(2).getDisplayText().equals(selectOptions.get(2).getDisplayText()));
+        assertThat(expectedList, samePropertyValuesAs(selectOptions));
     }
 
     @Test
@@ -270,9 +270,7 @@ public class IncidentFormServiceImplTest {
         expectedList.add(new Option("loc2", "Sexual Assault"));
         expectedList.add(new Option("loc3", "Physical Assault"));
 
-        assertTrue(expectedList.get(0).getDisplayText().equals(selectOptions.get(0).getDisplayText()));
-        assertTrue(expectedList.get(1).getDisplayText().equals(selectOptions.get(1).getDisplayText()));
-        assertTrue(expectedList.get(2).getDisplayText().equals(selectOptions.get(2).getDisplayText()));
+        assertThat(expectedList, samePropertyValuesAs(selectOptions));
     }
 
     @Test
