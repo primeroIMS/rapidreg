@@ -8,12 +8,14 @@ import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.service.RecordService;
+import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.TextUtils;
 
 import butterknife.BindView;
 
 public class IncidentMiniFormProfileViewHolder extends MiniFormProfileViewHolder {
+    public static final String LOCATION_LOOKUP = "Location";
 
     @BindView(R.id.incident_id_normal_state)
     TextView incidentIdView;
@@ -45,7 +47,8 @@ public class IncidentMiniFormProfileViewHolder extends MiniFormProfileViewHolder
         containerIncidentListItem.setVisibility(View.VISIBLE);
         String locationText = TextUtils.truncateByDoubleColons(itemValues.getAsString(RecordService.INCIDENT_LOCATION),
                 PrimeroAppConfiguration.getCurrentSystemSettings().getDistrictLevel());
-        incidentLocation.setText(TextUtils.isEmpty(locationText) ? "---" : locationText);
+        incidentLocation.setText(TextUtils.isEmpty(locationText) ? "---" :
+                GlobalLookupCache.translationValueByLookup(LOCATION_LOOKUP, locationText));
         incidentRegistrationDate.setText(itemValues.getAsString(ItemValuesMap.RecordProfile
                 .REGISTRATION_DATE));
         incidentIdView.setText(itemValues.getAsString(ItemValuesMap.RecordProfile.ID_NORMAL_STATE));

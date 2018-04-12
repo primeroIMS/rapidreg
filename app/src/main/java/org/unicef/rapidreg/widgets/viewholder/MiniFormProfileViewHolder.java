@@ -9,6 +9,7 @@ import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.TracingService;
+import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.TextUtils;
 
@@ -20,6 +21,7 @@ import static android.view.View.GONE;
 public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
 
     public static final String TAG = MiniFormProfileViewHolder.class.getSimpleName();
+    public static final String GENDER_LOOKUP = "lookup-gender";
 
     @BindView(R.id.id_normal_state)
     TextView idView;
@@ -50,7 +52,7 @@ public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
 
         // TODO: Should show display text when I18n
         String gender = itemValues.getAsString(RecordService.SEX);
-        genderName.setText(TextUtils.isEmpty(gender) ? "---" : gender);
+        genderName.setText(TextUtils.isEmpty(gender) ? "---" : GlobalLookupCache.translationValueByLookup(GENDER_LOOKUP, gender));
 
         registrationDate.setText(itemValues.getAsString(ItemValuesMap.RecordProfile
                 .REGISTRATION_DATE));
