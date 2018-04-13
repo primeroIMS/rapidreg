@@ -18,8 +18,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.model.Incident;
 import org.unicef.rapidreg.model.RecordModel;
+import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 import org.unicef.rapidreg.utils.TextUtils;
 
 import java.text.DateFormat;
@@ -229,6 +231,8 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
             int position = getAdapterPosition();
             deleteStateCheckBox.setTag(recordList.get(position));
 
+            final String GENDER_LOOKUP = "lookup-gender";
+            final String LOCATION_LOOKUP = "Location";
 
 
             Glide
@@ -242,8 +246,8 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
             idNormalState.setText(shortUUID);
             idHiddenState.setText(shortUUID);
 
-            // TODO: Should show display text when I18n
-            genderName.setText(TextUtils.isEmpty(gender) ? "---" : gender);
+            genderName.setText(TextUtils.isEmpty(gender) ? "---" :
+                    GlobalLookupCache.translationValueByLookup(GENDER_LOOKUP, gender));
 
             age.setText(isValidAge(ageContent) ? ageContent : "---");
 
@@ -277,7 +281,8 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
                 containerIncidentListItem.setVisibility(View.VISIBLE);
                 String locationText = TextUtils.truncateByDoubleColons(((Incident) record).getLocation(),
                         PrimeroAppConfiguration.getCurrentSystemSettings().getDistrictLevel());
-                incidentLocation.setText(TextUtils.isEmpty(locationText) ? "---" : locationText);
+                incidentLocation.setText(TextUtils.isEmpty(locationText) ? "---" :
+                        GlobalLookupCache.translationValueByLookup(LOCATION_LOOKUP, locationText));
                 incidentIdNormalState.setText(shortUUID);
                 incidentAge.setText(isValidAge(ageContent) ? ageContent : "---");
                 incidentRegistrationDate.setText(registrationDateText);
