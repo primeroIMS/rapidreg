@@ -18,6 +18,7 @@ import org.unicef.rapidreg.model.TracingForm;
 import org.unicef.rapidreg.service.CaseFormService;
 import org.unicef.rapidreg.service.FormRemoteService;
 import org.unicef.rapidreg.service.IncidentFormService;
+import org.unicef.rapidreg.service.LookupService;
 import org.unicef.rapidreg.service.SystemSettingsService;
 import org.unicef.rapidreg.service.TracingFormService;
 
@@ -39,6 +40,7 @@ public class AppRemotePresenterTest {
     private TracingFormService tracingFormService;
     private IncidentFormService incidentFormService;
     private SystemSettingsService systemSettingsService;
+    private LookupService lookupService;
 
     private AppRemotePresenter appRemotePresenter;
 
@@ -51,11 +53,13 @@ public class AppRemotePresenterTest {
         tracingFormService = mock(TracingFormService.class);
         incidentFormService = mock(IncidentFormService.class);
         systemSettingsService = mock(SystemSettingsService.class);
+        lookupService = mock(LookupService.class);
 
         appRemotePresenter = new AppRemotePresenter(formRemoteService,
                 caseFormService,
                 tracingFormService,
                 incidentFormService,
+                lookupService,
                 systemSettingsService);
     }
 

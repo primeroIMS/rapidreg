@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.repository.IncidentFormDao;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.forms.IncidentTemplateForm;
@@ -14,14 +15,17 @@ import org.unicef.rapidreg.forms.Section;
 import org.unicef.rapidreg.model.IncidentForm;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
+import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -171,9 +175,9 @@ public class IncidentFormServiceImplTest {
                 "        \"name\": \"incident_location\",\n" +
                 "        \"option_strings_text\": {\n" +
                 "          \"en\": [\n" +
-                "            \"Syria::Other\",\n" +
-                "            \"Syria::Tartus\",\n" +
-                "            \"Syria::Damascus\"\n" +
+                "            { \"id\": \"loc1\", \"display_text\": \"Syria::Other\" },\n" +
+                "            { \"id\": \"loc2\", \"display_text\": \"Syria::Tartus\" },\n" +
+                "            { \"id\": \"loc3\", \"display_text\": \"Syria::Damascus\" } \n" +
                 "          ]\n" +
                 "        },\n" +
                 "        \"required\": false,\n" +
@@ -193,12 +197,16 @@ public class IncidentFormServiceImplTest {
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob(formForm.getBytes()));
         when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
-        List<String> selectOptions = incidentFormService.getLocationList();
+        List<Option> selectOptions = incidentFormService.getLocationList();
 
         assertThat(selectOptions.size(), is(3));
 
-        List<String> expectedList = Arrays.asList(new String[]{"Syria::Other", "Syria::Tartus", "Syria::Damascus"});
-        assertTrue(expectedList.equals(selectOptions));
+        List<Option> expectedList = new ArrayList<>();
+        expectedList.add(new Option("loc1", "Syria::Other"));
+        expectedList.add(new Option("loc2", "Syria::Tartus"));
+        expectedList.add(new Option("loc3", "Syria::Damascus"));
+
+        assertThat(expectedList, samePropertyValuesAs(selectOptions));
     }
 
     @Test
@@ -207,7 +215,7 @@ public class IncidentFormServiceImplTest {
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob(formForm.getBytes()));
         when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
-        List<String> selectOptions = incidentFormService.getLocationList();
+        List<Option> selectOptions = incidentFormService.getLocationList();
         assertThat(selectOptions.size(), is(0));
     }
 
@@ -231,9 +239,9 @@ public class IncidentFormServiceImplTest {
                 "        \"name\": \"gbv_sexual_violence_type\",\n" +
                 "        \"option_strings_text\": {\n" +
                 "          \"en\": [\n" +
-                "          \"Rape\",\n" +
-                "          \"Sexual Assault\",\n" +
-                "          \"Physical Assault\"\n" +
+                "          { \"id\": \"rape\", \"display_text\": \"Rape\" },\n" +
+                "          { \"id\": \"sexual_assault\", \"display_text\": \"Sexual Assault\" },\n" +
+                "          { \"id\": \"physical_assault\", \"display_text\": \"Physical Assault\" } \n" +
                 "          ]\n" +
                 "        },\n" +
                 "        \"required\": false,\n" +
@@ -253,12 +261,16 @@ public class IncidentFormServiceImplTest {
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob(formForm.getBytes()));
         when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
-        List<String> selectOptions = incidentFormService.getViolenceTypeList();
+        List<Option> selectOptions = incidentFormService.getViolenceTypeList();
 
         assertThat(selectOptions.size(), is(3));
 
-        List<String> expectedList = Arrays.asList(new String[]{"Rape", "Sexual Assault", "Physical Assault"});
-        assertTrue(expectedList.equals(selectOptions));
+        List<Option> expectedList = new ArrayList<>();
+        expectedList.add(new Option("loc1", "Rape"));
+        expectedList.add(new Option("loc2", "Sexual Assault"));
+        expectedList.add(new Option("loc3", "Physical Assault"));
+
+        assertThat(expectedList, samePropertyValuesAs(selectOptions));
     }
 
     @Test
@@ -267,7 +279,7 @@ public class IncidentFormServiceImplTest {
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob(formForm.getBytes()));
         when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
-        List<String> selectOptions = incidentFormService.getViolenceTypeList();
+        List<Option> selectOptions = incidentFormService.getViolenceTypeList();
         assertThat(selectOptions.size(), is(0));
     }
 }
