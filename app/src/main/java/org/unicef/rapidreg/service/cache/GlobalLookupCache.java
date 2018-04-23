@@ -68,7 +68,7 @@ public class GlobalLookupCache {
         return selected;
     }
 
-    public static String translationValueByLookup(String lookup, String value) {
+    public static String translationValueByLookup(final String lookup, final String value) {
         return getSingleSelectedOptions(getLookup(lookup), value).getDisplayText();
     }
 }
