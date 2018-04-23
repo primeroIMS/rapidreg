@@ -14,14 +14,14 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/case_register_field_padding_top_bottom"
-        android:paddingLeft="@dimen/case_register_field_padding_left_right"
-        android:paddingRight="@dimen/case_register_field_padding_left_right">
+        android:paddingStart="@dimen/case_register_field_padding_left_right"
+        android:paddingEnd="@dimen/case_register_field_padding_left_right">
 
         <RadioButton
             android:id="@+id/date_radio_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginStart="@dimen/size_10"
             android:scaleX="@dimen/button_icon_scale"
             android:scaleY="@dimen/button_icon_scale" />
 
@@ -29,7 +29,7 @@
             android:id="@+id/date_radio_button_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginStart="@dimen/size_10"
             android:layout_weight="4"
             android:textColor="@color/gray"
             android:text="@string/date_text"
@@ -39,7 +39,7 @@
             android:id="@+id/date_range_radio_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginStart="@dimen/size_10"
             android:textColor="@color/gray"
             android:scaleX="@dimen/button_icon_scale"
             android:scaleY="@dimen/button_icon_scale" />
@@ -48,7 +48,7 @@
             android:id="@+id/second_radio_button_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginStart="@dimen/size_10"
             android:text="@string/date_range"
             android:textColor="@color/gray"
             android:layout_weight="4"
@@ -59,7 +59,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/case_register_label_padding_left_right"
+        android:paddingStart="@dimen/case_register_label_padding_left_right"
         android:layout_gravity="center_vertical">
 
         <LinearLayout
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginStart="@dimen/size_10"
             android:visibility="gone">
 
             <TextView
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginStart="@dimen/size_10"
             android:visibility="gone">
 
             <LinearLayout

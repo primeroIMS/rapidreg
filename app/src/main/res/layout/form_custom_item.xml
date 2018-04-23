@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/size_10"
         android:paddingTop="@dimen/size_10"
-        android:paddingLeft="@dimen/size_10"
+        android:paddingStart="@dimen/size_10"
         android:textAllCaps="false"
         android:textColor="@color/primero_blue"
         android:textSize="@dimen/text_size_14" />

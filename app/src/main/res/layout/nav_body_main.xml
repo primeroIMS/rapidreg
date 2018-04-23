@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/nav_cases"
         style="@style/NavigationItemTextViewStyle"
-        android:drawableLeft="@drawable/cases"
+        android:drawableStart="@drawable/cases"
         android:text="@string/cases" />
 
     <TextView style="@style/NavigationItemLine"/>
@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/nav_tracing"
         style="@style/NavigationItemTextViewStyle"
-        android:drawableLeft="@drawable/tracing"
+        android:drawableStart="@drawable/tracing"
         android:text="@string/tracing" />
 
     <TextView style="@style/NavigationItemLine" />
@@ -25,7 +25,7 @@
     <TextView
         android:id="@+id/nav_incident"
         style="@style/NavigationItemTextViewStyle"
-        android:drawableLeft="@drawable/ic_assignment_blue_24dp"
+        android:drawableStart="@drawable/ic_assignment_blue_24dp"
         android:text="@string/incidents" />
 
     <TextView style="@style/NavigationItemLine" />
@@ -33,7 +33,7 @@
     <TextView
         android:id="@+id/nav_sync"
         style="@style/NavigationItemTextViewStyle"
-        android:drawableLeft="@drawable/ic_autorenew_black_24dp"
+        android:drawableStart="@drawable/ic_autorenew_black_24dp"
         android:text="@string/sync" />
 
     <TextView style="@style/NavigationItemLine" />

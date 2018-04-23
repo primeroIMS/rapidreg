@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/size_10"
-            android:paddingRight="@dimen/size_10"
+            android:paddingEnd="@dimen/size_10"
             android:paddingTop="@dimen/size_10">
 
             <ImageButton
@@ -32,8 +32,8 @@
                 android:id="@+id/toolbar_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/size_10"
-                android:layout_marginRight="@dimen/size_10"
+                android:layout_marginStart="@dimen/size_10"
+                android:layout_marginEnd="@dimen/size_10"
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:text="@string/toolbar_title_text_placeholder"
@@ -51,21 +51,21 @@
                     android:id="@+id/delete_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/size_10"
+                    android:layout_marginEnd="@dimen/size_10"
                     android:background="@drawable/ic_delete_white_24dp" />
 
                 <ImageButton
                     android:id="@+id/toggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/size_10"
+                    android:layout_marginEnd="@dimen/size_10"
                     android:background="@drawable/ic_visibility_white_24dp" />
 
                 <TextView
                     android:id="@+id/save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/size_10"
+                    android:layout_marginEnd="@dimen/size_10"
                     android:clickable="true"
                     android:text="@string/toolbar_save_button_text"
                     android:textColor="@android:color/white"
@@ -76,7 +76,7 @@
                     android:id="@+id/create_incident"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/size_10"
+                    android:layout_marginEnd="@dimen/size_10"
                     android:background="@drawable/ic_add_incident_icon_white_24dp"
                     android:visibility="gone" />
 
@@ -99,7 +99,7 @@
                     android:id="@+id/select_all_image_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/size_10"
+                    android:layout_marginEnd="@dimen/size_10"
                     android:background="@drawable/ic_check_box_outline_blank_white_24dp" />
 
                 <TextView

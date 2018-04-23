@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingBottom="@dimen/size_10"
-        android:paddingLeft="@dimen/size_15"
-        android:paddingRight="@dimen/size_15"
+        android:paddingStart="@dimen/size_15"
+        android:paddingEnd="@dimen/size_15"
         android:paddingTop="@dimen/size_10"
         android:weightSum="10">
 

@@ -10,8 +10,8 @@
         android:id="@+id/dialog_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/dialog_title_padding"
-        android:paddingRight="@dimen/dialog_title_padding"
+        android:paddingStart="@dimen/dialog_title_padding"
+        android:paddingEnd="@dimen/dialog_title_padding"
         android:paddingTop="@dimen/dialog_title_padding"
         android:textColor="@color/black"
         android:textSize="@dimen/progress_dialog_message_text_size" />

@@ -8,7 +8,7 @@
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="30sp"
+        android:paddingStart="30sp"
         android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
         android:textSize="15sp" />
 
