@@ -20,16 +20,16 @@
             android:id="@+id/record_button"
             android:layout_width="@dimen/camera_photo_size"
             android:layout_height="@dimen/camera_photo_size"
-            android:paddingLeft="@dimen/case_register_label_padding_left_right"
-            android:paddingRight="@dimen/case_register_label_padding_left_right"
+            android:paddingStart="@dimen/case_register_label_padding_left_right"
+            android:paddingEnd="@dimen/case_register_label_padding_left_right"
             android:src="@drawable/mic_rec_210"/>
 
         <ImageView
             android:id="@+id/play_button"
             android:layout_width="@dimen/camera_photo_size"
             android:layout_height="@dimen/camera_photo_size"
-            android:paddingLeft="@dimen/case_register_label_padding_left_right"
-            android:paddingRight="@dimen/case_register_label_padding_left_right"
+            android:paddingStart="@dimen/case_register_label_padding_left_right"
+            android:paddingEnd="@dimen/case_register_label_padding_left_right"
             android:src="@drawable/play_210"
             android:visibility="gone"/>
 
@@ -40,8 +40,8 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:paddingLeft="@dimen/case_register_field_padding_left_right"
-            android:paddingRight="@dimen/case_register_field_padding_left_right"
+            android:paddingStart="@dimen/case_register_field_padding_left_right"
+            android:paddingEnd="@dimen/case_register_field_padding_left_right"
             android:text=""
             android:textColor="@color/primero_font_medium"
             android:textSize="@dimen/text_size_16"/>
@@ -51,7 +51,7 @@
             android:layout_width="@dimen/record_delete_button_size"
             android:layout_height="@dimen/record_delete_button_size"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/case_register_field_padding_left_right"
+            android:layout_marginEnd="@dimen/case_register_field_padding_left_right"
             android:src="@drawable/recycle_bin"
             android:visibility="gone"/>
 

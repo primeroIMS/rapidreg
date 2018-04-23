@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/size_10"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/size_30"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -35,7 +35,7 @@
                     android:id="@+id/login_user_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_5"
+                    android:layout_marginStart="@dimen/size_5"
                     android:text="Current user"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_18" />
@@ -44,7 +44,7 @@
                     android:id="@+id/organization"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_5"
+                    android:layout_marginStart="@dimen/size_5"
                     android:text="Current agant"
                     android:textColor="@color/snow"
                     android:textSize="@dimen/text_size_18" />
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:clickable="true"
                 android:paddingTop="@dimen/size_15"
                 android:src="@drawable/ic_exit_to_app_white_24dp" />

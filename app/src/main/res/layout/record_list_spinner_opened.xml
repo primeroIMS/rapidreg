@@ -17,7 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="9"
-        android:paddingLeft="@dimen/size_5"
+        android:paddingStart="@dimen/size_5"
         android:textColor="@color/primero_font_dark"
         android:textSize="@dimen/text_size_16" />
 </LinearLayout>

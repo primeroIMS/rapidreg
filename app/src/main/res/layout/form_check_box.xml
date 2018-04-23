@@ -18,8 +18,8 @@
             android:layout_height="match_parent"
             android:layout_weight="9"
             android:paddingBottom="@dimen/case_register_field_padding_top_bottom"
-            android:paddingLeft="@dimen/size_15"
-            android:paddingRight="@dimen/case_register_label_padding_left_right"
+            android:paddingStart="@dimen/size_15"
+            android:paddingEnd="@dimen/case_register_label_padding_left_right"
             android:paddingTop="@dimen/case_register_field_padding_top_bottom"
             android:textColor="@color/nav_text_black"
             android:textSize="@dimen/text_size_16" />
@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginRight="@dimen/size_10"
+            android:layout_marginEnd="@dimen/size_10"
             android:gravity="center">
             <CheckBox
                 android:id="@+id/value"

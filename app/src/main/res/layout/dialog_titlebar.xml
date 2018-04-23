@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/dialog_title_padding"
-        android:paddingLeft="@dimen/dialog_title_padding"
-        android:paddingRight="@dimen/dialog_title_padding"
+        android:paddingStart="@dimen/dialog_title_padding"
+        android:paddingEnd="@dimen/dialog_title_padding"
         android:text="@string/dialog_title_text_placeholder"
         android:textSize="@dimen/dialog_title_text_size" />
 

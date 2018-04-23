@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/sync_padding_top_bottom"
-    android:paddingLeft="@dimen/sync_padding_left_right"
-    android:paddingRight="@dimen/sync_padding_left_right"
+    android:paddingStart="@dimen/sync_padding_left_right"
+    android:paddingEnd="@dimen/sync_padding_left_right"
     android:paddingTop="@dimen/sync_padding_top_bottom">
 
     <LinearLayout

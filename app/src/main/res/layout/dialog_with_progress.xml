@@ -15,7 +15,7 @@
         android:id="@+id/dialog_progress_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/progress_dialog_message_marging"
+        android:layout_marginStart="@dimen/progress_dialog_message_marging"
         android:text="@string/dialog_progress_message_text_placeholder"
         android:textSize="@dimen/progress_dialog_message_text_size"
         android:layout_weight="8"/>
