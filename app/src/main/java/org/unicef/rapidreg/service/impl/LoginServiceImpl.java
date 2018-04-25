@@ -75,6 +75,8 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
                         user.setLanguage(responseBody.getLanguage());
                         user.setVerified(responseBody.getVerified());
 
+                        PrimeroAppConfiguration.setDefaultLanguage(responseBody.getLanguage());
+
                         userDao.saveOrUpdateUser(user);
                         callback.onSuccessful(getSessionId(response.headers()), user);
                     } else {
