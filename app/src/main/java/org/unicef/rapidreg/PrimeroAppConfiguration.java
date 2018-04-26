@@ -26,6 +26,8 @@ public class PrimeroAppConfiguration {
 
     private static SystemSettings currentSystemSettings;
 
+    private static String currentLanguage = "en";
+
     public static String getApiBaseUrl() {
         return apiBaseUrl;
     }
@@ -71,8 +73,12 @@ public class PrimeroAppConfiguration {
         PrimeroAppConfiguration.internalFilePath = internalFilePath;
     }
 
+    public static void setDefaultLanguage(String language) {
+        PrimeroAppConfiguration.currentLanguage = language;
+    }
+
     public static String getDefaultLanguage() {
-        return "en";
+        return currentLanguage;
     }
 
     public static String getDatabaseName() {

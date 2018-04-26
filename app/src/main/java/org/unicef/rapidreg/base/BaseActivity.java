@@ -1,6 +1,7 @@
 package org.unicef.rapidreg.base;
 
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +29,8 @@ import org.unicef.rapidreg.injection.module.ActivityModule;
 import org.unicef.rapidreg.login.AccountManager;
 import org.unicef.rapidreg.model.User;
 import org.unicef.rapidreg.utils.Utils;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -139,6 +142,11 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         initNavigationHeader();
         initNavigationItemMenu();
         drawer.openDrawer(GravityCompat.START);
+
+        Configuration configuration = getResources().getConfiguration();
+        configuration.setLayoutDirection(new Locale(PrimeroAppConfiguration.getDefaultLanguage()));
+        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+
     }
 
     private void doCloseIfNotLogin() {
