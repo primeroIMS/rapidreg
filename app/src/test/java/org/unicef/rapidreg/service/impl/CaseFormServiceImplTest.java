@@ -89,7 +89,7 @@ public class CaseFormServiceImplTest {
         Mockito.when(PrimeroAppConfiguration.getCurrentUser()).thenReturn(user);
 
         CaseForm cpCaseForm = createCPCaseForm();
-        when(caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl()))
+        when(caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()))
                 .thenReturn(cpCaseForm);
 
         assertTrue(caseFormService.isReady());
@@ -100,7 +100,7 @@ public class CaseFormServiceImplTest {
         User user = new User();
         user.setRole(User.Role.CP.getValue());
         Mockito.when(PrimeroAppConfiguration.getCurrentUser()).thenReturn(user);
-        when(caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl()))
+        when(caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()))
                 .thenReturn(null);
 
         assertFalse(caseFormService.isReady());
@@ -109,7 +109,7 @@ public class CaseFormServiceImplTest {
     @Test
     public void should_save_case_form_if_not_exist() throws Exception {
         CaseForm caseForm = mock(CaseForm.class);
-        when(caseFormDao.getCaseForm("primeromodule-cp", PrimeroAppConfiguration.getApiBaseUrl())).thenReturn(null);
+        when(caseFormDao.getCaseForm("primeromodule-cp", PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn(null);
 
         caseFormService.saveOrUpdate(caseForm);
 
@@ -122,7 +122,7 @@ public class CaseFormServiceImplTest {
         when(caseForm.getModuleId()).thenReturn("primeromodule-cp");
         Blob formBlob = mock(Blob.class);
         when(caseForm.getForm()).thenReturn(formBlob);
-        when(caseFormDao.getCaseForm("primeromodule-cp", PrimeroAppConfiguration.getApiBaseUrl())).thenReturn(caseForm);
+        when(caseFormDao.getCaseForm("primeromodule-cp", PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn(caseForm);
 
         caseFormService.saveOrUpdate(caseForm);
 
@@ -134,7 +134,7 @@ public class CaseFormServiceImplTest {
     public void should_get_cp_case_form() throws IOException {
         CaseForm caseForm = new CaseForm();
         caseForm.setForm(new Blob(formForm.getBytes()));
-        when(caseFormDao.getCaseForm(anyString(), anyString())).thenReturn(caseForm);
+        when(caseFormDao.getCaseForm(anyString(), anyString(), anyString())).thenReturn(caseForm);
         CaseTemplateForm form = caseFormService.getCPTemplate();
 
         assertThat(form.getSections().size(), is(1));
@@ -158,7 +158,7 @@ public class CaseFormServiceImplTest {
     public void should_get_gbv_case_form() throws Exception {
         CaseForm caseForm = new CaseForm();
         caseForm.setForm(new Blob(formForm.getBytes()));
-        when(caseFormDao.getCaseForm(anyString(), anyString())).thenReturn(caseForm);
+        when(caseFormDao.getCaseForm(anyString(), anyString(), anyString())).thenReturn(caseForm);
 
         CaseTemplateForm form = caseFormService.getGBVTemplate();
 

@@ -30,14 +30,14 @@ public class IncidentFormServiceImpl implements IncidentFormService {
 
     public boolean isReady() {
         IncidentForm incidentForm = incidentFormDao.getIncidentForm(PrimeroAppConfiguration
-                .MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl());
+                .MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
         return incidentForm != null && incidentForm.getForm() != null;
     }
 
     @Override
     public IncidentTemplateForm getGBVTemplate() {
         Blob form = incidentFormDao.getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration
-                .getApiBaseUrl()).getForm();
+                .getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()).getForm();
         return getIncidentTemplateForm(form);
     }
 
@@ -51,9 +51,11 @@ public class IncidentFormServiceImpl implements IncidentFormService {
 
     public void saveOrUpdate(IncidentForm incidentForm) {
         IncidentForm existingIncidentForm = incidentFormDao.getIncidentForm(incidentForm.
-                getModuleId(),PrimeroAppConfiguration.getApiBaseUrl());
+                getModuleId(),PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
         if (existingIncidentForm == null) {
             incidentForm.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
+            incidentForm.setFormLocale(PrimeroAppConfiguration.getDefaultLanguage());
+
             incidentForm.save();
         } else {
             existingIncidentForm.setForm(incidentForm.getForm());

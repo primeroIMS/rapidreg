@@ -8,10 +8,11 @@ import org.unicef.rapidreg.repository.IncidentFormDao;
 
 public class IncidentFormDaoImpl implements IncidentFormDao {
     @Override
-    public IncidentForm getIncidentForm(String moduleId, String apiBaseUrl) {
+    public IncidentForm getIncidentForm(String moduleId, String apiBaseUrl, String formLocale) {
         return SQLite.select().from(IncidentForm.class)
                 .where(IncidentForm_Table.module_id.eq(moduleId))
                 .and(IncidentForm_Table.server_url.eq(apiBaseUrl))
+                .and(IncidentForm_Table.form_locale.eq(formLocale))
                 .querySingle();
     }
 }

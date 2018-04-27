@@ -77,32 +77,32 @@ public class TracingFormServiceImplTest {
     public void should_be_true_when_form_is_ready() {
         TracingForm tracingForm = new TracingForm();
         tracingForm.setForm(new Blob());
-        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl())).thenReturn(tracingForm);
+        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn(tracingForm);
         boolean result = tracingFormService.isReady();
         assertThat(result, is(true));
-        verify(tracingFormDao, times(2)).getTracingForm(PrimeroAppConfiguration.getApiBaseUrl());
+        verify(tracingFormDao, times(2)).getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
     }
 
     @Test
     public void should_be_false_when_form_is_not_exist_in_db() {
-        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl())).thenReturn(null);
+        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn(null);
         assertThat(tracingFormService.isReady(), is(false));
-        verify(tracingFormDao, times(1)).getTracingForm(PrimeroAppConfiguration.getApiBaseUrl());
+        verify(tracingFormDao, times(1)).getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
     }
 
     @Test
     public void should_be_false_when_tracing_form_can_not_get_form() {
         TracingForm tracingForm = new TracingForm();
-        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl())).thenReturn(tracingForm);
+        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn(tracingForm);
         assertThat(tracingFormService.isReady(), is(false));
-        verify(tracingFormDao, times(2)).getTracingForm(PrimeroAppConfiguration.getApiBaseUrl());
+        verify(tracingFormDao, times(2)).getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
     }
 
     @Test
     public void should_get_tracing_form() throws IOException {
         TracingForm tracingForm = new TracingForm();
         tracingForm.setForm(new Blob(formForm.getBytes()));
-        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl())).thenReturn(tracingForm);
+        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn(tracingForm);
         TracingTemplateForm form = tracingFormService.getCPTemplate();
 
         assertThat(form.getSections().size(), is(1));
@@ -128,7 +128,7 @@ public class TracingFormServiceImplTest {
 
     @Test
     public void should_save_when_existing_tracing_form_is_null() {
-        when(tracingFormDao.getTracingForm(anyString())).thenReturn(null);
+        when(tracingFormDao.getTracingForm(anyString(), anyString())).thenReturn(null);
         TracingForm tracingForm = mock(TracingForm.class);
         tracingFormService.saveOrUpdate(tracingForm);
         verify(tracingForm, times(1)).save();
@@ -137,7 +137,7 @@ public class TracingFormServiceImplTest {
     @Test
     public void should_update_when_existing_tracing_form_is_not_null() {
         TracingForm existingTracingForm = mock(TracingForm.class);
-        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl())).thenReturn(existingTracingForm);
+        when(tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn(existingTracingForm);
         TracingForm tracingForm = mock(TracingForm.class);
         tracingFormService.saveOrUpdate(tracingForm);
         verify(existingTracingForm, times(1)).setForm(tracingForm.getForm());
