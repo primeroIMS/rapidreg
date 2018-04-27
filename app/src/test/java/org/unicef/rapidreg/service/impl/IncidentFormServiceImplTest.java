@@ -86,34 +86,34 @@ public class IncidentFormServiceImplTest {
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob());
         when(incidentFormDao.getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration
-                .getApiBaseUrl())).thenReturn
+                .getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn
                 (incidentForm);
         boolean result = incidentFormService.isReady();
         assertThat(result, is(true));
-        verify(incidentFormDao, times(1)).getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl());
+        verify(incidentFormDao, times(1)).getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
     }
 
     @Test
     public void should_be_false_when_form_is_not_exist_in_db() {
-        when(incidentFormDao.getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl())).thenReturn(null);
+        when(incidentFormDao.getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn(null);
         assertThat(incidentFormService.isReady(), is(false));
-        verify(incidentFormDao, times(1)).getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl());
+        verify(incidentFormDao, times(1)).getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
     }
 
     @Test
     public void should_be_false_when_incident_form_can_not_get_form() {
         IncidentForm incidentForm = new IncidentForm();
-        when(incidentFormDao.getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl())).thenReturn
+        when(incidentFormDao.getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())).thenReturn
                 (incidentForm);
             assertThat(incidentFormService.isReady(), is(false));
-        verify(incidentFormDao, times(1)).getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl());
+        verify(incidentFormDao, times(1)).getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
     }
 
     @Test
     public void should_get_incident_form() throws IOException {
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob(formForm.getBytes()));
-        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
+        when(incidentFormDao.getIncidentForm(anyString(), anyString(), anyString())).thenReturn(incidentForm);
         IncidentTemplateForm form = incidentFormService.getGBVTemplate();
 
         assertThat(form.getSections().size(), is(1));
@@ -139,7 +139,7 @@ public class IncidentFormServiceImplTest {
 
     @Test
     public void should_save_when_existing_incident_form_is_null() {
-        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(null);
+        when(incidentFormDao.getIncidentForm(anyString(), anyString(), anyString())).thenReturn(null);
         IncidentForm incidentForm = mock(IncidentForm.class);
         incidentFormService.saveOrUpdate(incidentForm);
         verify(incidentForm, times(1)).save();
@@ -148,7 +148,7 @@ public class IncidentFormServiceImplTest {
     @Test
     public void should_update_when_existing_incident_form_is_not_null() {
         IncidentForm existingIncidentForm = mock(IncidentForm.class);
-        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(existingIncidentForm);
+        when(incidentFormDao.getIncidentForm(anyString(), anyString(), anyString())).thenReturn(existingIncidentForm);
         IncidentForm incidentForm = mock(IncidentForm.class);
         incidentFormService.saveOrUpdate(incidentForm);
         verify(existingIncidentForm,times(1)).setForm(incidentForm.getForm());
@@ -196,7 +196,7 @@ public class IncidentFormServiceImplTest {
 
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob(formForm.getBytes()));
-        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
+        when(incidentFormDao.getIncidentForm(anyString(), anyString(), anyString())).thenReturn(incidentForm);
         List<Option> selectOptions = incidentFormService.getLocationList();
 
         assertThat(selectOptions.size(), is(3));
@@ -214,7 +214,7 @@ public class IncidentFormServiceImplTest {
         formForm = "{\"Incidents\":[]}";
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob(formForm.getBytes()));
-        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
+        when(incidentFormDao.getIncidentForm(anyString(), anyString(), anyString())).thenReturn(incidentForm);
         List<Option> selectOptions = incidentFormService.getLocationList();
         assertThat(selectOptions.size(), is(0));
     }
@@ -260,7 +260,7 @@ public class IncidentFormServiceImplTest {
 
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob(formForm.getBytes()));
-        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
+        when(incidentFormDao.getIncidentForm(anyString(), anyString(), anyString())).thenReturn(incidentForm);
         List<Option> selectOptions = incidentFormService.getViolenceTypeList();
 
         assertThat(selectOptions.size(), is(3));
@@ -278,7 +278,7 @@ public class IncidentFormServiceImplTest {
         formForm = "{\"Incidents\":[]}";
         IncidentForm incidentForm = new IncidentForm();
         incidentForm.setForm(new Blob(formForm.getBytes()));
-        when(incidentFormDao.getIncidentForm(anyString(), anyString())).thenReturn(incidentForm);
+        when(incidentFormDao.getIncidentForm(anyString(), anyString(), anyString())).thenReturn(incidentForm);
         List<Option> selectOptions = incidentFormService.getViolenceTypeList();
         assertThat(selectOptions.size(), is(0));
     }

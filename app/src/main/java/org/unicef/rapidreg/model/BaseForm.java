@@ -18,6 +18,9 @@ public class BaseForm extends BaseModel {
     @Column(name = "server_url")
     private String serverUrl;
 
+    @Column(name = "form_locale")
+    private String formLocale;
+
     public String getModuleId() {
         return moduleId;
     }
@@ -50,6 +53,14 @@ public class BaseForm extends BaseModel {
 
     public void setServerUrl(String serverUrl) {
         this.serverUrl = serverUrl;
+    }
+
+    public String getFormLocale() {
+        return formLocale;
+    }
+
+    public void setFormLocale(String formLocale) {
+        this.formLocale = formLocale;
     }
 
     public void setForm(Blob form) {

@@ -20,13 +20,13 @@ public class TracingFormServiceImpl implements TracingFormService {
     }
 
     public boolean isReady() {
-        return tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl()) != null && tracingFormDao
-                .getTracingForm(PrimeroAppConfiguration.getApiBaseUrl()).getForm
+        return tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()) != null && tracingFormDao
+                .getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()).getForm
                 () != null;
     }
 
     public TracingTemplateForm getCPTemplate() {
-        Blob form = tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl()).getForm();
+        Blob form = tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()).getForm();
         String formJson = new String(form.getBlob());
         if ("".equals(formJson)) {
             return null;
@@ -35,10 +35,12 @@ public class TracingFormServiceImpl implements TracingFormService {
     }
 
     public void saveOrUpdate(TracingForm tracingForm) {
-        TracingForm existingTracingForm = tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl());
+        TracingForm existingTracingForm = tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
         if (existingTracingForm == null) {
             Log.d(TAG, "save new tracing form");
             tracingForm.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
+            tracingForm.setFormLocale(PrimeroAppConfiguration.getDefaultLanguage());
+
             tracingForm.save();
         } else {
             Log.d(TAG, "update existing tracing form");
