@@ -16,8 +16,12 @@ import org.unicef.rapidreg.widgets.dialog.NumericDialog;
 import org.unicef.rapidreg.widgets.dialog.SingleSelectDialog;
 import org.unicef.rapidreg.widgets.dialog.SingleTextDialog;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Field {
@@ -35,6 +39,7 @@ public class Field {
     public static final String TYPE_NUMERIC_FIELD = "numeric_field";
     public static final String TYPE_PHOTO_VIEW_SLIDER = "record_photo_view_slider";
     public static final String TYPE_CUSTOM = "custom";
+    public static final String TYPE_DATE_FIELD = "date_field";
 
     public static final String TYPE_DATE_RANGE = "date_range";
     public static final String TYPE_MINI_FORM_PROFILE = "mini_form_profile";
@@ -374,5 +379,17 @@ public class Field {
 
     public int getSelectOptionIndex(String result) {
         return GlobalLookupCache.getSelectOptionIndex(getSelectOptions(), result);
+    }
+
+    public String getTranslatedDate(String date) {
+        Date parsedDate = null;
+
+        try {
+            parsedDate = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).parse(date);
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+            return dateFormat.format(parsedDate);
+        } catch (Exception e) {
+            return "";
+        }
     }
 }
