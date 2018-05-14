@@ -13,6 +13,11 @@ import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.TextUtils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -22,6 +27,8 @@ public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
 
     public static final String TAG = MiniFormProfileViewHolder.class.getSimpleName();
     public static final String GENDER_LOOKUP = "lookup-gender";
+
+    protected DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
 
     @BindView(R.id.id_normal_state)
     TextView idView;
@@ -54,8 +61,18 @@ public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
         String gender = itemValues.getAsString(RecordService.SEX);
         genderName.setText(TextUtils.isEmpty(gender) ? "---" : GlobalLookupCache.translationValueByLookup(GENDER_LOOKUP, gender));
 
-        registrationDate.setText(itemValues.getAsString(ItemValuesMap.RecordProfile
-                .REGISTRATION_DATE));
+        Date regDate = null;
+        String regDateText = "---";
+
+        try {
+           regDate = new SimpleDateFormat("MMM dd, yyyy", Locale.US)
+                    .parse(itemValues.getAsString(ItemValuesMap.RecordProfile.REGISTRATION_DATE));
+           regDateText = dateFormat.format(regDate);
+        } catch (Exception e) {
+            regDateText = "---";
+        }
+
+        registrationDate.setText(regDateText);
 
         String age = extractAge();
         this.age.setText(TextUtils.isEmpty(age) ? "---" : age);

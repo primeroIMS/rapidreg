@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.cache.GlobalLookupCache;
+import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.dialog.BaseDialog;
 import org.unicef.rapidreg.widgets.dialog.DateDialog;
 import org.unicef.rapidreg.widgets.dialog.MultipleSelectDialog;
@@ -16,9 +17,15 @@ import org.unicef.rapidreg.widgets.dialog.NumericDialog;
 import org.unicef.rapidreg.widgets.dialog.SingleSelectDialog;
 import org.unicef.rapidreg.widgets.dialog.SingleTextDialog;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import static java.util.Date.parse;
 
 public class Field {
     public static final String TYPE_SELECT_BOX = "select_box";
@@ -35,6 +42,7 @@ public class Field {
     public static final String TYPE_NUMERIC_FIELD = "numeric_field";
     public static final String TYPE_PHOTO_VIEW_SLIDER = "record_photo_view_slider";
     public static final String TYPE_CUSTOM = "custom";
+    public static final String TYPE_DATE_FIELD = "date_field";
 
     public static final String TYPE_DATE_RANGE = "date_range";
     public static final String TYPE_MINI_FORM_PROFILE = "mini_form_profile";
@@ -374,5 +382,9 @@ public class Field {
 
     public int getSelectOptionIndex(String result) {
         return GlobalLookupCache.getSelectOptionIndex(getSelectOptions(), result);
+    }
+
+    public String getTranslatedDate(String date) {
+       return Utils.parseDisplayDate(date, PrimeroAppConfiguration.getDefaultLanguage());
     }
 }

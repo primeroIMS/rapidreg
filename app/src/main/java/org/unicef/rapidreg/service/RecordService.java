@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.List;
 import java.util.UUID;
@@ -88,7 +89,7 @@ public class RecordService {
     }
 
     public String getCurrentRegistrationDateAsString() {
-        return new SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date());
+        return new SimpleDateFormat("yyyy/MM/dd", Locale.US).format(new java.util.Date());
     }
 
     public String getSurvivorCode(ItemValuesMap itemValues) {

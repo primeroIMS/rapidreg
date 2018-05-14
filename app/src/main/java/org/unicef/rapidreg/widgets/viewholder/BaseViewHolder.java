@@ -77,6 +77,10 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         Map<String, Object> value = itemValues.getValues();
         Object res = value.get(field.getName());
 
+        if (field.getType().equals(Field.TYPE_DATE_FIELD)) {
+            return field.getTranslatedDate(res.toString());
+        }
+
         if (!(res instanceof List)) {
             return field.getSingleSelectedOptions(res.toString());
         }

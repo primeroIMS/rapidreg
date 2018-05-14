@@ -40,7 +40,7 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
     private static final int TEXT_AREA_HIDDEN_STATE = 1;
 
     protected Context context;
-    protected DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
+    protected DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
     protected List<Long> recordList = new ArrayList<>();
     protected List<Long> recordWillBeDeletedList = new ArrayList<>();
     protected boolean isDetailShow = true;

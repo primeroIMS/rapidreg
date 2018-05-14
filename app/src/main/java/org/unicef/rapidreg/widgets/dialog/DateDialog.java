@@ -12,10 +12,16 @@ import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.PrimeroDatePicker;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import okhttp3.internal.Util;
 
 public class DateDialog extends BaseDialog {
     private String result;
@@ -24,7 +30,7 @@ public class DateDialog extends BaseDialog {
     public DateDialog(Context context, Field field, ItemValuesMap itemValues, TextView
             resultView, ViewSwitcher viewSwitcher) {
         super(context, field, itemValues, resultView, viewSwitcher);
-        result = resultView.getText().toString().trim();
+        result = "";
     }
 
     @Override
@@ -64,7 +70,15 @@ public class DateDialog extends BaseDialog {
                 dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth);
     }
 
+    @Override
+    protected String getDisplayText() {
+        return Utils.parseDisplayDate(getResult(), PrimeroAppConfiguration.getDefaultLanguage());
+    }
+
+
     public static class VerifyDateField {
+
+
         public static final List<String> DATE_VERIFY_DISPLAY_LIST = new ArrayList<>(
                 Arrays.asList("Date of Birth",
                         "What is the survivor's Date of Birth?",
