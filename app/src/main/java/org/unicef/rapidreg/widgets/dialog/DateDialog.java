@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.internal.Util;
+
 public class DateDialog extends BaseDialog {
     private String result;
     private DatePicker datePicker;
@@ -70,16 +72,9 @@ public class DateDialog extends BaseDialog {
 
     @Override
     protected String getDisplayText() {
-        Date date = null;
-
-        try {
-            date = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).parse(getResult());
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-            return dateFormat.format(date);
-        } catch (Exception e) {
-            return "";
-        }
+        return Utils.parseDisplayDate(getResult(), PrimeroAppConfiguration.getDefaultLanguage());
     }
+
 
     public static class VerifyDateField {
 

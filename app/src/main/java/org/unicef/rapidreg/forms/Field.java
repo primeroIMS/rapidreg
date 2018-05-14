@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.lookups.Option;
 import org.unicef.rapidreg.service.cache.GlobalLookupCache;
+import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.dialog.BaseDialog;
 import org.unicef.rapidreg.widgets.dialog.DateDialog;
 import org.unicef.rapidreg.widgets.dialog.MultipleSelectDialog;
@@ -23,6 +24,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import static java.util.Date.parse;
 
 public class Field {
     public static final String TYPE_SELECT_BOX = "select_box";
@@ -382,14 +385,6 @@ public class Field {
     }
 
     public String getTranslatedDate(String date) {
-        Date parsedDate = null;
-
-        try {
-            parsedDate = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).parse(date);
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-            return dateFormat.format(parsedDate);
-        } catch (Exception e) {
-            return "";
-        }
+       return Utils.parseDisplayDate(date, PrimeroAppConfiguration.getDefaultLanguage());
     }
 }

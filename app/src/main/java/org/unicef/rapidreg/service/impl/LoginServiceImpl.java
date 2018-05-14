@@ -18,6 +18,7 @@ import org.unicef.rapidreg.utils.EncryptHelper;
 import org.unicef.rapidreg.utils.TextUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.Headers;
 import rx.Subscription;
@@ -75,6 +76,7 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
                         user.setLanguage(responseBody.getLanguage());
                         user.setVerified(responseBody.getVerified());
 
+                        Locale.setDefault(Locale.forLanguageTag(responseBody.getLanguage()));
                         PrimeroAppConfiguration.setDefaultLanguage(responseBody.getLanguage());
 
                         userDao.saveOrUpdateUser(user);

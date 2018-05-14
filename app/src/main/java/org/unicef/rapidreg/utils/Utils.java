@@ -9,11 +9,13 @@ import android.widget.Toast;
 import org.unicef.rapidreg.R;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Utils {
@@ -59,7 +61,7 @@ public class Utils {
     }
 
     public static Date getRegisterDateAsDdMmYyyy(String registrationDateString) {
-        SimpleDateFormat registrationDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat registrationDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         try {
             java.util.Date date = registrationDateFormat.parse(registrationDateString);
             return new Date(date.getTime());
@@ -69,12 +71,24 @@ public class Utils {
     }
 
     public static Date getRegisterDateByYyyyMmDd(String registrationDateString) {
-        SimpleDateFormat registrationDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat registrationDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
         try {
             java.util.Date date = registrationDateFormat.parse(registrationDateString);
             return new Date(date.getTime());
         } catch (ParseException e) {
             return new Date(System.currentTimeMillis());
+        }
+    }
+
+    public static String parseDisplayDate(String date, String locale) {
+        Date simpleDateFormat = null;
+
+        try {
+            simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US).parse(date);
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.forLanguageTag(locale));
+            return dateFormat.format(simpleDateFormat);
+        } catch (Exception e) {
+            return "";
         }
     }
 
