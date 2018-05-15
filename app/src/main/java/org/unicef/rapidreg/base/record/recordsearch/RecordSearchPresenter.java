@@ -2,18 +2,21 @@ package org.unicef.rapidreg.base.record.recordsearch;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
+import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordlist.RecordListView;
+import org.unicef.rapidreg.utils.Utils;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public abstract class RecordSearchPresenter extends MvpBasePresenter<RecordListView> {
     protected Date getDate(String value) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
         try {
-            java.util.Date date = simpleDateFormat.parse(value);
+            java.util.Date date = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM,
+                    Utils.getLocale(PrimeroAppConfiguration.getDefaultLanguage())).parse(value);
             return new Date(date.getTime());
         } catch (Exception e) {
             return null;

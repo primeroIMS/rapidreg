@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 
 import java.io.File;
@@ -81,15 +82,25 @@ public class Utils {
     }
 
     public static String parseDisplayDate(String date, String locale) {
-        Date simpleDateFormat = null;
+        Date simpleDateFormat;
 
         try {
             simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US).parse(date);
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.forLanguageTag(locale));
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, getLocale(locale));
             return dateFormat.format(simpleDateFormat);
         } catch (Exception e) {
             return "";
         }
+    }
+
+    public static Locale getLocale(String locale) throws Exception {
+        for (Locale loc : Locale.getAvailableLocales()) {
+            if (loc.toString().equals(locale.replace("-", "_"))) {
+                return loc;
+            }
+        }
+
+        throw new Exception("Locale not found");
     }
 
     public static void clearAudioFile(String fileName) {
