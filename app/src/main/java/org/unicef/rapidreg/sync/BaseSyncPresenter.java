@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -20,6 +21,7 @@ import org.unicef.rapidreg.model.Tracing;
 import org.unicef.rapidreg.service.CaseFormService;
 import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.FormRemoteService;
+import org.unicef.rapidreg.service.LookupService;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -34,6 +36,7 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
 
     protected CaseService caseService;
     private CaseFormService caseFormService;
+    private LookupService lookupService;
 
     protected FormRemoteService formRemoteService;
 
@@ -45,11 +48,12 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     private List<Case> cases;
 
     public BaseSyncPresenter(Context context, CaseService caseService, CaseFormService caseFormService,
-                             FormRemoteService formRemoteService) {
+                             FormRemoteService formRemoteService, LookupService lookupService) {
         this.context = context;
         this.caseService = caseService;
         this.caseFormService = caseFormService;
         this.formRemoteService = formRemoteService;
+        this.lookupService = lookupService;
 
         cases = caseService.getAll();
     }
@@ -136,12 +140,27 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
                             syncFail(throwable);
                         },
                         () -> {
+                            downloadLookups();
                             downloadSecondFormByModule();
                             loadingDialog.dismiss();
                         });
     }
 
     protected abstract void downloadSecondFormByModule();
+
+    protected void downloadLookups() {
+        lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage(), true)
+                .subscribe(lookup -> lookupService.saveOrUpdate(lookup, true),
+                        throwable -> syncFail(throwable),
+                        () -> syncPullLookupsSuccessfully());
+    }
+
+    protected void syncPullLookupsSuccessfully() {
+        if (getView() != null && isViewAttached()) {
+            getView().showSyncPullLookupsSuccessMessage();
+            getView().hideSyncProgressDialog();
+        }
+    }
 
 
     protected void syncPullFormSuccessfully() {

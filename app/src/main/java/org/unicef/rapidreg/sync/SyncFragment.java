@@ -74,6 +74,8 @@ public class SyncFragment extends MvpFragment<SyncView, BaseSyncPresenter> imple
     String syncDownloadSuccessMessage;
     @BindString(R.string.sync_pull_form_success_message)
     String syncDownloadFormSuccessMessage;
+    @BindString(R.string.sync_pull_lookups_success_message)
+    String syncDownloadLookupsSuccessMessage;
     @BindString(R.string.try_to_sync_message)
     String tryToSyncMessage;
     @BindString(R.string.not_now_button_text)
@@ -224,6 +226,11 @@ public class SyncFragment extends MvpFragment<SyncView, BaseSyncPresenter> imple
     @Override
     public void showSyncPullFormSuccessMessage() {
         Utils.showMessageByToast(getActivity(), syncDownloadFormSuccessMessage, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void showSyncPullLookupsSuccessMessage() {
+        Utils.showMessageByToast(getActivity(), syncDownloadLookupsSuccessMessage, Toast.LENGTH_SHORT);
     }
 
     @Override

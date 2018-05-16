@@ -22,6 +22,7 @@ import org.unicef.rapidreg.service.CaseFormService;
 import org.unicef.rapidreg.service.CasePhotoService;
 import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.FormRemoteService;
+import org.unicef.rapidreg.service.LookupService;
 import org.unicef.rapidreg.service.SyncCaseService;
 import org.unicef.rapidreg.service.SyncTracingService;
 import org.unicef.rapidreg.service.TracingFormService;
@@ -74,8 +75,9 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                            TracingService tracingService,
                            CaseFormService caseFormService,
                            TracingFormService tracingFormService,
-                           Lazy<FormRemoteService> formRemoteService) {
-        super(context, caseService, caseFormService, formRemoteService.get());
+                           Lazy<FormRemoteService> formRemoteService,
+                           LookupService lookupService) {
+        super(context, caseService, caseFormService, formRemoteService.get(), lookupService);
         this.syncCaseService = syncCaseService.get();
         this.syncTracingService = syncTracingService.get();
         this.casePhotoService = casePhotoService;

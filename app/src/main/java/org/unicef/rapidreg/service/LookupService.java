@@ -7,5 +7,5 @@ import rx.Observable;
 public interface LookupService {
     Observable<Lookup> getLookups(String cookie, String locale, Boolean getAll);
 
-    void saveOrUpdate(Lookup lookup);
+    void saveOrUpdate(Lookup lookup, Boolean forceReload);
 }

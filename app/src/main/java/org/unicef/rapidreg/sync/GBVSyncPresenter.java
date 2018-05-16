@@ -21,6 +21,7 @@ import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.FormRemoteService;
 import org.unicef.rapidreg.service.IncidentFormService;
 import org.unicef.rapidreg.service.IncidentService;
+import org.unicef.rapidreg.service.LookupService;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.SyncCaseService;
 import org.unicef.rapidreg.service.SyncIncidentService;
@@ -62,8 +63,9 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                             CaseService caseService,
                             CaseFormService caseFormService,
                             FormRemoteService formRemoteService,
-                            IncidentService incidentService, Lazy<IncidentFormService> incidentFormService) {
-        super(context, caseService, caseFormService, formRemoteService);
+                            IncidentService incidentService, Lazy<IncidentFormService> incidentFormService,
+                            LookupService lookupService) {
+        super(context, caseService, caseFormService, formRemoteService, lookupService);
         this.incidentService = incidentService;
         this.incidentFormService = incidentFormService.get();
         this.syncIncidentService = syncIncidentService.get();
