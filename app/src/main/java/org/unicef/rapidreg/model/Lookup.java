@@ -25,6 +25,9 @@ public class Lookup extends BaseModel {
     @Column(name = "server_url")
     private String serverUrl;
 
+    @Column(name = "locale")
+    private String locale;
+
     public Lookup() {}
 
     public Lookup(Blob lookups) {
@@ -68,5 +71,13 @@ public class Lookup extends BaseModel {
         }
 
         return result;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 }

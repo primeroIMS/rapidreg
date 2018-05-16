@@ -31,6 +31,8 @@ public interface SyncView extends MvpView {
 
     void showSyncPullFormSuccessMessage();
 
+    void showSyncPullLookupsSuccessMessage();
+
     void showRequestTimeoutSyncErrorMessage();
 
     void showServerNotAvailableSyncErrorMessage();

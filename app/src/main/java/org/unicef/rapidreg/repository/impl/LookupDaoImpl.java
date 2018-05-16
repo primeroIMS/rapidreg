@@ -8,10 +8,11 @@ import org.unicef.rapidreg.repository.LookupDao;
 
 public class LookupDaoImpl implements LookupDao {
     @Override
-    public Lookup getByServerUrl(String apiBaseUrl) {
+    public Lookup getByServerUrlAndLocale(String apiBaseUrl, String locale) {
         return SQLite.select()
                 .from(Lookup.class)
                 .where(Lookup_Table.server_url.eq(apiBaseUrl))
+                .and(Lookup_Table.locale.eq(locale))
                 .querySingle();
     }
 

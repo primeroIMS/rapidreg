@@ -110,7 +110,7 @@ public class AppRemotePresenter {
 
     public void loadLookups() {
         lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage(), true)
-                .subscribe(lookup -> lookupService.saveOrUpdate(lookup),
+                .subscribe(lookup -> lookupService.saveOrUpdate(lookup, false),
                         throwable -> Log.e(TAG, "Lookups Error" + throwable.getMessage()));
     }
 
