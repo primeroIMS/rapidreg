@@ -4,9 +4,11 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordlist.RecordListView;
+import org.unicef.rapidreg.exception.LocaleNotFoundException;
 import org.unicef.rapidreg.utils.Utils;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -14,11 +16,20 @@ import java.util.Map;
 
 public abstract class RecordSearchPresenter extends MvpBasePresenter<RecordListView> {
     protected Date getDate(String value) {
+        Locale locale = null;
+
         try {
-            java.util.Date date = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM,
-                    Utils.getLocale(PrimeroAppConfiguration.getDefaultLanguage())).parse(value);
+            locale = Utils.getLocale(PrimeroAppConfiguration.getDefaultLanguage());
+        } catch (LocaleNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        try {
+            java.util.Date date = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM, locale).parse(value);
             return new Date(date.getTime());
-        } catch (Exception e) {
+        } catch (ParseException e) {
+            e.printStackTrace();
             return null;
         }
     }
