@@ -1,9 +1,16 @@
 package org.unicef.rapidreg.tracing.tracingsearch;
 
+import android.util.Log;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.service.TracingService;
 
 import java.util.ArrayList;
@@ -19,6 +26,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Log.class)
 public class TracingSearchPresenterTest {
 
     @Mock
@@ -30,6 +39,7 @@ public class TracingSearchPresenterTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+        PowerMockito.mockStatic(Log.class);
     }
 
     @Test

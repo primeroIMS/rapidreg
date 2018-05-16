@@ -1,5 +1,7 @@
 package org.unicef.rapidreg.childcase.casesearch;
 
+import android.util.Log;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,20 +12,25 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.base.record.recordsearch.RecordSearchPresenter;
 import org.unicef.rapidreg.childcase.casesearch.CaseSearchPresenter;
 import org.unicef.rapidreg.model.User;
 import org.unicef.rapidreg.service.CaseService;
+import org.unicef.rapidreg.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -32,7 +39,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(PrimeroAppConfiguration.class)
+@PrepareForTest({PrimeroAppConfiguration.class, Log.class})
 public class CaseSearchPresenterTest {
 
     @Mock
@@ -45,6 +52,7 @@ public class CaseSearchPresenterTest {
     public void setUp() throws Exception {
         initMocks(this);
         PowerMockito.mockStatic(PrimeroAppConfiguration.class);
+        PowerMockito.mockStatic(Log.class);
     }
 
     @Test
@@ -55,6 +63,7 @@ public class CaseSearchPresenterTest {
         user.setRole(User.ROLE_CP);
 
         when(PrimeroAppConfiguration.getCurrentUser()).thenReturn(user);
+        when(PrimeroAppConfiguration.getDefaultLanguage()).thenReturn("en-US");
         when(searchCondition.get(anyString())).thenReturn("0");
         when(caseService.getCPSearchResult(anyString(),anyString(),anyInt(),anyInt(),anyString(),any()))
                 .thenReturn(list);
@@ -68,14 +77,18 @@ public class CaseSearchPresenterTest {
     @Test
     public void should_get_GBV_search_result() throws Exception {
         List<Long> list = new ArrayList<>();
+        Map<String, String> searchCondition = mock(Map.class);
         User user = new User();
         user.setRole(User.ROLE_GBV);
 
         when(PrimeroAppConfiguration.getCurrentUser()).thenReturn(user);
+        when(PrimeroAppConfiguration.getDefaultLanguage()).thenReturn("en-US");
+        when(searchCondition.get(anyString())).thenReturn("0");
+
         when(caseService.getGBVSearchResult(anyString(),anyString(),anyString(),any()))
                 .thenReturn(list);
 
-        assertThat("Should return GBV search list", caseSearchPresenter.getSearchResult(Collections.emptyMap()),
+        assertThat("Should return GBV search list", caseSearchPresenter.getSearchResult(searchCondition),
                 is(list));
         verify(caseService, times(1)).getGBVSearchResult(anyString(),anyString(),anyString(),any());
     }
