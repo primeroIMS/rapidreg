@@ -8,6 +8,7 @@ import android.util.Patterns;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.PrimeroApplication;
+import org.unicef.rapidreg.exception.LocaleNotFoundException;
 import org.unicef.rapidreg.model.LoginRequestBody;
 import org.unicef.rapidreg.model.LoginResponse;
 import org.unicef.rapidreg.model.User;
@@ -79,9 +80,7 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
 
                         try {
                             Locale.setDefault(Utils.getLocale(responseBody.getLanguage()));
-                        } catch (Exception e) {
-
-                        }
+                        } catch (LocaleNotFoundException e) { }
 
                         PrimeroAppConfiguration.setDefaultLanguage(responseBody.getLanguage());
 
