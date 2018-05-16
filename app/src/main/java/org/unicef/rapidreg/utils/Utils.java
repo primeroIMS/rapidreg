@@ -3,6 +3,7 @@ package org.unicef.rapidreg.utils;
 
 import android.content.Context;
 import android.nfc.FormatException;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,14 +93,14 @@ public class Utils {
         try {
             dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, getLocale(locale));
         } catch (LocaleNotFoundException e) {
-            e.printStackTrace();
+            Log.e("parseDisplayDate", "Could not find locale");
         }
 
         try {
            parsedDate = simpleDateFormat.parse(date);
            formatedDate =  dateFormat.format(parsedDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("parseDisplayDate", "Could not parse date");
         }
 
         return formatedDate;

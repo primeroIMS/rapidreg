@@ -80,7 +80,9 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
 
                         try {
                             Locale.setDefault(Utils.getLocale(responseBody.getLanguage()));
-                        } catch (LocaleNotFoundException e) { }
+                        } catch (LocaleNotFoundException e) {
+                            Log.w("SetDefault", "Could not set default locale");
+                        }
 
                         PrimeroAppConfiguration.setDefaultLanguage(responseBody.getLanguage());
 

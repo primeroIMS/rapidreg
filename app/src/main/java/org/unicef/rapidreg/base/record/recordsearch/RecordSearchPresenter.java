@@ -1,5 +1,7 @@
 package org.unicef.rapidreg.base.record.recordsearch;
 
+import android.util.Log;
+
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
@@ -21,7 +23,7 @@ public abstract class RecordSearchPresenter extends MvpBasePresenter<RecordListV
         try {
             locale = Utils.getLocale(PrimeroAppConfiguration.getDefaultLanguage());
         } catch (LocaleNotFoundException e) {
-            e.printStackTrace();
+            Log.e("getDate", "Could not find locale");
             return null;
         }
 
@@ -29,7 +31,7 @@ public abstract class RecordSearchPresenter extends MvpBasePresenter<RecordListV
             java.util.Date date = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM, locale).parse(value);
             return new Date(date.getTime());
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("getDate", "Could not parse date");
             return null;
         }
     }
