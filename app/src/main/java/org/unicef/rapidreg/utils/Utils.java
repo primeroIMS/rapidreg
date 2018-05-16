@@ -2,11 +2,15 @@ package org.unicef.rapidreg.utils;
 
 
 import android.content.Context;
+import android.nfc.FormatException;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
+import org.unicef.rapidreg.exception.LocaleNotFoundException;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -80,16 +84,36 @@ public class Utils {
         }
     }
 
-    public static String parseDisplayDate(String date, String locale) {
-        Date simpleDateFormat = null;
+    public static String parseDisplayDate(final String date, final String locale) {
+        String formatedDate = "";
+        Date parsedDate;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+        DateFormat dateFormat = null;
 
         try {
-            simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US).parse(date);
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.forLanguageTag(locale));
-            return dateFormat.format(simpleDateFormat);
-        } catch (Exception e) {
-            return "";
+            dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, getLocale(locale));
+        } catch (LocaleNotFoundException e) {
+            Log.e("parseDisplayDate", "Could not find locale");
         }
+
+        try {
+           parsedDate = simpleDateFormat.parse(date);
+           formatedDate =  dateFormat.format(parsedDate);
+        } catch (ParseException e) {
+            Log.e("parseDisplayDate", "Could not parse date");
+        }
+
+        return formatedDate;
+    }
+
+    public static Locale getLocale(final String locale) throws LocaleNotFoundException {
+        for (Locale loc : Locale.getAvailableLocales()) {
+            if (loc.toString().equals(locale.replace("-", "_"))) {
+                return loc;
+            }
+        }
+
+        throw new LocaleNotFoundException("Locale not found");
     }
 
     public static void clearAudioFile(String fileName) {

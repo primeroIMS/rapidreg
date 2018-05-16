@@ -1,21 +1,37 @@
 package org.unicef.rapidreg.base.record.recordsearch;
 
+import android.util.Log;
+
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
+import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordlist.RecordListView;
+import org.unicef.rapidreg.exception.LocaleNotFoundException;
+import org.unicef.rapidreg.utils.Utils;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public abstract class RecordSearchPresenter extends MvpBasePresenter<RecordListView> {
     protected Date getDate(String value) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Locale locale = null;
+
         try {
-            java.util.Date date = simpleDateFormat.parse(value);
+            locale = Utils.getLocale(PrimeroAppConfiguration.getDefaultLanguage());
+        } catch (LocaleNotFoundException e) {
+            Log.e("getDate", "Could not find locale");
+            return null;
+        }
+
+        try {
+            java.util.Date date = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM, locale).parse(value);
             return new Date(date.getTime());
-        } catch (Exception e) {
+        } catch (ParseException e) {
+            Log.e("getDate", "Could not parse date");
             return null;
         }
     }

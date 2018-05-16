@@ -25,10 +25,12 @@ import org.unicef.rapidreg.base.record.recordlist.RecordListView;
 import org.unicef.rapidreg.injection.component.DaggerFragmentComponent;
 import org.unicef.rapidreg.injection.component.FragmentComponent;
 import org.unicef.rapidreg.injection.module.FragmentModule;
+import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.ClearableEditText;
 import org.unicef.rapidreg.widgets.dialog.MessageDialog;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -233,9 +235,9 @@ public abstract class RecordSearchFragment extends MvpFragment<RecordListView, R
         DatePicker datePicker = messageDialog.getDatePicker();
         datePicker.setCalendarViewShown(false);
         messageDialog.setPositiveButton(R.string.ok, v -> {
-            String date = String.format("%s/%s/%s", datePicker.getMonth() + 1,
-                    datePicker.getDayOfMonth(), datePicker.getYear());
-            textView.setText(date);
+            String date = String.format("%s/%s/%s", datePicker.getYear(), datePicker.getMonth() + 1,
+                    datePicker.getDayOfMonth());
+            textView.setText(Utils.parseDisplayDate(date, PrimeroAppConfiguration.getDefaultLanguage()));
             messageDialog.dismiss();
         });
         messageDialog.setNegativeButton(R.string.cancel, v -> messageDialog.dismiss());
