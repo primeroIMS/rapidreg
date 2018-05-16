@@ -93,14 +93,16 @@ public class Utils {
         }
     }
 
-    public static Locale getLocale(String locale) throws Exception {
+    public static Locale getLocale(String locale) {
+        Locale selectedLocation = null;
+
         for (Locale loc : Locale.getAvailableLocales()) {
             if (loc.toString().equals(locale.replace("-", "_"))) {
-                return loc;
+                selectedLocation = loc;
             }
         }
 
-        throw new Exception("Locale not found");
+        return selectedLocation;
     }
 
     public static void clearAudioFile(String fileName) {
