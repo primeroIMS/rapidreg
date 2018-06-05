@@ -142,6 +142,9 @@ public class TracingActivity extends RecordActivity implements BaseView {
     }
 
     @Override
+    protected void searchWeb() {}
+
+    @Override
     protected void save() {
         SaveTracingEvent event = new SaveTracingEvent();
         EventBus.getDefault().postSticky(event);

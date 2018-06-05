@@ -47,11 +47,13 @@
 
     <!-- Toolbar Start-->
     <string name="toolbar_save_button_text">SAVE</string>
+    <string name="toolbar_back_button_text">RETURN</string>
     <string name="toolbar_select_all_button_text">SELECT ALL</string>
     <!-- Toolbar End-->
 
     <!-- Title -->
     <string name="search">Search</string>
+    <string name="search_web">Search Web</string>
     <string name="cases">Cases</string>
     <string name="child_case">Cases</string>
     <string name="cp_case">CP Cases</string>
@@ -64,11 +66,14 @@
     <string name="tracing">Tracing Requests</string>
     <string name="tracing_details">Tracing Request Details</string>
     <string name="sync">Synchronization</string>
+    <string name="back">Return</string>
     <!-- Title -->
     <string name="click_to_search">Click to search</string>
     <string name="done">Done</string>
     <string name="no_search_result">Sorry, no results found for this search criteria.</string>
     <string name="no_records">No records available.</string>
+    <string name="remote_record_not_found">Record found. Login to continue web search</string>
+    <string name="remote_id_required">Id required for remote search</string>
 
     <string-array name="order_array">
         <item>Create Time</item>
@@ -186,5 +191,8 @@
     <string name="warning">Warning</string>
     <string name="invalid_value">Invalid Value</string>
     <string name="no_filed_exists_in_subform">No field exists in current subform.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

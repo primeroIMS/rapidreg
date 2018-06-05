@@ -8,6 +8,7 @@ import org.unicef.rapidreg.childcase.caselist.CaseListFragment;
 import org.unicef.rapidreg.childcase.caseregister.CaseMiniFormFragment;
 import org.unicef.rapidreg.childcase.caseregister.CaseRegisterWrapperFragment;
 import org.unicef.rapidreg.childcase.casesearch.CaseSearchFragment;
+import org.unicef.rapidreg.childcase.casesearchweb.CaseSearchWebFragment;
 import org.unicef.rapidreg.exception.FragmentSwitchException;
 
 public enum CaseFeature implements Feature {
@@ -23,7 +24,8 @@ public enum CaseFeature implements Feature {
     DETAILS_GBV_MINI(R.string.gbv_case_details, CaseMiniFormFragment.class),
     DETAILS_GBV_FULL(R.string.gbv_case_details, CaseRegisterWrapperFragment.class),
     DELETE(R.string.delete, CaseListFragment.class),
-    SEARCH(R.string.search, CaseSearchFragment.class);
+    SEARCH(R.string.search, CaseSearchFragment.class),
+    SEARCH_WEB(R.string.search_web, CaseSearchWebFragment.class);
 
     private int titleId;
     private Class clz;
@@ -74,5 +76,13 @@ public enum CaseFeature implements Feature {
 
     public boolean isCPCase() {
         return this == ADD_CP_MINI || this == ADD_CP_FULL || this == DETAILS_CP_MINI || this == DETAILS_CP_FULL;
+    }
+
+    public boolean isWebMode() {
+        return this == SEARCH_WEB;
+    }
+
+    public boolean isCase() {
+        return true;
     }
 }

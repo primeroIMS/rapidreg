@@ -155,6 +155,9 @@ public class IncidentActivity extends RecordActivity implements BaseView {
     }
 
     @Override
+    protected void searchWeb() {}
+
+    @Override
     protected void save() {
         SaveIncidentEvent event = new SaveIncidentEvent();
         EventBus.getDefault().postSticky(event);

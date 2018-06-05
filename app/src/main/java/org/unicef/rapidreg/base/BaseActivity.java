@@ -65,8 +65,14 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     @BindView(R.id.save)
     protected TextView saveMenu;
 
+    @BindView(R.id.back)
+    protected TextView backMenu;
+
     @BindView(R.id.search)
     protected ImageButton searchMenu;
+
+    @BindView(R.id.web_search)
+    protected ImageButton searchWeb;
 
     @BindView(R.id.toolbar_main_button_content)
     protected LinearLayout toolbarMainBtnContent;
@@ -242,6 +248,11 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         navSyncAction();
     }
 
+    @OnClick(R.id.back)
+    public void onWebViewBackButtonClick() {
+        navCaseAction();
+    }
+
     public PrimeroApplication getContext() {
         return (PrimeroApplication) getApplication();
     }
@@ -263,6 +274,7 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         showHideMenu.setOnClickListener(view -> showHideDetail());
         saveMenu.setOnClickListener(view -> save());
         searchMenu.setOnClickListener(view -> search());
+        searchWeb.setOnClickListener(view -> searchWeb());
     }
 
     @OnClick(R.id.create_incident)
@@ -285,6 +297,10 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
             showHideMenu.setVisibility(GONE);
             searchMenu.setVisibility(VISIBLE);
             createIncidentBtn.setVisibility(GONE);
+
+            if (this instanceof CaseActivity && ((CaseActivity) this).createPresenter().isOnline()) {
+                searchWeb.setVisibility(VISIBLE);
+            }
         } else if (feature.isEditMode()) {
             toolbarMainBtnContent.setVisibility(VISIBLE);
             toolbarSelectAllBtnContent.setVisibility(GONE);
@@ -296,6 +312,8 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         } else if (feature.isDeleteMode()) {
             toolbarMainBtnContent.setVisibility(GONE);
             toolbarSelectAllBtnContent.setVisibility(VISIBLE);
+        } else if (feature.isWebMode()) {
+            backMenu.setVisibility(VISIBLE);
         }
     }
 
@@ -316,12 +334,14 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     }
 
     protected void hideAllToolbarIcons() {
+        searchWeb.setVisibility(GONE);
         showHideMenu.setVisibility(GONE);
         searchMenu.setVisibility(GONE);
         saveMenu.setVisibility(GONE);
         createIncidentBtn.setVisibility(GONE);
         toolbarSelectAllBtnContent.setVisibility(GONE);
         deleteMenu.setVisibility(GONE);
+        backMenu.setVisibility(GONE);
     }
 
     protected void setNavSelectedMenu(int resId, ColorStateList color) {
@@ -341,6 +361,8 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     protected abstract void processBackButton();
 
     protected abstract void search();
+
+    protected abstract void searchWeb();
 
     protected abstract void save();
 

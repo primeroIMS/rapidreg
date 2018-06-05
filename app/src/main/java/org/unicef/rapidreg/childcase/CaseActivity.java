@@ -19,6 +19,7 @@ import org.unicef.rapidreg.base.BaseView;
 import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordlist.RecordListFragment;
 import org.unicef.rapidreg.childcase.caselist.CaseListFragment;
+import org.unicef.rapidreg.childcase.casesearch.CaseSearchFragment;
 import org.unicef.rapidreg.event.LoadCPCaseFormEvent;
 import org.unicef.rapidreg.event.LoadGBVCaseFormEvent;
 import org.unicef.rapidreg.event.LoadGBVIncidentFormEvent;
@@ -80,6 +81,11 @@ public class CaseActivity extends RecordActivity implements BaseView {
         return (CaseListFragment) getSupportFragmentManager()
                 .findFragmentByTag(CaseListFragment.class.getSimpleName());
 
+    }
+
+    protected CaseSearchFragment getCaseSearchFragment() {
+        return (CaseSearchFragment) getSupportFragmentManager()
+                .findFragmentByTag(CaseSearchFragment.class.getSimpleName());
     }
 
     @Override
@@ -165,6 +171,11 @@ public class CaseActivity extends RecordActivity implements BaseView {
     @Override
     protected void search() {
         turnToFeature(CaseFeature.SEARCH, null, null);
+    }
+
+    @Override
+    protected void searchWeb() {
+        turnToFeature(CaseFeature.SEARCH_WEB, null, null);
     }
 
     @Override

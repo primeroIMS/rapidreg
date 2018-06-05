@@ -8,6 +8,8 @@ import org.unicef.rapidreg.childcase.caseregister.CaseMiniFormFragment;
 import org.unicef.rapidreg.childcase.caseregister.CaseRegisterFragment;
 import org.unicef.rapidreg.childcase.caseregister.CaseRegisterWrapperFragment;
 import org.unicef.rapidreg.childcase.casesearch.CaseSearchFragment;
+import org.unicef.rapidreg.childcase.casesearchweb.CaseSearchWebFragment;
+import org.unicef.rapidreg.childcase.casesearchweb.CaseSearchWebPresenter;
 import org.unicef.rapidreg.incident.incidentlist.IncidentListFragment;
 import org.unicef.rapidreg.incident.incidentregister.IncidentMiniFormFragment;
 import org.unicef.rapidreg.incident.incidentregister.IncidentRegisterFragment;
@@ -37,6 +39,8 @@ public interface FragmentComponent {
     void inject(CaseRegisterWrapperFragment caseRegisterWrapperFragment);
 
     void inject(CaseSearchFragment caseSearchFragment);
+
+    void inject(CaseSearchWebFragment caseSearchWebFragment);
 
     void inject(RecordListFragment recordListFragment);
 
