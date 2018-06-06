@@ -1,13 +1,11 @@
 package org.unicef.rapidreg.childcase.casesearchweb;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -99,7 +97,7 @@ public class CaseSearchWebFragment extends MvpFragment<BaseView, CaseSearchWebPr
     }
 
     public void openWebClient(String id) {
-//        CookieManager.getInstance().removeAllCookie();
+        CookieManager.getInstance().removeAllCookie();
 
         webView.clearCache(true);
         webView.clearHistory();
