@@ -17,6 +17,7 @@ android {
         targetSdkVersion 19
         versionCode 2
         versionName "3.0.0.4"
+        multiDexEnabled true
     }
     signingConfigs {
         release {
@@ -84,6 +85,8 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${androidSupportVersion}"
     implementation "com.android.support:support-v4:${androidSupportVersion}"
     implementation "com.android.support:cardview-v7:${androidSupportVersion}"
+
+    implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.google.dagger:dagger:2.4'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.4'

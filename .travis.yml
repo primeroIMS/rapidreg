@@ -4,7 +4,7 @@ android:
   components:
   - platform-tools
   - tools
-  - build-tools-23.0.3
+  - build-tools-27.0.3
   - android-23
   - addon-google_apis_x86-google-21
   - extra-android-support

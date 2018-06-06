@@ -4,7 +4,7 @@
 FROM ubuntu:14.04
 
 MAINTAINER bfeng@thoughtworks.com
-ENV REFRESHED_AT 2016_05_03
+ENV REFRESHED_AT 2018_06_06
 
 # install wget lib32z1 lib32stdc++6 expect
 RUN apt-get update -qq && \
@@ -39,4 +39,5 @@ RUN wget http://dl.google.com/android/${ANDROID_SDK_VERSION}.tgz && \
 COPY ./android-accept-licenses.sh /opt/project/android-accept-licenses.sh
 COPY ./repositories.cfg /root/.android/repositories.cfg
 WORKDIR /opt/project
-RUN ["./android-accept-licenses.sh", "android update sdk --all --force --no-ui --filter platform-tools,tools,build-tools-23.0.3,android-23,addon-google_apis_x86-google-21,extra-android-support,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services,sys-img-armeabi-v7a-android-21"]
+
+RUN ["./android-accept-licenses.sh", "android update sdk --all --force --no-ui --filter platform-tools,tools,build-tools-27.0.3,android-23,addon-google_apis_x86-google-21,extra-android-support,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services,sys-img-armeabi-v7a-android-21"]
