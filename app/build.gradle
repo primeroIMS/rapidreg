@@ -41,7 +41,7 @@ android {
                     outputFileName = new File(newName)
                 }
             }
-            testCoverageEnabled false
+            testCoverageEnabled true
         }
         release {
             minifyEnabled false
