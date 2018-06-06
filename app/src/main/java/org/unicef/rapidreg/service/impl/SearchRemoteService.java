@@ -22,9 +22,9 @@ public class SearchRemoteService extends BaseRetrofitService<SearchRepository> i
 
     public SearchRemoteService() {}
 
-    public Observable<Response<JsonElement>> searchRemoteCases(String cookie, Boolean showIds, String query) {
+    public Observable<Response<JsonElement>> searchRemoteCases(String cookie, Boolean showIds, String query, Boolean idSearch) {
         return getRepository(SearchRepository.class)
-                .searchRemoteCases(cookie, showIds, query)
+                .searchRemoteCases(cookie, showIds, query, idSearch)
                 .retry(3)
                 .timeout(60, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())

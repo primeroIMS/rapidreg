@@ -27,7 +27,7 @@ public class CaseSearchWebPresenter extends MvpBasePresenter<BaseView> {
     }
 
     public void hasResults(String query, CaseSearchWebFragment.WebSearchCallback callback) {
-        searchRemoteService.searchRemoteCases(PrimeroAppConfiguration.getCookie(), true, query)
+        searchRemoteService.searchRemoteCases(PrimeroAppConfiguration.getCookie(), true, query, true)
             .subscribe(new Action1<Response<JsonElement>>() {
                 @Override
                 public void call(Response<JsonElement> response) {

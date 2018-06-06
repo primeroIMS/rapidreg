@@ -4,6 +4,7 @@
 nav,
 .dataTables_length,
 .index_filters,
+.shrink.columns,
 header {
   display: none;
 }

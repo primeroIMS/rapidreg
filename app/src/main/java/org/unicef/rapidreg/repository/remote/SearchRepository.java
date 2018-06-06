@@ -13,5 +13,6 @@ public interface SearchRepository {
     Observable<Response<JsonElement>> searchRemoteCases(
             @Header("Cookie") String cookie,
             @Query("ids") Boolean showIds,
-            @Query("query") String parentForm);
+            @Query("query") String parentForm,
+            @Query("id_search") Boolean idSearch);
 }
