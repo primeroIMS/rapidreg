@@ -95,12 +95,12 @@ table.dataTable tbody tr td:last-of-type {
 
 .index_controls_container .pagination_info span,
 .record_controls_container .pagination_info span {
-  color: #304ffe;
+  color: #2979FF;
 }
 
 .button {
   border: none;
-  background: #304ffe;
+  background: #2979FF;
   color: #fff;
   font-weight: 900;
 }
@@ -120,7 +120,7 @@ input {
 }
 
 input:focus {
-  border-bottom: 2px solid #304ffe !important;
+  border-bottom: 2px solid #2979FF !important;
 }
 
 textarea {
@@ -129,14 +129,14 @@ textarea {
 }
 
 textarea:focus {
-  border: 1px solid #304ffe;
+  border: 1px solid #2979FF;
 }
 
 .login_panel h1 {
   font-size: 1.3rem !important;
   text-transform: uppercase;
   font-weight: 900 !important;
-  color: #304ffe !important;
+  color: #2979FF !important;
 }
 
 .flag_icon {
@@ -219,13 +219,19 @@ table.dataTable.dtr-inline.collapsed tbody th:first-child:before {
   background: none;
   color: #333;
   font-size: 0.7rem;
-  padding: 0;
+  padding: 0 !important;
+  margin-bottom: .5em !important;
+  text-align: left !important;
+  height: auto !important;
+  pointer-events: none;
+  cursor: default;
 }
 
 .menu.submenu {
   display: flex;
   flex-direction: row;
   width: 100%;
+  border: none;
 }
 
 .dropdown.menu > li.opens-right > .is-dropdown-submenu {
@@ -270,7 +276,7 @@ table.dataTable.dtr-inline.collapsed tbody th:first-child:before {
 
 .dropdown.menu ul li:first-of-type {
   border-bottom: none !important;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #fff;
 }
 
 #number_of_cases_error {
@@ -301,7 +307,7 @@ table.dataTable.dtr-inline.collapsed tbody th:first-child:before {
 }
 
 p.help {
-  color: #304ffe;
+  color: #2979FF;
 }
 
 select {
@@ -314,4 +320,28 @@ body {
 
 .datepickers-container {
   left: -24px;
+}
+
+.is-submenu-item a {
+  background: #2979FF !important;
+  color: #fff;
+}
+
+.record-view-modal {
+  background: #2979FF;
+  color: #fff;
+  padding: .7em 1em;
+  font-size: .9rem;
+}
+
+#number_of_cases_error:not(:first-of-type) {
+  display: none;
+}
+
+td.child ul li:last-of-type {
+  padding: 2em 0 !important;
+}
+
+td.child ul li:last-of-type span.dtr-title {
+  display: none;
 }
