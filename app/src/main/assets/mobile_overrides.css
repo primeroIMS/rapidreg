@@ -4,7 +4,7 @@
 nav,
 .dataTables_length,
 .index_filters,
-.shrink.columns,
+.index_controls_container .shrink.columns,
 header {
   display: none;
 }
