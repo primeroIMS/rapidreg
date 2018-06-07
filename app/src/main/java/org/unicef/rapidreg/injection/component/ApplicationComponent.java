@@ -23,6 +23,7 @@ import org.unicef.rapidreg.service.SystemSettingsService;
 import org.unicef.rapidreg.service.TracingFormService;
 import org.unicef.rapidreg.service.TracingPhotoService;
 import org.unicef.rapidreg.service.TracingService;
+import org.unicef.rapidreg.service.impl.SearchRemoteService;
 
 import javax.inject.Singleton;
 
@@ -71,4 +72,6 @@ public interface ApplicationComponent {
     SyncIncidentService syncIncidentService();
 
     LoginService loginService();
+
+    SearchRemoteService searchRemoteService();
 }

@@ -54,6 +54,9 @@ public class SyncActivity extends BaseActivity {
     }
 
     @Override
+    protected void searchWeb() {}
+
+    @Override
     protected void save() {
 
     }

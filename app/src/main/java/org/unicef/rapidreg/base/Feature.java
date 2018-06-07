@@ -19,4 +19,6 @@ public interface Feature {
     boolean isAddMode();
 
     boolean isDeleteMode();
+
+    boolean isWebMode();
 }

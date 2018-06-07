@@ -37,6 +37,7 @@ import org.unicef.rapidreg.service.impl.FormRemoteServiceImpl;
 import org.unicef.rapidreg.service.impl.IncidentFormServiceImpl;
 import org.unicef.rapidreg.service.impl.LoginServiceImpl;
 import org.unicef.rapidreg.service.impl.LookupServiceImpl;
+import org.unicef.rapidreg.service.impl.SearchRemoteService;
 import org.unicef.rapidreg.service.impl.SyncCaseServiceImpl;
 import org.unicef.rapidreg.service.impl.SyncIncidentServiceImpl;
 import org.unicef.rapidreg.service.impl.SyncTracingServiceImpl;
@@ -67,6 +68,12 @@ public class ApplicationServiceModule {
     @Singleton
     public CaseFormService provideCaseFormService(CaseFormDao caseFormDao) {
         return new CaseFormServiceImpl(caseFormDao);
+    }
+
+    @Provides
+    @Singleton
+    public SearchRemoteService provideSearchRemoteService() {
+        return new SearchRemoteService();
     }
 
     @Provides

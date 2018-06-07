@@ -65,5 +65,5 @@ public enum TracingFeature implements Feature {
         return this == DELETE;
     }
 
-
+    public boolean isWebMode() { return false; }
 }

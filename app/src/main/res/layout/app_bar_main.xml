@@ -71,6 +71,27 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_14"
                     android:textStyle="bold" />
+                <LinearLayout
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/size_10"
+                    android:clickable="true">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_keyboard_arrow_left_white_24"/>
+                    <TextView
+                        android:id="@+id/back_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/toolbar_back_button_text"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_size_14"
+                        android:layout_gravity="center"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
 
                 <ImageButton
                     android:id="@+id/create_incident"
@@ -84,7 +105,13 @@
                     android:id="@+id/search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/size_10"
                     android:background="@drawable/ic_search_white_24dp" />
+                <ImageButton
+                    android:id="@+id/web_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_search_web"/>
 
             </LinearLayout>
 

@@ -1,0 +1,15 @@
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_switcher"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:inAnimation="@anim/slide_in_down"
+    android:outAnimation="@anim/slide_out_up">
+
+    <include
+        android:id="@+id/case_search_web_form"
+        layout="@layout/case_search_web_form"/>
+
+    <include
+        android:id="@+id/case_search_web_results"
+        layout="@layout/case_search_web_results"/>
+</ViewSwitcher>

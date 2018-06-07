@@ -65,6 +65,6 @@ public enum IncidentFeature implements Feature {
         return this == DELETE;
     }
 
-
+    public boolean isWebMode() { return false; }
 }
 
