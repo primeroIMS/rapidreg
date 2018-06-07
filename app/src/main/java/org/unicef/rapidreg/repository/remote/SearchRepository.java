@@ -14,5 +14,6 @@ public interface SearchRepository {
             @Header("Cookie") String cookie,
             @Query("ids") Boolean showIds,
             @Query("query") String parentForm,
+            // NOTE: id_search is for searching cases that do not belong to you
             @Query("id_search") Boolean idSearch);
 }
