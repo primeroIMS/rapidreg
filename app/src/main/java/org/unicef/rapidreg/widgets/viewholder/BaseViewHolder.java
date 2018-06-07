@@ -37,7 +37,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     }
 
     public boolean isEditable(Field field) {
-        return field.isMarkForMobileField() ? false : field.isEditable();
+        return field.isMarkForMobileField() ? false : !field.isDisabled();
     }
 
     protected boolean isRequired(Field field) {
