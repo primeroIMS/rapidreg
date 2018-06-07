@@ -21,6 +21,4 @@ public interface Feature {
     boolean isDeleteMode();
 
     boolean isWebMode();
-
-    boolean isCase();
 }

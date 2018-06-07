@@ -81,8 +81,4 @@ public enum CaseFeature implements Feature {
     public boolean isWebMode() {
         return this == SEARCH_WEB;
     }
-
-    public boolean isCase() {
-        return true;
-    }
 }

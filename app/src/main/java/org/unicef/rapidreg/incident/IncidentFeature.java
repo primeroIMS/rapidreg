@@ -66,7 +66,5 @@ public enum IncidentFeature implements Feature {
     }
 
     public boolean isWebMode() { return false; }
-
-    public boolean isCase() { return false; }
 }
 
