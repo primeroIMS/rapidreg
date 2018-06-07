@@ -66,7 +66,7 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     protected TextView saveMenu;
 
     @BindView(R.id.back)
-    protected TextView backMenu;
+    protected LinearLayout backMenu;
 
     @BindView(R.id.search)
     protected ImageButton searchMenu;

@@ -47,7 +47,7 @@
 
     <!-- Toolbar Start-->
     <string name="toolbar_save_button_text">SAVE</string>
-    <string name="toolbar_back_button_text">RETURN</string>
+    <string name="toolbar_back_button_text">MOBILE</string>
     <string name="toolbar_select_all_button_text">SELECT ALL</string>
     <!-- Toolbar End-->
 
