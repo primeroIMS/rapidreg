@@ -163,7 +163,7 @@ public class IncidentFormServiceImplTest {
                 "        \"display_name\": {\n" +
                 "          \"en\": \"Incident Location\"\n" +
                 "        },\n" +
-                "        \"editable\": true,\n" +
+                "        \"disabled\": false,\n" +
                 "        \"help_text\": {\n" +
                 "          \"en\": \"\"\n" +
                 "        },\n" +
@@ -227,7 +227,7 @@ public class IncidentFormServiceImplTest {
                 "        \"display_name\": {\n" +
                 "          \"en\": \"Type of Incident Violence\"\n" +
                 "        },\n" +
-                "        \"editable\": true,\n" +
+                "        \"disabled\": false,\n" +
                 "        \"help_text\": {\n" +
                 "          \"en\": \"\"\n" +
                 "        },\n" +
