@@ -56,6 +56,10 @@ android {
                     outputFileName = new File(newName)
                 }
             }
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
         }
     }
     lintOptions {
