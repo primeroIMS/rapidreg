@@ -52,7 +52,7 @@ public class CaseFormServiceImplTest {
             "        {\n" +
             "          \"name\": \"case_id\",\n" +
             "          \"type\": \"text_field\",\n" +
-            "          \"editable\": false,\n" +
+            "          \"disabled\": true,\n" +
             "          \"multi_select\": false,\n" +
             "          \"display_name\": {\n" +
             "            \"en\": \"Long ID\"\n" +
@@ -152,6 +152,7 @@ public class CaseFormServiceImplTest {
         assertThat(field.getType(), is("text_field"));
         assertThat(field.getOptionStringsText().get("en").size(), is(0));
         assertThat(field.getSubForm(), is(nullValue()));
+        assertThat(field.isDisabled(), is(true));
     }
 
     @Test

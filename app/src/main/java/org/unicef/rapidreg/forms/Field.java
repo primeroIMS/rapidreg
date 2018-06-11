@@ -17,15 +17,9 @@ import org.unicef.rapidreg.widgets.dialog.NumericDialog;
 import org.unicef.rapidreg.widgets.dialog.SingleSelectDialog;
 import org.unicef.rapidreg.widgets.dialog.SingleTextDialog;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-
-import static java.util.Date.parse;
 
 public class Field {
     public static final String TYPE_SELECT_BOX = "select_box";
@@ -59,9 +53,9 @@ public class Field {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("editable")
+    @SerializedName("disabled")
     @Expose
-    private boolean editable;
+    private boolean disabled;
     @SerializedName("required")
     @Expose
     private boolean required;
@@ -105,8 +99,8 @@ public class Field {
         this.name = name;
     }
 
-    public boolean isEditable() {
-        return editable;
+    public boolean isDisabled() {
+        return disabled;
     }
 
     public boolean isRequired() {
@@ -117,8 +111,8 @@ public class Field {
         this.required = required;
     }
 
-    public void setEditable(boolean editable) {
-        this.editable = editable;
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
     public boolean isMultiSelect() {
@@ -304,7 +298,7 @@ public class Field {
     public String toString() {
         StringBuilder sb = new StringBuilder("<Field>").append("\n");
         sb.append("name: ").append(name).append("\n");
-        sb.append("editable: ").append(editable).append("\n");
+        sb.append("disabled: ").append(disabled).append("\n");
         sb.append("required: ").append(required).append("\n");
         sb.append("multiSelect: ").append(multiSelect).append("\n");
         sb.append("type: ").append(type).append("\n");
@@ -321,7 +315,7 @@ public class Field {
     public Field copy() {
         Field newField = new Field();
         newField.setName(name);
-        newField.setEditable(editable);
+        newField.setDisabled(disabled);
         newField.setRequired(required);
         newField.setMultiSelect(multiSelect);
         newField.setType(type);
