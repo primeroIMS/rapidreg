@@ -152,4 +152,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.0.0'
     implementation 'org.robolectric:robolectric-annotations:3.1.1'
     implementation 'com.google.guava:guava:19.0'
+    implementation 'com.duolingo.open:rtl-viewpager:1.0.3'
+
 }

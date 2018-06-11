@@ -3,6 +3,8 @@ package org.unicef.rapidreg.base.record.recordregister;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import com.duolingo.open.rtlviewpager.RtlViewPager;
+
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +49,7 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
     private static final String TAG = RecordRegisterWrapperFragment.class.getSimpleName();
 
     @BindView(R.id.viewpager)
-    ViewPager viewPager;
+    RtlViewPager viewPager;
 
     @BindView(R.id.viewpagertab)
     SmartTabLayout viewPagerTab;
@@ -186,7 +188,8 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
             public void onPageSelected(int position) {
                 RecordRegisterFragment currentPage = (RecordRegisterFragment) adapter.getPage
                         (position);
-                if (recordPhotoAdapter != null) {
+                // ensure we are not trying to ask pages before they are loaded
+                if (recordPhotoAdapter != null && currentPage != null) {
                     currentPage.setFieldValueVerifyResult(itemValuesVerifyList);
                     recordPhotoAdapter = currentPage.getPhotoAdapter();
                     recordPhotoAdapter.setItems(currentPage.getPhotoPathsData());
