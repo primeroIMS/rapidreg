@@ -17,7 +17,6 @@ import org.unicef.rapidreg.model.IncidentForm;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.hamcrest.CoreMatchers.is;
@@ -25,7 +24,6 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -48,7 +46,7 @@ public class IncidentFormServiceImplTest {
             "        {\n" +
             "          \"name\": \"incidentworker_name\",\n" +
             "          \"type\": \"text_field\",\n" +
-            "          \"editable\": true,\n" +
+            "          \"disabled\": false,\n" +
             "          \"multi_select\": false,\n" +
             "          \"mobile_visible\":true,\n" +
             "          \"show_on_minify_form\":true,\n" +
@@ -132,7 +130,7 @@ public class IncidentFormServiceImplTest {
         assertThat(field.getOptionStringsText().get("en").size(), is(0));
         assertThat(field.isShowOnMiniForm(), is(true));
         assertThat(field.isMultiSelect(), is(false));
-        assertThat(field.isEditable(), is(true));
+        assertThat(field.isDisabled(), is(false));
         assertThat(field.isRequired(), is(false));
         assertThat(field.getSubForm(), is(nullValue()));
     }
@@ -165,7 +163,7 @@ public class IncidentFormServiceImplTest {
                 "        \"display_name\": {\n" +
                 "          \"en\": \"Incident Location\"\n" +
                 "        },\n" +
-                "        \"editable\": true,\n" +
+                "        \"disabled\": false,\n" +
                 "        \"help_text\": {\n" +
                 "          \"en\": \"\"\n" +
                 "        },\n" +
@@ -229,7 +227,7 @@ public class IncidentFormServiceImplTest {
                 "        \"display_name\": {\n" +
                 "          \"en\": \"Type of Incident Violence\"\n" +
                 "        },\n" +
-                "        \"editable\": true,\n" +
+                "        \"disabled\": false,\n" +
                 "        \"help_text\": {\n" +
                 "          \"en\": \"\"\n" +
                 "        },\n" +

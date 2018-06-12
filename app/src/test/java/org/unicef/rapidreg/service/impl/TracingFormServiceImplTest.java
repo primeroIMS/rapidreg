@@ -39,7 +39,7 @@ public class TracingFormServiceImplTest {
             "        {\n" +
             "          \"name\": \"tracingworker_name\",\n" +
             "          \"type\": \"text_field\",\n" +
-            "          \"editable\": true,\n" +
+            "          \"disabled\": false,\n" +
             "          \"multi_select\": false,\n" +
             "          \"mobile_visible\":true,\n" +
             "          \"show_on_minify_form\":true,\n" +
@@ -121,7 +121,7 @@ public class TracingFormServiceImplTest {
         assertThat(field.getOptionStringsText().get("en").size(), is(0));
         assertThat(field.isShowOnMiniForm(), is(true));
         assertThat(field.isMultiSelect(), is(false));
-        assertThat(field.isEditable(), is(true));
+        assertThat(field.isDisabled(), is(false));
         assertThat(field.isRequired(), is(false));
         assertThat(field.getSubForm(), is(nullValue()));
     }
