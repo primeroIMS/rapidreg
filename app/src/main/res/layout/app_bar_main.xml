@@ -98,7 +98,7 @@
                 <ImageButton
                     android:id="@+id/create_incident"
                     android:layout_width="wrap_content"
-                    androied:layout_height="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/size_10"
                     android:background="@drawable/ic_add_incident_icon_white_24dp"
                     android:visibility="gone" />
