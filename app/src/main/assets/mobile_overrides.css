@@ -9,6 +9,10 @@ header {
   display: none;
 }
 
+html.is-reveal-open, html.is-reveal-open body {
+  overflow: scroll !important;
+}
+
 .button-group #menu {
   margin: 2em 0;
   display: inline-block;
