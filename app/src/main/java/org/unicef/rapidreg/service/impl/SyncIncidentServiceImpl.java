@@ -15,7 +15,7 @@ import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.TextUtils;
 
 import retrofit2.Response;
-import rx.Observable;
+import io.reactivex.Observable;
 
 
 public class SyncIncidentServiceImpl extends BaseRetrofitService<SyncIncidentRepository> implements
@@ -36,11 +36,11 @@ public class SyncIncidentServiceImpl extends BaseRetrofitService<SyncIncidentRep
         Response<JsonElement> response;
         if (!TextUtils.isEmpty(item.getInternalId())) {
             response = getRepository(SyncIncidentRepository.class).putIncident(PrimeroAppConfiguration.getCookie(),
-                    item.getInternalId(), jsonObject).toBlocking().first();
+                    item.getInternalId(), jsonObject).blockingFirst();
         } else {
             response = getRepository(SyncIncidentRepository.class).postIncident(PrimeroAppConfiguration.getCookie(),
                     jsonObject)
-                    .toBlocking().first();
+                    .blockingFirst();
         }
         if (!response.isSuccessful()) {
             throw new RuntimeException(response.errorBody().toString());

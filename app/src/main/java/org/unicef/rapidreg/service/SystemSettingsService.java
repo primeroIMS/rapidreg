@@ -2,7 +2,8 @@ package org.unicef.rapidreg.service;
 
 import org.unicef.rapidreg.model.SystemSettings;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 public interface SystemSettingsService {
     Observable<SystemSettings> getSystemSettings();

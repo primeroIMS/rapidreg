@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import org.unicef.rapidreg.model.Incident;
 
 import retrofit2.Response;
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface SyncIncidentService {
     Response<JsonElement> uploadIncidentJsonProfile(Incident item);

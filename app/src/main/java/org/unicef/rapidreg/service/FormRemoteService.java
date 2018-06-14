@@ -4,7 +4,7 @@ import org.unicef.rapidreg.forms.CaseTemplateForm;
 import org.unicef.rapidreg.forms.IncidentTemplateForm;
 import org.unicef.rapidreg.forms.TracingTemplateForm;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 
 public interface FormRemoteService {

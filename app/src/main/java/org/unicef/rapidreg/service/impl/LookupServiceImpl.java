@@ -13,12 +13,11 @@ import org.unicef.rapidreg.service.BaseRetrofitService;
 import org.unicef.rapidreg.service.LookupService;
 import org.unicef.rapidreg.service.cache.GlobalLookupCache;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> implements LookupService {
     protected String getBaseUrl() { return PrimeroAppConfiguration.getApiBaseUrl(); }

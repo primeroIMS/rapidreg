@@ -9,7 +9,7 @@ import org.unicef.rapidreg.model.RecordModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import rx.Observable;
+import io.reactivex.Observable;
 
 
 public interface SyncTracingService {
