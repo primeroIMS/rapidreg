@@ -68,6 +68,28 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
     }
 
     @Override
+    protected void initFloatingActionButton() {
+        if (((RecordActivity) getActivity()).getCurrentFeature().isDetailMode()) {
+            if (this.caseIsInvalidated()) {
+                editButton.setVisibility(View.GONE);
+            } else {
+                editButton.setVisibility(View.VISIBLE);
+            }
+        } else {
+            editButton.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void initTopWarning() {
+        if (this.caseIsInvalidated()) {
+            this.topInfoMessage.setVisibility(View.VISIBLE);
+        } else {
+            this.topInfoMessage.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     protected RecordPhotoAdapter createRecordPhotoAdapter() {
         casePhotoAdapter.setItems(getArguments().getStringArrayList(RecordService.RECORD_PHOTOS));
         return casePhotoAdapter;
@@ -96,6 +118,7 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
         args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
         args.putSerializable(RecordService.VERIFY_MESSAGE, new ItemValuesMap());
         args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) recordPhotoAdapter.getAllItems());
+        args.putLong(CaseService.CASE_PRIMARY_ID, getArguments().getLong(CaseService.CASE_PRIMARY_ID));
 
         ((CaseActivity) getActivity()).turnToFeature(EDIT_FULL, args, null);
     }
@@ -124,6 +147,7 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
             args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
             args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
             args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) recordPhotoAdapter.getAllItems());
+            args.putLong(CaseService.CASE_PRIMARY_ID, getArguments().getLong(CaseService.CASE_PRIMARY_ID));
             pages.add(FragmentPagerItem.of(values[0], CaseRegisterFragment.class, args));
         }
         return pages;
@@ -142,5 +166,14 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
         args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) getPhotoPathsData());
 
         ((RecordActivity) getActivity()).turnToFeature(feature, args, null);
+    }
+
+    private boolean caseIsInvalidated() {
+        Long recordId = caseRegisterPresenter.getRecordId(getArguments());
+        if (recordId != null) {
+            return caseRegisterPresenter.getCaseIsInvalidated(recordId);
+        } else {
+            return false;
+        }
     }
 }

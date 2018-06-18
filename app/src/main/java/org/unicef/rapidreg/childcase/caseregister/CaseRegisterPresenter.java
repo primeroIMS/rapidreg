@@ -192,6 +192,15 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
         }
     }
 
+    public boolean getCaseIsInvalidated(Long recordId) {
+        Case caseRecord = this.caseService.getById(recordId);
+        if (caseRecord == null) {
+            return false;
+        } else {
+            return caseRecord.isInvalidated();
+        }
+    }
+
     private boolean validateRequiredField(ItemValuesMap itemValuesMap) {
         return caseService.validateRequiredFields(getTemplateForm(), itemValuesMap);
     }

@@ -9,10 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/top_info_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/case_reassigned"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            android:textColor="@color/red"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/text_size_16" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/register_forms_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/top_info_message"
             android:layout_above="@+id/form_switcher" />
 
         <TextView

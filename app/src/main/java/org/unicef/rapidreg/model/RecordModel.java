@@ -67,6 +67,9 @@ public class RecordModel extends BaseModel {
     @Column
     private boolean isAudioSynced;
 
+    @Column(name = "is_invalidated", defaultValue = "false")
+    private boolean isInvalidated;
+
     public RecordModel(long id) {
         this.id = id;
     }
@@ -241,6 +244,10 @@ public class RecordModel extends BaseModel {
     public void setShortId(String shortId) {
         this.shortId = shortId;
     }
+
+    public boolean isInvalidated() { return isInvalidated; }
+
+    public void setInvalidated(boolean invalidated) { isInvalidated = invalidated; }
 
     @Override
     public String toString() {

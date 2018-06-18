@@ -16,6 +16,7 @@ import org.unicef.rapidreg.base.record.recordregister.RecordRegisterFragment;
 import org.unicef.rapidreg.childcase.CaseActivity;
 import org.unicef.rapidreg.childcase.CaseFeature;
 import org.unicef.rapidreg.childcase.casephoto.CasePhotoAdapter;
+import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.forms.Field;
 
@@ -83,6 +84,8 @@ public class CaseRegisterFragment extends RecordRegisterFragment {
         args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) caseRegisterPresenter.getDefaultPhotoPaths());
         args.putSerializable(RecordService.ITEM_VALUES, caseRegisterPresenter.getDefaultItemValues());
         args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
+        args.putLong(CaseService.CASE_PRIMARY_ID, getArguments().getLong(CaseService.CASE_PRIMARY_ID));
+
 
         CaseFeature currentFeature = (CaseFeature) ((CaseActivity) getActivity()).getCurrentFeature();
 
@@ -96,4 +99,5 @@ public class CaseRegisterFragment extends RecordRegisterFragment {
     public void onSaveSuccessful(long recordId) {
 
     }
+
 }
