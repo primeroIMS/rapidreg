@@ -84,7 +84,6 @@ public class CaseRegisterFragment extends RecordRegisterFragment {
         args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) caseRegisterPresenter.getDefaultPhotoPaths());
         args.putSerializable(RecordService.ITEM_VALUES, caseRegisterPresenter.getDefaultItemValues());
         args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
-        args.putLong(CaseService.CASE_PRIMARY_ID, getArguments().getLong(CaseService.CASE_PRIMARY_ID));
 
 
         CaseFeature currentFeature = (CaseFeature) ((CaseActivity) getActivity()).getCurrentFeature();

@@ -86,8 +86,6 @@ public class CaseMiniFormFragment extends RecordRegisterFragment {
     public void onInitViewContent() {
         super.onInitViewContent();
         formSwitcher.setText(R.string.show_more_details);
-        String detailMode = ((RecordActivity) getActivity()).getCurrentFeature().isDetailMode() ? "DETAIL MODE ON" : "DETAIL MODE OFF";
-        String editMode = ((RecordActivity) getActivity()).getCurrentFeature().isEditMode() ? "EDIT MODE ON" : "EDIT MODE OFF";
 
         if (((RecordActivity) getActivity()).getCurrentFeature().isDetailMode()) {
             if (this.caseIsInvalidated()) {
@@ -172,7 +170,6 @@ public class CaseMiniFormFragment extends RecordRegisterFragment {
         args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
         args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
         args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) getPhotoPathsData());
-        args.putLong(CaseService.CASE_PRIMARY_ID, getArguments().getLong(CaseService.CASE_PRIMARY_ID));
         ((CaseActivity) getActivity()).turnToFeature(CaseFeature.EDIT_MINI, args, null);
     }
 
@@ -183,7 +180,6 @@ public class CaseMiniFormFragment extends RecordRegisterFragment {
         args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
         args.putString(MODULE, caseRegisterPresenter.getCaseType());
         args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) getPhotoPathsData());
-        args.putLong(CaseService.CASE_PRIMARY_ID, getArguments().getLong(CaseService.CASE_PRIMARY_ID));
 
         CaseFeature currentFeature = (CaseFeature) ((CaseActivity) getActivity()).getCurrentFeature();
 
@@ -193,10 +189,12 @@ public class CaseMiniFormFragment extends RecordRegisterFragment {
         ((RecordActivity) getActivity()).turnToFeature(feature, args, ANIM_TO_FULL);
     }
 
+    // case_id comes as part of itemValues
+    // then is safer than passing recordId around in Bundle
     private boolean caseIsInvalidated() {
-        Long recordId = caseRegisterPresenter.getRecordId(getArguments());
-        if (recordId != null) {
-            return caseRegisterPresenter.getCaseIsInvalidated(recordId);
+        String caseId = getRecordRegisterData().getAsString(CASE_ID);
+        if (caseId != null) {
+            return caseRegisterPresenter.getCaseIsInvalidated(caseId);
         } else {
             return false;
         }

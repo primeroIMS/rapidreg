@@ -67,7 +67,7 @@ public class RecordModel extends BaseModel {
     @Column
     private boolean isAudioSynced;
 
-    @Column(name = "is_invalidated", defaultValue = "false")
+    @Column(name = "is_invalidated")
     private boolean isInvalidated;
 
     public RecordModel(long id) {
@@ -267,6 +267,7 @@ public class RecordModel extends BaseModel {
                 ", internalId='" + internalId + '\'' +
                 ", syncLog='" + syncLog + '\'' +
                 ", isSynced=" + isSynced +
+                ", isInvalidated=" + isInvalidated +
                 ", audio=" + audio +
                 ", content=" + content +
                 ", caregiver='" + caregiver + '\'' +

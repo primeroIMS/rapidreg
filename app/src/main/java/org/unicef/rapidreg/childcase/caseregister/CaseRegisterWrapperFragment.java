@@ -118,7 +118,6 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
         args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
         args.putSerializable(RecordService.VERIFY_MESSAGE, new ItemValuesMap());
         args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) recordPhotoAdapter.getAllItems());
-        args.putLong(CaseService.CASE_PRIMARY_ID, getArguments().getLong(CaseService.CASE_PRIMARY_ID));
 
         ((CaseActivity) getActivity()).turnToFeature(EDIT_FULL, args, null);
     }
@@ -147,7 +146,6 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
             args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
             args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
             args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) recordPhotoAdapter.getAllItems());
-            args.putLong(CaseService.CASE_PRIMARY_ID, getArguments().getLong(CaseService.CASE_PRIMARY_ID));
             pages.add(FragmentPagerItem.of(values[0], CaseRegisterFragment.class, args));
         }
         return pages;
@@ -168,10 +166,12 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
         ((RecordActivity) getActivity()).turnToFeature(feature, args, null);
     }
 
+    // case_id comes as part of itemValues
+    // then is safer than passing recordId around in Bundle
     private boolean caseIsInvalidated() {
-        Long recordId = caseRegisterPresenter.getRecordId(getArguments());
-        if (recordId != null) {
-            return caseRegisterPresenter.getCaseIsInvalidated(recordId);
+        String caseId = getRecordRegisterData().getAsString(CASE_ID);
+        if (caseId != null) {
+            return caseRegisterPresenter.getCaseIsInvalidated(caseId);
         } else {
             return false;
         }

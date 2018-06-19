@@ -192,8 +192,8 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
         }
     }
 
-    public boolean getCaseIsInvalidated(Long recordId) {
-        Case caseRecord = this.caseService.getById(recordId);
+    public boolean getCaseIsInvalidated(String caseId) {
+        Case caseRecord = this.caseService.getByUniqueId(caseId);
         if (caseRecord == null) {
             return false;
         } else {
