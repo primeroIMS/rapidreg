@@ -10,6 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.raizlabs.android.dbflow.data.Blob;
 
+import org.reactivestreams.Subscriber;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
 import org.unicef.rapidreg.model.RecordModel;
@@ -22,16 +23,16 @@ import org.unicef.rapidreg.service.cache.ItemValuesMap;
 
 import java.util.List;
 
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.functions.Function;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func1;
-
+import io.reactivex.Observable;
 
 public class SyncTracingServiceImpl extends BaseRetrofitService<SyncTracingsRepository> implements SyncTracingService {
     private TracingPhotoDao tracingPhotoDao;
@@ -86,7 +87,7 @@ public class SyncTracingServiceImpl extends BaseRetrofitService<SyncTracingsRepo
                     (PrimeroAppConfiguration
                     .getCookie(), jsonObject);
         }
-        Response<JsonElement> response = responseObservable.toBlocking().first();
+        Response<JsonElement> response = responseObservable.blockingFirst();
         if (!response.isSuccessful()) {
             throw new RuntimeException();
         }
@@ -111,7 +112,7 @@ public class SyncTracingServiceImpl extends BaseRetrofitService<SyncTracingsRepo
             Observable<Response<JsonElement>> observable = getRepository(SyncTracingsRepository.class).postMediaData(
                     PrimeroAppConfiguration.getCookie(), item.getInternalId(), body);
 
-            Response<JsonElement> response = observable.toBlocking().first();
+            Response<JsonElement> response = observable.blockingFirst();
 
             verifyResponse(response);
 
@@ -133,17 +134,15 @@ public class SyncTracingServiceImpl extends BaseRetrofitService<SyncTracingsRepo
 
     public void uploadPhotos(final RecordModel record) {
         List<Long> tracingPhotos = tracingPhotoDao.getIdsByTracingId(record.getId());
-        Observable.from(tracingPhotos)
+        Observable.fromIterable(tracingPhotos)
                 .filter(tracingPhotoId -> true)
-                .flatMap(new Func1<Long, Observable<Pair<TracingPhoto, Response<JsonElement>>>>() {
+                .flatMap(new Function<Long, Observable<Pair<TracingPhoto, Response<JsonElement>>>>() {
                     @Override
-                    public Observable<Pair<TracingPhoto, Response<JsonElement>>> call(final Long
+                    public Observable<Pair<TracingPhoto, Response<JsonElement>>> apply(final Long
                                                                                               tracingPhotoId) {
-                        return Observable.create(new Observable.OnSubscribe<Pair<TracingPhoto,
-                                Response<JsonElement>>>() {
+                        return Observable.create(new ObservableOnSubscribe<Pair<TracingPhoto, Response<JsonElement>>>() {
                             @Override
-                            public void call(Subscriber<? super Pair<TracingPhoto,
-                                    Response<JsonElement>>> subscriber) {
+                            public void subscribe(ObservableEmitter<Pair<TracingPhoto, Response<JsonElement>>> emitter) throws Exception {
                                 TracingPhoto tracingPhoto = tracingPhotoDao.getById
                                         (tracingPhotoId);
 
@@ -157,10 +156,10 @@ public class SyncTracingServiceImpl extends BaseRetrofitService<SyncTracingsRepo
                                         .class)
                                         .postMediaData(PrimeroAppConfiguration.getCookie(), record
                                                 .getInternalId(), body);
-                                Response<JsonElement> response = observable.toBlocking().first();
+                                Response<JsonElement> response = observable.blockingFirst();
                                 verifyResponse(response);
-                                subscriber.onNext(new Pair<>(tracingPhoto, response));
-                                subscriber.onCompleted();
+                                emitter.onNext(new Pair<>(tracingPhoto, response));
+                                emitter.onComplete();
                             }
                         });
                     }
@@ -172,7 +171,7 @@ public class SyncTracingServiceImpl extends BaseRetrofitService<SyncTracingsRepo
                             .getAsString());
                     updateTracingPhotoSyncStatus(tracingPhoto, true);
                     return null;
-                }).toList().toBlocking().first();
+                }).toList().blockingGet();
     }
 
     private void updateRecordRev(RecordModel record, String revId) {

@@ -2,9 +2,6 @@ package org.unicef.rapidreg.sync;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -31,6 +28,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     protected Context context;
 
@@ -45,7 +45,15 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
 
     protected boolean isSyncing;
 
+    protected CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    private Disposable downloadCaseFormDisposable;
+    private Disposable downloadLookupsDisposable;
+
+
     private List<Case> cases;
+
+    protected static final int NO_VALUE = 0;
 
     public BaseSyncPresenter(Context context, CaseService caseService, CaseFormService caseFormService,
                              FormRemoteService formRemoteService, LookupService lookupService) {
@@ -128,7 +136,7 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     protected abstract void upLoadCases(List<Case> cases);
 
     public void downloadCaseForm(ProgressDialog loadingDialog, String moduleId) {
-        formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage
+        downloadCaseFormDisposable = formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage
                 (), true, PrimeroAppConfiguration.PARENT_CASE, moduleId)
                 .subscribe(caseFormJson -> {
                             CaseForm caseForm = new CaseForm(new Blob(new Gson().toJson(caseFormJson).getBytes()));
@@ -144,15 +152,19 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
                             downloadSecondFormByModule();
                             loadingDialog.dismiss();
                         });
+
+        compositeDisposable.add(downloadCaseFormDisposable);
     }
 
     protected abstract void downloadSecondFormByModule();
 
     protected void downloadLookups() {
-        lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage(), true)
+        downloadLookupsDisposable = lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage(), true)
                 .subscribe(lookup -> lookupService.saveOrUpdate(lookup, true),
                         throwable -> syncFail(throwable),
                         () -> syncPullLookupsSuccessfully());
+
+        compositeDisposable.add(downloadLookupsDisposable);
     }
 
     protected void syncPullLookupsSuccessfully() {
@@ -236,5 +248,9 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
             getView().showSyncDownloadSuccessMessage();
             getView().hideSyncProgressDialog();
         }
+    }
+
+    protected void disposeOfDisposables() {
+        compositeDisposable.dispose();
     }
 }

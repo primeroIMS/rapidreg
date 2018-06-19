@@ -42,13 +42,14 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import dagger.Lazy;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 import static org.unicef.rapidreg.PrimeroAppConfiguration.MODULE_ID_CP;
 import static org.unicef.rapidreg.service.RecordService.CAREGIVER_NAME;
@@ -64,6 +65,14 @@ public class CPSyncPresenter extends BaseSyncPresenter {
     private TracingFormService tracingFormService;
 
     private List<Tracing> tracings;
+
+    private Disposable uploadCasesDisposable;
+    private Disposable uploadTracingDisposable;
+    private Disposable preDownloadCasesDisposable;
+    private Disposable downloadCasesDisposable;
+    private Disposable preDownloadTracingsDisposable;
+    private Disposable downloadTracingsDisposable;
+    private Disposable downloadSecondFormByModuleDisposable;
 
     @Inject
     public CPSyncPresenter(@ActivityContext Context context,
@@ -100,7 +109,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
             getView().setProgressMax(totalNumberOfUploadRecords);
         }
         isSyncing = true;
-        Observable.from(caseList)
+        uploadCasesDisposable = Observable.fromIterable(caseList)
                 .filter(item -> isSyncing && !item.isSynced())
                 .map(item -> new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item)))
                 .map(pair -> {
@@ -147,11 +156,13 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         e.printStackTrace();
                     }
                 }, () -> upLoadTracing(tracings));
+
+        compositeDisposable.add(uploadCasesDisposable);
     }
 
     private void upLoadTracing(List<Tracing> tracingList) {
         isSyncing = true;
-        Observable.from(tracingList)
+        uploadTracingDisposable = Observable.fromIterable(tracingList)
                 .filter(item -> isSyncing && !item.isSynced())
                 .map(item -> new Pair<>(item, syncTracingService.uploadJsonProfile(item)))
                 .map(pair -> {
@@ -159,7 +170,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     return pair;
                 })
                 .buffer(4)
-                .flatMap(pairs -> Observable.from(pairs))
+                .flatMap(pairs -> Observable.fromIterable(pairs))
                 .map(tracingResponsePair -> {
                     try {
                         Response<JsonElement> jsonElementResponse = tracingResponsePair.second;
@@ -205,6 +216,8 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         preDownloadCases();
                     }
                 });
+
+        compositeDisposable.add(uploadTracingDisposable);
     }
 
     public void preDownloadCases() {
@@ -215,23 +228,27 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         final List<JsonObject> downList = new ArrayList<>();
         final ProgressDialog loadingDialog = getView().showFetchingCaseAmountLoadingDialog();
 
-        syncCaseService.getCasesIds(PrimeroAppConfiguration.MODULE_ID_CP, time, true)
+        preDownloadCasesDisposable = syncCaseService.getCasesIds(PrimeroAppConfiguration.MODULE_ID_CP, time, true)
                 .map(jsonElementResponse -> {
-                    if (jsonElementResponse.isSuccessful()) {
-                        JsonElement jsonElement = jsonElementResponse.body();
-                        JsonArray jsonArray = jsonElement.getAsJsonArray();
+                    if (jsonElementResponse == null) {
+                        throw new Exception();
+                    } else {
+                        if (jsonElementResponse.isSuccessful()) {
+                            JsonElement jsonElement = jsonElementResponse.body();
+                            JsonArray jsonArray = jsonElement.getAsJsonArray();
 
-                        for (JsonElement element : jsonArray) {
-                            JsonObject jsonObject = element.getAsJsonObject();
-                            boolean hasSameRev = caseService.hasSameRev(jsonObject.get("_id")
-                                            .getAsString(),
-                                    jsonObject.get("_rev").getAsString());
-                            if (!hasSameRev) {
-                                downList.add(jsonObject);
+                            for (JsonElement element : jsonArray) {
+                                JsonObject jsonObject = element.getAsJsonObject();
+                                boolean hasSameRev = caseService.hasSameRev(jsonObject.get("_id")
+                                                .getAsString(),
+                                        jsonObject.get("_rev").getAsString());
+                                if (!hasSameRev) {
+                                    downList.add(jsonObject);
+                                }
                             }
                         }
+                        return downList;
                     }
-                    return downList;
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -250,16 +267,25 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         e.printStackTrace();
                     }
                 }, () -> downloadCases(downList));
+
+        compositeDisposable.add(preDownloadCasesDisposable);
     }
 
     private void downloadCases(List<JsonObject> objects) {
-        Observable.from(objects)
+        downloadCasesDisposable = Observable.fromIterable(objects)
+                .map(jsonObject -> {
+                    if (jsonObject == null) {
+                        throw new Exception();
+                    } else {
+                        return jsonObject;
+                    }
+                })
                 .filter(jsonObject -> isSyncing)
                 .map(jsonObject -> {
                     Observable<Response<JsonElement>> responseObservable = syncCaseService
                             .getCase(jsonObject.get("_id")
                                     .getAsString(), "en", true);
-                    Response<JsonElement> response = responseObservable.toBlocking().first();
+                    Response<JsonElement> response = responseObservable.blockingFirst();
                     if (!response.isSuccessful()) {
                         throw new RuntimeException();
                     }
@@ -272,7 +298,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     if (responseJsonObject.has("recorded_audio")) {
                         String id = responseJsonObject.get("_id").getAsString();
                         Response<ResponseBody> audioResponse = syncCaseService.getCaseAudio(id)
-                                .toBlocking().first();
+                                .blockingFirst();
                         if (!audioResponse.isSuccessful()) {
                             throw new RuntimeException();
                         }
@@ -301,10 +327,10 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     }
                     return photoKeys;
                 })
-                .flatMap(new Func1<List<JsonObject>, Observable<JsonObject>>() {
+                .flatMap(new Function<List<JsonObject>, Observable<JsonObject>>() {
                     @Override
-                    public Observable<JsonObject> call(List<JsonObject> jsonObjects) {
-                        return Observable.from(jsonObjects);
+                    public Observable<JsonObject> apply(List<JsonObject> jsonObjects) {
+                        return Observable.fromIterable(jsonObjects);
                     }
                 })
                 .map(jsonObject -> {
@@ -312,8 +338,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     String photoKey = jsonObject.get("photo_key").getAsString();
                     Response<ResponseBody> response = syncCaseService.getCasePhoto(id, photoKey,
                             PhotoConfig.RESIZE_FOR_WEB)
-                            .toBlocking()
-                            .first();
+                            .blockingFirst();
                     try {
                         if (response.isSuccessful()) {
                             updateCasePhotos(id, response.body().bytes());
@@ -338,6 +363,8 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                                 preDownloadTracings();
                             }
                         });
+
+        compositeDisposable.add(downloadCasesDisposable);
     }
 
     private void saveDownloadedCases(JsonObject casesJsonObject) {
@@ -400,23 +427,28 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         final String time = sdf.format(cal.getTime());
         final List<JsonObject> objects = new ArrayList<>();
         final ProgressDialog loadingDialog = getView().showFetchingTracingAmountLoadingDialog();
-        syncTracingService.getIds(time, true)
+        preDownloadTracingsDisposable = syncTracingService.getIds(time, true)
                 .map(jsonElementResponse -> {
-                    if (jsonElementResponse.isSuccessful()) {
-                        JsonElement jsonElement = jsonElementResponse.body();
-                        JsonArray jsonArray = jsonElement.getAsJsonArray();
+                    if (jsonElementResponse == null) {
+                        throw new Exception();
+                    } else {
+                        if (jsonElementResponse.isSuccessful()) {
+                            JsonElement jsonElement = jsonElementResponse.body();
+                            JsonArray jsonArray = jsonElement.getAsJsonArray();
 
-                        for (JsonElement element : jsonArray) {
-                            JsonObject jsonObject = element.getAsJsonObject();
-                            boolean hasSameRev = tracingService.hasSameRev(jsonObject.get
-                                            ("_id").getAsString(),
-                                    jsonObject.get("_rev").getAsString());
-                            if (!hasSameRev) {
-                                objects.add(jsonObject);
+                            for (JsonElement element : jsonArray) {
+                                JsonObject jsonObject = element.getAsJsonObject();
+                                boolean hasSameRev = tracingService.hasSameRev(jsonObject.get
+                                                ("_id").getAsString(),
+                                        jsonObject.get("_rev").getAsString());
+                                if (!hasSameRev) {
+                                    objects.add(jsonObject);
+                                }
                             }
                         }
+                        return objects;
                     }
-                    return objects;
+
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -435,16 +467,25 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         e.printStackTrace();
                     }
                 }, () -> downloadTracings(objects));
+
+        compositeDisposable.add(preDownloadTracingsDisposable);
     }
 
     private void downloadTracings(List<JsonObject> objects) {
-        Observable.from(objects)
+        downloadTracingsDisposable = Observable.fromIterable(objects)
+                .map(jsonObject -> {
+                    if (jsonObject == null) {
+                        throw new Exception();
+                    } else {
+                        return jsonObject;
+                    }
+                })
                 .filter(jsonObject -> isSyncing)
                 .map(jsonObject -> {
                     Observable<Response<JsonElement>> responseObservable = syncTracingService
                             .get(jsonObject.get("_id")
                                     .getAsString(), "en", true);
-                    Response<JsonElement> response = responseObservable.toBlocking().first();
+                    Response<JsonElement> response = responseObservable.blockingFirst();
                     if (!response.isSuccessful()) {
                         throw new RuntimeException();
                     }
@@ -457,7 +498,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     if (responseJsonObject.has("recorded_audio")) {
                         String id = responseJsonObject.get("_id").getAsString();
                         Response<ResponseBody> audioResponse = syncTracingService.getAudio
-                                (id).toBlocking().first();
+                                (id).blockingFirst();
                         if (!audioResponse.isSuccessful()) {
                             throw new RuntimeException();
                         }
@@ -485,17 +526,17 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     }
                     return photoKeys;
                 })
-                .flatMap(new Func1<List<JsonObject>, Observable<JsonObject>>() {
+                .flatMap(new Function<List<JsonObject>, Observable<JsonObject>>() {
                     @Override
-                    public Observable<JsonObject> call(List<JsonObject> jsonObjects) {
-                        return Observable.from(jsonObjects);
+                    public Observable<JsonObject> apply(List<JsonObject> jsonObjects) {
+                        return Observable.fromIterable(jsonObjects);
                     }
                 })
                 .map(jsonObject -> {
                     String id = jsonObject.get("_id").getAsString();
                     String photoKey = jsonObject.get("photo_key").getAsString();
                     Response<ResponseBody> response = syncTracingService.getPhoto(id,
-                            photoKey, "1080").toBlocking().first();
+                            photoKey, "1080").blockingFirst();
                     try {
                         updateTracingPhotos(id, response.body().bytes());
                     } catch (IOException e) {
@@ -517,6 +558,8 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                             syncDownloadSuccessfully();
                             downloadCaseForm();
                         });
+
+        compositeDisposable.add(downloadTracingsDisposable);
     }
 
     private void saveDownloadedTracings(JsonObject tracingsJsonObject) {
@@ -573,9 +616,16 @@ public class CPSyncPresenter extends BaseSyncPresenter {
 
     @Override
     protected void downloadSecondFormByModule() {
-        formRemoteService.getTracingForm(PrimeroAppConfiguration.getCookie(),
+        downloadSecondFormByModuleDisposable = formRemoteService.getTracingForm(PrimeroAppConfiguration.getCookie(),
                 PrimeroAppConfiguration.getDefaultLanguage(), true, PrimeroAppConfiguration.PARENT_TRACING_REQUEST,
                 MODULE_ID_CP)
+                .map(tracingFormJson -> {
+                    if (tracingFormJson == null) {
+                        throw new Exception();
+                    } else {
+                        return tracingFormJson;
+                    }
+                })
                 .subscribe(tracingFormJson -> {
                             TracingForm tracingForm = new TracingForm(new Blob(new Gson().toJson(tracingFormJson)
                                     .getBytes()));
@@ -584,5 +634,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         },
                         throwable -> syncFail(throwable),
                         () -> syncPullFormSuccessfully());
+
+        compositeDisposable.add(downloadSecondFormByModuleDisposable);
     }
 }
