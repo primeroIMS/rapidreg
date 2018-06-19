@@ -12,6 +12,7 @@ import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.injection.ActivityContext;
 import org.unicef.rapidreg.model.Case;
 import org.unicef.rapidreg.model.CasePhoto;
@@ -231,7 +232,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         preDownloadCasesDisposable = syncCaseService.getCasesIds(PrimeroAppConfiguration.MODULE_ID_CP, time, true)
                 .map(jsonElementResponse -> {
                     if (jsonElementResponse == null) {
-                        throw new Exception();
+                        throw new ObservableNullResponseException();
                     } else {
                         if (jsonElementResponse.isSuccessful()) {
                             JsonElement jsonElement = jsonElementResponse.body();
@@ -275,7 +276,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         downloadCasesDisposable = Observable.fromIterable(objects)
                 .map(jsonObject -> {
                     if (jsonObject == null) {
-                        throw new Exception();
+                        throw new ObservableNullResponseException();
                     } else {
                         return jsonObject;
                     }
@@ -430,7 +431,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         preDownloadTracingsDisposable = syncTracingService.getIds(time, true)
                 .map(jsonElementResponse -> {
                     if (jsonElementResponse == null) {
-                        throw new Exception();
+                        throw new ObservableNullResponseException();
                     } else {
                         if (jsonElementResponse.isSuccessful()) {
                             JsonElement jsonElement = jsonElementResponse.body();
@@ -475,7 +476,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         downloadTracingsDisposable = Observable.fromIterable(objects)
                 .map(jsonObject -> {
                     if (jsonObject == null) {
-                        throw new Exception();
+                        throw new ObservableNullResponseException();
                     } else {
                         return jsonObject;
                     }
@@ -621,7 +622,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                 MODULE_ID_CP)
                 .map(tracingFormJson -> {
                     if (tracingFormJson == null) {
-                        throw new Exception();
+                        throw new ObservableNullResponseException();
                     } else {
                         return tracingFormJson;
                     }
