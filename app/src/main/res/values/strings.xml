@@ -152,6 +152,8 @@
     <string name="fetching_form_msg">Fetching forms from web server…</string>
     <string name="uploading_sync_progress_msg">Uploading…Please wait a moment.</string>
     <string name="network_not_available">Network is not available, please check your network.</string>
+    <string name="sync_one_case_reassigned">The record owner for case %s has changed. Please delete it from your device.</string>
+    <string name="sync_many_case_reassigned">The record owner for cases %s has changed. Please delete them from your device.</string>
     <!--Sync-->
 
     <!--Transparent theme-->

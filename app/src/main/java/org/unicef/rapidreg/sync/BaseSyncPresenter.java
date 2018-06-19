@@ -19,6 +19,7 @@ import org.unicef.rapidreg.service.CaseFormService;
 import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.FormRemoteService;
 import org.unicef.rapidreg.service.LookupService;
+import org.unicef.rapidreg.R;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -246,14 +247,14 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
 
         if (casesShortIds != null && casesShortIds.size() > 0) {
             if (casesShortIds.size() == 1) {
-                message = String.format("The record owner for case %s has changed. Please delete it from your device.", casesShortIds.get(0));
+                message = String.format(context.getResources().getString(R.string.sync_one_case_reassigned), casesShortIds.get(0));
             } else {
                 String caseId = "";
                 for (int i = 0; i < casesShortIds.size(); i++) {
                     caseId = casesShortIds.get(i) + (i < casesShortIds.size() - 1 ? ", " : "");
                     caseIds.append(caseId);
                 }
-                message = String.format("The record owner for cases %s has changed. Please delete them from your device.", caseIds.toString());
+                message = String.format(context.getResources().getString(R.string.sync_many_case_reassigned), caseIds.toString());
             }
             getView().showReassignedCasesWarningMessage(message);
         }
