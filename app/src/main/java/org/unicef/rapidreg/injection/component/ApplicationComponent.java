@@ -7,6 +7,7 @@ import org.unicef.rapidreg.PrimeroGlideModule;
 import org.unicef.rapidreg.injection.ApplicationContext;
 import org.unicef.rapidreg.injection.module.ApplicationModule;
 import org.unicef.rapidreg.loadform.AppRemoteService;
+import org.unicef.rapidreg.service.AppDataService;
 import org.unicef.rapidreg.service.CaseFormService;
 import org.unicef.rapidreg.service.CasePhotoService;
 import org.unicef.rapidreg.service.CaseService;
@@ -62,6 +63,8 @@ public interface ApplicationComponent {
     FormRemoteService formRemoteService();
 
     LookupService lookupService();
+
+    AppDataService appDataService();
 
     SystemSettingsService systemSettingsService();
 

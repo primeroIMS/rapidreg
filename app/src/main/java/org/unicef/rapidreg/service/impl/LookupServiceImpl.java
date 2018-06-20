@@ -40,18 +40,22 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
                     lookups.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
                     lookups.setLocale(PrimeroAppConfiguration.getDefaultLanguage());
 
-                    if (response.isSuccessful()) {
-                        JsonObject jsonObject = response.body().getAsJsonObject();
-                        JsonArray sources = jsonObject.getAsJsonArray("sources");
+                    if (response == null) {
+                        throw new Exception();
+                    } else {
+                        if (response.isSuccessful()) {
+                            JsonObject jsonObject = response.body().getAsJsonObject();
+                            JsonArray sources = jsonObject.getAsJsonArray("sources");
 
-                        if (sources.size() > 0) {
-                            Blob lookupsBlob = new Blob(gson.toJson(sources).getBytes());
-                            lookups.setLookupsJson(lookupsBlob);
+                            if (sources.size() > 0) {
+                                Blob lookupsBlob = new Blob(gson.toJson(sources).getBytes());
+                                lookups.setLookupsJson(lookupsBlob);
+                            }
+
                         }
 
+                        return lookups;
                     }
-
-                    return lookups;
                 })
                 .retry(3)
                 .timeout(60, TimeUnit.SECONDS)

@@ -31,16 +31,21 @@ public class SystemSettingsServiceImpl extends BaseRetrofitService<SystemSetting
                 .map(response -> {
                     SystemSettings currentSystemSettings = new SystemSettings();
                     currentSystemSettings.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
-                    if (response.isSuccessful()) {
-                        JsonObject jsonObject = response.body().getAsJsonObject();
-                        int districtLevel = jsonObject.getAsJsonObject("settings").getAsJsonObject
-                                ("reporting_location_config")
-                                .get("admin_level").getAsInt();
-                        currentSystemSettings.setDistrictLevel(districtLevel);
+
+                    if (response == null) {
+                        throw new Exception();
                     } else {
-                        currentSystemSettings.setDistrictLevel(PrimeroAppConfiguration.DEFAULT_DISTRICT_LEVEL);
+                        if (response.isSuccessful()) {
+                            JsonObject jsonObject = response.body().getAsJsonObject();
+                            int districtLevel = jsonObject.getAsJsonObject("settings").getAsJsonObject
+                                    ("reporting_location_config")
+                                    .get("admin_level").getAsInt();
+                            currentSystemSettings.setDistrictLevel(districtLevel);
+                        } else {
+                            currentSystemSettings.setDistrictLevel(PrimeroAppConfiguration.DEFAULT_DISTRICT_LEVEL);
+                        }
+                        return currentSystemSettings;
                     }
-                    return currentSystemSettings;
                 })
                 .retry(3)
                 .timeout(60, TimeUnit.SECONDS)

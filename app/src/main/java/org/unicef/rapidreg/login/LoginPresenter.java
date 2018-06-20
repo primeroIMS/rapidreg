@@ -2,16 +2,10 @@ package org.unicef.rapidreg.login;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
-import org.greenrobot.eventbus.EventBus;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.PrimeroApplication;
-import org.unicef.rapidreg.event.LoadCPCaseFormEvent;
-import org.unicef.rapidreg.event.LoadGBVCaseFormEvent;
-import org.unicef.rapidreg.event.LoadGBVIncidentFormEvent;
-import org.unicef.rapidreg.event.LoadLookupsEvent;
-import org.unicef.rapidreg.event.LoadSystemSettingEvent;
-import org.unicef.rapidreg.event.LoadTracingFormEvent;
 import org.unicef.rapidreg.model.User;
+import org.unicef.rapidreg.service.AppDataService;
 import org.unicef.rapidreg.service.LoginService;
 import org.unicef.rapidreg.service.SystemSettingsService;
 import org.unicef.rapidreg.service.impl.LoginServiceImpl;
@@ -24,11 +18,13 @@ import dagger.Lazy;
 public class LoginPresenter extends MvpBasePresenter<LoginView> {
     public static final String TAG = LoginPresenter.class.getSimpleName();
 
+    private AppDataService appDataService;
     private LoginService loginService;
     private SystemSettingsService systemSettingsService;
 
     @Inject
-    public LoginPresenter(Lazy<LoginService> loginService, Lazy<SystemSettingsService> systemSettingsServiceLazy) {
+    public LoginPresenter(Lazy<LoginService> loginService, Lazy<SystemSettingsService> systemSettingsServiceLazy, AppDataService appDataService) {
+        this.appDataService = appDataService;
         this.loginService = loginService.get();
         this.systemSettingsService = systemSettingsServiceLazy.get();
     }
@@ -93,15 +89,11 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
                 if (isViewAttached()) {
                     PrimeroAppConfiguration.setCookie(cookie);
                     PrimeroAppConfiguration.setCurrentUser(user);
-                    getView().showLoading(false);
-                    getView().showOnlineLoginSuccessful();
 
                     getView().configAppRuntimeEvent();
-                    sendLoadFormEvent(user.getRoleType(), cookie);
-                    EventBus.getDefault().postSticky(new LoadSystemSettingEvent());
-                    EventBus.getDefault().postSticky(new LoadLookupsEvent());
 
-                    getView().navigateToLoginSucceedPage();
+                    loadAppData(user.getRoleType());
+
                     PrimeroApplication.getAppRuntime().storeLastLoginServerUrl(url);
                 }
             }
@@ -121,21 +113,23 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
         });
     }
 
-    private void sendLoadFormEvent(User.Role roleType, String cookie) {
-        switch (roleType) {
-            case CP:
-                EventBus.getDefault().postSticky(new LoadCPCaseFormEvent(cookie));
-                EventBus.getDefault().postSticky(new LoadTracingFormEvent(cookie));
-                break;
-            case GBV:
-                EventBus.getDefault().postSticky(new LoadGBVIncidentFormEvent(cookie));
-                EventBus.getDefault().postSticky(new LoadGBVCaseFormEvent(cookie));
-                break;
-            default:
-                EventBus.getDefault().postSticky(new LoadCPCaseFormEvent(cookie));
-                EventBus.getDefault().postSticky(new LoadTracingFormEvent(cookie));
-                break;
-        }
+    private void loadAppData(User.Role roleType) {
+        AppDataService.LoadCallback callback = new AppDataService.LoadCallback() {
+            @Override
+            public void onSuccess() {
+                getView().showLoading(false);
+                getView().showOnlineLoginSuccessful();
+                getView().navigateToLoginSucceedPage();
+            }
+
+            @Override
+            public void onFailure() {
+                getView().showLoading(false);
+                getView().showLoginErrorByToast("Error loading application data. Please try again.");
+            }
+        };
+
+        appDataService.loadAppData(callback, roleType);
     }
 
     private void doLoginOffline(String username, String password, String url) {
