@@ -75,7 +75,8 @@ public class CaseListAdapter extends RecordListAdapter {
             }
         });
         toggleTextArea(holder);
-        toggleDeleteArea(holder, record.isSynced());
+        toggleDeleteArea(holder, record.isSynced() || record.isInvalidated());
+        toggleInvalidatedIcon(holder, record.isInvalidated());
         toggleDeleteCheckBox(holder);
     }
 

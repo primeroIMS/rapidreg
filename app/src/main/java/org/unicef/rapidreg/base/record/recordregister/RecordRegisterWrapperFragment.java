@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -55,7 +56,10 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
     SmartTabLayout viewPagerTab;
 
     @BindView(R.id.edit)
-    FloatingActionButton editButton;
+    protected FloatingActionButton editButton;
+
+    @BindView(R.id.top_info_message)
+    protected TextView topInfoMessage;
 
     protected RecordForm form;
     protected List<Section> sections;
@@ -90,6 +94,7 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
         initItemValues();
         initFormData();
         initFloatingActionButton();
+        initTopWarning();
         initRegisterContainer();
     }
 
@@ -164,13 +169,15 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
         EventBus.getDefault().removeStickyEvent(event);
     }
 
-    private void initFloatingActionButton() {
+    protected void initFloatingActionButton() {
         if (((RecordActivity) getActivity()).getCurrentFeature().isDetailMode()) {
             editButton.setVisibility(View.VISIBLE);
         } else {
             editButton.setVisibility(View.GONE);
         }
     }
+
+    protected void initTopWarning() {}
 
     private void initRegisterContainer() {
         final FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(

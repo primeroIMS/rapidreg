@@ -37,6 +37,8 @@ public interface SyncView extends MvpView {
 
     void showServerNotAvailableSyncErrorMessage();
 
+    void showReassignedCasesWarningMessage(String message);
+
     void showDownloadingCasesSyncProgressDialog();
 
     void showDownloadingTracingsSyncProgressDialog();

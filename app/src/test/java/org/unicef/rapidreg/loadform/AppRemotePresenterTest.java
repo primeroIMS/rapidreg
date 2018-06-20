@@ -23,7 +23,7 @@ import org.unicef.rapidreg.service.SystemSettingsService;
 import org.unicef.rapidreg.service.TracingFormService;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
