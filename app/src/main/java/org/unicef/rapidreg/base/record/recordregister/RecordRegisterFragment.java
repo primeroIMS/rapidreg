@@ -62,6 +62,9 @@ public abstract class RecordRegisterFragment extends MvpFragment<RecordRegisterV
     @BindView(R.id.edit)
     protected FloatingActionButton editButton;
 
+    @BindView(R.id.top_info_message)
+    protected TextView topInfoMessage;
+
     private RecordRegisterAdapter recordRegisterAdapter;
 
     protected long recordId;
@@ -104,6 +107,7 @@ public abstract class RecordRegisterFragment extends MvpFragment<RecordRegisterV
         fieldList.setAdapter(recordRegisterAdapter);
         formSwitcher.setText(R.string.show_short_form);
     }
+
 
     private void initFieldValueVerifyResult() {
         Bundle extra = getArguments();

@@ -2,9 +2,6 @@ package org.unicef.rapidreg.sync;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -22,6 +19,7 @@ import org.unicef.rapidreg.service.CaseFormService;
 import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.FormRemoteService;
 import org.unicef.rapidreg.service.LookupService;
+import org.unicef.rapidreg.R;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -176,6 +174,11 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
         record.update();
     }
 
+    protected void updateRecordInvalidated(Case record, boolean invalidated) {
+        record.setInvalidated(invalidated);
+        record.update();
+    }
+
     protected void syncFail(Throwable throwable) {
         if (getView() == null || !isViewAttached()) {
             return;
@@ -235,6 +238,25 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
             updateDataViews();
             getView().showSyncDownloadSuccessMessage();
             getView().hideSyncProgressDialog();
+        }
+    }
+
+    protected void reportReassignedCasesIfAny(List<String> casesShortIds) {
+        String message = "";
+        StringBuilder caseIds = new StringBuilder();
+
+        if (casesShortIds != null && casesShortIds.size() > 0) {
+            if (casesShortIds.size() == 1) {
+                message = String.format(context.getResources().getString(R.string.sync_one_case_reassigned), casesShortIds.get(0));
+            } else {
+                String caseId = "";
+                for (int i = 0; i < casesShortIds.size(); i++) {
+                    caseId = casesShortIds.get(i) + (i < casesShortIds.size() - 1 ? ", " : "");
+                    caseIds.append(caseId);
+                }
+                message = String.format(context.getResources().getString(R.string.sync_many_case_reassigned), caseIds.toString());
+            }
+            getView().showReassignedCasesWarningMessage(message);
         }
     }
 }

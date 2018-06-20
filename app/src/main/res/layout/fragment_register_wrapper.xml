@@ -9,6 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/top_info_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/case_reassigned"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            android:textColor="@color/red"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/text_size_16" />
+
         <com.ogaclejapan.smarttablayout.SmartTabLayout
             android:id="@+id/viewpagertab"
             android:layout_width="match_parent"
@@ -37,6 +49,8 @@
             app:stl_overlineThickness="0dp"
             app:stl_titleOffset="24dp"
             app:stl_underlineColor="#4D000000"
+            android:layout_below="@+id/top_info_message"
+            android:layout_above="@+id/form_switcher"
             app:stl_underlineThickness="@dimen/size_1" />
 
         <com.duolingo.open.rtlviewpager.RtlViewPager

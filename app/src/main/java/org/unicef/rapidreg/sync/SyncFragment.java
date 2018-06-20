@@ -246,6 +246,11 @@ public class SyncFragment extends MvpFragment<SyncView, BaseSyncPresenter> imple
     }
 
     @Override
+    public void showReassignedCasesWarningMessage(String message) {
+        Utils.showMessageByToast(getActivity(), message, Toast.LENGTH_LONG);
+    }
+
+    @Override
     public void showDownloadingCasesSyncProgressDialog() {
         showSyncProgressDialog(getResources().getString(R.string.downloading_cases_sync_progress_msg));
     }

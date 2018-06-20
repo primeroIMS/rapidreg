@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -130,6 +131,10 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
         }
     }
 
+    protected void toggleInvalidatedIcon(RecordListViewHolder holder, boolean isInvalidated) {
+        holder.toggleInvalidatedIcon(isInvalidated);
+    }
+
     protected void toggleDeleteCheckBox(RecordListViewHolder holder) {
         holder.deleteStateCheckBox.setChecked(recordWillBeDeletedList.contains(holder.deleteStateCheckBox.getTag()));
     }
@@ -215,6 +220,8 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
         @BindView(R.id.container_incident_list_item)
         public RelativeLayout containerIncidentListItem;
 
+        @BindView(R.id.invalidated)
+        public ImageButton invalidated;
 
         private RecordModel record;
 
@@ -333,6 +340,15 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
             itemView.setBackgroundColor(Color.WHITE);
 
             recordWillBeDeletedList.clear();
+        }
+
+        public void toggleInvalidatedIcon(boolean isInvalidated) {
+            if (isInvalidated) {
+                this.invalidated.setVisibility(View.VISIBLE);
+            } else {
+                this.invalidated.setVisibility(View.GONE);
+            }
+
         }
     }
 

@@ -79,14 +79,30 @@ public class CaseMiniFormFragment extends RecordRegisterFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((RecordActivity)getActivity()).setShowHideSwitcherToShowState();
+        this.initTopWarning();
     }
 
     @Override
     public void onInitViewContent() {
         super.onInitViewContent();
         formSwitcher.setText(R.string.show_more_details);
+
         if (((RecordActivity) getActivity()).getCurrentFeature().isDetailMode()) {
-            editButton.setVisibility(View.VISIBLE);
+            if (this.caseIsInvalidated()) {
+                editButton.setVisibility(View.GONE);
+            } else {
+                editButton.setVisibility(View.VISIBLE);
+            }
+        } else {
+            editButton.setVisibility(View.GONE);
+        }
+    }
+
+    protected void initTopWarning() {
+        if (this.caseIsInvalidated()) {
+            topInfoMessage.setVisibility(View.VISIBLE);
+        } else {
+            topInfoMessage.setVisibility(View.GONE);
         }
     }
 
@@ -171,5 +187,16 @@ public class CaseMiniFormFragment extends RecordRegisterFragment {
                 (currentFeature.isCPCase() ? DETAILS_CP_FULL : DETAILS_GBV_FULL) : currentFeature.isAddMode() ?
                 (currentFeature.isCPCase() ? ADD_CP_FULL : ADD_GBV_FULL) : EDIT_FULL;
         ((RecordActivity) getActivity()).turnToFeature(feature, args, ANIM_TO_FULL);
+    }
+
+    // case_id comes as part of itemValues
+    // then is safer than passing recordId around in Bundle
+    private boolean caseIsInvalidated() {
+        String caseId = getRecordRegisterData().getAsString(CASE_ID);
+        if (caseId != null) {
+            return caseRegisterPresenter.getCaseIsInvalidated(caseId);
+        } else {
+            return false;
+        }
     }
 }

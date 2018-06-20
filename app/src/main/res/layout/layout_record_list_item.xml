@@ -27,6 +27,22 @@
             android:textColor="@color/primero_font_dark"
             android:textSize="@dimen/text_size_16"/>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:gravity="right"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/invalidated"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_block_black_24dp"
+                android:visibility="gone"
+                android:tint="@color/red" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
