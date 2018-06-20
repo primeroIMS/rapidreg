@@ -281,7 +281,7 @@ public class CaseService extends RecordService {
 
     public Case deleteByRecordId(long recordId) {
         Case deleteCase = caseDao.getCaseById(recordId);
-        if (deleteCase != null && !deleteCase.isSynced()) {
+        if (deleteCase != null && !deleteCase.isSynced() && !deleteCase.isInvalidated()) {
             return null;
         }
         caseDao.delete(deleteCase);

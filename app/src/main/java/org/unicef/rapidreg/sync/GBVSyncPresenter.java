@@ -97,9 +97,21 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
             getView().setProgressMax(totalNumberOfUploadRecords);
         }
         isSyncing = true;
+
+        ArrayList<String> caseShortIdsReasigned= new ArrayList<String>();
         uploadCasesDisposable = Observable.fromIterable(caseList)
                 .filter(item -> isSyncing && !item.isSynced())
-                .map(item -> new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item)))
+                .map(item -> {
+                    return new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item));
+                })
+                .filter(pair -> {
+                    boolean isAuthorizedUpload = (pair.second.code() != 403);
+                    if (!isAuthorizedUpload) {
+                        caseShortIdsReasigned.add(pair.first.getShortId());
+                        updateRecordInvalidated(pair.first, true);
+                    }
+                    return isAuthorizedUpload;
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(pair -> {
@@ -116,6 +128,7 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                         e.printStackTrace();
                     }
                 }, () -> {
+                    reportReassignedCasesIfAny(caseShortIdsReasigned);
                     preUploadIncidents(incidents).subscribe(incidents -> upLoadIncidents(incidents));
                 });
 

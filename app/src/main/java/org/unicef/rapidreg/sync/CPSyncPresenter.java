@@ -110,9 +110,21 @@ public class CPSyncPresenter extends BaseSyncPresenter {
             getView().setProgressMax(totalNumberOfUploadRecords);
         }
         isSyncing = true;
-        uploadCasesDisposable = Observable.fromIterable(caseList)
+
+        ArrayList<String> caseShortIdsReasigned= new ArrayList<String>();
+        uploadCasesDisposable =  Observable.fromIterable(caseList)
                 .filter(item -> isSyncing && !item.isSynced())
-                .map(item -> new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item)))
+                .map(item -> {
+                    return new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item));
+                })
+                .filter(pair -> {
+                    boolean isAuthorizedUpload = (pair.second.code() != 403);
+                    if (!isAuthorizedUpload) {
+                        caseShortIdsReasigned.add(pair.first.getShortId());
+                        updateRecordInvalidated(pair.first, true);
+                    }
+                    return isAuthorizedUpload;
+                })
                 .map(pair -> {
                     syncCaseService.uploadAudio(pair.first);
                     return pair;
@@ -156,7 +168,10 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }, () -> upLoadTracing(tracings));
+                }, () -> {
+                    reportReassignedCasesIfAny(caseShortIdsReasigned);
+                    upLoadTracing(tracings);
+                });
 
         compositeDisposable.add(uploadCasesDisposable);
     }
@@ -638,4 +653,5 @@ public class CPSyncPresenter extends BaseSyncPresenter {
 
         compositeDisposable.add(downloadSecondFormByModuleDisposable);
     }
+
 }

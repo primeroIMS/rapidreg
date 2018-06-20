@@ -68,6 +68,28 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
     }
 
     @Override
+    protected void initFloatingActionButton() {
+        if (((RecordActivity) getActivity()).getCurrentFeature().isDetailMode()) {
+            if (this.caseIsInvalidated()) {
+                editButton.setVisibility(View.GONE);
+            } else {
+                editButton.setVisibility(View.VISIBLE);
+            }
+        } else {
+            editButton.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void initTopWarning() {
+        if (this.caseIsInvalidated()) {
+            this.topInfoMessage.setVisibility(View.VISIBLE);
+        } else {
+            this.topInfoMessage.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     protected RecordPhotoAdapter createRecordPhotoAdapter() {
         casePhotoAdapter.setItems(getArguments().getStringArrayList(RecordService.RECORD_PHOTOS));
         return casePhotoAdapter;
@@ -142,5 +164,16 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
         args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) getPhotoPathsData());
 
         ((RecordActivity) getActivity()).turnToFeature(feature, args, null);
+    }
+
+    // case_id comes as part of itemValues
+    // then is safer than passing recordId around in Bundle
+    private boolean caseIsInvalidated() {
+        String caseId = getRecordRegisterData().getAsString(CASE_ID);
+        if (caseId != null) {
+            return caseRegisterPresenter.getCaseIsInvalidated(caseId);
+        } else {
+            return false;
+        }
     }
 }

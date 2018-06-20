@@ -67,6 +67,9 @@ public class RecordModel extends BaseModel {
     @Column
     private boolean isAudioSynced;
 
+    @Column(name = "is_invalidated")
+    private boolean isInvalidated;
+
     public RecordModel(long id) {
         this.id = id;
     }
@@ -242,6 +245,10 @@ public class RecordModel extends BaseModel {
         this.shortId = shortId;
     }
 
+    public boolean isInvalidated() { return isInvalidated; }
+
+    public void setInvalidated(boolean invalidated) { isInvalidated = invalidated; }
+
     @Override
     public String toString() {
         return "RecordModel{" +
@@ -260,6 +267,7 @@ public class RecordModel extends BaseModel {
                 ", internalId='" + internalId + '\'' +
                 ", syncLog='" + syncLog + '\'' +
                 ", isSynced=" + isSynced +
+                ", isInvalidated=" + isInvalidated +
                 ", audio=" + audio +
                 ", content=" + content +
                 ", caregiver='" + caregiver + '\'' +

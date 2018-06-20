@@ -93,7 +93,11 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
         }
         Response<JsonElement> response = responseObservable.blockingFirst();
         if (!response.isSuccessful()) {
-            throw new RuntimeException(response.errorBody().toString());
+            if (response.code() == 403) {
+                return response;
+            } else {
+                throw new RuntimeException(response.errorBody().toString());
+            }
         }
 
         JsonObject responseJsonObject = response.body().getAsJsonObject();
