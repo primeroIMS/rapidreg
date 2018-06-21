@@ -364,7 +364,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     } catch (IOException e) {
                         throw new ObservableNullResponseException(e.getMessage());
                     }
-                    return null;
+                    return jsonObject;
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -560,7 +560,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     } catch (IOException e) {
                         throw new MediaPersistenceException(e);
                     }
-                    return null;
+                    return jsonObject;
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
