@@ -3,6 +3,7 @@ package org.unicef.rapidreg.service.impl;
 import com.google.gson.JsonObject;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.model.SystemSettings;
 import org.unicef.rapidreg.repository.SystemSettingsDao;
 import org.unicef.rapidreg.repository.remote.SystemSettingRepository;
@@ -33,7 +34,7 @@ public class SystemSettingsServiceImpl extends BaseRetrofitService<SystemSetting
                     currentSystemSettings.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
 
                     if (response == null) {
-                        throw new Exception();
+                        throw new ObservableNullResponseException();
                     } else {
                         if (response.isSuccessful()) {
                             JsonObject jsonObject = response.body().getAsJsonObject();

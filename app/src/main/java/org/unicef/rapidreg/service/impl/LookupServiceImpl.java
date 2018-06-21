@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.model.Lookup;
 import org.unicef.rapidreg.repository.LookupDao;
 import org.unicef.rapidreg.repository.remote.LookupRepository;
@@ -41,7 +42,7 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
                     lookups.setLocale(PrimeroAppConfiguration.getDefaultLanguage());
 
                     if (response == null) {
-                        throw new Exception();
+                        throw new ObservableNullResponseException();
                     } else {
                         if (response.isSuccessful()) {
                             JsonObject jsonObject = response.body().getAsJsonObject();
