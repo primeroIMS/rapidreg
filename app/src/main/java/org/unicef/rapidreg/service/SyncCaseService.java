@@ -3,6 +3,7 @@ package org.unicef.rapidreg.service;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.model.RecordModel;
 
 import okhttp3.ResponseBody;
@@ -21,9 +22,9 @@ public interface SyncCaseService {
 
     Observable<Response<JsonElement>> getCasesIds(String moduleId, String lastUpdate, Boolean isMobile);
 
-    Response<JsonElement> uploadCaseJsonProfile(RecordModel item);
+    Response<JsonElement> uploadCaseJsonProfile(RecordModel item) throws ObservableNullResponseException;
 
-    void uploadAudio(RecordModel item);
+    void uploadAudio(RecordModel item) throws ObservableNullResponseException;
 
     Call<Response<JsonElement>> deleteCasePhotos(String id, JsonArray photoKeys);
 

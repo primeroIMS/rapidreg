@@ -252,7 +252,7 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                                     .getAsString(), "en", true);
                     Response<JsonElement> response = responseObservable.blockingFirst();
                     if (!response.isSuccessful()) {
-                        throw new RuntimeException();
+                        throw new ObservableNullResponseException();
                     }
                     JsonObject responseJsonObject = response.body().getAsJsonObject();
                     saveDownloadedCases(responseJsonObject);
@@ -379,7 +379,7 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                                     .getAsString(), "en", true);
                     Response<JsonElement> response = responseObservable.blockingFirst();
                     if (!response.isSuccessful()) {
-                        throw new RuntimeException();
+                        throw new ObservableNullResponseException();
                     }
                     JsonObject responseJsonObject = response.body().getAsJsonObject();
                     saveDownloadedIncidents(responseJsonObject);

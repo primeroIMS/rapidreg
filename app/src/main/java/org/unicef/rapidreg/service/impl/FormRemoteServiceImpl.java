@@ -1,6 +1,7 @@
 package org.unicef.rapidreg.service.impl;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.forms.CaseTemplateForm;
 import org.unicef.rapidreg.forms.IncidentTemplateForm;
 import org.unicef.rapidreg.forms.TracingTemplateForm;
@@ -30,7 +31,7 @@ public class FormRemoteServiceImpl extends BaseRetrofitService<FormRepository> i
                     @Override
                     public Observable<CaseTemplateForm> apply(CaseTemplateForm caseForm) {
                         if (caseForm == null) {
-                            return Observable.error(new Exception());
+                            return Observable.error(new ObservableNullResponseException());
                         }
                         return Observable.just(caseForm);
                     }
@@ -50,7 +51,7 @@ public class FormRemoteServiceImpl extends BaseRetrofitService<FormRepository> i
                     public Observable<TracingTemplateForm> apply(TracingTemplateForm
                                                                         tracingTemplateForm) {
                         if (tracingTemplateForm == null) {
-                            return Observable.error(new Exception());
+                            return Observable.error(new ObservableNullResponseException());
                         }
                         return Observable.just(tracingTemplateForm);
                     }
@@ -70,7 +71,7 @@ public class FormRemoteServiceImpl extends BaseRetrofitService<FormRepository> i
                     public Observable<IncidentTemplateForm> apply(IncidentTemplateForm
                                                                          incidentForm) {
                         if (incidentForm == null) {
-                            return Observable.error(new Exception());
+                            return Observable.error(new ObservableNullResponseException());
                         }
                         return Observable.just(incidentForm);
                     }

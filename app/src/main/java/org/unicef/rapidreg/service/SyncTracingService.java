@@ -4,6 +4,7 @@ package org.unicef.rapidreg.service;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.model.RecordModel;
 
 import okhttp3.ResponseBody;
@@ -22,9 +23,9 @@ public interface SyncTracingService {
 
     Observable<Response<JsonElement>> getIds(String lastUpdate, Boolean isMobile);
 
-    Response<JsonElement> uploadJsonProfile(RecordModel item);
+    Response<JsonElement> uploadJsonProfile(RecordModel item) throws ObservableNullResponseException;
 
-    void uploadAudio(RecordModel item);
+    void uploadAudio(RecordModel item) throws ObservableNullResponseException;
 
     Call<Response<JsonElement>> deletePhotos(String id, JsonArray photoKeys);
 

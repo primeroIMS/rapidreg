@@ -12,6 +12,8 @@ import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
+import org.unicef.rapidreg.exception.JsonParseException;
+import org.unicef.rapidreg.exception.MediaPersistenceException;
 import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.injection.ActivityContext;
 import org.unicef.rapidreg.model.Case;
@@ -149,7 +151,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        throw new RuntimeException(e);
+                        throw new JsonParseException(e);
                     }
                     return caseResponsePair;
                 })
@@ -207,7 +209,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        throw new RuntimeException(e);
+                        throw new JsonParseException(e);
                     }
                     return tracingResponsePair;
                 })
@@ -303,7 +305,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                                     .getAsString(), "en", true);
                     Response<JsonElement> response = responseObservable.blockingFirst();
                     if (!response.isSuccessful()) {
-                        throw new RuntimeException();
+                        throw new ObservableNullResponseException();
                     }
                     JsonObject responseJsonObject = response.body().getAsJsonObject();
                     saveDownloadedCases(responseJsonObject);
@@ -316,12 +318,12 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         Response<ResponseBody> audioResponse = syncCaseService.getCaseAudio(id)
                                 .blockingFirst();
                         if (!audioResponse.isSuccessful()) {
-                            throw new RuntimeException();
+                            throw new ObservableNullResponseException();
                         }
                         try {
                             updateCaseAudio(id, audioResponse.body().bytes());
                         } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            throw new MediaPersistenceException(e);
                         }
                     }
                     return response;
@@ -360,7 +362,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                             updateCasePhotos(id, response.body().bytes());
                         }
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        throw new ObservableNullResponseException(e.getMessage());
                     }
                     return null;
                 })
@@ -503,7 +505,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                                     .getAsString(), "en", true);
                     Response<JsonElement> response = responseObservable.blockingFirst();
                     if (!response.isSuccessful()) {
-                        throw new RuntimeException();
+                        throw new ObservableNullResponseException();
                     }
                     JsonObject responseJsonObject = response.body().getAsJsonObject();
                     saveDownloadedTracings(responseJsonObject);
@@ -516,12 +518,12 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         Response<ResponseBody> audioResponse = syncTracingService.getAudio
                                 (id).blockingFirst();
                         if (!audioResponse.isSuccessful()) {
-                            throw new RuntimeException();
+                            throw new ObservableNullResponseException();
                         }
                         try {
                             updateTracingAudio(id, audioResponse.body().bytes());
                         } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            throw new MediaPersistenceException(e);
                         }
                     }
                     return response;
@@ -556,7 +558,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     try {
                         updateTracingPhotos(id, response.body().bytes());
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        throw new MediaPersistenceException(e);
                     }
                     return null;
                 })
