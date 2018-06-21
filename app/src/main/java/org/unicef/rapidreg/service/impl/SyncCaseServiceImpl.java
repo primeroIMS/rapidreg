@@ -176,7 +176,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                     updateRecordRev(record, response.body().getAsJsonObject().get("_rev")
                             .getAsString());
                     updateCasePhotoSyncStatus(casePhoto, true);
-                    return null;
+                    return casePhotoResponsePair;
                 }).toList().blockingGet();
     }
 
