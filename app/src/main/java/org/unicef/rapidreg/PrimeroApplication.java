@@ -3,6 +3,7 @@ package org.unicef.rapidreg;
 import android.app.Application;
 import android.content.Context;
 
+import com.akaita.java.rxjava2debug.RxJava2Debug;
 import com.facebook.stetho.Stetho;
 import com.raizlabs.android.dbflow.config.DatabaseConfig;
 import com.raizlabs.android.dbflow.config.FlowConfig;
@@ -31,6 +32,7 @@ public class PrimeroApplication extends Application {
 
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(context);
+            RxJava2Debug.enableRxJava2AssemblyTracking(new String[]{"org.unicef.rapidreg"});
         }
 
         PrimeroAppConfiguration.setInternalFilePath(context.getFilesDir().getPath() );

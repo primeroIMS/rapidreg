@@ -1,6 +1,7 @@
 package org.unicef.rapidreg.service.impl;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.forms.CaseTemplateForm;
 import org.unicef.rapidreg.forms.IncidentTemplateForm;
 import org.unicef.rapidreg.forms.TracingTemplateForm;
@@ -10,11 +11,11 @@ import org.unicef.rapidreg.service.FormRemoteService;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class FormRemoteServiceImpl extends BaseRetrofitService<FormRepository> implements FormRemoteService {
     @Override
@@ -26,11 +27,11 @@ public class FormRemoteServiceImpl extends BaseRetrofitService<FormRepository> i
                                                     Boolean isMobile, String parentForm, String moduleId) {
         return getRepository(FormRepository.class).getCaseForm(cookie, locale, isMobile, parentForm,
                 moduleId)
-                .flatMap(new Func1<CaseTemplateForm, Observable<CaseTemplateForm>>() {
+                .flatMap(new Function<CaseTemplateForm, Observable<CaseTemplateForm>>() {
                     @Override
-                    public Observable<CaseTemplateForm> call(CaseTemplateForm caseForm) {
+                    public Observable<CaseTemplateForm> apply(CaseTemplateForm caseForm) {
                         if (caseForm == null) {
-                            return Observable.error(new Exception());
+                            return Observable.error(new ObservableNullResponseException());
                         }
                         return Observable.just(caseForm);
                     }
@@ -45,12 +46,12 @@ public class FormRemoteServiceImpl extends BaseRetrofitService<FormRepository> i
                                                           Boolean isMobile, String parentForm, String moduleId) {
         return getRepository(FormRepository.class).getTracingForm(cookie, locale, isMobile,
                 parentForm, moduleId)
-                .flatMap(new Func1<TracingTemplateForm, Observable<TracingTemplateForm>>() {
+                .flatMap(new Function<TracingTemplateForm, Observable<TracingTemplateForm>>() {
                     @Override
-                    public Observable<TracingTemplateForm> call(TracingTemplateForm
+                    public Observable<TracingTemplateForm> apply(TracingTemplateForm
                                                                         tracingTemplateForm) {
                         if (tracingTemplateForm == null) {
-                            return Observable.error(new Exception());
+                            return Observable.error(new ObservableNullResponseException());
                         }
                         return Observable.just(tracingTemplateForm);
                     }
@@ -65,12 +66,12 @@ public class FormRemoteServiceImpl extends BaseRetrofitService<FormRepository> i
                                                             Boolean isMobile, String parentForm, String moduleId) {
         return getRepository(FormRepository.class).getIncidentForm(cookie, locale, isMobile,
                 parentForm, moduleId)
-                .flatMap(new Func1<IncidentTemplateForm, Observable<IncidentTemplateForm>>() {
+                .flatMap(new Function<IncidentTemplateForm, Observable<IncidentTemplateForm>>() {
                     @Override
-                    public Observable<IncidentTemplateForm> call(IncidentTemplateForm
+                    public Observable<IncidentTemplateForm> apply(IncidentTemplateForm
                                                                          incidentForm) {
                         if (incidentForm == null) {
-                            return Observable.error(new Exception());
+                            return Observable.error(new ObservableNullResponseException());
                         }
                         return Observable.just(incidentForm);
                     }

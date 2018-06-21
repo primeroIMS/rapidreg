@@ -8,8 +8,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.raizlabs.android.dbflow.data.Blob;
 
+import org.reactivestreams.Subscriber;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.model.CasePhoto;
 import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.repository.CasePhotoDao;
@@ -21,15 +23,17 @@ import org.unicef.rapidreg.utils.TextUtils;
 
 import java.util.List;
 
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.functions.Function;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func1;
+import io.reactivex.Observable;
 
 import static org.unicef.rapidreg.service.RecordService.CAREGIVER_NAME;
 
@@ -67,7 +71,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                 lastUpdate, isMobile);
     }
 
-    public Response<JsonElement> uploadCaseJsonProfile(RecordModel item) {
+    public Response<JsonElement> uploadCaseJsonProfile(RecordModel item) throws ObservableNullResponseException {
         ItemValuesMap itemValuesMap = ItemValuesMap.fromJson(new String(item.getContent().getBlob
                 ()));
         String shortUUID = TextUtils.getLastSevenNumbers(item.getUniqueId());
@@ -88,12 +92,12 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                     (PrimeroAppConfiguration
                             .getCookie(), jsonObject);
         }
-        Response<JsonElement> response = responseObservable.toBlocking().first();
+        Response<JsonElement> response = responseObservable.blockingFirst();
         if (!response.isSuccessful()) {
             if (response.code() == 403) {
                 return response;
             } else {
-                throw new RuntimeException(response.errorBody().toString());
+                throw new ObservableNullResponseException(response.errorBody().toString());
             }
         }
 
@@ -110,7 +114,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
         return response;
     }
 
-    public void uploadAudio(RecordModel item) {
+    public void uploadAudio(RecordModel item) throws ObservableNullResponseException {
         if (item.getAudio() != null) {
             RequestBody requestFile = RequestBody.create(MediaType.parse(
                     PhotoConfig.CONTENT_TYPE_AUDIO), item.getAudio().getBlob());
@@ -119,7 +123,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
             Observable<Response<JsonElement>> observable = getRepository(SyncCaseRepository.class).postCaseMediaData(
                     PrimeroAppConfiguration.getCookie(), item.getInternalId(), body);
 
-            Response<JsonElement> response = observable.toBlocking().first();
+            Response<JsonElement> response = observable.blockingFirst();
             verifyResponse(response);
             updateRecordRev(item, response.body().getAsJsonObject().get("_rev").getAsString());
         }
@@ -138,17 +142,15 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
 
     public void uploadCasePhotos(final RecordModel record) {
         List<Long> casePhotosIds = casePhotoDao.getIdsByCaseId(record.getId());
-        Observable.from(casePhotosIds)
+        Observable.fromIterable(casePhotosIds)
                 .filter(casePhotoId -> true)
-                .flatMap(new Func1<Long, Observable<Pair<CasePhoto, Response<JsonElement>>>>() {
+                .flatMap(new Function<Long, Observable<Pair<CasePhoto, Response<JsonElement>>>>() {
                     @Override
-                    public Observable<Pair<CasePhoto, Response<JsonElement>>> call(final Long
-                                                                                           casePhotoId) {
-                        return Observable.create(new Observable.OnSubscribe<Pair<CasePhoto,
-                                Response<JsonElement>>>() {
+                    public Observable<Pair<CasePhoto, Response<JsonElement>>> apply(final Long
+                                                                                            casePhotoId) {
+                        return Observable.create(new ObservableOnSubscribe<Pair<CasePhoto, Response<JsonElement>>>() {
                             @Override
-                            public void call(Subscriber<? super Pair<CasePhoto,
-                                    Response<JsonElement>>> subscriber) {
+                            public void subscribe(ObservableEmitter<Pair<CasePhoto, Response<JsonElement>>> emitter) throws ObservableNullResponseException {
                                 CasePhoto casePhoto = casePhotoDao.getById(casePhotoId);
 
                                 RequestBody requestFile = RequestBody.create(MediaType.parse
@@ -160,10 +162,10 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                                 Observable<Response<JsonElement>> observable = getRepository(SyncCaseRepository.class)
                                         .postCaseMediaData(PrimeroAppConfiguration.getCookie(),
                                                 record.getInternalId(), body);
-                                Response<JsonElement> response = observable.toBlocking().first();
+                                Response<JsonElement> response = observable.blockingFirst();
                                 verifyResponse(response);
-                                subscriber.onNext(new Pair<>(casePhoto, response));
-                                subscriber.onCompleted();
+                                emitter.onNext(new Pair<>(casePhoto, response));
+                                emitter.onComplete();
                             }
                         });
                     }
@@ -175,7 +177,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                             .getAsString());
                     updateCasePhotoSyncStatus(casePhoto, true);
                     return null;
-                }).toList().toBlocking().first();
+                }).toList().blockingGet();
     }
 
     private void updateRecordRev(RecordModel record, String revId) {
@@ -192,9 +194,9 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
 
     private static final String FORM_DATA_KEY_PHOTO = "child[photo][0]";
 
-    private void verifyResponse(Response<JsonElement> response) {
+    private void verifyResponse(Response<JsonElement> response) throws ObservableNullResponseException {
         if (!response.isSuccessful()) {
-            throw new RuntimeException();
+            throw new ObservableNullResponseException();
         }
     }
 }

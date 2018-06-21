@@ -135,6 +135,12 @@ public class SyncFragment extends MvpFragment<SyncView, BaseSyncPresenter> imple
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.disposeOfDisposables();
+    }
+
+    @Override
     public BaseSyncPresenter createPresenter() {
         User.Role roleType = PrimeroAppConfiguration.getCurrentUser().getRoleType();
         if (User.Role.GBV == roleType) {

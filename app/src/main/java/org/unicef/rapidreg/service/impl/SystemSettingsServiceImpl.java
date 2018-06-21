@@ -11,9 +11,9 @@ import org.unicef.rapidreg.service.SystemSettingsService;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class SystemSettingsServiceImpl extends BaseRetrofitService<SystemSettingRepository> implements
         SystemSettingsService {

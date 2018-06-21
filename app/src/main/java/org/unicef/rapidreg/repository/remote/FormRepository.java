@@ -8,8 +8,7 @@ import org.unicef.rapidreg.forms.TracingTemplateForm;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
-import rx.Observable;
-
+import io.reactivex.Observable;
 
 public interface FormRepository {
     @GET("/api/form_sections")

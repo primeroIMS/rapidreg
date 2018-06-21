@@ -6,13 +6,13 @@ import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.repository.remote.SearchRepository;
 import org.unicef.rapidreg.service.BaseRetrofitService;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+
 
 public class SearchRemoteService extends BaseRetrofitService<SearchRepository> implements SearchRepository {
     @Override

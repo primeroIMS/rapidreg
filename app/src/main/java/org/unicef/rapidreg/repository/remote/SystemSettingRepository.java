@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface SystemSettingRepository {
     @GET("/api/system_settings")

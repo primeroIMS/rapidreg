@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.model.Incident;
 import org.unicef.rapidreg.repository.remote.SyncIncidentRepository;
 import org.unicef.rapidreg.service.BaseRetrofitService;
@@ -15,13 +16,13 @@ import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.TextUtils;
 
 import retrofit2.Response;
-import rx.Observable;
+import io.reactivex.Observable;
 
 
 public class SyncIncidentServiceImpl extends BaseRetrofitService<SyncIncidentRepository> implements
         SyncIncidentService {
     @Override
-    public Response<JsonElement> uploadIncidentJsonProfile(Incident item) {
+    public Response<JsonElement> uploadIncidentJsonProfile(Incident item) throws ObservableNullResponseException {
         ItemValuesMap itemValuesMap = ItemValuesMap.fromJson(new String(item.getContent().getBlob()));
         String shortUUID = TextUtils.getLastSevenNumbers(item.getUniqueId());
 
@@ -36,14 +37,14 @@ public class SyncIncidentServiceImpl extends BaseRetrofitService<SyncIncidentRep
         Response<JsonElement> response;
         if (!TextUtils.isEmpty(item.getInternalId())) {
             response = getRepository(SyncIncidentRepository.class).putIncident(PrimeroAppConfiguration.getCookie(),
-                    item.getInternalId(), jsonObject).toBlocking().first();
+                    item.getInternalId(), jsonObject).blockingFirst();
         } else {
             response = getRepository(SyncIncidentRepository.class).postIncident(PrimeroAppConfiguration.getCookie(),
                     jsonObject)
-                    .toBlocking().first();
+                    .blockingFirst();
         }
         if (!response.isSuccessful()) {
-            throw new RuntimeException(response.errorBody().toString());
+            throw new ObservableNullResponseException(response.errorBody().toString());
         }
 
         JsonObject responseJsonObject = response.body().getAsJsonObject();

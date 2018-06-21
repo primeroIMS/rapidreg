@@ -22,11 +22,12 @@ import org.unicef.rapidreg.utils.Utils;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Headers;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
 
 public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> implements org.unicef.rapidreg.service
         .LoginService {
@@ -37,7 +38,7 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
 
     private UserDao userDao;
 
-    private CompositeSubscription compositeSubscription;
+    private CompositeDisposable compositeDisposable;
 
     public LoginServiceImpl(ConnectivityManager connectivityManager,
                             TelephonyManager telephonyManager,
@@ -45,7 +46,7 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
         this.connectivityManager = connectivityManager;
         this.telephonyManager = telephonyManager;
         this.userDao = userDao;
-        this.compositeSubscription = new CompositeSubscription();
+        this.compositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -63,7 +64,7 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
         //TODO change hard code to be value from param
         final LoginRequestBody loginRequestBody = new LoginRequestBody(username, password, "15555215554",
                 "8fd2274a590497e9");
-        Subscription subscription = getRepository(LoginRepository.class)
+        Disposable disposable = getRepository(LoginRepository.class)
                 .login(loginRequestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,7 +96,7 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
                     callback.onFailed(throwable);
                 });
 
-        compositeSubscription.add(subscription);
+        compositeDisposable.add(disposable);
     }
 
     @Override
@@ -125,7 +126,7 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
 
     @Override
     public void destroy() {
-        compositeSubscription.clear();
+        compositeDisposable.clear();
     }
 
     @Override

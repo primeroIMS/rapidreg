@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.injection.ActivityContext;
 import org.unicef.rapidreg.model.Case;
 import org.unicef.rapidreg.model.Incident;
@@ -38,10 +39,12 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import dagger.Lazy;
+import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Response;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.unicef.rapidreg.PrimeroAppConfiguration.MODULE_ID_GBV;
 import static org.unicef.rapidreg.model.Incident.COLUMN_INCIDENT_CASE_ID;
@@ -55,6 +58,14 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
     private IncidentFormService incidentFormService;
 
     private List<Incident> incidents;
+
+    private Disposable uploadCasesDisposable;
+    private Disposable uploadIncidentsDisposable;
+    private Disposable preDownloadCasesDisposable;
+    private Disposable downloadCasesDisposable;
+    private Disposable preDownloadIncidentsDisposable;
+    private Disposable downloadIncidentsDisposable;
+    private Disposable downloadSecondFormByModuleDisposable;
 
     @Inject
     public GBVSyncPresenter(@ActivityContext Context context,
@@ -86,8 +97,9 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
             getView().setProgressMax(totalNumberOfUploadRecords);
         }
         isSyncing = true;
+
         ArrayList<String> caseShortIdsReasigned= new ArrayList<String>();
-        Observable.from(caseList)
+        uploadCasesDisposable = Observable.fromIterable(caseList)
                 .filter(item -> isSyncing && !item.isSynced())
                 .map(item -> {
                     return new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item));
@@ -119,11 +131,13 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                     reportReassignedCasesIfAny(caseShortIdsReasigned);
                     preUploadIncidents(incidents).subscribe(incidents -> upLoadIncidents(incidents));
                 });
+
+        compositeDisposable.add(uploadCasesDisposable);
     }
 
-    private Observable<List<Incident>> preUploadIncidents(List<Incident> incidents) {
+    private Single<List<Incident>> preUploadIncidents(List<Incident> incidents) {
         isSyncing = true;
-        return Observable.from(incidents)
+        return Observable.fromIterable(incidents)
                 .filter(incident -> isSyncing && !incident.isSynced())
                 .map(incident -> {
                     if (!TextUtils.isEmpty(incident.getCaseUniqueId()) && TextUtils.isEmpty(incident
@@ -139,7 +153,7 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
 
     private void upLoadIncidents(List<Incident> incidents) {
         isSyncing = true;
-        Observable.from(incidents)
+        uploadIncidentsDisposable = Observable.fromIterable(incidents)
                 .filter(item -> isSyncing && !item.isSynced())
                 .map(item -> new Pair<>(item, syncIncidentService.uploadIncidentJsonProfile(item)))
                 .subscribeOn(Schedulers.io())
@@ -165,6 +179,8 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                         preDownloadCases();
                     }
                 });
+
+        compositeDisposable.add(uploadIncidentsDisposable);
     }
 
     public void preDownloadCases() {
@@ -177,23 +193,27 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
         final List<JsonObject> downList = new ArrayList<>();
         final ProgressDialog loadingDialog = getView().showFetchingCaseAmountLoadingDialog();
 
-        syncCaseService.getCasesIds(PrimeroAppConfiguration.MODULE_ID_GBV, time, true)
+        preDownloadCasesDisposable = syncCaseService.getCasesIds(PrimeroAppConfiguration.MODULE_ID_GBV, time, true)
                 .map(jsonElementResponse -> {
-                    if (jsonElementResponse.isSuccessful()) {
-                        JsonElement jsonElement = jsonElementResponse.body();
-                        JsonArray jsonArray = jsonElement.getAsJsonArray();
+                    if (jsonElementResponse == null) {
+                        throw new ObservableNullResponseException();
+                    } else {
+                        if (jsonElementResponse.isSuccessful()) {
+                            JsonElement jsonElement = jsonElementResponse.body();
+                            JsonArray jsonArray = jsonElement.getAsJsonArray();
 
-                        for (JsonElement element : jsonArray) {
-                            JsonObject jsonObject = element.getAsJsonObject();
-                            boolean hasSameRev = caseService.hasSameRev(jsonObject.get("_id")
-                                            .getAsString(),
-                                    jsonObject.get("_rev").getAsString());
-                            if (!hasSameRev) {
-                                downList.add(jsonObject);
+                            for (JsonElement element : jsonArray) {
+                                JsonObject jsonObject = element.getAsJsonObject();
+                                boolean hasSameRev = caseService.hasSameRev(jsonObject.get("_id")
+                                                .getAsString(),
+                                        jsonObject.get("_rev").getAsString());
+                                if (!hasSameRev) {
+                                    downList.add(jsonObject);
+                                }
                             }
                         }
+                        return downList;
                     }
-                    return downList;
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -212,18 +232,27 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                         e.printStackTrace();
                     }
                 }, () -> downloadCases(downList));
+
+        compositeDisposable.add(preDownloadCasesDisposable);
     }
 
     private void downloadCases(List<JsonObject> objects) {
-        Observable.from(objects)
+        downloadCasesDisposable = Observable.fromIterable(objects)
+                .map(jsonObject -> {
+                    if (jsonObject == null) {
+                        throw new ObservableNullResponseException();
+                    } else {
+                        return jsonObject;
+                    }
+                })
                 .filter(jsonObject -> isSyncing)
                 .map(jsonObject -> {
                     Observable<Response<JsonElement>> responseObservable = syncCaseService
                             .getCase(jsonObject.get("_id")
                                     .getAsString(), "en", true);
-                    Response<JsonElement> response = responseObservable.toBlocking().first();
+                    Response<JsonElement> response = responseObservable.blockingFirst();
                     if (!response.isSuccessful()) {
-                        throw new RuntimeException();
+                        throw new ObservableNullResponseException();
                     }
                     JsonObject responseJsonObject = response.body().getAsJsonObject();
                     saveDownloadedCases(responseJsonObject);
@@ -244,6 +273,8 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                                 preDownloadIncidents();
                             }
                         });
+
+        compositeDisposable.add(downloadCasesDisposable);
     }
 
     private void saveDownloadedCases(JsonObject casesJsonObject) {
@@ -289,23 +320,27 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
         final String time = sdf.format(cal.getTime());
         final List<JsonObject> objects = new ArrayList<>();
         final ProgressDialog loadingDialog = getView().showFetchingIncidentAmountLoadingDialog();
-        syncIncidentService.getIncidentIds(time, true)
+        preDownloadIncidentsDisposable  = syncIncidentService.getIncidentIds(time, true)
                 .map(jsonElementResponse -> {
-                    if (jsonElementResponse.isSuccessful()) {
-                        JsonElement jsonElement = jsonElementResponse.body();
-                        JsonArray jsonArray = jsonElement.getAsJsonArray();
+                    if (jsonElementResponse == null) {
+                        throw new ObservableNullResponseException();
+                    } else {
+                        if (jsonElementResponse.isSuccessful()) {
+                            JsonElement jsonElement = jsonElementResponse.body();
+                            JsonArray jsonArray = jsonElement.getAsJsonArray();
 
-                        for (JsonElement element : jsonArray) {
-                            JsonObject jsonObject = element.getAsJsonObject();
-                            boolean hasSameRev = incidentService.hasSameRev(jsonObject.get
-                                            ("_id").getAsString(),
-                                    jsonObject.get("_rev").getAsString());
-                            if (!hasSameRev) {
-                                objects.add(jsonObject);
+                            for (JsonElement element : jsonArray) {
+                                JsonObject jsonObject = element.getAsJsonObject();
+                                boolean hasSameRev = incidentService.hasSameRev(jsonObject.get
+                                                ("_id").getAsString(),
+                                        jsonObject.get("_rev").getAsString());
+                                if (!hasSameRev) {
+                                    objects.add(jsonObject);
+                                }
                             }
                         }
+                        return objects;
                     }
-                    return objects;
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -324,18 +359,27 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                         e.printStackTrace();
                     }
                 }, () -> downloadIncidents(objects));
+
+        compositeDisposable.add(preDownloadIncidentsDisposable);
     }
 
     private void downloadIncidents(List<JsonObject> objects) {
-        Observable.from(objects)
+        downloadIncidentsDisposable = Observable.fromIterable(objects)
+                .map(jsonObject -> {
+                    if (jsonObject == null) {
+                        throw new ObservableNullResponseException();
+                    } else {
+                        return jsonObject;
+                    }
+                })
                 .filter(jsonObject -> isSyncing)
                 .map(jsonObject -> {
                     Observable<Response<JsonElement>> responseObservable = syncIncidentService
                             .getIncident(jsonObject.get("_id")
                                     .getAsString(), "en", true);
-                    Response<JsonElement> response = responseObservable.toBlocking().first();
+                    Response<JsonElement> response = responseObservable.blockingFirst();
                     if (!response.isSuccessful()) {
-                        throw new RuntimeException();
+                        throw new ObservableNullResponseException();
                     }
                     JsonObject responseJsonObject = response.body().getAsJsonObject();
                     saveDownloadedIncidents(responseJsonObject);
@@ -355,6 +399,8 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                             syncDownloadSuccessfully();
                             downloadCaseForm();
                         });
+
+        compositeDisposable.add(downloadIncidentsDisposable);
     }
 
     private void saveDownloadedIncidents(JsonObject incidentsJsonObject) {
@@ -411,9 +457,16 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
 
     @Override
     protected void downloadSecondFormByModule() {
-        formRemoteService.getIncidentForm(PrimeroAppConfiguration.getCookie(),
+        downloadSecondFormByModuleDisposable = formRemoteService.getIncidentForm(PrimeroAppConfiguration.getCookie(),
                 PrimeroAppConfiguration.getDefaultLanguage(), true, PrimeroAppConfiguration.PARENT_INCIDENT,
                 MODULE_ID_GBV)
+                .map(jsonObject -> {
+                    if (jsonObject == null) {
+                        throw new ObservableNullResponseException();
+                    } else {
+                        return jsonObject;
+                    }
+                })
                 .subscribe(incidentFormJson -> {
                             IncidentForm incidentForm = new IncidentForm(new Blob(new Gson().toJson(incidentFormJson)
                                     .getBytes()));
@@ -422,5 +475,6 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                         },
                         throwable -> syncFail(throwable)
                         , () -> syncPullFormSuccessfully());
+        compositeDisposable.add(downloadSecondFormByModuleDisposable);
     }
 }
