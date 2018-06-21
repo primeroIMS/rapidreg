@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.model.Lookup;
 import org.unicef.rapidreg.repository.LookupDao;
 import org.unicef.rapidreg.repository.remote.LookupRepository;
@@ -40,18 +41,22 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
                     lookups.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
                     lookups.setLocale(PrimeroAppConfiguration.getDefaultLanguage());
 
-                    if (response.isSuccessful()) {
-                        JsonObject jsonObject = response.body().getAsJsonObject();
-                        JsonArray sources = jsonObject.getAsJsonArray("sources");
+                    if (response == null) {
+                        throw new ObservableNullResponseException();
+                    } else {
+                        if (response.isSuccessful()) {
+                            JsonObject jsonObject = response.body().getAsJsonObject();
+                            JsonArray sources = jsonObject.getAsJsonArray("sources");
 
-                        if (sources.size() > 0) {
-                            Blob lookupsBlob = new Blob(gson.toJson(sources).getBytes());
-                            lookups.setLookupsJson(lookupsBlob);
+                            if (sources.size() > 0) {
+                                Blob lookupsBlob = new Blob(gson.toJson(sources).getBytes());
+                                lookups.setLookupsJson(lookupsBlob);
+                            }
+
                         }
 
+                        return lookups;
                     }
-
-                    return lookups;
                 })
                 .retry(3)
                 .timeout(60, TimeUnit.SECONDS)

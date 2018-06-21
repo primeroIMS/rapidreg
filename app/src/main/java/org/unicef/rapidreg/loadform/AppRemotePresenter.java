@@ -24,6 +24,10 @@ import dagger.Lazy;
 import static org.unicef.rapidreg.PrimeroAppConfiguration.MODULE_ID_CP;
 import static org.unicef.rapidreg.PrimeroAppConfiguration.MODULE_ID_GBV;
 
+/**
+ * TODO: This can be removed after AppRemoveService is cleaned up. Ensure code outside the loadform package
+ * isn't using any of this. Remember to fix test.
+ */
 public class AppRemotePresenter {
     private static final String TAG = AppRemotePresenter.class.getSimpleName();
 

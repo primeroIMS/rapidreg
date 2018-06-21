@@ -3,6 +3,7 @@ package org.unicef.rapidreg.injection.module;
 import android.net.ConnectivityManager;
 import android.telephony.TelephonyManager;
 
+import org.unicef.rapidreg.model.Lookup;
 import org.unicef.rapidreg.repository.CaseDao;
 import org.unicef.rapidreg.repository.CaseFormDao;
 import org.unicef.rapidreg.repository.CasePhotoDao;
@@ -15,6 +16,7 @@ import org.unicef.rapidreg.repository.TracingFormDao;
 import org.unicef.rapidreg.repository.TracingPhotoDao;
 import org.unicef.rapidreg.repository.UserDao;
 import org.unicef.rapidreg.repository.remote.SystemSettingRepository;
+import org.unicef.rapidreg.service.AppDataService;
 import org.unicef.rapidreg.service.CaseFormService;
 import org.unicef.rapidreg.service.CasePhotoService;
 import org.unicef.rapidreg.service.CaseService;
@@ -32,6 +34,7 @@ import org.unicef.rapidreg.service.TracingFormService;
 import org.unicef.rapidreg.service.TracingPhotoService;
 import org.unicef.rapidreg.service.TracingService;
 import org.unicef.rapidreg.service.UserService;
+import org.unicef.rapidreg.service.impl.AppDataServiceImpl;
 import org.unicef.rapidreg.service.impl.CaseFormServiceImpl;
 import org.unicef.rapidreg.service.impl.FormRemoteServiceImpl;
 import org.unicef.rapidreg.service.impl.IncidentFormServiceImpl;
@@ -152,6 +155,15 @@ public class ApplicationServiceModule {
     @Singleton
     public LookupService provideLookupService(LookupDao lookupDao) {
         return new LookupServiceImpl(lookupDao);
+    }
+
+    @Provides
+    @Singleton
+    public AppDataService provideAppDataService(LookupService lookupService, SystemSettingsService systemSettingsService,
+                                                FormRemoteService formRemoteService, CaseFormService caseFormService,
+                                                TracingFormService tracingFormService, IncidentFormService incidentFormService) {
+        return new AppDataServiceImpl(lookupService, systemSettingsService, formRemoteService, caseFormService,
+                tracingFormService, incidentFormService);
     }
 
     @Provides

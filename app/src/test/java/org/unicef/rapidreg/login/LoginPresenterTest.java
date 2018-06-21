@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.unicef.rapidreg.BuildConfig;
+import org.unicef.rapidreg.service.AppDataService;
 import org.unicef.rapidreg.service.LoginService;
 import org.unicef.rapidreg.service.SystemSettingsService;
 
@@ -35,6 +36,9 @@ public class LoginPresenterTest {
     private LoginService loginService;
 
     @Mock
+    AppDataService appDataService;
+
+    @Mock
     private SystemSettingsService systemSettingService;
 
     @Mock
@@ -44,7 +48,7 @@ public class LoginPresenterTest {
     public void setUp() throws Exception {
         initMocks(this);
 
-        loginPresenter = new LoginPresenter(() -> loginService, () -> systemSettingService);
+        loginPresenter = new LoginPresenter(() -> loginService, () -> systemSettingService, appDataService);
         loginPresenter.attachView(loginView);
     }
 

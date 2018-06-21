@@ -20,6 +20,12 @@ import org.unicef.rapidreg.event.LoadLookupsEvent;
 
 import javax.inject.Inject;
 
+/**
+ * TODO: Most of the stuff in this class concerning events can be removed. Nothing is being
+ * triggered as of now. Will have to be careful not to remove anything used else where and
+ * remove only event code. Will also have to search around for any other instances where events
+ * maybe triggered. I think I removed all of it, but I could be wrong. Remember to fix test.
+ */
 public class AppRemoteService extends Service {
     private static final String TAG = AppRemoteService.class.getSimpleName();
 

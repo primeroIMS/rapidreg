@@ -3,6 +3,7 @@ package org.unicef.rapidreg.service.impl;
 import com.google.gson.JsonObject;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.model.SystemSettings;
 import org.unicef.rapidreg.repository.SystemSettingsDao;
 import org.unicef.rapidreg.repository.remote.SystemSettingRepository;
@@ -31,16 +32,21 @@ public class SystemSettingsServiceImpl extends BaseRetrofitService<SystemSetting
                 .map(response -> {
                     SystemSettings currentSystemSettings = new SystemSettings();
                     currentSystemSettings.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
-                    if (response.isSuccessful()) {
-                        JsonObject jsonObject = response.body().getAsJsonObject();
-                        int districtLevel = jsonObject.getAsJsonObject("settings").getAsJsonObject
-                                ("reporting_location_config")
-                                .get("admin_level").getAsInt();
-                        currentSystemSettings.setDistrictLevel(districtLevel);
+
+                    if (response == null) {
+                        throw new ObservableNullResponseException();
                     } else {
-                        currentSystemSettings.setDistrictLevel(PrimeroAppConfiguration.DEFAULT_DISTRICT_LEVEL);
+                        if (response.isSuccessful()) {
+                            JsonObject jsonObject = response.body().getAsJsonObject();
+                            int districtLevel = jsonObject.getAsJsonObject("settings").getAsJsonObject
+                                    ("reporting_location_config")
+                                    .get("admin_level").getAsInt();
+                            currentSystemSettings.setDistrictLevel(districtLevel);
+                        } else {
+                            currentSystemSettings.setDistrictLevel(PrimeroAppConfiguration.DEFAULT_DISTRICT_LEVEL);
+                        }
+                        return currentSystemSettings;
                     }
-                    return currentSystemSettings;
                 })
                 .retry(3)
                 .timeout(60, TimeUnit.SECONDS)
