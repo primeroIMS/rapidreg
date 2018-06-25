@@ -94,7 +94,7 @@
     <string name="delete_subform">Are you sure you want to delete this subform</string>
     <string name="recording_is_too_short">Recording is too short</string>
     <string name="audio_file_not_exists">No audio file exists.</string>
-    <string name="case_reassigned">This case was reassigned to other agent.</string>
+    <string name="case_reassigned">This case was reassigned to other agent. Please remove it from your device.</string>
 
     <!--Sync-->
     <string name="last_sync_time">Last synchronization time</string>
