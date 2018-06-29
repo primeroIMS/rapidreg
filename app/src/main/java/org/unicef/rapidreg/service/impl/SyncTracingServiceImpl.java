@@ -171,7 +171,7 @@ public class SyncTracingServiceImpl extends BaseRetrofitService<SyncTracingsRepo
                     updateRecordRev(record, response.body().getAsJsonObject().get("_rev")
                             .getAsString());
                     updateTracingPhotoSyncStatus(tracingPhoto, true);
-                    return null;
+                    return tracingPhotoResponsePair;
                 }).toList().blockingGet();
     }
 
