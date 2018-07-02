@@ -75,6 +75,12 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
 }
 
 def androidSupportVersion = '23.3.0'
@@ -135,15 +141,18 @@ dependencies {
 
 
     testImplementation 'junit:junit:4.12',
-            'org.robolectric:robolectric:3.1.1',
+            'org.robolectric:robolectric:4.0-alpha-2',
+            'org.robolectric:shadows-support-v4:3.4-rc2',
             'org.easymock:easymock:3.4',
             "org.powermock:powermock:${powerMockVersion}",
             "org.powermock:powermock-module-junit4:${powerMockVersion}",
+            "org.powermock:powermock-module-junit4-rule:${powerMockVersion}",
             "org.powermock:powermock-api-mockito:${powerMockVersion}",
-            "org.powermock:powermock-api-easymock:${powerMockVersion}"
+            "org.powermock:powermock-api-easymock:${powerMockVersion}",
+            "org.powermock:powermock-classloading-xstream:${powerMockVersion}"
 
     androidTestImplementation 'junit:junit:4.12',
-            'org.robolectric:robolectric:3.1.1',
+            "org.robolectric:robolectric-gradle-plugin:1.1.0",
             "org.powermock:powermock-module-junit4:${powerMockVersion}",
             "org.powermock:powermock-api-mockito:${powerMockVersion}",
             'com.google.dagger:dagger:2.4'
@@ -151,7 +160,6 @@ dependencies {
     androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.4'
 
     implementation 'de.hdodenhof:circleimageview:2.0.0'
-    implementation 'org.robolectric:robolectric-annotations:3.1.1'
     implementation 'com.google.guava:guava:19.0'
     implementation 'com.duolingo.open:rtl-viewpager:1.0.3'
 

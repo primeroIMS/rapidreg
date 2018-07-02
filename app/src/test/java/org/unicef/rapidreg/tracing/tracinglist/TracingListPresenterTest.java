@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -92,5 +93,27 @@ public class TracingListPresenterTest {
 
         assertThat("Should return true if tracing form is ready", tracingListPresenter
                 .isFormReady(), is(true));
+    }
+
+    @Test
+    public void should_return_synced_records() throws Exception {
+        List<Long> syncedRecordIds = new ArrayList<Long>();
+        syncedRecordIds.add(Long.valueOf(1l));
+        syncedRecordIds.add(Long.valueOf(2l));
+
+        when(tracingService.getAllSyncedRecordsId()).thenReturn(syncedRecordIds);
+
+        assertEquals(syncedRecordIds, tracingListPresenter.getSyncedRecords());
+    }
+
+    @Test
+    public void should_return_synced_records_count() throws Exception {
+        List<Long> syncedRecordIds = new ArrayList<Long>();
+        syncedRecordIds.add(Long.valueOf(1l));
+        syncedRecordIds.add(Long.valueOf(2l));
+
+        when(tracingService.getAllSyncedRecordsId()).thenReturn(syncedRecordIds);
+
+        assertEquals(syncedRecordIds.size(), tracingListPresenter.getSyncedRecordsCount());
     }
 }
