@@ -19,6 +19,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -94,7 +95,7 @@ public class IncidentListPresenterTest {
 
     @Test
     public void should_return_records_by_registration_date_ASC_filter() throws Exception {
-        SpinnerState spinnerState = SpinnerState.INQUIRY_DATE_ASC;
+        SpinnerState spinnerState = SpinnerState.INTERVIEW_DATE_ASC;
 
         List<Long> expected = new ArrayList<>();
         when(incidentService.getAllOrderByDateASC()).thenReturn(expected);
@@ -102,6 +103,17 @@ public class IncidentListPresenterTest {
         List<Long> actual = incidentListPresenter.getRecordsByFilter(spinnerState);
 
         assertThat("Should return records by registrarion date ASC filter when SpinnerState is AGE_DES", actual, is(expected));
+    }
+
+    @Test
+    public void should_return_default_records_for_default_filter() throws Exception {
+        SpinnerState spinnerState = SpinnerState.INQUIRY_DATE_ASC;
+
+        List<Long> expected = new ArrayList<>();
+
+        List<Long> actual = incidentListPresenter.getRecordsByFilter(spinnerState);
+
+        assertThat("Should return empty list for any other filter", actual, is(expected));
     }
 
     @Test
@@ -130,4 +142,25 @@ public class IncidentListPresenterTest {
         assertThat("Should return true if incident form is ready", incidentListPresenter.isFormReady(), is(true));
     }
 
+    @Test
+    public void should_return_synced_records() throws Exception {
+        List<Long> syncedRecordIds = new ArrayList<Long>();
+        syncedRecordIds.add(Long.valueOf(1l));
+        syncedRecordIds.add(Long.valueOf(2l));
+
+        when(incidentService.getAllSyncedRecordsId()).thenReturn(syncedRecordIds);
+
+        assertEquals(syncedRecordIds, incidentListPresenter.getSyncedRecords());
+    }
+
+    @Test
+    public void should_return_synced_records_count() throws Exception {
+        List<Long> syncedRecordIds = new ArrayList<Long>();
+        syncedRecordIds.add(Long.valueOf(1l));
+        syncedRecordIds.add(Long.valueOf(2l));
+
+        when(incidentService.getAllSyncedRecordsId()).thenReturn(syncedRecordIds);
+
+        assertEquals(syncedRecordIds.size(), incidentListPresenter.getSyncedRecordsCount());
+    }
 }
