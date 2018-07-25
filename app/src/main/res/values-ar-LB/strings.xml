@@ -1,0 +1,54 @@
+<resources>
+    <!--List Spinner-->
+    <string name="spinner_order_by">ترتيب بحسب</string>
+
+    <!--Loging activity layout string-->
+    <string name="app_banner_text">بريميرو</string>
+    <string name="username_hint_text">إسم المستخدم</string>
+    <string name="password_hint_text">كلمة المرور</string>
+    <string name="button_login_text">تسجيل الدخول</string>
+    <string name="name">الإسم</string>
+    <string name="age_to">إلى</string>
+    <string name="inquiry_date">تاريخ الاستفسار</string>
+    <string name="date">التاريخ</string>
+    <string name="location">الموقع</string>
+
+    <!-- Toolbar End-->
+
+    <!-- Title -->
+    <string name="search">بحث</string>
+    <string name="cases">حالة</string>
+    <string name="child_case">حالة</string>
+    <string name="edit">تعديل</string>
+    <string name="incidents">حادثة</string>
+    <string name="child_incident">حادث/واقعة</string>
+    <string name="incident_details">تفاصيل الحادث</string>
+    <string name="tracing">طلبات التتبّع</string>
+    <string name="done">انتهى</string>
+    <string-array name="order_array">
+        <item>العمر</item>
+    </string-array>
+
+    <string name="delete">حذف</string>
+    <string name="add">إضافة</string>
+    <string name="save">حفظ</string>
+    <string name="new_case">ملفّ/حالة جديدة</string>
+    <string name="new_tracing">طلب تتبّع جديد </string>
+    <string name="new_incident">حادث جديد</string>
+    <string name="cancel_button_text">إلغاء</string>
+    <string name="deny_button_text">لا</string>
+    <string name="confirm_button_text">نعم</string>
+    <string name="filter">عامل التصفية/الفلتر</string>
+    <string name="tracing_request">طلب التتبع</string>
+    <string name="new_cp_case">ملفّ/حالة جديدة</string>
+    <string name="new_gbv_case">ملفّ/حالة جديدة</string>
+    <string name="survivor_code">رمز الناجي </string>
+    <string name="date_of_inquiry">تاريخ الاستفسار</string>
+    <string name="dialog_item_cancel">إلغاء</string>
+    <string name="date_text">التاريخ</string>
+    <string name="date_range">نطاق التاريخ</string>
+    <string name="date_from_hint">من</string>
+    <string name="date_to_hint">إلى</string>
+
+    <string name="ok">موافق</string>
+    </resources>

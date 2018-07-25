@@ -1,0 +1,200 @@
+<resources>
+    <string name="app_name">RapidReg</string>
+    <!--List Spinner-->
+    <string name="spinner_order_by">Classer par</string>
+
+    <!--Loging activity layout string-->
+    <string name="app_banner_text">Primero</string>
+    <string name="username_hint_text">Nom d\'utilisateur</string>
+    <string name="password_hint_text">Mot de passe</string>
+    <string name="url_hint_text">URL</string>
+    <string name="text_view_change_url">Changer l\'URL</string>
+    <string name="button_login_text">Identifier</string>
+    <string name="login_loading_text">Connexion, veuillez patienter ...</string>
+    <string name="login_offline_no_user_text">Désolé, vous devez être connecté à Internet pour la première connexion.</string>
+    <string name="login_offline_success_text">La connexion offline a réussi.</string>
+    <string name="navigation_drawer_open">Ouvrir le navigateur</string>
+    <string name="navigation_drawer_close">Fermer le navigateur</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="login_username_invalid_text">Entrer un nom d\'utilisateur valide!</string>
+    <string name="login_password_invalid_text">Entrer un mot de passe valide!</string>
+    <string name="login_url_invalid_text">Entrer un URL valide</string>
+    <string name="login_failed_credential">Désolé, veuillez vérifier votre nom d\'utilisateur, votre mot de passe et votre URL.</string>
+    <string name="login_failed_to_connect_prefix">Échec de la connexion
+</string>
+    <string name="login_failed_check_network_and_url">Désolé, vérifiez votre réseau et votre URL.</string>
+    <string name="login_out_successful_text">Déconnexion réussit.</string>
+    <string name="login_unauthorized_message">Désolé, nom d\'utilisateur ou mot de passe incorrect.</string>
+    <string name="login_service_unavailable_message">Service indisponible!</string>
+    <string name="login_not_find_code_message">Ne trouve pas le code du statut</string>
+    <string name="login_success_message">Connexion réussie </string>
+
+    <string name="login_user_label_key">Identification_utilisateur </string>
+    <string name="syncing_forms_text">Synchronisation des formulaires, veuillez essayer plus tard</string>
+    <string name="order_by">Réorganiser par&#160;</string>
+    <string name="case_id">ID:&#160;</string>
+    <string name="child_gender">Genre de l\'enfant</string>
+
+
+    <string name="id">ID</string>
+    <string name="name">Nom</string>
+    <string name="age_from">Age</string>
+    <string name="age_to">À</string>
+    <string name="caregiver">Nom de la personne actuellement responsable de l\'enfant</string>
+    <string name="registration_date">Date d\'enregistrement</string>
+    <string name="inquiry_date">Date de l\'enquête</string>
+    <string name="date">Date</string>
+    <string name="location">Lieu</string>
+
+    <!-- Toolbar Start-->
+    <string name="toolbar_save_button_text">Sauvegardé </string>
+    <string name="toolbar_back_button_text">Mobile</string>
+    <string name="toolbar_select_all_button_text">Tout sélectionner </string>
+    <!-- Toolbar End-->
+
+    <!-- Title -->
+    <string name="search">Rechercher</string>
+    <string name="search_web">Rechercher sur le Web</string>
+    <string name="cases">Cas</string>
+    <string name="child_case">Cas</string>
+    <string name="cp_case">Cas protection de l\'enfant</string>
+    <string name="gbv_case">Cas violence basé sur le genre</string>
+    <string name="edit">Modifier</string>
+    <string name="case_details">Détails du cas</string>
+    <string name="incidents">Incidents</string>
+    <string name="child_incident">Incident</string>
+    <string name="incident_details">Détails de l\'incident</string>
+    <string name="tracing">Demandes de traçage</string>
+    <string name="tracing_details">Détails de la demande de traçage</string>
+    <string name="sync">Synchronisation</string>
+    <string name="back">Retour</string>
+    <!-- Title -->
+    <string name="click_to_search">Cliquer pour chercher </string>
+    <string name="done">Termine</string>
+    <string name="no_search_result">Désolé, aucun résultat trouvé pour ce critère de recherche.</string>
+    <string name="no_records">Aucun enregistrement disponible.</string>
+    <string name="remote_record_not_found">Enregistrement trouvé. Connectez-vous pour continuer la recherche sur le Web</string>
+    <string name="remote_id_required">Identifiant requis pour la recherche à distance</string>
+
+    <string-array name="order_array">
+        <item>Créer un espace temps</item>
+        <item>âge</item>
+    </string-array>
+
+    <string name="no_photo_promote_info">Aucun fichier photo n\'existe.</string>
+    <string name="delete">Supprimer</string>
+    <string name="add">Ajouter</string>
+    <string name="required_field_is_not_filled">Désolé, veuillez vous assurer que toutes les informations requises sont saisies</string>
+    <string name="show_hide">Afficher / Masquer</string>
+    <string name="save">Enregistrer</string>
+    <string name="new_case">Nouveau cas</string>
+    <string name="new_tracing">Nouvelle demande de traçage</string>
+    <string name="new_incident">Nouvel incident</string>
+    <string name="quit">Quitter</string>
+    <string name="quit_without_saving">Êtes-vous sûr de vouloir quitter sans enregistrer?</string>
+    <string name="delete_subform">Êtes-vous sûr de vouloir supprimer ce sous-formulaire</string>
+    <string name="recording_is_too_short">L\'enregistrement est trop court</string>
+    <string name="audio_file_not_exists">Aucun fichier audio n\'existe.</string>
+    <!--Sync-->
+    <string name="last_sync_time">Dernière heure de synchronisation</string>
+    <string name="record_count_for_last_sync">Nombre de cas à la dernière synchronisation</string>
+    <string name="record_count_for_not_sync">Nombre de cas pour les données non synchronisées</string>
+    <string name="place_holder_last_sync_time">06-15-2016 16:14</string>
+    <string name="place_holder_record_count_for_last_sync">49</string>
+    <string name="place_holder_record_count_for_not_sync">146</string>
+    <string name="button_sync_state_of_click_to_sync">Synchronisation</string>
+    <string name="start_sync_message">Synchronisation, veuillez patienter ...</string>
+    <string name="confirm_cancel_sync_message">Êtes-vous sûr de vouloir arrêter la synchronisation?</string>
+    <string name="cancel_button_text">Annuler</string>
+    <string name="deny_button_text">Non</string>
+    <string name="not_now_button_text">Pas maintenant </string>
+    <string name="confirm_button_text">Oui</string>
+    <string name="stop_sync_button_text">Oui, arrêter maintenant </string>
+    <string name="continue_sync_button_text">Continuer la synchronisation </string>
+    <string name="sync_upload_success_message">Félicitations! Votre demande de téléchargement est terminée.</string>
+    <string name="sync_download_success_message">Félicitations! Votre demande de téléchargement est terminée.</string>
+    <string name="sync_pull_form_success_message">Félicitations! Votre demande de synchronisation est terminée.</string>
+    <string name="sync_pull_lookups_success_message">Congrats! Completed downloading lookups</string>
+    <string name="sync_error_message">Désolé, la demande de synchronisation ne peut pas continuer, veuillez contacter l\'équipe de support.</string>
+    <string name="sync_request_time_out_error_message">Le réseau n\'est pas stable, vérifiez votre connexion Internet et réessayez.</string>
+    <string name="sync_server_not_available_error_message">Le serveur Web n\'est pas disponible, veuillez contacter votre administrateur.</string>
+    <string name="try_to_sync_message">Êtes-vous sûr de vouloir synchroniser les enregistrements?</string>
+    <string name="remove_photo_confirmation">Êtes-vous sûr de vouloir supprimer cette photo?</string>
+    <string name="save_success">Sauvegardé</string>
+    <string name="save_failed">Sauvegarde échouée</string>
+    <string name="filter">Filtre</string>
+    <string name="show_short_form">Afficher sur le résumé du cas</string>
+    <string name="show_more_details">Afficher plus de détails</string>
+    <string name="sync_forms">Synchroniser les formulaires </string>
+    <string name="forms_is_syncing_msg">Synchronisation des formulaires, patienter s\'il vous plait </string>
+    <string name="sync_forms_message">les formulaires n\'ont pas été chargé avec succès, appuyez sur OK pour resynchroniser.</string>
+    <string name="sync_forms_error">Erreur de la synchronisation des formulaires, essayez-la plus tard</string>
+    <string name="sync_tracing_forms_error">Erreur de la synchronisation des formulaires, essayez-la plus tard</string>
+    <string name="sync_incident_forms_error">Erreur de la synchronisation des formulaires, essayez-la plus tard</string>
+    <string name="tracing_request">Demande de traçage</string>
+    <string name="not_sync_promote">Pas encore synchronisé</string>
+    <string name="produce_cases_successfully_msg">Produire des cas complets!</string>
+    <string name="new_cp_case">Nouveau cas</string>
+    <string name="new_gbv_case">Nouveau cas</string>
+    <string name="cp_case_details">Détails du cas</string>
+    <string name="gbv_case_details">Détails du cas</string>
+    <string name="survivor_code">Code du survivant</string>
+    <string name="type_of_violence">Type de violences</string>
+    <string name="date_of_inquiry">Date de l\'enquête</string>
+    <string name="toolbar_title_text_placeholder">Barre d\'outils; espace réservé au texte </string>
+    <string name="fetching_case_amount_msg">Récupération du volume du cas sur le serveur Web ...</string>
+    <string name="fetching_tracing_amount_msg">Récupération du volume des requêtes de suivi à partir du serveur Web ...</string>
+    <string name="fetching_incident_amount_msg">Récupération du volume des incident à partir du serveur Web ...</string>
+    <string name="downloading_cases_sync_progress_msg">Téléchargement de cas ... Veuillez patienter quelques instants.</string>
+    <string name="downloading_tracings_sync_progress_msg">Téléchargement de la demande de traçage ... Veuillez patienter quelques instants.</string>
+    <string name="downloading_incidents_sync_progress_msg">Téléchargement des incidents ... S\'il vous plaît attendez un moment.</string>
+    <string name="fetching_form_msg">Récupérer des formulaires à partir du serveur Web ...</string>
+    <string name="uploading_sync_progress_msg">Téléchargement... S\'il vous plaît attendez un moment.</string>
+    <string name="network_not_available">Le réseau n\'est pas disponible, veuillez vérifier votre réseau.</string>
+    <string name="sync_one_case_reassigned">Le gestionnaire du cas %s a changé. Veuillez le supprimer de votre appareil.</string>
+    <string name="sync_many_case_reassigned">Le gestionnaires de ces cas %s a changé. Veuillez les supprimer de votre appareil.</string>
+    <!--Sync-->
+
+    <!--Transparent theme-->
+    <style name="Transparent" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <!--Transparent theme-->
+
+    <!--Dialog start-->
+    <string name="dialog_title_text_placeholder">Titre de la boîte de dialogue</string>
+    <string name="dialog_progress_message_text_placeholder">Progression du message texte dans la boite de dialogue </string>
+    <string name="dialog_item_from_camera">De la caméra </string>
+    <string name="dialog_item_from_gallery">De la galerie </string>
+    <string name="dialog_item_cancel">Annuler</string>
+    <string name="date_text">Date</string>
+    <string name="date_range">Période</string>
+    <string name="date_hint">Sélectionner une date</string>
+    <string name="date_from_hint">De</string>
+    <string name="date_to_hint">À</string>
+
+    <!--List start-->
+    <string name="list_item_delete_button_text">Supprimer</string>
+    <string name="list_item_delete_cancel_button_text">Annuler </string>
+    <string name="delete_title">ATTENTION</string>
+    <string name="delete_confirm_message">Êtes-vous sûr que les données ne sont plus nécessaires sur votre appareil?</string>
+    <string name="delete_success_info">Les enregistrements sont supprimés</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="cannot_save">Impossible d\'enregistrer</string>
+    <string name="ok">OK</string>
+    <string name="clear">Clair</string>
+    <string name="cancel">Annuler </string>
+    <string name="invalid_date_msg">La date ne devrait pas être dans le futur.</string>
+    <string name="warning">Attention</string>
+    <string name="invalid_value">Valeur invalide</string>
+    <string name="no_filed_exists_in_subform">Aucun champ n\'existe dans le sous-formulaire actuel.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Bonjour fragment vierge</string>
+
+</resources>
