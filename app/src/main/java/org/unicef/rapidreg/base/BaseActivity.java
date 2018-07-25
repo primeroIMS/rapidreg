@@ -150,7 +150,7 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         drawer.openDrawer(GravityCompat.START);
 
         Configuration configuration = getResources().getConfiguration();
-        configuration.setLayoutDirection(new Locale(PrimeroAppConfiguration.getDefaultLanguage()));
+        configuration.setLayoutDirection(parseLocale());
         getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
 
     }
@@ -162,6 +162,27 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
             finish();
             return;
         }
+    }
+
+    private Locale parseLocale() {
+        String locale = PrimeroAppConfiguration.getDefaultLanguage();
+        Locale selectedLocale = new Locale(locale);
+
+        if (locale.contains("-")) {
+            String[] args = locale.split("-");
+
+            if (args.length > 2) {
+                selectedLocale =  new Locale(args[0], args[1], args[3]);
+            }
+            else if (args.length > 1) {
+                selectedLocale =  new Locale(args[0], args[1]);
+            }
+            else if (args.length == 1) {
+                selectedLocale = new Locale(args[0]);
+            }
+        }
+
+        return selectedLocale;
     }
 
     @Override
