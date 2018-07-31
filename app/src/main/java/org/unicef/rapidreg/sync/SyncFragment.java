@@ -112,12 +112,12 @@ public class SyncFragment extends MvpFragment<SyncView, BaseSyncPresenter> imple
 
     public void disableSyncButton() {
         syncButton.setEnabled(false);
-        syncButton.setBackgroundResource(R.drawable.sync_add_button_without_network);
+        syncButton.setBackgroundResource(R.color.gray);
     }
 
     public void enableSyncButton() {
         syncButton.setEnabled(true);
-        syncButton.setBackgroundResource(R.drawable.sync_add_button);
+        syncButton.setBackgroundResource(R.color.primero_blue);
     }
 
     private void initView() {
