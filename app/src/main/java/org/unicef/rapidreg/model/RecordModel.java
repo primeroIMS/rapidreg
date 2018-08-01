@@ -45,6 +45,8 @@ public class RecordModel extends BaseModel {
     private String internalRev;
     @Column(name = "unique_id")
     private String uniqueId;
+    @Column(name = "unique_identifier")
+    private String uniqueIdentifier;
     @Column(name = "short_id")
     private String shortId;
     @Column(name = "registration_date")
@@ -179,6 +181,12 @@ public class RecordModel extends BaseModel {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
+    }
+
+    public String getUniqueIdentifier() { return uniqueIdentifier; }
+
+    public void setUniqueIdentifier(String uniqueIdentifier) {
+        this.uniqueIdentifier = uniqueIdentifier;
     }
 
     public Date getRegistrationDate() {

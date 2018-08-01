@@ -74,10 +74,12 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
     public Response<JsonElement> uploadCaseJsonProfile(RecordModel item) throws ObservableNullResponseException {
         ItemValuesMap itemValuesMap = ItemValuesMap.fromJson(new String(item.getContent().getBlob
                 ()));
-        String shortUUID = TextUtils.getLastSevenNumbers(item.getUniqueId());
 
+        String shortUUID = TextUtils.getLastSevenNumbers(item.getUniqueId());
         itemValuesMap.addStringItem("short_id", shortUUID);
         itemValuesMap.removeItem("_attachments");
+        itemValuesMap.addStringItem("_id", item.getInternalId());
+        itemValuesMap.addStringItem("unique_identifier", item.getUniqueIdentifier());
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("child", new Gson().fromJson(new Gson().toJson(

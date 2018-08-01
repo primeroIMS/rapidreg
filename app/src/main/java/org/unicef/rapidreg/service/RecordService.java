@@ -105,7 +105,17 @@ public class RecordService {
     }
 
     public String generateUniqueId() {
-        return UUID.randomUUID().toString();
+        return generateUniqueId(false);
+    }
+
+    public String generateUniqueId(boolean removeDashes) {
+        String uid = UUID.randomUUID().toString();
+
+        if (removeDashes) {
+            uid = uid.replace("-", "");
+        }
+
+        return uid;
     }
 
     public <T extends RecordModel> List<Long> extractIds(List<T> records) {
