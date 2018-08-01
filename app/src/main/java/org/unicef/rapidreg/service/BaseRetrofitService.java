@@ -99,6 +99,10 @@ public abstract class BaseRetrofitService<T> {
             return null;
         }
     }
+
+    protected String generateGUID() {
+        return java.util.UUID.randomUUID().toString().replace("-", "");
+    }
 }
 
 
