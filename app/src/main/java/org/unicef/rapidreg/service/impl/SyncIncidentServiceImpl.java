@@ -26,13 +26,10 @@ public class SyncIncidentServiceImpl extends BaseRetrofitService<SyncIncidentRep
         ItemValuesMap itemValuesMap = ItemValuesMap.fromJson(new String(item.getContent().getBlob()));
         String shortUUID = TextUtils.getLastSevenNumbers(item.getUniqueId());
 
-        if (item.getInternalId() == null) {
-            itemValuesMap.addStringItem("_id", generateGUID());
-        }
-
         itemValuesMap.addStringItem("short_id", shortUUID);
-        itemValuesMap.addStringItem("unique_identifier", item.getUniqueId());
         itemValuesMap.removeItem("_attachments");
+        itemValuesMap.addStringItem("_id", item.getInternalId());
+        itemValuesMap.addStringItem("unique_identifier", item.getUniqueIdentifier());
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("incident_case_id", item.getIncidentCaseId());

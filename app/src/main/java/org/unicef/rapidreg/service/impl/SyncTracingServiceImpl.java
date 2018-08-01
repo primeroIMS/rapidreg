@@ -71,12 +71,9 @@ public class SyncTracingServiceImpl extends BaseRetrofitService<SyncTracingsRepo
         ItemValuesMap values = ItemValuesMap.fromJson(new String(item.getContent().getBlob()));
         String shortUUID = org.unicef.rapidreg.utils.TextUtils.getLastSevenNumbers(item.getUniqueId());
 
-        if (item.getInternalId() == null) {
-            values.addStringItem("_id", generateGUID());
-        }
-
         values.addStringItem("short_id", shortUUID);
-        values.addStringItem("unique_identifier", item.getUniqueId());
+        values.addStringItem("_id", item.getInternalId());
+        values.addStringItem("unique_identifier", item.getUniqueIdentifier());
         values.removeItem("_attachments");
 
         JsonObject jsonObject = new JsonObject();

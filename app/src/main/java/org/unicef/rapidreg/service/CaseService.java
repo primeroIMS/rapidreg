@@ -185,7 +185,9 @@ public class CaseService extends RecordService {
         Blob audioFileDefault = getAudioBlob();
 
         Case child = new Case();
+        child.setInternalId(generateUniqueId(true));
         child.setUniqueId(uniqueId);
+        child.setUniqueIdentifier(uniqueId);
         child.setShortId(getShortUUID(uniqueId));
         child.setCreateDate(date);
         child.setLastUpdatedDate(date);

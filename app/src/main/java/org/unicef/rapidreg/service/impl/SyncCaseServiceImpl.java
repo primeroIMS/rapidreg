@@ -75,14 +75,11 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
         ItemValuesMap itemValuesMap = ItemValuesMap.fromJson(new String(item.getContent().getBlob
                 ()));
 
-        if (item.getInternalId() == null) {
-            itemValuesMap.addStringItem("_id", generateGUID());
-        }
-
         String shortUUID = TextUtils.getLastSevenNumbers(item.getUniqueId());
-        itemValuesMap.addStringItem("unique_identifier", item.getUniqueId());
         itemValuesMap.addStringItem("short_id", shortUUID);
         itemValuesMap.removeItem("_attachments");
+        itemValuesMap.addStringItem("_id", item.getInternalId());
+        itemValuesMap.addStringItem("unique_identifier", item.getUniqueIdentifier());
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("child", new Gson().fromJson(new Gson().toJson(

@@ -140,7 +140,9 @@ public class IncidentService extends RecordService {
 
         Incident incident = new Incident();
         incident.setUniqueId(uniqueId);
+        incident.setInternalId(generateUniqueId(true));
         incident.setShortId(getShortUUID(uniqueId));
+        incident.setInternalId(generateUniqueId(true));
         incident.setCreateDate(date);
         incident.setLastUpdatedDate(date);
         incident.setContent(tracingBlob);
