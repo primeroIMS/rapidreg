@@ -140,7 +140,7 @@ public class TracingService extends RecordService {
         tracing.setUniqueId(uniqueId);
         tracing.setInternalId(generateUniqueId(true));
         tracing.setShortId(getShortUUID(uniqueId));
-        tracing.setInternalId(generateUniqueId(true));
+        tracing.setUniqueIdentifier(uniqueId);
 
         String username = PrimeroAppConfiguration.getCurrentUser().getUsername();
         tracing.setCreatedBy(username);
