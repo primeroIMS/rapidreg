@@ -1,26 +1,27 @@
 package org.unicef.rapidreg.base.record.recordlist.spinner;
 
+import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.R;
 
 public enum SpinnerState {
-    AGE_ASC(R.drawable.age_up, "Age ascending order", "Age"),
-    AGE_DES(R.drawable.age_down, "Age descending order", "Age"),
-    REG_DATE_ASC(R.drawable.date_up, "Registration date ascending order", "Registration date"),
-    REG_DATE_DES(R.drawable.date_down, "Registration date descending order", "Registration date"),
-    INQUIRY_DATE_ASC(R.drawable.date_up, "Date of inquiry ascending order", "Date of inquiry"),
-    INQUIRY_DATE_DES(R.drawable.date_down, "Date of inquiry descending order", "Date of inquiry"),
-    INTERVIEW_DATE_ASC(R.drawable.date_up, "Interview Date ascending order", "Date of interview"),
-    INTERVIEW_DATE_DES(R.drawable.date_down, "Interview Date descending order", "Date of interview");
+    AGE_ASC(R.drawable.age_up, R.string.age_asc, R.string.age),
+    AGE_DES(R.drawable.age_down, R.string.age_desc, R.string.age),
+    REG_DATE_ASC(R.drawable.date_up, R.string.reg_date_asc, R.string.registration_date),
+    REG_DATE_DES(R.drawable.date_down, R.string.reg_date_desc, R.string.registration_date),
+    INQUIRY_DATE_ASC(R.drawable.date_up, R.string.inquiry_date_asc, R.string.inquiry_date),
+    INQUIRY_DATE_DES(R.drawable.date_down, R.string.inquiry_date_desc, R.string.inquiry_date),
+    INTERVIEW_DATE_ASC(R.drawable.date_up, R.string.interview_date_asc, R.string.date_of_interview),
+    INTERVIEW_DATE_DES(R.drawable.date_down, R.string.interview_date_desc, R.string.date_of_interview);
 
     private int resId;
     private String longName;
 
     private String shortName;
 
-    SpinnerState(int resId, String longName, String shortName) {
+    SpinnerState(int resId, int longName, int shortName) {
         this.resId = resId;
-        this.longName = longName;
-        this.shortName = shortName;
+        this.longName = PrimeroApplication.getAppContext().getString(longName);
+        this.shortName = PrimeroApplication.getAppContext().getString(shortName);
     }
 
     public int getResId() {

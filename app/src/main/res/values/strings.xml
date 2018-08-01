@@ -142,6 +142,7 @@
     <string name="survivor_code">Survivor Code</string>
     <string name="type_of_violence">Type of Violence</string>
     <string name="date_of_inquiry">Date of Inquiry</string>
+    <string name="date_of_interview">Date of Interview</string>
     <string name="toolbar_title_text_placeholder">Tool Bar Text Placeholder</string>
     <string name="fetching_case_amount_msg">Fetching case amount from web server…</string>
     <string name="fetching_tracing_amount_msg">Fetching Tracing request amount from web server…</string>
@@ -198,4 +199,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="interview_date_asc">Interview date ascending order</string>
+    <string name="interview_date_desc">Interview date descending order</string>
+    <string name="inquiry_date_asc">Date of inquiry ascending order</string>
+    <string name="inquiry_date_desc">Date of inquiry descending order</string>
+    <string name="reg_date_asc">Registration date ascending order</string>
+    <string name="reg_date_desc">Registration date descending order</string>
+    <string name="age">Age</string>
+    <string name="age_asc">Age descending order</string>
+    <string name="age_desc">Age descending order</string>
 </resources>
