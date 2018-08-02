@@ -72,11 +72,8 @@
             android:id="@+id/btn_sync"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sync_add_button"
             android:text="@string/button_sync_state_of_click_to_sync"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_20" />
+            android:theme="@style/PrimeroButton" />
 
         <TextView
             android:id="@+id/tv_produce_cases"

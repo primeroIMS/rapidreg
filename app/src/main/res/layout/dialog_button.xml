@@ -8,15 +8,20 @@
     <Button
         android:id="@+id/clearButton"
         style="@style/DialogButton"
+        android:layout_width="fill_parent"
         android:text="@string/clear" />
 
     <Button
         android:id="@+id/cancelButton"
         style="@style/DialogButton"
+        android:layout_width="fill_parent"
+        android:layout_weight="0.8"
         android:text="@string/cancel" />
 
     <Button
         android:id="@+id/okButton"
+        android:layout_width="fill_parent"
+        android:layout_weight="1"
         style="@style/DialogButton"
         android:text="@string/ok" />
 
