@@ -164,6 +164,7 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         }
     }
 
+    // TODO: Get rid of this method when we upgrade the API
     private Locale parseLocale() {
         String locale = PrimeroAppConfiguration.getDefaultLanguage();
         Locale selectedLocale = new Locale(locale);
