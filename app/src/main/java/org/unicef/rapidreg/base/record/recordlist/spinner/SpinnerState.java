@@ -14,25 +14,24 @@ public enum SpinnerState {
     INTERVIEW_DATE_DES(R.drawable.date_down, R.string.interview_date_desc, R.string.date_of_interview);
 
     private int resId;
-    private String longName;
+    private int longName;
+    private int shortName;
 
-    private String shortName;
-
-    SpinnerState(int resId, int longName, int shortName) {
+    SpinnerState(final int resId, final int longName, final int shortName) {
         this.resId = resId;
-        this.longName = PrimeroApplication.getAppContext().getString(longName);
-        this.shortName = PrimeroApplication.getAppContext().getString(shortName);
+        this.longName = longName;
+        this.shortName = shortName;
     }
 
     public int getResId() {
         return resId;
     }
 
-    public String getLongName() {
+    public int getLongName() {
         return longName;
     }
 
-    public String getShortName() {
+    public int getShortName() {
         return shortName;
     }
 }
