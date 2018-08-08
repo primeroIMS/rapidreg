@@ -350,3 +350,7 @@ td.child ul li:last-of-type {
 td.child ul li:last-of-type span.dtr-title {
   display: none;
 }
+
+.create_subform .button-group {
+  display: block;
+}
