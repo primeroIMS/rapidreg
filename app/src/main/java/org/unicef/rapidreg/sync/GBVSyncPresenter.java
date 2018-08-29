@@ -458,7 +458,7 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
     @Override
     protected void downloadSecondFormByModule() {
         downloadSecondFormByModuleDisposable = formRemoteService.getIncidentForm(PrimeroAppConfiguration.getCookie(),
-                PrimeroAppConfiguration.getDefaultLanguage(), true, PrimeroAppConfiguration.PARENT_INCIDENT,
+                PrimeroAppConfiguration.getServerLocale(), true, PrimeroAppConfiguration.PARENT_INCIDENT,
                 MODULE_ID_GBV)
                 .map(jsonObject -> {
                     if (jsonObject == null) {

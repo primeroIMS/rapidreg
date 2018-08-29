@@ -61,7 +61,7 @@ public class CustomViewHolder extends BaseViewHolder<Field> {
         setEditableBackgroundStyle(isEditable(field));
 
         fieldName = field.getName();
-        customFormTitle.setText(field.getDisplayName().get(PrimeroAppConfiguration.getDefaultLanguage()));
+        customFormTitle.setText(field.getDisplayName().get(PrimeroAppConfiguration.getServerLocale()));
 
         restoreItemList(true);
     }

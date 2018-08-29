@@ -39,7 +39,7 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
                 .map(response -> {
                     Lookup lookups = new Lookup();
                     lookups.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
-                    lookups.setLocale(PrimeroAppConfiguration.getDefaultLanguage());
+                    lookups.setLocale(PrimeroAppConfiguration.getServerLocale());
 
                     if (response == null) {
                         throw new ObservableNullResponseException();
@@ -66,7 +66,7 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
 
     @Override
     public void saveOrUpdate(Lookup lookups, Boolean forceReload) {
-        Lookup currentLookups = lookupDao.getByServerUrlAndLocale(lookups.getServerUrl(), PrimeroAppConfiguration.getDefaultLanguage());
+        Lookup currentLookups = lookupDao.getByServerUrlAndLocale(lookups.getServerUrl(), PrimeroAppConfiguration.getServerLocale());
         if (currentLookups == null) {
             lookupDao.save(lookups);
         } else {

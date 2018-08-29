@@ -130,7 +130,7 @@ public class TextViewHolder extends BaseTextViewHolder {
                     valueView.setError(null);
                 }
 
-                String defaultLanguage = PrimeroAppConfiguration.getDefaultLanguage();
+                String defaultLanguage = PrimeroAppConfiguration.getServerLocale();
                 String fieldVerifyKey = field.getDisplayName().get(defaultLanguage);
                 String sectionVerifyKey = field.getSectionName().get(defaultLanguage);
                 updateVerifyResultToMap(sectionVerifyKey, fieldVerifyKey, verifyResult);

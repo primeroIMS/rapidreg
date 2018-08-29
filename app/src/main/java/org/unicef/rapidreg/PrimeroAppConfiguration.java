@@ -6,6 +6,9 @@ import org.unicef.rapidreg.model.SystemSettings;
 import org.unicef.rapidreg.model.User;
 import org.unicef.rapidreg.utils.TextUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PrimeroAppConfiguration {
     public static final String MODULE_ID_GBV = "primeromodule-gbv";
     public static final int DEFAULT_DISTRICT_LEVEL = 1;
@@ -15,6 +18,8 @@ public class PrimeroAppConfiguration {
     public static final String PARENT_CASE = "case";
     public static final String PARENT_INCIDENT = "incident";
     public static final String PARENT_TRACING_REQUEST = "tracing_request";
+
+    private static final Map<String, String> localeDict = initLocaleDict();
 
     private static String apiBaseUrl = "https://127.0.0.1:8443";
 
@@ -74,7 +79,7 @@ public class PrimeroAppConfiguration {
     }
 
     public static void setDefaultLanguage(String language) {
-        PrimeroAppConfiguration.currentLanguage = language;
+        PrimeroAppConfiguration.currentLanguage = convertLocale(language);
     }
 
     public static String getDefaultLanguage() {
@@ -88,6 +93,26 @@ public class PrimeroAppConfiguration {
     public static String getAndroidId() {
         return Settings.Secure.getString(PrimeroApplication.getAppContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+    }
+
+    private static String convertLocale(String locale) {
+        String value = localeDict.get(locale);
+        return value != null ? value : locale;
+    }
+
+    public static String getServerLocale() {
+        for (String o : localeDict.keySet()) {
+            if (localeDict.get(o).equals(getDefaultLanguage())) {
+                return o;
+            }
+        }
+        return getDefaultLanguage();
+    }
+
+    private static Map<String, String> initLocaleDict() {
+        Map<String, String> locales = new HashMap<>();
+        locales.put("id", "in_ID");
+        return locales;
     }
 }
 

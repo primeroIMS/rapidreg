@@ -30,14 +30,14 @@ public class IncidentFormServiceImpl implements IncidentFormService {
 
     public boolean isReady() {
         IncidentForm incidentForm = incidentFormDao.getIncidentForm(PrimeroAppConfiguration
-                .MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
+                .MODULE_ID_GBV, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale());
         return incidentForm != null && incidentForm.getForm() != null;
     }
 
     @Override
     public IncidentTemplateForm getGBVTemplate() {
         Blob form = incidentFormDao.getIncidentForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration
-                .getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()).getForm();
+                .getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()).getForm();
         return getIncidentTemplateForm(form);
     }
 
@@ -51,10 +51,10 @@ public class IncidentFormServiceImpl implements IncidentFormService {
 
     public void saveOrUpdate(IncidentForm incidentForm) {
         IncidentForm existingIncidentForm = incidentFormDao.getIncidentForm(incidentForm.
-                getModuleId(),PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
+                getModuleId(),PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale());
         if (existingIncidentForm == null) {
             incidentForm.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
-            incidentForm.setFormLocale(PrimeroAppConfiguration.getDefaultLanguage());
+            incidentForm.setFormLocale(PrimeroAppConfiguration.getServerLocale());
 
             incidentForm.save();
         } else {
@@ -71,7 +71,7 @@ public class IncidentFormServiceImpl implements IncidentFormService {
         Section violenceSection = null;
         if (sections != null) {
             for (Section section : sections) {
-                if (SECTION_TYPE_OF_VIOLENCE.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
+                if (SECTION_TYPE_OF_VIOLENCE.equals(section.getName().get(PrimeroAppConfiguration.getServerLocale()))) {
                     violenceSection = section;
                     break;
                 }
@@ -97,7 +97,7 @@ public class IncidentFormServiceImpl implements IncidentFormService {
         Section locationSection = null;
         if (sections != null) {
             for (Section section : sections) {
-                if (SECTION_GBV_INCIDENT.equals(section.getName().get(PrimeroAppConfiguration.getDefaultLanguage()))) {
+                if (SECTION_GBV_INCIDENT.equals(section.getName().get(PrimeroAppConfiguration.getServerLocale()))) {
                     locationSection = section;
                     break;
                 }
