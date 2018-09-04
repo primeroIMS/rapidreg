@@ -1,0 +1,211 @@
+<resources>
+    <string name="app_name">RapidReg</string>
+    <!--List Spinner-->
+    <string name="spinner_order_by">Urut Berdasarkan</string>
+
+    <!--Loging activity layout string-->
+    <string name="app_banner_text">Primero</string>
+    <string name="username_hint_text">nama pengguna</string>
+    <string name="password_hint_text">Kata sandi</string>
+    <string name="url_hint_text">URL</string>
+    <string name="text_view_change_url">Ganti URL</string>
+    <string name="button_login_text">Login</string>
+    <string name="login_loading_text">Sedang Log-in, harap menunggu...</string>
+    <string name="login_offline_no_user_text">Maaf, Anda harus terhubung dengan internet untuk login pertama</string>
+    <string name="login_offline_success_text">Log-in offline berhasil</string>
+    <string name="navigation_drawer_open">Buka drawer navigasi</string>
+    <string name="navigation_drawer_close">Tutup drawer navigasi</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="login_username_invalid_text">Masukkan nama pengguna yang valid</string>
+    <string name="login_password_invalid_text">Masukkan password yang valid</string>
+    <string name="login_url_invalid_text">Masukkan URL yang valid</string>
+    <string name="login_failed_credential">Maaf, mohon periksa lagi nama pengguna, password, dan URL Anda</string>
+    <string name="login_failed_to_connect_prefix">Gagal terhubung dengan \n</string>
+    <string name="login_failed_check_network_and_url">Maaf, mohon periksa jaringan dan URL Anda</string>
+    <string name="login_out_successful_text">Log-out berhasil</string>
+    <string name="login_unauthorized_message">Maaf, nama pengguna atau password salah</string>
+    <string name="login_service_unavailable_message">Layanan tidak tersedia!</string>
+    <string name="login_not_find_code_message">Kode Status tidak ditemukan</string>
+    <string name="login_success_message">Login berhasil</string>
+
+    <string name="login_user_label_key">login_pengguna</string>
+    <string name="syncing_forms_text">Form sedang disinkronkan, coba lagi nanti</string>
+    <string name="order_by">Urutkan berdasar&#160;</string>
+    <string name="case_id">ID:&#160;</string>
+    <string name="child_gender">Jenis kelamin anak</string>
+
+
+    <string name="id">ID</string>
+    <string name="name">Nama</string>
+    <string name="age_from">Usia dari</string>
+    <string name="age_to">Untuk</string>
+    <string name="caregiver">Nama Pengasuh Saat ini</string>
+    <string name="registration_date">Tanggal Pendaftaran</string>
+    <string name="inquiry_date">Tanggal Penyelidikan</string>
+    <string name="date">Tanggal</string>
+    <string name="location">Lokasi</string>
+
+    <!-- Toolbar Start-->
+    <string name="toolbar_save_button_text">SIMPAN</string>
+    <string name="toolbar_back_button_text">MOBILE</string>
+    <string name="toolbar_select_all_button_text">PILIH SEMUA</string>
+    <!-- Toolbar End-->
+
+    <!-- Title -->
+    <string name="search">Cari</string>
+    <string name="search_web">Cari di Web</string>
+    <string name="cases">Kasus</string>
+    <string name="child_case">Kasus</string>
+    <string name="cp_case">Kasus-kasus Perlindungan Anak</string>
+    <string name="gbv_case">Kasus-kasus Kekerasan Berbasis Gender</string>
+    <string name="edit">Ubah</string>
+    <string name="case_details">Rincian Kasus</string>
+    <string name="incidents">Insiden</string>
+    <string name="child_incident">Insiden</string>
+    <string name="incident_details">Rincian Kejadian</string>
+    <string name="tracing">Permintaan Penelusuran</string>
+    <string name="tracing_details">Rincian Permintaan Penelusuran</string>
+    <string name="sync">Sinkronisasi</string>
+    <string name="back">Kembali</string>
+    <!-- Title -->
+    <string name="click_to_search">Klik untuk Mencari</string>
+    <string name="done">Selesai</string>
+    <string name="no_search_result">Maaf, tidak ditemukan hasil untuk kriteria pencarian ini</string>
+    <string name="no_records">Tidak ada catatan</string>
+    <string name="remote_record_not_found">Catatan ditemukan. Silahkan login untuk melanjutkan pencarian web.</string>
+    <string name="remote_id_required">ID dibutuhkan untuk pencarian remote</string>
+
+    <string-array name="order_array">
+        <item>Buat Waktu</item>
+        <item>Umur</item>
+    </string-array>
+
+    <string name="no_photo_promote_info">Tidak ada file foto</string>
+    <string name="delete">Hapus</string>
+    <string name="add">Tambah</string>
+    <string name="required_field_is_not_filled">Maaf, pastikan semua informasi yang diminta telah dimasukkan</string>
+    <string name="show_hide">Tampilkan / Sembunyikan</string>
+    <string name="save">Simpan</string>
+    <string name="new_case">Kasus Baru</string>
+    <string name="new_tracing">Permintaan Penelusuran Baru</string>
+    <string name="new_incident">Insiden Baru</string>
+    <string name="quit">Berhenti</string>
+    <string name="quit_without_saving">Apakah Anda ingin mengakhiri tanpa menyimpan data?</string>
+    <string name="delete_subform">Apakah Anda ingin menghapus sub-form ini?</string>
+    <string name="recording_is_too_short">Perekaman terlalu singkat</string>
+    <string name="audio_file_not_exists">Tidak ada file audio</string>
+    <string name="case_reassigned">Kasus telah dipindahtugaskan kepada petugas lain. Silahkan hapus dari alat Anda.</string>
+
+    <!--Sync-->
+    <string name="last_sync_time">Waktu sinkronisasi terakhir</string>
+    <string name="record_count_for_last_sync">Jumlah catatan pada sinkronisasi terakhir</string>
+    <string name="record_count_for_not_sync">Jumlah Catatan Kasus yang datanya tidak disinkronkan</string>
+    <string name="place_holder_last_sync_time">15-06-2016 16:14</string>
+    <string name="place_holder_record_count_for_last_sync">49</string>
+    <string name="place_holder_record_count_for_not_sync">146</string>
+    <string name="button_sync_state_of_click_to_sync">Sinkronisasi</string>
+    <string name="start_sync_message">Sedang sinkronisasi, mohon menunggu ...</string>
+    <string name="confirm_cancel_sync_message">Anda yakin ingin menghentikan proses sinkronisasi?</string>
+    <string name="cancel_button_text">Batal</string>
+    <string name="deny_button_text">Tidak</string>
+    <string name="not_now_button_text">Tidak sekarang</string>
+    <string name="confirm_button_text">Ya</string>
+    <string name="stop_sync_button_text">Ya, hentikan sekarang</string>
+    <string name="continue_sync_button_text">Lanjutkan sinkronisasi</string>
+    <string name="sync_upload_success_message">Selamat! Permintaan upload Anda telah selesai</string>
+    <string name="sync_download_success_message">Selamat! Permintaan download Anda telah selesai</string>
+    <string name="sync_pull_form_success_message">Selamat! Permintaan sinkronisasi Anda telah selesai</string>
+    <string name="sync_pull_lookups_success_message">Selamat! Lookups berhasil diunduh</string>
+    <string name="sync_error_message">Maaf, permintaan sinkronisasi tak dapat dilakukan. Silahkan hubungi Tim Support</string>
+    <string name="sync_request_time_out_error_message">Jaringan tidak stabil. Silahkan periksa koneksi internet Anda dan coba lagi.</string>
+    <string name="sync_server_not_available_error_message">Web-server tidak tersedia, silahkan hubungi admin.</string>
+    <string name="try_to_sync_message">Anda ingin menyelaraskan catatan?</string>
+    <string name="remove_photo_confirmation">Anda yakin ingin menghapus foto ini?</string>
+    <string name="save_success">Catatan telah disimpan</string>
+    <string name="save_failed">Catatan gagal disimpan</string>
+    <string name="filter">Saring</string>
+    <string name="show_short_form">Tampilkan form pendek</string>
+    <string name="show_more_details">Tampilkan lebih banyak rincian</string>
+    <string name="sync_forms">Sinkronkan form</string>
+    <string name="forms_is_syncing_msg">Sedang mensinkronkan form, mohon tunggu</string>
+    <string name="sync_forms_message">Form tidak berhasil diambil, tekan OK untuk melakukan sinkronisasi lagi</string>
+    <string name="sync_forms_error">Kesalahan dalam sinkronisasi form, mohon coba lagi nanti. </string>
+    <string name="sync_tracing_forms_error">Kesalahan dalam sinkronisasi form, mohon coba lagi nanti. </string>
+    <string name="sync_incident_forms_error">Kesalahan dalam sinkronisasi form, mohon coba lagi nanti. </string>
+    <string name="tracing_request">Permintaan Penelusuran</string>
+    <string name="not_sync_promote">Belum disinkronkan</string>
+    <string name="produce_cases_successfully_msg">Pembuatan Kasus Selesai!</string>
+    <string name="new_cp_case">Kasus Baru</string>
+    <string name="new_gbv_case">Kasus Baru</string>
+    <string name="cp_case_details">Rincian Kasus</string>
+    <string name="gbv_case_details">Rincian Kasus</string>
+    <string name="survivor_code">Kode Survivor</string>
+    <string name="type_of_violence">Jenis kekerasan</string>
+    <string name="date_of_inquiry">Tanggal Penyelidikan</string>
+    <string name="date_of_interview">Tanggal Wawancara</string>
+    <string name="toolbar_title_text_placeholder">Tool Bar untuk Penempatan Text</string>
+    <string name="fetching_case_amount_msg">Menarik jumlah kasus dari web-server</string>
+    <string name="fetching_tracing_amount_msg">Menarik jumlah permintaan penelusuran dari web-server</string>
+    <string name="fetching_incident_amount_msg">Menarik jumlah kejadian dari web-server</string>
+    <string name="downloading_cases_sync_progress_msg">Sedang mengunduh kasus...mohon menunggu.</string>
+    <string name="downloading_tracings_sync_progress_msg">Sedang mengunduh  permintaan penelusuran...mohon menunggu.</string>
+    <string name="downloading_incidents_sync_progress_msg">Sedang mengunduh kejadian...mohon menunggu.</string>
+    <string name="fetching_form_msg">Mengambil form dari web-server</string>
+    <string name="uploading_sync_progress_msg">sedang upload...mohon menunggu.</string>
+    <string name="network_not_available">Jaringan tidak tersedia. Harap periksa jaringan Anda</string>
+    <string name="sync_one_case_reassigned">Penanggungjawab catatan kasus %s telah diganti. Mohon hapus dari perangkat Anda.</string>
+    <string name="sync_many_case_reassigned">Penanggungjawab catatan kasus %s telah diganti. Mohon hapus dari perangkat Anda.</string>
+    <!--Sync-->
+
+    <!--Transparent theme-->
+    <style name="Transparent" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <!--Transparent theme-->
+
+    <!--Dialog start-->
+    <string name="dialog_title_text_placeholder">Dialog text Judul</string>
+    <string name="dialog_progress_message_text_placeholder">Text untuk Progres Dialog</string>
+    <string name="dialog_item_from_camera">Dari Kamera</string>
+    <string name="dialog_item_from_gallery">Dari Gallery</string>
+    <string name="dialog_item_cancel">Batal</string>
+    <string name="date_text">Tanggal</string>
+    <string name="date_range">Rentang Tanggal</string>
+    <string name="date_hint">Pilih Tanggal</string>
+    <string name="date_from_hint">Dari</string>
+    <string name="date_to_hint">Untuk</string>
+
+    <!--List start-->
+    <string name="list_item_delete_button_text">HAPUS</string>
+    <string name="list_item_delete_cancel_button_text">BATALKAN</string>
+    <string name="delete_title">PERINGATAN</string>
+    <string name="delete_confirm_message">Data ini tidak dibutuhkan lagi di perangkat Anda?</string>
+    <string name="delete_success_info">Catatan telah dihapus</string>
+    <string name="yes">YA</string>
+    <string name="no">TIDAK</string>
+    <string name="cannot_save">Tidak bisa Menyimpan</string>
+    <string name="ok">OK</string>
+    <string name="clear">BERSIHKAN</string>
+    <string name="cancel">BATALKAN</string>
+    <string name="invalid_date_msg">Tanggal tidak boleh untuk waktu yang akan datang</string>
+    <string name="warning">Peringatan</string>
+    <string name="invalid_value">Nilai tidak sah</string>
+    <string name="no_filed_exists_in_subform">Tidak ditemukan dalam sub-form ini</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="interview_date_asc">Tanggal Wawancara dengan urutan maju</string>
+    <string name="interview_date_desc">Tanggal wawancara dengan urutan mundur</string>
+    <string name="inquiry_date_asc">Tanggal penggalian informasi, urutan maju</string>
+    <string name="inquiry_date_desc">Tanggal penggalian informasi urutan mundur</string>
+    <string name="reg_date_asc">Tanggal registrasi urutan maju</string>
+    <string name="reg_date_desc">Tanggal registrasi urutan mundur</string>
+    <string name="age">Umur</string>
+    <string name="age_asc">Usia urutan mundur</string>
+    <string name="age_desc">Usia urutan mundur</string>
+</resources>

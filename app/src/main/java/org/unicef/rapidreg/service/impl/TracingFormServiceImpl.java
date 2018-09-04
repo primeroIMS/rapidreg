@@ -20,13 +20,13 @@ public class TracingFormServiceImpl implements TracingFormService {
     }
 
     public boolean isReady() {
-        return tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()) != null && tracingFormDao
-                .getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()).getForm
+        return tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()) != null && tracingFormDao
+                .getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()).getForm
                 () != null;
     }
 
     public TracingTemplateForm getCPTemplate() {
-        Blob form = tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()).getForm();
+        Blob form = tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()).getForm();
         String formJson = new String(form.getBlob());
         if ("".equals(formJson)) {
             return null;
@@ -35,11 +35,11 @@ public class TracingFormServiceImpl implements TracingFormService {
     }
 
     public void saveOrUpdate(TracingForm tracingForm) {
-        TracingForm existingTracingForm = tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
+        TracingForm existingTracingForm = tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale());
         if (existingTracingForm == null) {
             Log.d(TAG, "save new tracing form");
             tracingForm.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
-            tracingForm.setFormLocale(PrimeroAppConfiguration.getDefaultLanguage());
+            tracingForm.setFormLocale(PrimeroAppConfiguration.getServerLocale());
 
             tracingForm.save();
         } else {

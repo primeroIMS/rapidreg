@@ -33,7 +33,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     }
 
     protected String getLabel(Field field) {
-        return field.getDisplayName().get(PrimeroAppConfiguration.getDefaultLanguage());
+        return field.getDisplayName().get(PrimeroAppConfiguration.getServerLocale());
     }
 
     public boolean isEditable(Field field) {

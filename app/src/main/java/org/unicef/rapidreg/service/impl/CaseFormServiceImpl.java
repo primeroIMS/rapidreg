@@ -22,30 +22,30 @@ public class CaseFormServiceImpl implements CaseFormService {
         User.Role roleType = PrimeroAppConfiguration.getCurrentUser().getRoleType();
         if (roleType == User.Role.CP) {
             return caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration
-                    .getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()) != null && caseFormDao
-                    .getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())
+                    .getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()) != null && caseFormDao
+                    .getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale())
                     .getForm() != null;
         }
         if (roleType == User.Role.GBV) {
             return caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration
-                    .getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()) != null &&
+                    .getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()) != null &&
                     caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration
-                            .getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()).getForm() != null;
+                            .getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()).getForm() != null;
         }
-        return caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()) != null && caseFormDao
-                .getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()).getForm() != null;
+        return caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()) != null && caseFormDao
+                .getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()).getForm() != null;
     }
 
     public CaseTemplateForm getCPTemplate() {
         Blob form = caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_CP, PrimeroAppConfiguration
-                .getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage()).getForm();
+                .getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()).getForm();
         return getCaseTemplateForm(form);
     }
 
     @Override
     public CaseTemplateForm getGBVTemplate() {
         Blob form = caseFormDao.getCaseForm(PrimeroAppConfiguration.MODULE_ID_GBV, PrimeroAppConfiguration
-                .getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage())
+                .getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale())
                 .getForm();
         return getCaseTemplateForm(form);
     }
@@ -60,10 +60,10 @@ public class CaseFormServiceImpl implements CaseFormService {
 
     public void saveOrUpdate(CaseForm caseForm) {
         CaseForm existingCaseForm = caseFormDao.getCaseForm(caseForm.getModuleId(), PrimeroAppConfiguration
-                .getApiBaseUrl(), PrimeroAppConfiguration.getDefaultLanguage());
+                .getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale());
         if (existingCaseForm == null) {
             caseForm.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());
-            caseForm.setFormLocale(PrimeroAppConfiguration.getDefaultLanguage());
+            caseForm.setFormLocale(PrimeroAppConfiguration.getServerLocale());
             caseForm.save();
         } else {
             existingCaseForm.setForm(caseForm.getForm());

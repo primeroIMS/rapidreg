@@ -65,7 +65,7 @@ public class AppRemotePresenter {
     }
 
     public void loadCaseForm(String moduleId, AppRemoteService.LoadCallback callback) {
-        formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage
+        formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_CASE, moduleId)
                 .subscribe(caseForm -> {
                     saveCaseForm(caseForm, moduleId);
@@ -81,7 +81,7 @@ public class AppRemotePresenter {
     }
 
     public void loadTracingForm(AppRemoteService.LoadCallback callback) {
-        formRemoteService.getTracingForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage
+        formRemoteService.getTracingForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_TRACING_REQUEST, MODULE_ID_CP)
                 .subscribe(tracingForm -> {
                     saveTracingForm(tracingForm);
@@ -97,7 +97,7 @@ public class AppRemotePresenter {
     }
 
     public void loadIncidentForm(AppRemoteService.LoadCallback callback) {
-        formRemoteService.getIncidentForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage
+        formRemoteService.getIncidentForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_INCIDENT, MODULE_ID_GBV)
                 .subscribe(incidentForm -> {
                     saveIncidentForm(incidentForm);
@@ -113,7 +113,7 @@ public class AppRemotePresenter {
     }
 
     public void loadLookups() {
-        lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage(), true)
+        lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale(), true)
                 .subscribe(lookup -> lookupService.saveOrUpdate(lookup, false),
                         throwable -> Log.e(TAG, "Lookups Error" + throwable.getMessage()));
     }

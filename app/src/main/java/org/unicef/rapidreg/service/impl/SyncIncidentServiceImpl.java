@@ -37,7 +37,7 @@ public class SyncIncidentServiceImpl extends BaseRetrofitService<SyncIncidentRep
                 itemValuesMap.getValues()), JsonObject.class));
 
         Response<JsonElement> response;
-        if (!TextUtils.isEmpty(item.getInternalId())) {
+        if (!TextUtils.isEmpty(item.getInternalId()) && item.getLastSyncedDate() != null) {
             response = getRepository(SyncIncidentRepository.class).putIncident(PrimeroAppConfiguration.getCookie(),
                     item.getInternalId(), jsonObject).blockingFirst();
         } else {

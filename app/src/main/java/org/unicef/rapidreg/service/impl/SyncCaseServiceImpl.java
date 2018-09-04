@@ -86,7 +86,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                 itemValuesMap.getValues()), JsonObject.class));
 
         Observable<Response<JsonElement>> responseObservable;
-        if (!TextUtils.isEmpty(item.getInternalId())) {
+        if (!TextUtils.isEmpty(item.getInternalId()) && item.getLastSyncedDate() != null) {
             responseObservable = getRepository(SyncCaseRepository.class).putCase(PrimeroAppConfiguration.getCookie(),
                     item.getInternalId(), jsonObject);
         } else {

@@ -137,7 +137,7 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     protected abstract void upLoadCases(List<Case> cases);
 
     public void downloadCaseForm(ProgressDialog loadingDialog, String moduleId) {
-        downloadCaseFormDisposable = formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage
+        downloadCaseFormDisposable = formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_CASE, moduleId)
                 .subscribe(caseFormJson -> {
                             CaseForm caseForm = new CaseForm(new Blob(new Gson().toJson(caseFormJson).getBytes()));

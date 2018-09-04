@@ -71,7 +71,7 @@ public class AppDataServiceImpl implements AppDataService {
         String moduleId = roleType == User.Role.CP ? PrimeroAppConfiguration.MODULE_ID_CP :
                 PrimeroAppConfiguration.MODULE_ID_GBV;
 
-        caseFormDisposable = formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage
+        caseFormDisposable = formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_CASE, moduleId)
                 .subscribe(caseForm -> {
                     saveCaseForm(caseForm, moduleId);
@@ -98,7 +98,7 @@ public class AppDataServiceImpl implements AppDataService {
     }
 
     public void loadTracingForm() {
-        tracingFormDisposable = formRemoteService.getTracingForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage
+        tracingFormDisposable = formRemoteService.getTracingForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_TRACING_REQUEST, MODULE_ID_CP)
                 .subscribe(tracingForm -> {
                     saveTracingForm(tracingForm);
@@ -118,7 +118,7 @@ public class AppDataServiceImpl implements AppDataService {
     }
 
     public void loadIncidentForm() {
-        incidentFormDisposable = formRemoteService.getIncidentForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage
+        incidentFormDisposable = formRemoteService.getIncidentForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_INCIDENT, MODULE_ID_GBV)
                     .subscribe(incidentForm -> {
                         saveIncidentForm(incidentForm);
@@ -139,7 +139,7 @@ public class AppDataServiceImpl implements AppDataService {
 
 
     public void loadLookups() {
-        lookupDisposable = lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage(), true)
+        lookupDisposable = lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale(), true)
                 .subscribe(lookup -> {
                     lookupService.saveOrUpdate(lookup, false);
                 }, throwable -> {

@@ -276,7 +276,7 @@ public class Field {
     }
 
     public List<Option> getSelectOptions() {
-        String language = PrimeroAppConfiguration.getDefaultLanguage();
+        String language = PrimeroAppConfiguration.getServerLocale();
 
         List<Option> items = new ArrayList<>();
 

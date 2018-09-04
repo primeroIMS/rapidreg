@@ -81,7 +81,7 @@ public class SyncTracingServiceImpl extends BaseRetrofitService<SyncTracingsRepo
                 ()), JsonObject.class));
 
         Observable<Response<JsonElement>> responseObservable;
-        if (!TextUtils.isEmpty(item.getInternalId())) {
+        if (!TextUtils.isEmpty(item.getInternalId()) && item.getLastSyncedDate() != null) {
             responseObservable = getRepository(SyncTracingsRepository.class).put(PrimeroAppConfiguration.getCookie(),
                     item
                             .getInternalId(),

@@ -635,7 +635,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
     @Override
     protected void downloadSecondFormByModule() {
         downloadSecondFormByModuleDisposable = formRemoteService.getTracingForm(PrimeroAppConfiguration.getCookie(),
-                PrimeroAppConfiguration.getDefaultLanguage(), true, PrimeroAppConfiguration.PARENT_TRACING_REQUEST,
+                PrimeroAppConfiguration.getServerLocale(), true, PrimeroAppConfiguration.PARENT_TRACING_REQUEST,
                 MODULE_ID_CP)
                 .map(tracingFormJson -> {
                     if (tracingFormJson == null) {

@@ -58,7 +58,7 @@ public class SubFormViewHolder extends BaseViewHolder<Field> {
     @Override
     public void setValue(Field field) {
         fieldParent = field.getName();
-        displayParent = field.getDisplayName().get(PrimeroAppConfiguration.getDefaultLanguage());
+        displayParent = field.getDisplayName().get(PrimeroAppConfiguration.getServerLocale());
         addSubFormBtn.setText(String.format("%s %s", context.getString(R.string.add), displayParent));
         addSubFormBtn.setVisibility(activity.getCurrentFeature().isEditMode() ?
                 View.VISIBLE : GONE);
