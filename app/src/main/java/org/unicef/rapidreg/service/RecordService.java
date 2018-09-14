@@ -12,6 +12,7 @@ import org.unicef.rapidreg.forms.RecordForm;
 import org.unicef.rapidreg.forms.Section;
 import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
+import org.unicef.rapidreg.utils.TextUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class RecordService {
     public static final String TYPE_OF_VIOLENCE = "gbv_sexual_violence_type";
     public static final String LOCATION = "location";
     public static final String INCIDENT_LOCATION = "incident_location";
+    public static final String ALERTS = "alerts";
 
     public static final String MODULE_GBV_CASE = "primeromodule-gbv";
     public static final String MODULE_CP_CASE = "primeromodule-cp";

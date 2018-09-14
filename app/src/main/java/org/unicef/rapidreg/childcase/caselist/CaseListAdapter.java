@@ -78,6 +78,7 @@ public class CaseListAdapter extends RecordListAdapter {
         toggleDeleteArea(holder, record.isSynced() || record.isInvalidated());
         toggleInvalidatedIcon(holder, record.isInvalidated());
         toggleDeleteCheckBox(holder);
+        toggleNoteAlert(holder, record.hasNoteAlerts());
     }
 
     @Override

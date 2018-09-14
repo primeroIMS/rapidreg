@@ -133,6 +133,7 @@ public class IncidentService extends RecordService {
         itemValues.addStringItem(RECORD_OWNED_BY, username);
         itemValues.addStringItem(RECORD_CREATED_BY, username);
         itemValues.addStringItem(PREVIOUS_OWNER, username);
+        itemValues.addStringItem(ALERTS, "");
 
         Gson gson = new Gson();
         Date date = new Date(Calendar.getInstance().getTimeInMillis());
@@ -157,6 +158,9 @@ public class IncidentService extends RecordService {
         incident.setRegistrationDate(Utils.getRegisterDateByYyyyMmDd(itemValues.getAsString(DATE_OF_INTERVIEW)));
         incident.setCreatedBy(username);
         incident.setOwnedBy(username);
+
+        incident.setNoteAlerts("");
+
         String caseId = itemValues.has(CASE_ID) ? itemValues.getAsString(CASE_ID) : EMPTY_ID;
         incident.setCaseUniqueId(caseId);
         incidentDao.save(incident);
@@ -164,6 +168,8 @@ public class IncidentService extends RecordService {
     }
 
     public Incident update(ItemValuesMap itemValues) throws IOException {
+        itemValues.addStringItem(ALERTS, "");
+
         Gson gson = new Gson();
         Blob blob = new Blob(gson.toJson(itemValues.getValues()).getBytes());
 
@@ -178,6 +184,8 @@ public class IncidentService extends RecordService {
         incident.setAge(age);
         incident.setCaregiver(getCaregiverName(itemValues));
         incident.setSynced(false);
+
+        incident.setNoteAlerts("");
 
         if (itemValues.has(DATE_OF_INTERVIEW)) {
             incident.setRegistrationDate(Utils.getRegisterDateByYyyyMmDd(itemValues.getAsString(DATE_OF_INTERVIEW)));

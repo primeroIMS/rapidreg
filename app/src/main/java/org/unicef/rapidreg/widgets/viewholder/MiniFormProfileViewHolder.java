@@ -2,6 +2,7 @@ package org.unicef.rapidreg.widgets.viewholder;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -48,6 +49,9 @@ public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
     @BindView(R.id.container_incident_list_item)
     RelativeLayout containerIncidentListItem;
 
+    @BindView(R.id.note_alert)
+    public ImageView noteAlert;
+
     public MiniFormProfileViewHolder(Context context, View itemView, ItemValuesMap itemValues) {
         super(context, itemView, itemValues);
         ButterKnife.bind(this, itemView);
@@ -76,6 +80,8 @@ public class MiniFormProfileViewHolder extends BaseViewHolder<Field> {
 
         String age = extractAge();
         this.age.setText(TextUtils.isEmpty(age) ? "---" : age);
+
+        noteAlert.setVisibility(itemValues.hasNoteAlerts() ? View.VISIBLE : View.INVISIBLE);
     }
 
 

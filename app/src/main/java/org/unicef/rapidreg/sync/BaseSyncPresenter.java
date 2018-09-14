@@ -2,8 +2,10 @@ package org.unicef.rapidreg.sync;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.raizlabs.android.dbflow.data.Blob;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -276,6 +279,20 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
                 message = String.format(context.getResources().getString(R.string.sync_many_case_reassigned), caseIds.toString());
             }
             getView().showReassignedCasesWarningMessage(message);
+        }
+    }
+
+    protected String parseAlerts(JsonElement alertList) {
+        List<String> alerts = new ArrayList<>();
+
+        if (alertList != null) {
+            for(JsonElement alert : alertList.getAsJsonArray()) {
+                alerts.add(alert.getAsJsonObject().get(RecordModel.ALERT_PROP).getAsString());
+            }
+
+            return TextUtils.join(",", alerts.toArray(new String[alerts.size()]));
+        } else {
+            return "";
         }
     }
 }
