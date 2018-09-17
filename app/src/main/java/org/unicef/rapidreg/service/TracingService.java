@@ -109,6 +109,9 @@ public class TracingService extends RecordService {
     public Tracing save(ItemValuesMap itemValues, List<String> photoPaths) throws IOException {
         Tracing tracing = generateTracingFromItemValues(itemValues,
                 generateUniqueId());
+
+        tracing.setNoteAlerts("");
+
         tracingDao.save(tracing);
         tracingPhotoDao.save(tracing, photoPaths);
         return tracing;
@@ -118,6 +121,7 @@ public class TracingService extends RecordService {
                           List<String> photoBitPaths) throws IOException {
         Tracing tracing = updateTracingFromItemValues(itemValues);
         tracing.setSynced(false);
+        tracing.setNoteAlerts("");
         return tracingPhotoDao.update(tracingDao.update(tracing), photoBitPaths);
     }
 
@@ -134,6 +138,7 @@ public class TracingService extends RecordService {
     private Tracing generateTracingFromItemValues(ItemValuesMap itemValues, String uniqueId) {
         if (!itemValues.has(INQUIRY_DATE)) {
             itemValues.addStringItem(INQUIRY_DATE, getCurrentRegistrationDateAsString());
+            itemValues.addStringItem(ALERTS, "");
         }
 
         Tracing tracing = new Tracing();
@@ -166,6 +171,8 @@ public class TracingService extends RecordService {
     }
 
     private Tracing updateTracingFromItemValues(ItemValuesMap itemValues) {
+        itemValues.addStringItem(ALERTS, "");
+
         Tracing tracing = tracingDao.getTracingByUniqueId(itemValues.getAsString(TRACING_ID));
         String username = PrimeroAppConfiguration.getCurrentUser().getUsername();
 

@@ -139,6 +139,10 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
         holder.deleteStateCheckBox.setChecked(recordWillBeDeletedList.contains(holder.deleteStateCheckBox.getTag()));
     }
 
+    protected void toggleNoteAlert(RecordListViewHolder holder, boolean hasAlert) {
+        holder.toggleNoteAlert(hasAlert);
+    }
+
     protected boolean isValidAge(String value) {
         if (value == null || "".equals(value.trim())) {
             return false;
@@ -222,6 +226,9 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
 
         @BindView(R.id.invalidated)
         public ImageButton invalidated;
+
+        @BindView(R.id.note_alert)
+        public ImageView noteAlert;
 
         private RecordModel record;
 
@@ -349,6 +356,14 @@ public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListA
                 this.invalidated.setVisibility(View.GONE);
             }
 
+        }
+
+        public void toggleNoteAlert(boolean showAlert) {
+            if (showAlert) {
+                this.noteAlert.setVisibility(View.VISIBLE);
+            } else {
+                this.noteAlert.setVisibility(View.INVISIBLE);
+            }
         }
     }
 

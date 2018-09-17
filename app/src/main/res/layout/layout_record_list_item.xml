@@ -33,6 +33,18 @@
             android:layout_weight="5"
             android:gravity="right"
             android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/note_alert"
+                android:layout_width="@dimen/icon_width"
+                android:layout_height="@dimen/icon_width"
+                android:layout_gravity="right"
+                android:adjustViewBounds="true"
+                android:baselineAlignBottom="false"
+                android:src="@drawable/baseline_notification_important_24"
+                android:visibility="invisible"
+                android:tint="@color/red_a200" />
+
             <ImageButton
                 android:id="@+id/invalidated"
                 android:layout_width="24dp"
@@ -62,7 +74,7 @@
         <ImageView
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_width"
-            android:background="@drawable/age_little"/>
+            android:background="@drawable/age_little" />
 
         <TextView
             android:id="@+id/age"

@@ -5,10 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import com.duolingo.open.rtlviewpager.RtlViewPager;
 
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ import org.unicef.rapidreg.forms.Section;
 import org.unicef.rapidreg.injection.component.DaggerFragmentComponent;
 import org.unicef.rapidreg.injection.component.FragmentComponent;
 import org.unicef.rapidreg.injection.module.FragmentModule;
+import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.dialog.MessageDialog;
@@ -182,8 +186,25 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
     private void initRegisterContainer() {
         final FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(
                 getActivity().getSupportFragmentManager(), getPages());
+
+        viewPagerTab.setCustomTabView(new SmartTabLayout.TabProvider() {
+            @Override
+            public View createTabView(ViewGroup container, int position, PagerAdapter adapter) {
+                View itemView = getActivity().getLayoutInflater().inflate(R.layout.custom_tab_icon_and_text, container, false);
+                TextView text = (TextView) itemView.findViewById(R.id.tab_text);
+                text.setText(adapter.getPageTitle(position));
+                ImageView icon = (ImageView) itemView.findViewById(R.id.tab_icon);
+                boolean showAlert = sections.get(position).getUniqueId().equals(RecordModel.ALERT_NOTE_TYPE) && itemValues.hasNoteAlerts();
+
+                icon.setVisibility(showAlert ? View.VISIBLE : View.GONE);
+
+                return itemView;
+            }
+        });
+
         viewPager.setAdapter(adapter);
         viewPagerTab.setViewPager(viewPager);
+
         viewPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int

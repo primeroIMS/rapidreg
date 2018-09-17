@@ -5,12 +5,18 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.data.Blob;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import org.unicef.rapidreg.utils.TextUtils;
+
 import java.util.Date;
 
 
 public class RecordModel extends BaseModel {
     public static final int CASE = 0;
     public static final int TRACING = 1;
+
+    public static final String ALERT_NOTE_TYPE = "notes";
+    public static final String ALERT_KEY = "alerts";
+    public static final String ALERT_PROP = "form_sidebar_id";
 
     public static final int EMPTY_AGE = -1;
     public static final String COLUMN_UNIQUE_ID = "unique_id";
@@ -22,6 +28,7 @@ public class RecordModel extends BaseModel {
     public static final String COLUMN_CREATED_BY = "created_by";
     public static final String COLUMN_OWNED_BY = "owned_by";
     public static final String COLUMN_LOCATION = "location";
+
 
     @PrimaryKey(autoincrement = true)
     public long id;
@@ -71,6 +78,9 @@ public class RecordModel extends BaseModel {
 
     @Column(name = "is_invalidated")
     private boolean isInvalidated;
+
+    @Column(name = "note_alerts")
+    private String noteAlerts;
 
     public RecordModel(long id) {
         this.id = id;
@@ -256,6 +266,24 @@ public class RecordModel extends BaseModel {
     public boolean isInvalidated() { return isInvalidated; }
 
     public void setInvalidated(boolean invalidated) { isInvalidated = invalidated; }
+
+    public void setNoteAlerts(String noteAlerts) { this.noteAlerts = noteAlerts; }
+
+    public String getNoteAlerts() { return noteAlerts; }
+
+    public boolean hasNoteAlerts() {
+        boolean hasNoteAlert = false;
+
+        if (!TextUtils.isEmpty(getNoteAlerts())) {
+            for (String as : getNoteAlerts().split(",")) {
+                if (as.equals(ALERT_NOTE_TYPE)) {
+                    hasNoteAlert = true;
+                }
+            }
+        }
+
+        return hasNoteAlert;
+    }
 
     @Override
     public String toString() {

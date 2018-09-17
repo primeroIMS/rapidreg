@@ -18,6 +18,7 @@ import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.injection.ActivityContext;
 import org.unicef.rapidreg.model.Case;
 import org.unicef.rapidreg.model.CasePhoto;
+import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.model.Tracing;
 import org.unicef.rapidreg.model.TracingForm;
 import org.unicef.rapidreg.model.TracingPhoto;
@@ -392,10 +393,12 @@ public class CPSyncPresenter extends BaseSyncPresenter {
 
         if (item != null) {
             setCaseProperties(casesJsonObject, item);
+            item.setNoteAlerts(parseAlerts(casesJsonObject.get(RecordModel.ALERT_KEY)));
             item.update();
             casePhotoService.deleteByCaseId(item.getId());
         } else {
             item = new Case();
+            item.setNoteAlerts(parseAlerts(casesJsonObject.get(RecordModel.ALERT_KEY)));
             item.setUniqueId(casesJsonObject.get("case_id").getAsString());
             item.setShortId(casesJsonObject.get("short_id").getAsString());
             item.setInternalId(casesJsonObject.get("_id").getAsString());

@@ -3,6 +3,9 @@ package org.unicef.rapidreg.service.cache;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.unicef.rapidreg.model.RecordModel;
+import org.unicef.rapidreg.utils.TextUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -180,5 +183,20 @@ public class ItemValuesMap implements Serializable {
             result.put(entry.getKey(), entry.getValue());
         }
         return new ItemValuesMap(result);
+    }
+
+    public boolean hasNoteAlerts() {
+        boolean hasNoteAlert = false;
+
+        if (!TextUtils.isEmpty(this.getAsString(RecordModel.ALERT_KEY))) {
+            for ( Map alert : this.getChildrenAsJsonArray(RecordModel.ALERT_KEY)) {
+                if (alert.get(RecordModel.ALERT_PROP).equals(RecordModel.ALERT_NOTE_TYPE)) {
+                    hasNoteAlert = true;
+                }
+
+            }
+        }
+
+        return hasNoteAlert;
     }
 }

@@ -176,6 +176,7 @@ public class CaseService extends RecordService {
         itemValues.addStringItem(RECORD_OWNED_BY, username);
         itemValues.addStringItem(RECORD_CREATED_BY, username);
         itemValues.addStringItem(PREVIOUS_OWNER, username);
+        itemValues.addStringItem(ALERTS, "");
 
         setCurrentDateIfRegistrationNotExist(itemValues);
 
@@ -192,6 +193,8 @@ public class CaseService extends RecordService {
         child.setCreateDate(date);
         child.setLastUpdatedDate(date);
         child.setContent(blob);
+
+        child.setNoteAlerts("");
 
         child.setName(getName(itemValues));
 
@@ -220,6 +223,8 @@ public class CaseService extends RecordService {
 
     public Case update(ItemValuesMap itemValues, List<String> photoBitPaths) throws IOException {
         setCurrentDateIfRegistrationNotExist(itemValues);
+        itemValues.addStringItem(ALERTS, "");
+
         Gson gson = new Gson();
         Blob caseBlob = new Blob(gson.toJson(itemValues.getValues()).getBytes());
         Blob audioFileDefault = getAudioBlob();
@@ -236,6 +241,8 @@ public class CaseService extends RecordService {
         child.setRegistrationDate(Utils.getRegisterDateByYyyyMmDd(itemValues.getAsString(REGISTRATION_DATE)));
         child.setAudio(audioFileDefault);
         child.setSynced(false);
+
+        child.setNoteAlerts("");
 
         child = caseDao.update(child);
 

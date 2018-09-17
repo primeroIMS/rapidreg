@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Section {
+    @SerializedName("unique_id")
+    @Expose
+    private String uniqueId;
     @SerializedName("name")
     @Expose
     private Map<String, String> name;
@@ -31,6 +34,10 @@ public class Section {
     public void setName(Map<String, String> name) {
         this.name = name;
     }
+
+    public String getUniqueId() { return uniqueId; }
+
+    public void setUniqueId(String uniqueId) { this.uniqueId = uniqueId; }
 
     public int getOrder() {
         return order;
