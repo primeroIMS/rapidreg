@@ -41,6 +41,10 @@ public class CaseListPresenter extends RecordListPresenter {
                 return caseService.getAllOrderByDateASC();
             case REG_DATE_DES:
                 return caseService.getAllOrderByDateDES();
+            case NOTE_ALERTS_ASC:
+                return caseService.getAllOrderByNoteAlertAndDateASC();
+            case NOTE_ALERTS_DES:
+                return caseService.getAllOrderByNoteAlertAndDateDES();
             default:
                 return new ArrayList<>();
         }

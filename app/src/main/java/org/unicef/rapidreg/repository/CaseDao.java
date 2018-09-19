@@ -11,6 +11,8 @@ public interface CaseDao {
 
     List<Case> getAllCasesOrderByDate(boolean isASC, String ownedBy, String url);
 
+    List<Case> getAllCasesOrderByDateAndNoteAlert(boolean isASC, String ownedBy, String url);
+
     List<Case> getAllCasesOrderByAge(boolean isASC, String ownedBy, String url);
 
     List<Case> getCaseListByConditionGroup(String ownedBy, String url, ConditionGroup conditionGroup);
