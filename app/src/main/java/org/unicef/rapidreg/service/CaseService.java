@@ -87,6 +87,16 @@ public class CaseService extends RecordService {
                 TextUtils.lintUrl(PrimeroAppConfiguration.getApiBaseUrl())));
     }
 
+    public List<Long> getAllOrderByNoteAlertAndDateASC() {
+        return extractIds(caseDao.getAllCasesOrderByDateAndNoteAlert(true, PrimeroAppConfiguration.getCurrentUsername(),
+                TextUtils.lintUrl(PrimeroAppConfiguration.getApiBaseUrl())));
+    }
+
+    public List<Long> getAllOrderByNoteAlertAndDateDES() {
+        return extractIds(caseDao.getAllCasesOrderByDateAndNoteAlert(false, PrimeroAppConfiguration.getCurrentUsername(),
+                TextUtils.lintUrl(PrimeroAppConfiguration.getApiBaseUrl())));
+    }
+
     public List<Long> getAllOrderByAgeASC() {
         return extractIds(caseDao.getAllCasesOrderByAge(true, PrimeroAppConfiguration.getCurrentUsername(),
                 TextUtils.lintUrl(PrimeroAppConfiguration.getApiBaseUrl())));

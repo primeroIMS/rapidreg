@@ -208,4 +208,7 @@
     <string name="age">Age</string>
     <string name="age_asc">Age descending order</string>
     <string name="age_desc">Age descending order</string>
+    <string name="note_alerts">"Notes Alerts"</string>
+    <string name="note_alerts_recent">"Note alerts most recent"</string>
+    <string name="note_alerts_less_recent">"Note alerts less recent"</string>
 </resources>

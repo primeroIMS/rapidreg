@@ -63,7 +63,7 @@ public class CaseListFragmentTest {
 
     @Test
     public void test_get_default_spinner_states() {
-        assertEquals(4, caseListFragment.getDefaultSpinnerStates().length);
+        assertEquals(6, caseListFragment.getDefaultSpinnerStates().length);
     }
 
     @Test

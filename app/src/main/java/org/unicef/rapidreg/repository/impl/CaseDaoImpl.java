@@ -23,6 +23,11 @@ public class CaseDaoImpl implements CaseDao {
     }
 
     @Override
+    public List<Case> getAllCasesOrderByDateAndNoteAlert(boolean isASC, String ownedBy, String url) {
+        return isASC ? getCasesByDateASCAndNoteAlerts(ownedBy, url) : getCasesByDateDESAndNoteAlerts(ownedBy, url);
+    }
+
+    @Override
     public List<Case> getAllCasesOrderByAge(boolean isASC, String ownedBy, String url) {
         return isASC ? getCasesByAgeASC(ownedBy, url) : getCasesByAgeDES(ownedBy, url);
     }
@@ -105,6 +110,20 @@ public class CaseDaoImpl implements CaseDao {
 
     private List<Case> getCasesByDateDES(String ownedBy, String url) {
         return getCurrentServerUserCondition(ownedBy, url)
+                .orderBy(Case_Table.registration_date, false)
+                .queryList();
+    }
+
+    private List<Case> getCasesByDateASCAndNoteAlerts(String ownedBy, String url) {
+        return getCurrentServerUserCondition(ownedBy, url)
+                .and(Case_Table.note_alerts.like("%notes%"))
+                .orderBy(Case_Table.registration_date, true)
+                .queryList();
+    }
+
+    private List<Case> getCasesByDateDESAndNoteAlerts(String ownedBy, String url) {
+        return getCurrentServerUserCondition(ownedBy, url)
+                .and(Case_Table.note_alerts.like("%notes%"))
                 .orderBy(Case_Table.registration_date, false)
                 .queryList();
     }

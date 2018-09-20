@@ -38,7 +38,9 @@ public class CaseListFragment extends RecordListFragment {
             SpinnerState.AGE_ASC,
             SpinnerState.AGE_DES,
             SpinnerState.REG_DATE_ASC,
-            SpinnerState.REG_DATE_DES};
+            SpinnerState.REG_DATE_DES,
+            SpinnerState.NOTE_ALERTS_ASC,
+            SpinnerState.NOTE_ALERTS_DES};
 
     @Inject
     CaseListPresenter caseListPresenter;

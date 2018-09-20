@@ -26,6 +26,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import io.reactivex.Observable;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -76,8 +77,7 @@ public class AppRemotePresenterTest {
     public void should_load_case_form_when_give_cookie_and_module_id() throws Exception {
         CaseTemplateForm caseTemplateForm = createCaseTemplateForm();
         Observable<CaseTemplateForm> observable = Observable.just(caseTemplateForm);
-        when(formRemoteService.getCaseForm("cookie", "en", true, "case", PrimeroAppConfiguration.MODULE_ID_CP))
-                .thenReturn(observable);
+        doReturn(observable).when(formRemoteService).getCaseForm(any(), any(), any(), any(), any());
         when(PrimeroAppConfiguration.getCookie()).thenReturn("cookie");
         when(PrimeroAppConfiguration.getDefaultLanguage()).thenReturn("en");
         AppRemoteService.LoadCallback callback = mock(AppRemoteService.LoadCallback.class);
@@ -91,8 +91,7 @@ public class AppRemotePresenterTest {
     @Test
     public void should_show_error_when_sync_case_form_fail() throws Exception {
         Observable observable = Observable.error(new Exception());
-        when(formRemoteService.getCaseForm("cookie", "en", true, "case", "primeromodule-cp"))
-                .thenReturn(observable);
+        doReturn(observable).when(formRemoteService).getCaseForm(any(), any(), any(), any(), any());
 
         when(PrimeroAppConfiguration.getCookie()).thenReturn("cookie");
         when(PrimeroAppConfiguration.getDefaultLanguage()).thenReturn("en");
@@ -115,8 +114,7 @@ public class AppRemotePresenterTest {
     public void should_load_tracing_form_when_give_cookie_and_module_id() throws Exception {
         TracingTemplateForm tracingTemplateForm = createTracingTemplateForm();
         Observable<TracingTemplateForm> observable = Observable.just(tracingTemplateForm);
-        when(formRemoteService.getTracingForm("cookie", "en", true, "tracing_request", "primeromodule-cp"))
-                .thenReturn(observable);
+        doReturn(observable).when(formRemoteService).getTracingForm(any(), any(), any(), any(), any());
         Mockito.when(PrimeroAppConfiguration.getCookie()).thenReturn("cookie");
         Mockito.when(PrimeroAppConfiguration.getDefaultLanguage()).thenReturn("en");
         AppRemoteService.LoadCallback callback = mock(AppRemoteService.LoadCallback.class);
@@ -130,8 +128,8 @@ public class AppRemotePresenterTest {
     @Test
     public void should_show_error_when_sync_tracing_form_fail() throws Exception {
         Observable observable = Observable.error(new Exception());
-        when(formRemoteService.getTracingForm("cookie", "en", true, "tracing_request", "primeromodule-cp"))
-                .thenReturn(observable);
+
+        doReturn(observable).when(formRemoteService).getTracingForm(any(), any(), any(), any(), any());
 
         Mockito.when(PrimeroAppConfiguration.getCookie()).thenReturn("cookie");
         Mockito.when(PrimeroAppConfiguration.getDefaultLanguage()).thenReturn("en");
@@ -146,8 +144,9 @@ public class AppRemotePresenterTest {
     public void should_load_incident_form_when_give_cookie_and_module_id() throws Exception {
         IncidentTemplateForm incidentTemplateForm = createIncidentTemplateForm();
         Observable<IncidentTemplateForm> observable = Observable.just(incidentTemplateForm);
-        when(formRemoteService.getIncidentForm("cookie", "en", true, "incident",
-                "primeromodule-gbv")).thenReturn(observable);
+
+        doReturn(observable).when(formRemoteService).getIncidentForm(any(), any(), any(), any(), any());
+
         Mockito.when(PrimeroAppConfiguration.getCookie()).thenReturn("cookie");
         Mockito.when(PrimeroAppConfiguration.getDefaultLanguage()).thenReturn("en");
         AppRemoteService.LoadCallback callback = mock(AppRemoteService.LoadCallback.class);
@@ -161,8 +160,9 @@ public class AppRemotePresenterTest {
     @Test
     public void should_show_error_when_sync_incident_form_fail() throws Exception {
         Observable observable = Observable.error(new Exception());
-        when(formRemoteService.getIncidentForm("cookie", "en", true, "incident", "primeromodule-gbv"))
-                .thenReturn(observable);
+
+        doReturn(observable).when(formRemoteService).getIncidentForm(any(), any(), any(), any(), any());
+
         Mockito.when(PrimeroAppConfiguration.getCookie()).thenReturn("cookie");
         Mockito.when(PrimeroAppConfiguration.getDefaultLanguage()).thenReturn("en");
         AppRemoteService.LoadCallback callback = mock(AppRemoteService.LoadCallback.class);
