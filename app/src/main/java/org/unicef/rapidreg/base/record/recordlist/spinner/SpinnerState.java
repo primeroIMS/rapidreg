@@ -12,8 +12,8 @@ public enum SpinnerState {
     INQUIRY_DATE_DES(R.drawable.date_down, R.string.inquiry_date_desc, R.string.inquiry_date),
     INTERVIEW_DATE_ASC(R.drawable.date_up, R.string.interview_date_asc, R.string.date_of_interview),
     INTERVIEW_DATE_DES(R.drawable.date_down, R.string.interview_date_desc, R.string.date_of_interview),
-    NOTE_ALERTS_ASC(R.drawable.date_up, R.string.note_alerts_recent, R.string.note_alerts),
-    NOTE_ALERTS_DES(R.drawable.date_down, R.string.note_alerts_less_recent, R.string.note_alerts);
+    NOTE_ALERTS_ASC(R.drawable.date_up, R.string.note_alerts_less_recent, R.string.note_alerts),
+    NOTE_ALERTS_DES(R.drawable.date_down, R.string.note_alerts_recent, R.string.note_alerts);
 
     private int resId;
     private int longName;
