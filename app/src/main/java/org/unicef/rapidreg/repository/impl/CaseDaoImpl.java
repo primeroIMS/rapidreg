@@ -3,6 +3,7 @@ package org.unicef.rapidreg.repository.impl;
 import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.language.Where;
+import com.raizlabs.android.dbflow.sql.language.property.IProperty;
 
 import org.unicef.rapidreg.model.Case;
 import org.unicef.rapidreg.model.Case_Table;
@@ -11,9 +12,36 @@ import org.unicef.rapidreg.repository.CaseDao;
 import java.util.List;
 
 public class CaseDaoImpl implements CaseDao {
+    public IProperty[] selectFields = new IProperty[]{
+            Case_Table.id,
+            Case_Table.location,
+            Case_Table.name,
+            Case_Table.age,
+            Case_Table.caregiver,
+            Case_Table.case_json,
+            Case_Table.is_synced,
+            Case_Table.sync_log,
+            Case_Table._id,
+            Case_Table._rev,
+            Case_Table.unique_id,
+            Case_Table.unique_identifier,
+            Case_Table.short_id,
+            Case_Table.registration_date,
+            Case_Table.created_by,
+            Case_Table.server_url,
+            Case_Table.owned_by,
+            Case_Table.created_date,
+            Case_Table.last_updated_date,
+            Case_Table.last_synced_date,
+            Case_Table.type,
+            Case_Table.isAudioSynced,
+            Case_Table.is_invalidated,
+            Case_Table.note_alerts
+    };
+
     @Override
     public Case getCaseByUniqueId(String uniqueId) {
-        return SQLite.select().from(Case.class).where(Case_Table.unique_id.eq(uniqueId))
+        return SQLite.select(selectFields).from(Case.class).where(Case_Table.unique_id.eq(uniqueId))
                 .querySingle();
     }
 
@@ -34,7 +62,7 @@ public class CaseDaoImpl implements CaseDao {
 
     @Override
     public List<Case> getCaseListByConditionGroup(String ownedBy, String url, ConditionGroup conditionGroup) {
-        return SQLite.select().from(Case.class)
+        return SQLite.select(selectFields).from(Case.class)
                 .where(conditionGroup)
                 .and(Case_Table.owned_by.eq(ownedBy))
                 .and(Case_Table.server_url.eq(url))
@@ -44,12 +72,12 @@ public class CaseDaoImpl implements CaseDao {
 
     @Override
     public Case getCaseById(long caseId) {
-        return SQLite.select().from(Case.class).where(Case_Table.id.eq(caseId)).querySingle();
+        return SQLite.select(selectFields).from(Case.class).where(Case_Table.id.eq(caseId)).querySingle();
     }
 
     @Override
     public Case getByInternalId(String id) {
-        return SQLite.select().from(Case.class).where(Case_Table._id.eq(id)).querySingle();
+        return SQLite.select(selectFields).from(Case.class).where(Case_Table._id.eq(id)).querySingle();
     }
 
     @Override
@@ -83,7 +111,7 @@ public class CaseDaoImpl implements CaseDao {
 
     @Override
     public List<Case> getALLSyncedRecords(String ownedBy) {
-        return SQLite.select()
+        return SQLite.select(selectFields)
                 .from(Case.class)
                 .where(Case_Table.is_synced.eq(true))
                 .and(Case_Table.owned_by.eq(ownedBy))
@@ -130,7 +158,7 @@ public class CaseDaoImpl implements CaseDao {
 
     private Where<Case> getCurrentServerUserCondition(String ownedBy, String url) {
         return SQLite
-                .select()
+                .select(selectFields)
                 .from(Case.class)
                 .where(Case_Table.owned_by.eq(ownedBy))
                 .and(Case_Table.server_url.eq(url));
