@@ -50,7 +50,7 @@ public class TracingService extends RecordService {
     }
 
     public List<Tracing> getAll() {
-        return tracingDao.getAllTracingsOrderByDate(false, PrimeroAppConfiguration.getCurrentUsername(),
+        return tracingDao.getAll(PrimeroAppConfiguration.getCurrentUsername(),
                 PrimeroAppConfiguration.getApiBaseUrl());
     }
 

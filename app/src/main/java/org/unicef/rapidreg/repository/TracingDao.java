@@ -7,6 +7,8 @@ import org.unicef.rapidreg.model.Tracing;
 import java.util.List;
 
 public interface TracingDao {
+    List<Tracing> getAll(String ownedBy, String url);
+
     Tracing save(Tracing tracing);
 
     Tracing update(Tracing tracing);

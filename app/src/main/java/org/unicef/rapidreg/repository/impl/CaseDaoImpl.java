@@ -12,7 +12,7 @@ import org.unicef.rapidreg.repository.CaseDao;
 import java.util.List;
 
 public class CaseDaoImpl implements CaseDao {
-    public IProperty[] selectFields = new IProperty[]{
+    public static IProperty[] selectFields = new IProperty[]{
             Case_Table.id,
             Case_Table.location,
             Case_Table.name,
@@ -38,6 +38,17 @@ public class CaseDaoImpl implements CaseDao {
             Case_Table.is_invalidated,
             Case_Table.note_alerts
     };
+
+    @Override
+    public List<Case> getAll(String ownedBy, String url) {
+        return SQLite
+                .select(selectFields)
+                .from(Case.class)
+                .where(Case_Table.owned_by.eq(ownedBy))
+                .and(Case_Table.server_url.eq(url))
+                .orderBy(Case_Table.registration_date, false)
+                .queryList();
+    }
 
     @Override
     public Case getCaseByUniqueId(String uniqueId) {
@@ -111,7 +122,7 @@ public class CaseDaoImpl implements CaseDao {
 
     @Override
     public List<Case> getALLSyncedRecords(String ownedBy) {
-        return SQLite.select(selectFields)
+        return SQLite.select(Case_Table.id)
                 .from(Case.class)
                 .where(Case_Table.is_synced.eq(true))
                 .and(Case_Table.owned_by.eq(ownedBy))
@@ -157,8 +168,23 @@ public class CaseDaoImpl implements CaseDao {
     }
 
     private Where<Case> getCurrentServerUserCondition(String ownedBy, String url) {
+        IProperty[] selectedListFields = new IProperty[]{
+                Case_Table.id,
+                Case_Table.name,
+                Case_Table.age,
+                Case_Table._id,
+                Case_Table.unique_id,
+                Case_Table.unique_identifier,
+                Case_Table.short_id,
+                Case_Table.registration_date,
+                Case_Table.owned_by,
+                Case_Table.type,
+                Case_Table.is_invalidated,
+                Case_Table.note_alerts
+        };
+
         return SQLite
-                .select(selectFields)
+                .select(selectedListFields)
                 .from(Case.class)
                 .where(Case_Table.owned_by.eq(ownedBy))
                 .and(Case_Table.server_url.eq(url));
