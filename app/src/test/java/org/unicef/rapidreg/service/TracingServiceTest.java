@@ -105,9 +105,9 @@ public class TracingServiceTest {
         Tracing tracing = new Tracing();
         List<Tracing> tracingList = new ArrayList<Tracing>();
         tracingList.add(tracing);
-        when(tracingDao.getAllTracingsOrderByDate(false, "userName", TextUtils.lintUrl(url))).thenReturn(tracingList);
+        when(tracingDao.getAll( "userName", TextUtils.lintUrl(url))).thenReturn(tracingList);
         assertThat(tracingService.getAll(), is(tracingList));
-        verify(tracingDao, times(1)).getAllTracingsOrderByDate(false, "userName", TextUtils.lintUrl(url));
+        verify(tracingDao, times(1)).getAll( "userName", TextUtils.lintUrl(url));
     }
 
     @Test
