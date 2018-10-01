@@ -65,6 +65,15 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
     }
 
     @Override
+    public void setLookups() {
+        Lookup lookups = lookupDao.getByServerUrlAndLocale(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale());
+
+        if (lookups != null) {
+          GlobalLookupCache.initLookupOptions(lookups);
+        }
+    }
+
+    @Override
     public void saveOrUpdate(Lookup lookups, Boolean forceReload) {
         Lookup currentLookups = lookupDao.getByServerUrlAndLocale(lookups.getServerUrl(), PrimeroAppConfiguration.getServerLocale());
         if (currentLookups == null) {
