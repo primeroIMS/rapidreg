@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface IncidentDao {
 
+    List<Incident> getAll(String ownedBy, String url);
+
     Incident getIncidentByUniqueId(String id);
 
     List<Incident> getAllIncidentsOrderByDate(boolean isASC, String ownedBy, String url);

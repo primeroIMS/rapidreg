@@ -49,7 +49,7 @@ public class IncidentService extends RecordService {
     }
 
     public List<Incident> getAll() {
-        return incidentDao.getAllIncidentsOrderByDate(false, PrimeroAppConfiguration.getCurrentUsername(), TextUtils
+        return incidentDao.getAll(PrimeroAppConfiguration.getCurrentUsername(), TextUtils
                 .lintUrl(PrimeroAppConfiguration.getApiBaseUrl()));
     }
 
