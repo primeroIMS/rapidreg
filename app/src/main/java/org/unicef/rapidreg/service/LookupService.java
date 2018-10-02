@@ -7,5 +7,7 @@ import io.reactivex.Observable;
 public interface LookupService {
     Observable<Lookup> getLookups(String cookie, String locale, Boolean getAll);
 
+    void setLookups();
+
     void saveOrUpdate(Lookup lookup, Boolean forceReload);
 }
