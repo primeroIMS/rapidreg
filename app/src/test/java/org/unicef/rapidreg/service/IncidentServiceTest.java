@@ -96,11 +96,11 @@ public class IncidentServiceTest {
         Incident incident = new Incident();
         List<Incident> incidentList = new ArrayList<Incident>();
         incidentList.add(incident);
-        when(incidentDao.getAllIncidentsOrderByDate(false, PrimeroAppConfiguration.getCurrentUser().getUsername(),
+        when(incidentDao.getAll(PrimeroAppConfiguration.getCurrentUser().getUsername(),
                 TextUtils.lintUrl(url)))
                 .thenReturn(incidentList);
         assertThat(incidentService.getAll(), is(incidentList));
-        verify(incidentDao, times(1)).getAllIncidentsOrderByDate(false, PrimeroAppConfiguration.getCurrentUser()
+        verify(incidentDao, times(1)).getAll(PrimeroAppConfiguration.getCurrentUser()
                 .getUsername(), TextUtils.lintUrl(url));
     }
 

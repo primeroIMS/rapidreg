@@ -7,6 +7,7 @@ import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.model.User;
 import org.unicef.rapidreg.service.AppDataService;
 import org.unicef.rapidreg.service.LoginService;
+import org.unicef.rapidreg.service.LookupService;
 import org.unicef.rapidreg.service.SystemSettingsService;
 import org.unicef.rapidreg.service.impl.LoginServiceImpl;
 import org.unicef.rapidreg.utils.TextUtils;
@@ -21,12 +22,14 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
     private AppDataService appDataService;
     private LoginService loginService;
     private SystemSettingsService systemSettingsService;
+    private LookupService lookupService;
 
     @Inject
-    public LoginPresenter(Lazy<LoginService> loginService, Lazy<SystemSettingsService> systemSettingsServiceLazy, AppDataService appDataService) {
+    public LoginPresenter(Lazy<LoginService> loginService, Lazy<SystemSettingsService> systemSettingsServiceLazy, AppDataService appDataService, Lazy<LookupService> lookupServiceLazy) {
         this.appDataService = appDataService;
         this.loginService = loginService.get();
         this.systemSettingsService = systemSettingsServiceLazy.get();
+        this.lookupService = lookupServiceLazy.get();
     }
 
     public String loadLastLoginUrl() {
@@ -142,6 +145,7 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
                 getView().configAppRuntimeEvent();
                 getView().navigateToLoginSucceedPage();
                 systemSettingsService.setGlobalSystemSettings();
+                lookupService.setLookups();
                 PrimeroApplication.getAppRuntime().storeLastLoginServerUrl(url);
             }
 

@@ -3,6 +3,7 @@ package org.unicef.rapidreg.repository.impl;
 import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.language.Where;
+import com.raizlabs.android.dbflow.sql.language.property.IProperty;
 
 import org.unicef.rapidreg.model.Tracing;
 import org.unicef.rapidreg.model.Tracing_Table;
@@ -11,6 +12,32 @@ import org.unicef.rapidreg.repository.TracingDao;
 import java.util.List;
 
 public class TracingDaoImpl implements TracingDao {
+
+    public static IProperty[] selectFields = new IProperty[]{
+            Tracing_Table.id,
+            Tracing_Table.name,
+            Tracing_Table.age,
+            Tracing_Table.caregiver,
+            Tracing_Table.case_json,
+            Tracing_Table.is_synced,
+            Tracing_Table.sync_log,
+            Tracing_Table._id,
+            Tracing_Table._rev,
+            Tracing_Table.unique_id,
+            Tracing_Table.unique_identifier,
+            Tracing_Table.short_id,
+            Tracing_Table.registration_date,
+            Tracing_Table.created_by,
+            Tracing_Table.server_url,
+            Tracing_Table.owned_by,
+            Tracing_Table.created_date,
+            Tracing_Table.last_updated_date,
+            Tracing_Table.last_synced_date,
+            Tracing_Table.type,
+            Tracing_Table.isAudioSynced,
+            Tracing_Table.is_invalidated,
+            Tracing_Table.note_alerts
+    };
 
     @Override
     public Tracing save(Tracing tracing) {
@@ -25,8 +52,19 @@ public class TracingDaoImpl implements TracingDao {
     }
 
     @Override
+    public List<Tracing> getAll(String ownedBy, String url) {
+        return SQLite
+                .select(selectFields)
+                .from(Tracing.class)
+                .where(Tracing_Table.owned_by.eq(ownedBy))
+                .and(Tracing_Table.server_url.eq(url))
+                .orderBy(Tracing_Table.registration_date, false)
+                .queryList();
+    }
+
+    @Override
     public Tracing getTracingByUniqueId(String uniqueId) {
-        return SQLite.select().from(Tracing.class)
+        return SQLite.select(selectFields).from(Tracing.class)
                 .where(Tracing_Table.unique_id.eq(uniqueId))
                 .querySingle();
     }
@@ -38,7 +76,7 @@ public class TracingDaoImpl implements TracingDao {
 
     @Override
     public List<Tracing> getAllTracingsByConditionGroup(String ownedBy, String url, ConditionGroup conditionGroup) {
-        return SQLite.select().from(Tracing.class)
+        return SQLite.select(selectFields).from(Tracing.class)
                 .where(conditionGroup)
                 .and(Tracing_Table.owned_by.eq(ownedBy))
                 .and(Tracing_Table.server_url.eq(url))
@@ -48,12 +86,12 @@ public class TracingDaoImpl implements TracingDao {
 
     @Override
     public Tracing getTracingById(long tracingId) {
-        return SQLite.select().from(Tracing.class).where(Tracing_Table.id.eq(tracingId)).querySingle();
+        return SQLite.select(selectFields).from(Tracing.class).where(Tracing_Table.id.eq(tracingId)).querySingle();
     }
 
     @Override
     public Tracing getByInternalId(String id) {
-        return SQLite.select().from(Tracing.class).where(Tracing_Table._id.eq(id)).querySingle();
+        return SQLite.select(selectFields).from(Tracing.class).where(Tracing_Table._id.eq(id)).querySingle();
     }
 
     @Override
@@ -75,7 +113,7 @@ public class TracingDaoImpl implements TracingDao {
 
     @Override
     public List<Tracing> getALLSyncedRecords(String ownedBy) {
-        return SQLite.select()
+        return SQLite.select(Tracing_Table.id)
                 .from(Tracing.class)
                 .where(Tracing_Table.is_synced.eq(true))
                 .and(Tracing_Table.owned_by.eq(ownedBy))
@@ -95,8 +133,23 @@ public class TracingDaoImpl implements TracingDao {
     }
 
     private Where<Tracing> getCurrentServerUserCondition(String ownedBy, String url) {
+        IProperty[] selectedListFields = new IProperty[]{
+                Tracing_Table.id,
+                Tracing_Table.name,
+                Tracing_Table.age,
+                Tracing_Table._id,
+                Tracing_Table.unique_id,
+                Tracing_Table.unique_identifier,
+                Tracing_Table.short_id,
+                Tracing_Table.registration_date,
+                Tracing_Table.owned_by,
+                Tracing_Table.type,
+                Tracing_Table.is_invalidated,
+                Tracing_Table.note_alerts
+        };
+        
         return SQLite
-                .select()
+                .select(selectedListFields)
                 .from(Tracing.class)
                 .where(Tracing_Table.owned_by.eq(ownedBy))
                 .and(Tracing_Table.server_url.eq(url));

@@ -56,7 +56,7 @@ public class CaseService extends RecordService {
     }
 
     public List<Case> getAll() {
-        return caseDao.getAllCasesOrderByDate(false, PrimeroAppConfiguration.getCurrentUsername(),
+        return caseDao.getAll(PrimeroAppConfiguration.getCurrentUsername(),
                 TextUtils.lintUrl(PrimeroAppConfiguration.getApiBaseUrl()));
     }
 

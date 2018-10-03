@@ -12,6 +12,7 @@ import org.robolectric.annotation.Config;
 import org.unicef.rapidreg.BuildConfig;
 import org.unicef.rapidreg.service.AppDataService;
 import org.unicef.rapidreg.service.LoginService;
+import org.unicef.rapidreg.service.LookupService;
 import org.unicef.rapidreg.service.SystemSettingsService;
 
 import javax.inject.Inject;
@@ -36,6 +37,9 @@ public class LoginPresenterTest {
     private LoginService loginService;
 
     @Mock
+    private LookupService lookupService;
+
+    @Mock
     AppDataService appDataService;
 
     @Mock
@@ -48,7 +52,7 @@ public class LoginPresenterTest {
     public void setUp() throws Exception {
         initMocks(this);
 
-        loginPresenter = new LoginPresenter(() -> loginService, () -> systemSettingService, appDataService);
+        loginPresenter = new LoginPresenter(() -> loginService, () -> systemSettingService, appDataService, () -> lookupService);
         loginPresenter.attachView(loginView);
     }
 

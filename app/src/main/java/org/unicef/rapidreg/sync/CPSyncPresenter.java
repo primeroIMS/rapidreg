@@ -314,23 +314,6 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                 })
                 .map(response -> {
                     JsonObject responseJsonObject = response.body().getAsJsonObject();
-                    if (responseJsonObject.has("recorded_audio")) {
-                        String id = responseJsonObject.get("_id").getAsString();
-                        Response<ResponseBody> audioResponse = syncCaseService.getCaseAudio(id)
-                                .blockingFirst();
-                        if (!audioResponse.isSuccessful()) {
-                            throw new ObservableNullResponseException();
-                        }
-                        try {
-                            updateCaseAudio(id, audioResponse.body().bytes());
-                        } catch (IOException e) {
-                            throw new MediaPersistenceException(e);
-                        }
-                    }
-                    return response;
-                })
-                .map(response -> {
-                    JsonObject responseJsonObject = response.body().getAsJsonObject();
                     List<JsonObject> photoKeys = new ArrayList<>();
 
                     if (responseJsonObject.has("photo_keys")) {
@@ -435,12 +418,6 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         casePhoto.save();
     }
 
-    private void updateCaseAudio(String id, byte[] audio) {
-        Case aCase = caseService.getByInternalId(id);
-        aCase.setAudio(new Blob(audio));
-        aCase.update();
-    }
-
     public void preDownloadTracings() {
         isSyncing = true;
         GregorianCalendar cal = new GregorianCalendar(2015, 1, 1);
@@ -512,23 +489,6 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     }
                     JsonObject responseJsonObject = response.body().getAsJsonObject();
                     saveDownloadedTracings(responseJsonObject);
-                    return response;
-                })
-                .map(response -> {
-                    JsonObject responseJsonObject = response.body().getAsJsonObject();
-                    if (responseJsonObject.has("recorded_audio")) {
-                        String id = responseJsonObject.get("_id").getAsString();
-                        Response<ResponseBody> audioResponse = syncTracingService.getAudio
-                                (id).blockingFirst();
-                        if (!audioResponse.isSuccessful()) {
-                            throw new ObservableNullResponseException();
-                        }
-                        try {
-                            updateTracingAudio(id, audioResponse.body().bytes());
-                        } catch (IOException e) {
-                            throw new MediaPersistenceException(e);
-                        }
-                    }
                     return response;
                 })
                 .map(response -> {
@@ -623,12 +583,6 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         TracingPhoto.setOrder(tracingPhotoService.getIdsByTracingId(aTracing.getId()).size() + 1);
         TracingPhoto.setPhoto(new Blob(photoBytes));
         TracingPhoto.save();
-    }
-
-    private void updateTracingAudio(String id, byte[] audio) {
-        Tracing aTracing = tracingService.getByInternalId(id);
-        aTracing.setAudio(new Blob(audio));
-        aTracing.update();
     }
 
     private void downloadCaseForm() {

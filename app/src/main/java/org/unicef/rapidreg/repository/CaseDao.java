@@ -7,6 +7,8 @@ import org.unicef.rapidreg.model.Case;
 import java.util.List;
 
 public interface CaseDao {
+    List<Case> getAll(String ownedBy, String url);
+
     Case getCaseByUniqueId(String id);
 
     List<Case> getAllCasesOrderByDate(boolean isASC, String ownedBy, String url);
