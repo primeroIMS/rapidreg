@@ -1,5 +1,6 @@
 package org.unicef.rapidreg.service.impl;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -46,8 +47,9 @@ public class AppDataServiceImpl implements AppDataService {
 
     private static CompositeDisposable compositeDisposable;
 
-
     protected final Gson gson = new Gson();
+
+    private Intent broadcastIntent;
 
     public AppDataServiceImpl(LookupService lookupService, SystemSettingsService systemSettingsService,
                               FormRemoteService formRemoteService, CaseFormService caseFormService,
@@ -58,6 +60,10 @@ public class AppDataServiceImpl implements AppDataService {
         this.caseFormService = caseFormService;
         this.tracingFormService = tracingFormService;
         this.incidentFormService = incidentFormService;
+
+        broadcastIntent = new Intent();
+        broadcastIntent.setAction("form_progress");
+
     }
 
     public void loadAppData(AppDataService.LoadCallback loginCallback, User.Role userRoleType) {
@@ -70,6 +76,8 @@ public class AppDataServiceImpl implements AppDataService {
     public void loadCaseForm() {
         String moduleId = roleType == User.Role.CP ? PrimeroAppConfiguration.MODULE_ID_CP :
                 PrimeroAppConfiguration.MODULE_ID_GBV;
+
+        broadcastIntent.putExtra("resource", "case");
 
         caseFormDisposable = formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_CASE, moduleId)
@@ -84,6 +92,8 @@ public class AppDataServiceImpl implements AppDataService {
                     } else {
                         loadTracingForm();
                     }
+
+                    broadcastIntent.putExtra("progress", 50);
                 });
 
         getCompositeDisposable().add(caseFormDisposable);
@@ -98,6 +108,7 @@ public class AppDataServiceImpl implements AppDataService {
     }
 
     public void loadTracingForm() {
+        broadcastIntent.putExtra("resource", "tracing");
         tracingFormDisposable = formRemoteService.getTracingForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_TRACING_REQUEST, MODULE_ID_CP)
                 .subscribe(tracingForm -> {
@@ -105,7 +116,10 @@ public class AppDataServiceImpl implements AppDataService {
                 }, throwable -> {
                     Log.e(TAG, "Tracing Form Error -> " + throwable.getMessage());
                     callback.onFailure();
-                }, () -> loadLookups());
+                }, () -> {
+                    loadLookups();
+                    broadcastIntent.putExtra("progress", 75);
+                });
 
         getCompositeDisposable().add(tracingFormDisposable);
     }
@@ -118,6 +132,7 @@ public class AppDataServiceImpl implements AppDataService {
     }
 
     public void loadIncidentForm() {
+        broadcastIntent.putExtra("resource", "incident");
         incidentFormDisposable = formRemoteService.getIncidentForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_INCIDENT, MODULE_ID_GBV)
                     .subscribe(incidentForm -> {
@@ -125,7 +140,10 @@ public class AppDataServiceImpl implements AppDataService {
                     }, throwable -> {
                         Log.e(TAG, "Incident Form Error -> " + throwable.getMessage());
                         callback.onFailure();
-                    }, () -> loadLookups());
+                    }, () -> {
+                        loadLookups();
+                        broadcastIntent.putExtra("progress", 75);
+                    });
 
         getCompositeDisposable().add(incidentFormDisposable);
     }
@@ -139,6 +157,7 @@ public class AppDataServiceImpl implements AppDataService {
 
 
     public void loadLookups() {
+        broadcastIntent.putExtra("resource", "lookups");
         lookupDisposable = lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale(), true)
                 .subscribe(lookup -> {
                     lookupService.saveOrUpdate(lookup, false);
@@ -148,12 +167,14 @@ public class AppDataServiceImpl implements AppDataService {
                 }, () -> {
                     callback.onSuccess();
                     getCompositeDisposable().dispose();
+                    broadcastIntent.putExtra("progress", 100);
                 });
 
         getCompositeDisposable().add(lookupDisposable);
     }
 
     public void loadSystemSettings() {
+        broadcastIntent.putExtra("resource", "settings");
         systemSettingsDisposable = systemSettingsService.getSystemSettings()
                 .subscribe(systemSettings -> {
                     systemSettingsService.saveOrUpdateSystemSettings(systemSettings);
@@ -163,6 +184,7 @@ public class AppDataServiceImpl implements AppDataService {
                 }, () -> {
                     systemSettingsService.setGlobalSystemSettings();
                     loadCaseForm();
+                    broadcastIntent.putExtra("progress", 25);
                 });
         getCompositeDisposable().add(systemSettingsDisposable);
     }

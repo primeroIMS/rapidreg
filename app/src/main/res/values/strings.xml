@@ -66,6 +66,7 @@
     <string name="tracing">Tracing Requests</string>
     <string name="tracing_details">Tracing Request Details</string>
     <string name="sync">Synchronization</string>
+    <string name="update_forms">Update Forms</string>
     <string name="back">Return</string>
     <!-- Title -->
     <string name="click_to_search">Click to search</string>
