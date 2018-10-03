@@ -12,6 +12,9 @@ import javax.inject.Inject;
 
 public class BasePresenter extends MvpBasePresenter<BaseView> {
     @Inject
+    public AppDataService appDataService;
+
+    @Inject
     public BasePresenter() {}
 
     public User getCurrentUser() {
@@ -26,7 +29,7 @@ public class BasePresenter extends MvpBasePresenter<BaseView> {
         GlobalLookupCache.clearLookups();
     }
 
-    AppDataService.LoadCallback callback = new AppDataService.LoadCallback() {
+    protected AppDataService.LoadCallback callback = new AppDataService.LoadCallback() {
         @Override
         public void onSuccess() {
 
@@ -37,4 +40,9 @@ public class BasePresenter extends MvpBasePresenter<BaseView> {
 
         }
     };
+
+    public void syncFormData() {
+        User user = PrimeroAppConfiguration.getCurrentUser();
+        appDataService.loadAppData(callback,  user.getRoleType(), true);
+    }
 }

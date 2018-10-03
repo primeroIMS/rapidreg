@@ -20,9 +20,9 @@
         <TextView
             android:id="@+id/load_forms_txt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="...Starting"
+            android:layout_height="@dimen/size_52"
+            android:gravity="center|top"
+            android:text="@string/forms_is_syncing_msg"
             android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>

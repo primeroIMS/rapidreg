@@ -129,6 +129,10 @@
     <string name="show_more_details">Show more details</string>
     <string name="sync_forms">Sync forms</string>
     <string name="forms_is_syncing_msg">Syncing forms, please wait a moment</string>
+    <string name="sync_case_forms">Syncing case forms</string>
+    <string name="sync_incident_forms">Syncing incident forms</string>
+    <string name="sync_tracing_request_forms">Syncing tracing request forms</string>
+    <string name="sync_lookups">Syncing lookups</string>
     <string name="sync_forms_message">forms were not pulled down successfully, press OK to resync.</string>
     <string name="sync_forms_error">Sync forms error, please try it later</string>
     <string name="sync_tracing_forms_error">Sync forms error, please try it later</string>

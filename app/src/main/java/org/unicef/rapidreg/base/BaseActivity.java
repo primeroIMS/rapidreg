@@ -10,7 +10,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -31,12 +33,12 @@ import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.childcase.CaseActivity;
 import org.unicef.rapidreg.event.CreateIncidentThruGBVCaseEvent;
+import org.unicef.rapidreg.exception.StringResourceException;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
 import org.unicef.rapidreg.injection.component.DaggerActivityComponent;
 import org.unicef.rapidreg.injection.module.ActivityModule;
 import org.unicef.rapidreg.login.AccountManager;
 import org.unicef.rapidreg.model.User;
-import org.unicef.rapidreg.service.AppDataService;
 import org.unicef.rapidreg.utils.Utils;
 
 import java.util.Locale;
@@ -134,17 +136,33 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     @BindColor(R.color.black)
     protected ColorStateList syncColor;
 
-    @BindView(R.id.load_forms_progress_bar)
-    protected ProgressBar formSyncProgressBar;
-
-    @BindView(R.id.load_forms_txt)
-    protected TextView formSyncTxt;
-
     protected IntentSender intentSender = new IntentSender();
 
     protected DetailState detailState = DetailState.VISIBILITY;
 
-    private FormDownloadProgressRequestReceiver receiver;
+    protected ProgressBar formSyncProgressBar;
+    protected TextView formSyncTxt;
+    protected AlertDialog syncFormsProgressDialog;
+
+    private BroadcastReceiver formDownloadProgressRequestReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int progress = intent.getIntExtra("progress", 0);
+
+            if (formSyncProgressBar != null && formSyncTxt != null) {
+                formSyncProgressBar.setProgress(progress);
+                formSyncTxt.setText(getProgressMessageStringID(intent.getStringExtra("resource")));
+            }
+
+            if (progress == 100) {
+                if (syncFormsProgressDialog != null) {
+                    syncFormsProgressDialog.dismiss();
+                }
+
+                showToast(R.string.sync_pull_form_success_message);
+            }
+        }
+    };
 
     @Inject
     BasePresenter basePresenter;
@@ -173,9 +191,8 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         configuration.setLayoutDirection(parseLocale());
         getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
 
-        IntentFilter filter = new IntentFilter("form_progress");
-        receiver = new FormDownloadProgressRequestReceiver();
-        registerReceiver( receiver, filter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(formDownloadProgressRequestReceiver,
+                new IntentFilter("sync_form_progress"));
     }
 
     private void doCloseIfNotLogin() {
@@ -297,13 +314,18 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     public void onNavUpdateforms() {
         drawer.closeDrawer(GravityCompat.START);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflator = LayoutInflater.from(getContext());
+        AlertDialog.Builder syncFormsProgressDialogBuilder = new AlertDialog.Builder(this);
+        View inflator = LayoutInflater.from(getContext()).inflate(R.layout.load_forms, null);
 
-        builder.setView(inflator.inflate(R.layout.load_forms, null));
-        builder.create();
-        builder.setCancelable(false);
-        builder.show();
+        formSyncProgressBar = ButterKnife.findById(inflator, R.id.load_forms_progress_bar);
+        formSyncTxt = ButterKnife.findById(inflator, R.id.load_forms_txt);
+
+        syncFormsProgressDialogBuilder.setView(inflator);
+        syncFormsProgressDialogBuilder.create();
+        syncFormsProgressDialogBuilder.setCancelable(false);
+        syncFormsProgressDialog = syncFormsProgressDialogBuilder.show();
+
+        presenter.syncFormData();
     }
 
     @OnClick(R.id.back)
@@ -455,16 +477,24 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
 
     @Override
     protected void onDestroy() {
-        this.unregisterReceiver(receiver);
+        try {
+            this.unregisterReceiver(formDownloadProgressRequestReceiver);
+        } catch (Exception e) {
+        }
+
         super.onDestroy();
     }
 
-    public class FormDownloadProgressRequestReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            formSyncProgressBar.setProgress(intent.getIntExtra("progress", 0));
-            formSyncTxt.setText(intent.getStringExtra("resource"));
-        }
+    protected void showToast(int message) {
+        Utils.showMessageByToast(this, message, Toast.LENGTH_LONG);
     }
 
+    protected String getProgressMessageStringID(String message) {
+        try {
+            @StringRes int resID = getResources().getIdentifier(message, "string", getPackageName());
+            return getString(resID);
+        } catch(Exception e) {
+            return message;
+        }
+    }
 }
