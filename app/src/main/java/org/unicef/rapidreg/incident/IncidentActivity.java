@@ -19,6 +19,7 @@ import org.unicef.rapidreg.event.LoadGBVIncidentFormEvent;
 import org.unicef.rapidreg.event.SaveIncidentEvent;
 import org.unicef.rapidreg.exception.FragmentSwitchException;
 import org.unicef.rapidreg.incident.incidentlist.IncidentListFragment;
+import org.unicef.rapidreg.utils.KeyboardUtils;
 import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.dialog.MessageDialog;
 
@@ -159,6 +160,7 @@ public class IncidentActivity extends RecordActivity implements BaseView {
 
     @Override
     protected void save() {
+        KeyboardUtils.hideKeyboard(this);
         SaveIncidentEvent event = new SaveIncidentEvent();
         EventBus.getDefault().postSticky(event);
     }
