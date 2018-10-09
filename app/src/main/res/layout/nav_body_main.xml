@@ -38,4 +38,13 @@
 
     <TextView style="@style/NavigationItemLine" />
 
+    <TextView
+        android:id="@+id/nav_load_forms"
+        style="@style/NavigationItemTextViewStyle"
+        android:drawableStart="@drawable/baseline_system_update_24"
+        android:text="@string/update_forms"
+        android:drawablePadding="@dimen/size_30"/>
+
+    <TextView style="@style/NavigationItemLine" />
+
 </LinearLayout>

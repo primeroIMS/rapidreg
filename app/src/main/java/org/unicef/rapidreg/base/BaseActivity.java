@@ -1,16 +1,26 @@
 package org.unicef.rapidreg.base;
 
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +33,7 @@ import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.childcase.CaseActivity;
 import org.unicef.rapidreg.event.CreateIncidentThruGBVCaseEvent;
+import org.unicef.rapidreg.exception.StringResourceException;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
 import org.unicef.rapidreg.injection.component.DaggerActivityComponent;
 import org.unicef.rapidreg.injection.module.ActivityModule;
@@ -110,6 +121,9 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     @BindView(R.id.nav_sync)
     protected TextView navSyncTV;
 
+    @BindView(R.id.nav_load_forms)
+    protected TextView navLoadForms;
+
     @BindColor(R.color.primero_green)
     protected ColorStateList caseColor;
 
@@ -125,6 +139,30 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     protected IntentSender intentSender = new IntentSender();
 
     protected DetailState detailState = DetailState.VISIBILITY;
+
+    protected ProgressBar formSyncProgressBar;
+    protected TextView formSyncTxt;
+    protected AlertDialog syncFormsProgressDialog;
+
+    private BroadcastReceiver formDownloadProgressRequestReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int progress = intent.getIntExtra("progress", 0);
+
+            if (formSyncProgressBar != null && formSyncTxt != null) {
+                formSyncProgressBar.setProgress(progress);
+                formSyncTxt.setText(getProgressMessageStringID(intent.getStringExtra("resource")));
+            }
+
+            if (progress == 100) {
+                if (syncFormsProgressDialog != null) {
+                    syncFormsProgressDialog.dismiss();
+                }
+
+                showToast(R.string.sync_pull_form_success_message);
+            }
+        }
+    };
 
     @Inject
     BasePresenter basePresenter;
@@ -153,6 +191,8 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         configuration.setLayoutDirection(parseLocale());
         getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(formDownloadProgressRequestReceiver,
+                new IntentFilter("sync_form_progress"));
     }
 
     private void doCloseIfNotLogin() {
@@ -268,6 +308,24 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     public void onNavSyncButtonClick() {
         drawer.closeDrawer(GravityCompat.START);
         navSyncAction();
+    }
+
+    @OnClick(R.id.nav_load_forms)
+    public void onNavUpdateforms() {
+        drawer.closeDrawer(GravityCompat.START);
+
+        AlertDialog.Builder syncFormsProgressDialogBuilder = new AlertDialog.Builder(this);
+        View inflator = LayoutInflater.from(getContext()).inflate(R.layout.load_forms, null);
+
+        formSyncProgressBar = ButterKnife.findById(inflator, R.id.load_forms_progress_bar);
+        formSyncTxt = ButterKnife.findById(inflator, R.id.load_forms_txt);
+
+        syncFormsProgressDialogBuilder.setView(inflator);
+        syncFormsProgressDialogBuilder.create();
+        syncFormsProgressDialogBuilder.setCancelable(false);
+        syncFormsProgressDialog = syncFormsProgressDialogBuilder.show();
+
+        presenter.syncFormData();
     }
 
     @OnClick(R.id.back)
@@ -417,4 +475,26 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        try {
+            this.unregisterReceiver(formDownloadProgressRequestReceiver);
+        } catch (Exception e) {
+        }
+
+        super.onDestroy();
+    }
+
+    protected void showToast(int message) {
+        Utils.showMessageByToast(this, message, Toast.LENGTH_LONG);
+    }
+
+    protected String getProgressMessageStringID(String message) {
+        try {
+            @StringRes int resID = getResources().getIdentifier(message, "string", getPackageName());
+            return getString(resID);
+        } catch(Exception e) {
+            return message;
+        }
+    }
 }

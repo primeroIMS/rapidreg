@@ -33,6 +33,11 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
         this.lookupDao = lookupDao;
     }
 
+    public boolean isReady() {
+        return lookupDao.getByServerUrlAndLocale(PrimeroAppConfiguration.getApiBaseUrl(),
+                PrimeroAppConfiguration.getServerLocale()) != null;
+    }
+
     @Override
     public Observable<Lookup> getLookups(String cookie, String locale, Boolean getAll) {
         return getRepository(LookupRepository.class).getLookups(cookie, locale, getAll)

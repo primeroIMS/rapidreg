@@ -1,11 +1,16 @@
 package org.unicef.rapidreg.service.impl;
 
+import android.app.IntentService;
+import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.forms.RecordForm;
 import org.unicef.rapidreg.model.CaseForm;
 import org.unicef.rapidreg.model.IncidentForm;
@@ -46,8 +51,9 @@ public class AppDataServiceImpl implements AppDataService {
 
     private static CompositeDisposable compositeDisposable;
 
-
     protected final Gson gson = new Gson();
+
+    private Intent broadcastIntent;
 
     public AppDataServiceImpl(LookupService lookupService, SystemSettingsService systemSettingsService,
                               FormRemoteService formRemoteService, CaseFormService caseFormService,
@@ -60,16 +66,24 @@ public class AppDataServiceImpl implements AppDataService {
         this.incidentFormService = incidentFormService;
     }
 
-    public void loadAppData(AppDataService.LoadCallback loginCallback, User.Role userRoleType) {
+    public void loadAppData(AppDataService.LoadCallback loginCallback, User.Role userRoleType, boolean forceUpdate) {
         callback = loginCallback;
         roleType = userRoleType;
+        broadcastIntent = new Intent("sync_form_progress");
 
-        loadSystemSettings();
+        if (forceUpdate || !formSynced()) {
+            loadSystemSettings();
+        } else {
+            lookupService.setLookups();
+            callback.onSuccess();
+        }
     }
 
     public void loadCaseForm() {
         String moduleId = roleType == User.Role.CP ? PrimeroAppConfiguration.MODULE_ID_CP :
                 PrimeroAppConfiguration.MODULE_ID_GBV;
+
+        sendProgress("resource", "sync_case_forms");
 
         caseFormDisposable = formRemoteService.getCaseForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_CASE, moduleId)
@@ -84,6 +98,8 @@ public class AppDataServiceImpl implements AppDataService {
                     } else {
                         loadTracingForm();
                     }
+
+                    sendProgress("progress", 50);
                 });
 
         getCompositeDisposable().add(caseFormDisposable);
@@ -98,6 +114,7 @@ public class AppDataServiceImpl implements AppDataService {
     }
 
     public void loadTracingForm() {
+        sendProgress("resource", "sync_tracing_request_forms");
         tracingFormDisposable = formRemoteService.getTracingForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_TRACING_REQUEST, MODULE_ID_CP)
                 .subscribe(tracingForm -> {
@@ -105,7 +122,10 @@ public class AppDataServiceImpl implements AppDataService {
                 }, throwable -> {
                     Log.e(TAG, "Tracing Form Error -> " + throwable.getMessage());
                     callback.onFailure();
-                }, () -> loadLookups());
+                }, () -> {
+                    loadLookups();
+                    sendProgress("progress", 75);
+                });
 
         getCompositeDisposable().add(tracingFormDisposable);
     }
@@ -118,6 +138,7 @@ public class AppDataServiceImpl implements AppDataService {
     }
 
     public void loadIncidentForm() {
+        sendProgress("resource", "sync_incident_forms");
         incidentFormDisposable = formRemoteService.getIncidentForm(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale
                 (), true, PrimeroAppConfiguration.PARENT_INCIDENT, MODULE_ID_GBV)
                     .subscribe(incidentForm -> {
@@ -125,7 +146,10 @@ public class AppDataServiceImpl implements AppDataService {
                     }, throwable -> {
                         Log.e(TAG, "Incident Form Error -> " + throwable.getMessage());
                         callback.onFailure();
-                    }, () -> loadLookups());
+                    }, () -> {
+                        loadLookups();
+                        sendProgress("progress", 75);
+                    });
 
         getCompositeDisposable().add(incidentFormDisposable);
     }
@@ -139,6 +163,7 @@ public class AppDataServiceImpl implements AppDataService {
 
 
     public void loadLookups() {
+        sendProgress("resource", "sync_lookups");
         lookupDisposable = lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale(), true)
                 .subscribe(lookup -> {
                     lookupService.saveOrUpdate(lookup, false);
@@ -148,12 +173,14 @@ public class AppDataServiceImpl implements AppDataService {
                 }, () -> {
                     callback.onSuccess();
                     getCompositeDisposable().dispose();
+                    sendProgress("progress", 100);
                 });
 
         getCompositeDisposable().add(lookupDisposable);
     }
 
     public void loadSystemSettings() {
+        sendProgress("resource", "settings");
         systemSettingsDisposable = systemSettingsService.getSystemSettings()
                 .subscribe(systemSettings -> {
                     systemSettingsService.saveOrUpdateSystemSettings(systemSettings);
@@ -163,6 +190,7 @@ public class AppDataServiceImpl implements AppDataService {
                 }, () -> {
                     systemSettingsService.setGlobalSystemSettings();
                     loadCaseForm();
+                    sendProgress("progress", 25);
                 });
         getCompositeDisposable().add(systemSettingsDisposable);
     }
@@ -174,4 +202,29 @@ public class AppDataServiceImpl implements AppDataService {
         return compositeDisposable;
     }
 
+    private void sendProgress(String key, int value) {
+        broadcastIntent.putExtra(key, value);
+        broadcastProgress();
+    }
+
+    private void sendProgress(String key, String value) {
+        broadcastIntent.putExtra(key, value);
+        broadcastProgress();
+    }
+
+    private void broadcastProgress() {
+        LocalBroadcastManager.getInstance(PrimeroApplication.getAppContext()).sendBroadcast(broadcastIntent);
+    }
+
+    private boolean formSynced() {
+        boolean formsSynced = false;
+
+        if (roleType == User.Role.CP) {
+            formsSynced = caseFormService.isReady() && tracingFormService.isReady();
+        } else if (roleType == User.Role.GBV) {
+            formsSynced = caseFormService.isReady() && incidentFormService.isReady();
+        }
+
+        return formsSynced && lookupService.isReady();
+    }
 }

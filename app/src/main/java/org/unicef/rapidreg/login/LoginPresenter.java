@@ -132,7 +132,7 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
             }
         };
 
-        appDataService.loadAppData(callback, roleType);
+        appDataService.loadAppData(callback, roleType, false);
     }
 
     private void doLoginOffline(String username, String password, String url) {
