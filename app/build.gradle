@@ -32,7 +32,7 @@ android {
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->
                     project.ext {
-                        appName = 'RapidReg'
+                        appName = 'Primero'
                     }
                     def newName = outputFileName
                     newName = newName.replace("app-", "$project.ext.appName-v$defaultConfig.versionName")
