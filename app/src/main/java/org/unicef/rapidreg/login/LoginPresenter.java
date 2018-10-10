@@ -146,6 +146,8 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
                 getView().navigateToLoginSucceedPage();
                 systemSettingsService.setGlobalSystemSettings();
                 lookupService.setLookups();
+
+                PrimeroAppConfiguration.setDefaultLanguage(user.getLanguage());
                 PrimeroApplication.getAppRuntime().storeLastLoginServerUrl(url);
             }
 
