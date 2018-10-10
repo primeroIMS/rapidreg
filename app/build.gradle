@@ -49,7 +49,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    project.ext { appName = 'RapidReg' }
+                    project.ext { appName = 'Primero' }
                     def newName = outputFileName
                     newName = newName.replace("app-", "$project.ext.appName-v$defaultConfig.versionName")
                     newName = newName.replace("release", "")
