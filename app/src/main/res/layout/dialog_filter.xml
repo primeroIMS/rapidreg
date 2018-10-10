@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/usernameWrapper"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,6 +12,8 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:hint="@string/filter"
+        android:imeOptions="actionDone"
+        android:inputType="text"
         android:maxLines="1"
         android:textColor="@color/primero_blue"
         android:textSize="@dimen/dialog_filter_text_size" />
