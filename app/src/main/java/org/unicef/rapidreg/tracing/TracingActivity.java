@@ -22,6 +22,7 @@ import org.unicef.rapidreg.event.LoadTracingFormEvent;
 import org.unicef.rapidreg.event.SaveTracingEvent;
 import org.unicef.rapidreg.exception.FragmentSwitchException;
 import org.unicef.rapidreg.tracing.tracinglist.TracingListFragment;
+import org.unicef.rapidreg.utils.KeyboardUtils;
 import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.dialog.MessageDialog;
 
@@ -146,6 +147,7 @@ public class TracingActivity extends RecordActivity implements BaseView {
 
     @Override
     protected void save() {
+        KeyboardUtils.hideKeyboard(this);
         SaveTracingEvent event = new SaveTracingEvent();
         EventBus.getDefault().postSticky(event);
     }

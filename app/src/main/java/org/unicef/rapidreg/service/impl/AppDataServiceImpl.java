@@ -74,6 +74,7 @@ public class AppDataServiceImpl implements AppDataService {
         if (forceUpdate || !formSynced()) {
             loadSystemSettings();
         } else {
+            systemSettingsService.setGlobalSystemSettings();
             lookupService.setLookups();
             callback.onSuccess();
         }

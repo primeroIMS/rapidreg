@@ -26,6 +26,7 @@ import org.unicef.rapidreg.event.LoadGBVIncidentFormEvent;
 import org.unicef.rapidreg.event.RedirectIncidentEvent;
 import org.unicef.rapidreg.event.SaveCaseEvent;
 import org.unicef.rapidreg.model.User;
+import org.unicef.rapidreg.utils.KeyboardUtils;
 import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.dialog.MessageDialog;
 
@@ -180,6 +181,7 @@ public class CaseActivity extends RecordActivity implements BaseView {
 
     @Override
     protected void save() {
+        KeyboardUtils.hideKeyboard(this);
         SaveCaseEvent event = new SaveCaseEvent();
         EventBus.getDefault().postSticky(event);
     }
