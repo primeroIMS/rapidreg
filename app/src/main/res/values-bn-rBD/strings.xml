@@ -1,0 +1,219 @@
+<resources>
+    <string name="app_name">Primero</string>
+    <!--List Spinner-->
+    <string name="spinner_order_by">ক্রমানুসারে</string>
+
+    <!--Loging activity layout string-->
+    <string name="app_banner_text">Primero</string>
+    <string name="username_hint_text">ব্যবহারকারীর নাম</string>
+    <string name="password_hint_text">সুরক্ষা পাসওয়ার্ড</string>
+    <string name="url_hint_text">URL</string>
+    <string name="text_view_change_url">URLপরিবর্তন</string>
+    <string name="button_login_text">Login</string>
+    <string name="login_loading_text">Login চলছে, অনুগ্রহ করে অপেক্ষা করুন</string>
+    <string name="login_offline_no_user_text">দুঃখিত প্রথমবার Login করার জন্য আপনার অবশ্যই ইন্টারনেট সংযোগ থাকতে হবে</string>
+    <string name="login_offline_success_text">অফলাইন Login সফল</string>
+    <string name="navigation_drawer_open">শুরু করুন </string>
+    <string name="navigation_drawer_close">বন্ধ করুন</string>
+    <string name="action_settings">স্থাপন</string>
+    <string name="login_username_invalid_text">একটি বৈধ ব্যবহারকারীর নাম লিখুন</string>
+    <string name="login_password_invalid_text">একটি বৈধ পাসওয়ার্ড দিন</string>
+    <string name="login_url_invalid_text">একটি বৈধ url লিখুন</string>
+    <string name="login_failed_credential">দুঃখিত, আপনার ব্যবহারকারীর নাম, পাসওয়ার্ড এবং URL চেক করুন</string>
+    <string name="login_failed_to_connect_prefix">Failed to connect to \n</string>
+    <string name="login_failed_check_network_and_url">দুঃখিত, আপনার নেটওয়ার্ক এবং URL চেক করুন</string>
+    <string name="login_out_successful_text">লগ আউট সফল</string>
+    <string name="login_unauthorized_message">দুঃখিত, ব্যবহারকারীর নাম বা পাসওয়ার্ড ভুল</string>
+    <string name="login_service_unavailable_message">সেবা প্রদান করা যাচ্ছে না</string>
+    <string name="login_not_find_code_message">কোডের অবস্থান খুঁজে পাওয়া যাচ্ছে না</string>
+    <string name="login_success_message">সফল লগইন</string>
+
+    <string name="login_user_label_key">login_user</string>
+    <string name="syncing_forms_text">Syncing ফরম , পরে এটি চেষ্টা করুন</string>
+    <string name="order_by">Order by&#160;</string>
+    <string name="case_id">ID:&#160;</string>
+    <string name="child_gender">শিশুর লিঙ্গ</string>
+
+
+    <string name="id">ID</string>
+    <string name="name">নাম </string>
+    <string name="age_from">বয়স </string>
+    <string name="age_to">প্রতি </string>
+    <string name="caregiver">বর্তমান তত্ত্বাবধায়ক নাম</string>
+    <string name="registration_date">নিবন্ধনের তারিখ</string>
+    <string name="inquiry_date">তদন্তের তারিখ</string>
+    <string name="date">তারিখ </string>
+    <string name="location">স্থান </string>
+
+    <!-- Toolbar Start-->
+    <string name="toolbar_save_button_text">সংরক্ষন </string>
+    <string name="toolbar_back_button_text">মোবাইল </string>
+    <string name="toolbar_select_all_button_text">সব নির্দিষ্টকরন</string>
+    <!-- Toolbar End-->
+
+    <!-- Title -->
+    <string name="search">খুজুন </string>
+    <string name="search_web">Web খুজুন</string>
+    <string name="cases">কেস সমূহ</string>
+    <string name="child_case">কেস সমূহ</string>
+    <string name="cp_case">CP কেসসমুহ</string>
+    <string name="gbv_case">GBV কেস সমুহ</string>
+    <string name="edit">Edit করা </string>
+    <string name="case_details">কেসের বিবরণ </string>
+    <string name="incidents">ঘটনা সমুহ </string>
+    <string name="child_incident">ঘটনা </string>
+    <string name="incident_details">ঘটনার বিবরণ </string>
+    <string name="tracing">Tracing জন্য অনুরোধ</string>
+    <string name="tracing_details">Tracing জন্য অনুরোধের বিবরণী </string>
+    <string name="sync">Synchronization</string>
+    <string name="update_forms">হালনাগাদ ফর্ম </string>
+    <string name="back">ফেরত আসা </string>
+    <!-- Title -->
+    <string name="click_to_search">Click to search</string>
+    <string name="done">করা হয়েছে </string>
+    <string name="no_search_result">দুঃখিত, এই অনুসন্ধানের জন্য কোন ফলাফল পাওয়া যায় নি </string>
+    <string name="no_records">কোন রেকর্ড পাওয়া যায় নি </string>
+    <string name="remote_record_not_found">রেকর্ড পাওয়া। ওয়েব অনুসন্ধান চালিয়ে যেতে লগইন করুন </string>
+    <string name="remote_id_required">অন্যত্র অনুসন্ধানের জন্য আইডি প্রয়োজন </string>
+
+    <string-array name="order_array">
+        <item>তৈরির সময় </item>
+        <item>বয়স </item>
+    </string-array>
+
+    <string name="no_photo_promote_info">কোনও ফটো ফাইল বিদ্যমান নেই </string>
+    <string name="delete">Delete</string>
+    <string name="add">সংযোজন </string>
+    <string name="required_field_is_not_filled">দুঃখিত, সব প্রয়োজনীয় তথ্য প্রদান করা হয়েছে তা নিশ্চিত করুন </string>
+    <string name="show_hide">দেখান / গোপন রাখুন</string>
+    <string name="save">সংরক্ষন করন </string>
+    <string name="new_case">নতুন কেস </string>
+    <string name="new_tracing">নতুন Tracing অনুরোধ</string>
+    <string name="new_incident">নতুন ঘটনা</string>
+    <string name="quit">ত্যাগ করা </string>
+    <string name="quit_without_saving">আপনি কি সংরক্ষণ না করেই ত্যাগ করতে চান?</string>
+    <string name="delete_subform">আপনি কি এই সাবফরমটি মুছে ফেলতে চান</string>
+    <string name="recording_is_too_short">রেকর্ডিং খুব সংক্ষিপ্ত</string>
+    <string name="audio_file_not_exists">কোন অডিও ফাইল বিদ্যমান নেই</string>
+    <string name="case_reassigned">এই কেস অন্য সংস্থার কারছে হস্থান্তর করা হয়েছে, দয়া করে আপনার ডিভাইস থেকে এটি মুছে ফেলুন </string>
+
+    <!--Sync-->
+    <string name="last_sync_time">শেষ synchronization সময়</string>
+    <string name="record_count_for_last_sync">শেষ synchronization জন্য রেকর্ড </string>
+    <string name="record_count_for_not_sync">synced data জন্য রেকর্ড </string>
+    <string name="place_holder_last_sync_time">06-15-2016 16:14</string>
+    <string name="place_holder_record_count_for_last_sync">49</string>
+    <string name="place_holder_record_count_for_not_sync">146</string>
+    <string name="button_sync_state_of_click_to_sync">সুসংগত</string>
+    <string name="start_sync_message">Synchronizing, দয়া করে অপেক্ষা করুন ...</string>
+    <string name="confirm_cancel_sync_message">আপনি কি sync বন্ধ করতে চান?</string>
+    <string name="cancel_button_text">বাতিল </string>
+    <string name="deny_button_text">না </string>
+    <string name="not_now_button_text">এখন নয় </string>
+    <string name="confirm_button_text">হ্যা </string>
+    <string name="stop_sync_button_text">হ্যা, এখন থামাও </string>
+    <string name="continue_sync_button_text">sync অবিরত করুন</string>
+    <string name="sync_upload_success_message">অভিনন্দন! আপনার আপলোডের অনুরোধটি সম্পন্ন হয়েছে</string>
+    <string name="sync_download_success_message">অভিনন্দন! আপনার ডাউনলোডের অনুরোধটি সম্পন্ন হয়েছে</string>
+    <string name="sync_pull_form_success_message">অভিনন্দন! আপনার সিঙ্ক্রোনাইজেশন অনুরোধ সম্পন্ন হয়।</string>
+    <string name="sync_pull_lookups_success_message">অভিনন্দন! ডাউনলোড সম্পূর্ণ হয়েছে </string>
+    <string name="sync_error_message">দুঃখিত, সিঙ্ক্রোনাইজেশনের অনুরোধ সম্পূর্ণ করা যাচ্ছে না, দয়া করে support team সাথে যোগাযোগ করুন</string>
+    <string name="sync_request_time_out_error_message">নেটওয়ার্কটি স্থিতিশীল নয়, দয়া করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন</string>
+    <string name="sync_server_not_available_error_message">ওয়েব সার্ভারের সংযোগ নাই, দয়া করে আপনার admin সাথে যোগাযোগ করুন।</string>
+    <string name="try_to_sync_message">আপনি কি রেকর্ডগুলি sync করতে চান?</string>
+    <string name="remove_photo_confirmation">আপনি কি এই ফটোটি সরানোর বিষয়ে নিশ্চিত?</string>
+    <string name="save_success">রেকর্ড সংরক্ষিত</string>
+    <string name="save_failed">রেকর্ড সংরক্ষণ ব্যর্থ হয়েছে</string>
+    <string name="filter">ছাঁকনি</string>
+    <string name="show_short_form">সংক্ষিপ্ত ফর্ম প্রদর্শন ক্রুন</string>
+    <string name="show_more_details">আরো বিস্তারিত প্রদর্শন করুন</string>
+    <string name="sync_forms">Sync ফর্মগুলি</string>
+    <string name="forms_is_syncing_msg">Syncing ফর্ম, দয়া করে কিছুক্ষণ অপেক্ষা করুন</string>
+    <string name="sync_case_forms">কেস ফরম একত্রে করা হচ্ছে </string>
+    <string name="sync_incident_forms">incident ফর্ম একত্রে করা হচ্ছে</string>
+    <string name="sync_tracing_request_forms">tracing request ফর্ম একত্রে করা হচ্ছে </string>
+    <string name="sync_lookups">Syncing অবস্থা</string>
+    <string name="sync_forms_message">ফরমগুলিকে সফলভাবে সংযুক্ত হয় নি, resync উপর OK চাপুন</string>
+    <string name="sync_forms_error">Sync forms ত্রুটিপূর্ণ , পরে চেষ্টা করুন</string>
+    <string name="sync_tracing_forms_error">Sync forms ত্রটিপূর্ণ, পরে চেষ্টা করুন</string>
+    <string name="sync_incident_forms_error">Sync forms ত্রটিপূর্ণ , পরে চেষ্টা করুন</string>
+    <string name="tracing_request">Tracing অনুরোধ</string>
+    <string name="not_sync_promote">এখনো synced হয়নি</string>
+    <string name="produce_cases_successfully_msg">কেস সম্পূর্ণ হয়েছে</string>
+    <string name="new_cp_case">নতুন কেস </string>
+    <string name="new_gbv_case">নতুন কেস </string>
+    <string name="cp_case_details">কেস বিবরণ </string>
+    <string name="gbv_case_details">কেস বিবরণ </string>
+    <string name="survivor_code">ভুক্তভুগির কোড</string>
+    <string name="type_of_violence">সহিংসতা্র ধরন</string>
+    <string name="date_of_inquiry">তদন্তের তারিখ</string>
+    <string name="date_of_interview">সাক্ষাৎকারের তারিখ</string>
+    <string name="toolbar_title_text_placeholder">Tool Bar Text Placeholder</string>
+    <string name="fetching_case_amount_msg">ওয়েব সার্ভার থেকে কেস নিয়ে আসা ...</string>
+    <string name="fetching_tracing_amount_msg">ওয়েব সার্ভার থেকে Tracing অনুরোধ সংগ্রহ করা হয়েছে ...</string>
+    <string name="fetching_incident_amount_msg">ওয়েব সার্ভার থেকে ঘটনা সংগ্রহ করা হয়েছে</string>
+    <string name="downloading_cases_sync_progress_msg">কেস ডাউনলোড হচ্ছে ... অপেক্ষা করুন</string>
+    <string name="downloading_tracings_sync_progress_msg">Tracing অনুরোধ ডাউনলোড করা হচ্ছে ... দয়া করে কিছুক্ষণ অপেক্ষা করুন।</string>
+    <string name="downloading_incidents_sync_progress_msg">ঘটনা ডাউনলোড হচ্ছে ... দয়া করে কিছুক্ষণ অপেক্ষা করুন</string>
+    <string name="fetching_form_msg">ওয়েব সার্ভার থেকে ফর্মগুলি গ্রহণ করা হচ্ছে ...</string>
+    <string name="uploading_sync_progress_msg">আপলোড হচ্ছে ... দয়া করে একটি মুহূর্ত অপেক্ষা করুন</string>
+    <string name="network_not_available">নেটওয়ার্ক সংযগ নাই, দয়া করে আপনার নেটওয়ার্ক পরীক্ষা করুন।</string>
+    <string name="sync_one_case_reassigned">%sকেস এর রেকর্ড মালিক পরিবর্তিত হয়েছে। দয়াকরে আপনার ডিভাইস থেকে এটি মুছে ফেলুন।</string>
+    <string name="sync_many_case_reassigned">%sকেস এর রেকর্ড মালিক পরিবর্তিত হয়েছে। দয়াকরে আপনার ডিভাইস থেকে এটি মুছে ফেলুন।</string>
+    <!--Sync-->
+
+    <!--Transparent theme-->
+    <style name="Transparent" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <!--Transparent theme-->
+
+    <!--Dialog start-->
+    <string name="dialog_title_text_placeholder">বক্তবের লিখত শিরোনাম </string>
+    <string name="dialog_progress_message_text_placeholder">বক্তবের পরবর্তী লিখিত বার্তা</string>
+    <string name="dialog_item_from_camera">ক্যামেরা থেকে</string>
+    <string name="dialog_item_from_gallery">গ্যালারি থেকে</string>
+    <string name="dialog_item_cancel">বাতিল </string>
+    <string name="date_text">তারিখ </string>
+    <string name="date_range">তারিখ সীমানা </string>
+    <string name="date_hint">তারিখ নির্ধারণ </string>
+    <string name="date_from_hint">হতে </string>
+    <string name="date_to_hint">প্রতি </string>
+
+    <!--List start-->
+    <string name="list_item_delete_button_text">মুছে দেয়া</string>
+    <string name="list_item_delete_cancel_button_text">বাতিল </string>
+    <string name="delete_title">সতর্কতামূলক</string>
+    <string name="delete_confirm_message">আপনি কি নিশ্চিত আপনার ডিভাইসে ডেটা প্রয়োজন হবে না?</string>
+    <string name="delete_success_info">রেকর্ড মুছে ফেলা হয়েছে</string>
+    <string name="yes">হ্যা </string>
+    <string name="no">না </string>
+    <string name="cannot_save">সংরক্ষণ হচ্ছে না</string>
+    <string name="ok">ঠিক আছে</string>
+    <string name="clear">পরিস্কার </string>
+    <string name="cancel">বাতিল </string>
+    <string name="invalid_date_msg">তারিখ ভবিষ্যতে হতে হবে না।</string>
+    <string name="warning">সতর্কতা</string>
+    <string name="invalid_value">সঠিক মুল্যায়ন নয়</string>
+    <string name="no_filed_exists_in_subform">বর্তমান সাবফরমের মধ্যে কোনো তথ্য নেই</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">হ্যালো ফাঁকা অংশ অসমাপ্ত</string>
+
+    <string name="interview_date_asc">সাক্ষাত্কার তারিখ ঊপর থেকে সাজানো</string>
+    <string name="interview_date_desc">সাক্ষাত্কার তারিখ নীচ থেকে উপরে </string>
+    <string name="inquiry_date_asc">তদন্তের তারিখ উপর থেকে সাজানো</string>
+    <string name="inquiry_date_desc">তদন্তের তারিখ নীচ থেকে সাজানো </string>
+    <string name="reg_date_asc">নিবন্ধন তারিখ উপর থেকে সাজানো</string>
+    <string name="reg_date_desc">নিবন্ধন তারিখ নিচ থেকে সাজানো</string>
+    <string name="age">বয়স </string>
+    <string name="age_asc">বয়স বড় থেকে ছোট সাজানো </string>
+    <string name="age_desc">বয়স ছোট থেকে বড় সাজানো</string>
+    <string name="note_alerts">তথ্যের সতর্কীকরণ</string>
+    <string name="note_alerts_recent">অতিসম্প্রতি তথ্যের সতর্কীকরণ</string>
+    <string name="note_alerts_less_recent">দুরাতিত তথ্যের সতর্কীকরণ</string>
+</resources>

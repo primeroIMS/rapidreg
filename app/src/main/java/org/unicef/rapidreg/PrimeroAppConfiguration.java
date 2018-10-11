@@ -112,6 +112,7 @@ public class PrimeroAppConfiguration {
     private static Map<String, String> initLocaleDict() {
         Map<String, String> locales = new HashMap<>();
         locales.put("id", "in_ID");
+        locales.put("id", "bn_BD");
         return locales;
     }
 }
