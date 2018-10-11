@@ -6,7 +6,7 @@
     <!--Loging activity layout string-->
     <string name="app_banner_text">Primero</string>
     <string name="username_hint_text">nama pengguna</string>
-    <string name="password_hint_text">Kata sandi</string>
+    <string name="password_hint_text">Password</string>
     <string name="url_hint_text">URL</string>
     <string name="text_view_change_url">Ganti URL</string>
     <string name="button_login_text">Login</string>
@@ -16,7 +16,7 @@
     <string name="navigation_drawer_open">Buka drawer navigasi</string>
     <string name="navigation_drawer_close">Tutup drawer navigasi</string>
     <string name="action_settings">Pengaturan</string>
-    <string name="login_username_invalid_text">Masukkan nama pengguna yang valid</string>
+    <string name="login_username_invalid_text">Masukkan nama pengguna yang terdaftar</string>
     <string name="login_password_invalid_text">Masukkan password yang valid</string>
     <string name="login_url_invalid_text">Masukkan URL yang valid</string>
     <string name="login_failed_credential">Maaf, mohon periksa lagi nama pengguna, password, dan URL Anda</string>
@@ -29,7 +29,7 @@
     <string name="login_success_message">Login berhasil</string>
 
     <string name="login_user_label_key">login_pengguna</string>
-    <string name="syncing_forms_text">Form sedang disinkronkan, coba lagi nanti</string>
+    <string name="syncing_forms_text">Form sedang disinkronkan, coba lagi </string>
     <string name="order_by">Urutkan berdasar&#160;</string>
     <string name="case_id">ID:&#160;</string>
     <string name="child_gender">Jenis kelamin anak</string>
@@ -66,6 +66,7 @@
     <string name="tracing">Permintaan Penelusuran</string>
     <string name="tracing_details">Rincian Permintaan Penelusuran</string>
     <string name="sync">Sinkronisasi</string>
+    <string name="update_forms">Perbarui Formulir</string>
     <string name="back">Kembali</string>
     <!-- Title -->
     <string name="click_to_search">Klik untuk Mencari</string>
@@ -128,6 +129,10 @@
     <string name="show_more_details">Tampilkan lebih banyak rincian</string>
     <string name="sync_forms">Sinkronkan form</string>
     <string name="forms_is_syncing_msg">Sedang mensinkronkan form, mohon tunggu</string>
+    <string name="sync_case_forms">Sinkronkan formulir kasus</string>
+    <string name="sync_incident_forms">Sinkronkan Formulir Insiden</string>
+    <string name="sync_tracing_request_forms">Sinkronkan formulir permintaan penelusuran</string>
+    <string name="sync_lookups">Sinkronkan lookup</string>
     <string name="sync_forms_message">Form tidak berhasil diambil, tekan OK untuk melakukan sinkronisasi lagi</string>
     <string name="sync_forms_error">Kesalahan dalam sinkronisasi form, mohon coba lagi nanti. </string>
     <string name="sync_tracing_forms_error">Kesalahan dalam sinkronisasi form, mohon coba lagi nanti. </string>
@@ -208,4 +213,7 @@
     <string name="age">Umur</string>
     <string name="age_asc">Usia urutan mundur</string>
     <string name="age_desc">Usia urutan mundur</string>
+    <string name="note_alerts">Catatan Peringatan</string>
+    <string name="note_alerts_recent">Catatan Peringatan Terbaru</string>
+    <string name="note_alerts_less_recent">Catatan Peringatan Sebelumnya</string>
 </resources>
