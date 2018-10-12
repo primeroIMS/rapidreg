@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +22,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -40,6 +42,7 @@ import org.unicef.rapidreg.event.RedirectIncidentEvent;
 import org.unicef.rapidreg.event.SaveCaseEvent;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
 import org.unicef.rapidreg.model.User;
+import org.unicef.rapidreg.utils.KeyboardUtils;
 import org.unicef.rapidreg.utils.Utils;
 
 import static org.mockito.Matchers.any;
@@ -47,17 +50,19 @@ import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
+import static org.powermock.api.mockito.PowerMockito.spy;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.support.membermodification.MemberModifier.stub;
 import static org.unicef.rapidreg.IntentSender.BUNDLE_EXTRA;
 import static org.unicef.rapidreg.service.RecordService.AUDIO_FILE_PATH;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({CaseActivity.class, EventBus.class, PrimeroAppConfiguration.class, Utils.class, RecordActivity.class, PrimeroApplication.class})
+@PrepareForTest({CaseActivity.class, EventBus.class, PrimeroAppConfiguration.class, Utils.class, RecordActivity.class, PrimeroApplication.class, KeyboardUtils.class})
 public class CaseActivityTest {
 
     @Mock
@@ -112,6 +117,10 @@ public class CaseActivityTest {
         PowerMockito.mockStatic(Utils.class);
         PowerMockito.doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
         stub(PowerMockito.method(PrimeroApplication.class, "getAppRuntime")).toReturn(appRuntime);
+
+
+        PowerMockito.mockStatic(KeyboardUtils.class);
+        PowerMockito.doNothing().when(KeyboardUtils.class, "hideKeyboard", any(CaseActivity.class));
     }
 
     public void on_create_supporting_code() {

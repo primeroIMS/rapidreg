@@ -32,6 +32,7 @@ import org.unicef.rapidreg.event.LoadGBVIncidentFormEvent;
 import org.unicef.rapidreg.event.SaveIncidentEvent;
 import org.unicef.rapidreg.incident.incidentlist.IncidentListFragment;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
+import org.unicef.rapidreg.utils.KeyboardUtils;
 import org.unicef.rapidreg.utils.Utils;
 
 import static org.mockito.Matchers.any;
@@ -48,7 +49,7 @@ import static org.unicef.rapidreg.service.IncidentService.INCIDENT_ID;
 import static org.unicef.rapidreg.service.RecordService.AUDIO_FILE_PATH;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({IncidentActivity.class, RecordActivity.class, DrawerLayout.class, Utils.class, EventBus.class})
+@PrepareForTest({IncidentActivity.class, RecordActivity.class, DrawerLayout.class, Utils.class, EventBus.class, KeyboardUtils.class})
 public class IncidentActivityTest {
 
     @Mock
@@ -88,6 +89,9 @@ public class IncidentActivityTest {
         doNothing().when(Utils.class, "clearAudioFile", anyString());
         PowerMockito.mockStatic(EventBus.class);
         when(EventBus.getDefault()).thenReturn(eventBus);
+
+        PowerMockito.mockStatic(KeyboardUtils.class);
+        PowerMockito.doNothing().when(KeyboardUtils.class, "hideKeyboard", any(IncidentActivity.class));
 
     }
 

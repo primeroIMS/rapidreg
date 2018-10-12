@@ -30,7 +30,9 @@ import org.unicef.rapidreg.base.record.recordlist.RecordListFragment;
 import org.unicef.rapidreg.event.LoadTracingFormEvent;
 import org.unicef.rapidreg.event.SaveTracingEvent;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
+import org.unicef.rapidreg.model.Tracing;
 import org.unicef.rapidreg.tracing.tracinglist.TracingListFragment;
+import org.unicef.rapidreg.utils.KeyboardUtils;
 import org.unicef.rapidreg.utils.Utils;
 
 import static org.mockito.Matchers.any;
@@ -44,7 +46,7 @@ import static org.powermock.api.support.membermodification.MemberModifier.stub;
 import static org.unicef.rapidreg.service.RecordService.AUDIO_FILE_PATH;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({TracingActivity.class, PrimeroAppConfiguration.class, EventBus.class, Utils.class, RecordActivity.class})
+@PrepareForTest({TracingActivity.class, PrimeroAppConfiguration.class, EventBus.class, Utils.class, RecordActivity.class, KeyboardUtils.class})
 public class TracingActivityTest {
 
     @Mock
@@ -80,6 +82,9 @@ public class TracingActivityTest {
         PowerMockito.suppress(TracingActivity.class.getDeclaredMethod("showQuitDialog", int.class));
         stub(PowerMockito.method(RecordActivity.class, "setShowHideSwitcherToShowState")).toReturn(null);
         PowerMockito.doNothing().when(tracingActivity).turnToFeature(TracingFeature.LIST, null, null);
+
+        PowerMockito.mockStatic(KeyboardUtils.class);
+        PowerMockito.doNothing().when(KeyboardUtils.class, "hideKeyboard", any(TracingActivity.class));
     }
 
     @Test
