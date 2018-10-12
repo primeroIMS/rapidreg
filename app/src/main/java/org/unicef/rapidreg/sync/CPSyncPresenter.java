@@ -162,6 +162,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     if (getView() != null) {
                         getView().setProgressIncrease();
                         increaseSyncNumber();
+                        setCaseProperties(pair.second.body().getAsJsonObject(), pair.first);
                         updateRecordSynced(pair.first, true);
                     }
                 }, throwable -> {
@@ -220,6 +221,7 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     if (getView() != null) {
                         getView().setProgressIncrease();
                         increaseSyncNumber();
+                        setTracingRequestProperties(pair.second.body().getAsJsonObject(), pair.first);
                         updateRecordSynced(pair.first, true);
                     }
                 }, throwable -> {
