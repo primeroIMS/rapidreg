@@ -118,6 +118,7 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                     if (getView() != null) {
                         getView().setProgressIncrease();
                         increaseSyncNumber();
+                        setCaseProperties(pair.second.body().getAsJsonObject(), pair.first);
                         updateRecordSynced(pair.first, true);
                     }
                 }, throwable -> {
@@ -163,6 +164,7 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
                         Log.d(TAG, "onNext()...: " + pair.first.getIncidentCaseId());
                         getView().setProgressIncrease();
                         increaseSyncNumber();
+                        setIncidentProperties(pair.first, pair.second.body().getAsJsonObject());
                         updateRecordSynced(pair.first, true);
                     }
                 }, throwable -> {
