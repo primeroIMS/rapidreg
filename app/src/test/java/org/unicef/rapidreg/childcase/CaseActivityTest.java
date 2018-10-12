@@ -1,6 +1,5 @@
 package org.unicef.rapidreg.childcase;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +39,7 @@ import org.unicef.rapidreg.event.RedirectIncidentEvent;
 import org.unicef.rapidreg.event.SaveCaseEvent;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
 import org.unicef.rapidreg.model.User;
+import org.unicef.rapidreg.utils.KeyboardUtils;
 import org.unicef.rapidreg.utils.Utils;
 
 import static org.mockito.Matchers.any;
@@ -57,7 +57,7 @@ import static org.unicef.rapidreg.IntentSender.BUNDLE_EXTRA;
 import static org.unicef.rapidreg.service.RecordService.AUDIO_FILE_PATH;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({CaseActivity.class, EventBus.class, PrimeroAppConfiguration.class, Utils.class, RecordActivity.class, PrimeroApplication.class})
+@PrepareForTest({CaseActivity.class, EventBus.class, PrimeroAppConfiguration.class, Utils.class, RecordActivity.class, PrimeroApplication.class, KeyboardUtils.class})
 public class CaseActivityTest {
 
     @Mock
@@ -112,6 +112,10 @@ public class CaseActivityTest {
         PowerMockito.mockStatic(Utils.class);
         PowerMockito.doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
         stub(PowerMockito.method(PrimeroApplication.class, "getAppRuntime")).toReturn(appRuntime);
+
+
+        PowerMockito.mockStatic(KeyboardUtils.class);
+        PowerMockito.doNothing().when(KeyboardUtils.class, "hideKeyboard", any(CaseActivity.class));
     }
 
     public void on_create_supporting_code() {
