@@ -25,5 +25,6 @@ notifications:
   slack:
     rooms:
       secure: EZB5xo/FuMsD/kGKTCBKoxTq2qHY97h0gUnpyV3bP+EZgNfwf5shONUk1JvdYTyNKvkNtV4QkcLJutNlfqdOyP17zhkgjlCSX4NqKCeVUQqKrWravQvLCqvn2LHBvoJx1OEqyIKEvY5B/A9FeB1Cr12edezmC/zH+oAvtP5yXMR2fNZ04r/gf4hh+9CQAwNx5Cp9U9TqemrBhFGGvHhmXJwHaQrM75HCQYnZcaL5lJC9os4ap2qduGW46wm1wVD+t3t2Qg/J82WO32r7MM0w0d5xQFbB/5F3kdK92Ews2yOa8RagioLMGex8iknfY2KpVPZtXNvyJvvMYyf1Q5SbFBvxtILw4MBqEiz7kxpZ2aAwae2P5JXJFm/p+GmuY1oNioA76bsqtYIi2DAmCiU101/LLIEIQcd5bn/6xZcFAtNW1VKhn700XM/vB1qr9eFeoxpmvelGraI6ildM+Y76ZODFRm1ACrcFQ4OyP6eLSIO3LiP4vNmiwQxld8oFCQtrXsmf63Vgk8Y/MM/KUTHQQ0qWdMaw0BSwJLMvrcO05TGOH9j3uKuOaK+Bk8Xg0KyZQd1WLC9c0y1J6QxG8LOp5mVwj6CuyNzW4vthfQTlz4XLGAAYTDLlV92cwi4sR+VQtDcL/7B/Ml9+Kj6SgqOofFVWP0+SmeHbfNl1Z5HlEkI=
+    on_success: always
     template:
     - 'Test run completed for %{repository}/*%{branch}*: <%{build_url}|%{message}> Run duration: %{elapsed_time} '
