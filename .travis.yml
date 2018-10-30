@@ -14,17 +14,16 @@ android:
   - sys-img-armeabi-v7a-android-21
 cache:
   directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
-  - $HOME/.android/build-cache
-script: ./gradlew testDebugUnitTest
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
+script: "./gradlew testDebugUnitTest"
 branches:
 - travisci
 - development
 notifications:
   slack:
     rooms:
-      secure: EZB5xo/FuMsD/kGKTCBKoxTq2qHY97h0gUnpyV3bP+EZgNfwf5shONUk1JvdYTyNKvkNtV4QkcLJutNlfqdOyP17zhkgjlCSX4NqKCeVUQqKrWravQvLCqvn2LHBvoJx1OEqyIKEvY5B/A9FeB1Cr12edezmC/zH+oAvtP5yXMR2fNZ04r/gf4hh+9CQAwNx5Cp9U9TqemrBhFGGvHhmXJwHaQrM75HCQYnZcaL5lJC9os4ap2qduGW46wm1wVD+t3t2Qg/J82WO32r7MM0w0d5xQFbB/5F3kdK92Ews2yOa8RagioLMGex8iknfY2KpVPZtXNvyJvvMYyf1Q5SbFBvxtILw4MBqEiz7kxpZ2aAwae2P5JXJFm/p+GmuY1oNioA76bsqtYIi2DAmCiU101/LLIEIQcd5bn/6xZcFAtNW1VKhn700XM/vB1qr9eFeoxpmvelGraI6ildM+Y76ZODFRm1ACrcFQ4OyP6eLSIO3LiP4vNmiwQxld8oFCQtrXsmf63Vgk8Y/MM/KUTHQQ0qWdMaw0BSwJLMvrcO05TGOH9j3uKuOaK+Bk8Xg0KyZQd1WLC9c0y1J6QxG8LOp5mVwj6CuyNzW4vthfQTlz4XLGAAYTDLlV92cwi4sR+VQtDcL/7B/Ml9+Kj6SgqOofFVWP0+SmeHbfNl1Z5HlEkI=
-    on_success: always
-    template:
-    - 'Test run completed for %{repository}/*%{branch}*: <%{build_url}|%{message}> Run duration: %{elapsed_time} '
+      secure: VlSszhvKkGz1Yea/xuunE+BQzmVUkQttLwXXj+KcMBA1ZsnNb1t53Ugj7cOIPc2fL62AKVaN35yP33STvdBAcpiG/hp4u2UtF68m68q9ghNwrYoP9fzGNt5Ds3M/975Y7VE56RFMzGCC6vFCghViXAhr5vfn/EQl+vJSSm8s6bzTNdVF2zNHOKVKH/fLzcFNvsa4xGw54lQMgBlAPDzkFsVR3DV0EL+YDgjIugrywUI2vPxdDw2tUH+pJTgZd/4Xun93FCLxnYE3+fYqBSKjYxGxQtv1ujUfL3zD57exi6Nr1rrvLFhRvnj6hqE70p7dXTR06jhGokx8tnQLVBzdcKkIbDZke9bmMXdkipRMjnLkodZw1enVJzsk18/JiHJZWN7EEQB6zT6tqkzgDqL5F5l7m17PMtSt+ZtC4vqXtquZrLx/hgCU0afqLxelom7cePGrA+sAmTolKGKzKYOQCxDxfPDGLLAM2mRec5NvlpipRnyHjbb1mwoN7Fwp9tKqqYkaq4URGOZct9pOGRoJYkViSicI2gViNs09++pBK7gpwUpfUqeIcgg0jDfgV/EYlvoP/CPhGczaoyBfu9YfNmXQb8mjl3rS1qQRvfjt9cFLoBGGYtC1YsCccV5mDY/omgRuIArVWRI5RrsCrKhwQove0DrEu8k3sfpbhnnpWY8=
+  template:
+  - 'Test run completed for %{repository}/*%{branch}*: <%{build_url}|%{message}> Run duration: %{elapsed_time} '
