@@ -2,25 +2,25 @@ language: android
 jdk: oraclejdk8
 android:
   components:
-    - platform-tools
-    - tools
-    - build-tools-23.0.3
-    - android-23
-    - addon-google_apis_x86-google-21
-    - extra-android-support
-    - extra-android-m2repository
-    - extra-google-m2repository
-    - extra-google-google_play_services
-    - sys-img-armeabi-v7a-android-21
+  - platform-tools
+  - tools
+  - build-tools-23.0.3
+  - android-23
+  - addon-google_apis_x86-google-21
+  - extra-android-support
+  - extra-android-m2repository
+  - extra-google-m2repository
+  - extra-google-google_play_services
+  - sys-img-armeabi-v7a-android-21
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.android/build-cache
 script: ./gradlew testDebugUnitTest
 branches:
- - travisci
- - development
+- travisci
+- development
 notifications:
   slack:
     rooms:
