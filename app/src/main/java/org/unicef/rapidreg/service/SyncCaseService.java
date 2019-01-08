@@ -22,7 +22,7 @@ public interface SyncCaseService {
 
     Observable<Response<JsonElement>> getCasesIds(String moduleId, String lastUpdate, Boolean isMobile);
 
-    Response<JsonElement> uploadCaseJsonProfile(RecordModel item) throws ObservableNullResponseException;
+    Response<JsonElement> uploadCaseJsonProfile(RecordModel item, Boolean isMobile) throws ObservableNullResponseException;
 
     void uploadAudio(RecordModel item) throws ObservableNullResponseException;
 
