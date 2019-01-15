@@ -135,13 +135,16 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                 .map(caseResponsePair -> {
                     try {
                         Response<JsonElement> jsonElementResponse = caseResponsePair.second;
-                        JsonArray photoKeys = jsonElementResponse.body().getAsJsonObject()
-                                .get("photo_keys")
-                                .getAsJsonArray();
+                        JsonElement photoKeysElement = jsonElementResponse.body().getAsJsonObject()
+                                .get("photo_keys");
+                        JsonArray photoKeys = null;
+                        if(photoKeysElement != null) {
+                            photoKeys = photoKeysElement.getAsJsonArray();
+                        }
                         String id = jsonElementResponse.body().getAsJsonObject().get("_id")
                                 .getAsString();
                         okhttp3.Response response = null;
-                        if (photoKeys.size() != 0) {
+                        if (photoKeys != null && photoKeys.size() != 0) {
                             Call<Response<JsonElement>> call = syncCaseService.deleteCasePhotos
                                     (id, photoKeys);
                             response = call.execute().raw();
@@ -194,13 +197,16 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                 .map(tracingResponsePair -> {
                     try {
                         Response<JsonElement> jsonElementResponse = tracingResponsePair.second;
-                        JsonArray photoKeys = jsonElementResponse.body().getAsJsonObject()
-                                .get("photo_keys")
-                                .getAsJsonArray();
+                        JsonElement photoKeysElement = jsonElementResponse.body().getAsJsonObject()
+                                .get("photo_keys");
+                        JsonArray photoKeys = null;
+                        if(photoKeysElement != null) {
+                            photoKeys = photoKeysElement.getAsJsonArray();
+                        }
                         String id = jsonElementResponse.body().getAsJsonObject().get("_id")
                                 .getAsString();
                         okhttp3.Response response = null;
-                        if (photoKeys.size() != 0) {
+                        if (photoKeys != null && photoKeys.size() != 0) {
                             Call<Response<JsonElement>> call = syncTracingService
                                     .deletePhotos(id, photoKeys);
                             response = call.execute().raw();

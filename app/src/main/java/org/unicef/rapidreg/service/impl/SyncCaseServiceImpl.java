@@ -88,11 +88,11 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
         Observable<Response<JsonElement>> responseObservable;
         if (!TextUtils.isEmpty(item.getInternalId()) && item.getLastSyncedDate() != null) {
             responseObservable = getRepository(SyncCaseRepository.class).putCase(PrimeroAppConfiguration.getCookie(),
-                    item.getInternalId(), jsonObject);
+                    item.getInternalId(), jsonObject, true);
         } else {
             responseObservable = getRepository(SyncCaseRepository.class).postCaseExcludeMediaData
                     (PrimeroAppConfiguration
-                            .getCookie(), jsonObject);
+                            .getCookie(), jsonObject, true);
         }
         Response<JsonElement> response = responseObservable.blockingFirst();
         if (!response.isSuccessful()) {

@@ -50,13 +50,15 @@ public interface SyncCaseRepository {
     @POST("/api/cases")
     Observable<Response<JsonElement>> postCaseExcludeMediaData(
             @Header("Cookie") String cookie,
-            @Body Object requestBody);
+            @Body Object requestBody,
+            @Query("mobile") Boolean isMobile);
 
     @PUT("/api/cases/{id}")
     Observable<Response<JsonElement>> putCase(
             @Header("Cookie") String cookie,
             @Path("id") String id,
-            @Body Object requestBody);
+            @Body Object requestBody,
+            @Query("mobile") Boolean isMobile);
 
     @Multipart
     @PUT("/api/cases/{id}")
