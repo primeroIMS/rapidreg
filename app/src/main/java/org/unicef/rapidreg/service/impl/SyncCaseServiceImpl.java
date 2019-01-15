@@ -71,7 +71,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                 lastUpdate, isMobile);
     }
 
-    public Response<JsonElement> uploadCaseJsonProfile(RecordModel item, Boolean isMobile) throws ObservableNullResponseException {
+    public Response<JsonElement> uploadCaseJsonProfile(RecordModel item) throws ObservableNullResponseException {
         ItemValuesMap itemValuesMap = ItemValuesMap.fromJson(new String(item.getContent().getBlob
                 ()));
 
@@ -88,11 +88,11 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
         Observable<Response<JsonElement>> responseObservable;
         if (!TextUtils.isEmpty(item.getInternalId()) && item.getLastSyncedDate() != null) {
             responseObservable = getRepository(SyncCaseRepository.class).putCase(PrimeroAppConfiguration.getCookie(),
-                    item.getInternalId(), jsonObject, isMobile);
+                    item.getInternalId(), jsonObject, true);
         } else {
             responseObservable = getRepository(SyncCaseRepository.class).postCaseExcludeMediaData
                     (PrimeroAppConfiguration
-                            .getCookie(), jsonObject, isMobile);
+                            .getCookie(), jsonObject, true);
         }
         Response<JsonElement> response = responseObservable.blockingFirst();
         if (!response.isSuccessful()) {

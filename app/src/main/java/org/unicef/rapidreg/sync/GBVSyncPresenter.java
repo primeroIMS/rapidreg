@@ -102,7 +102,7 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
         uploadCasesDisposable = Observable.fromIterable(caseList)
                 .filter(item -> isSyncing && !item.isSynced())
                 .map(item -> {
-                    return new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item, true));
+                    return new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item));
                 })
                 .filter(pair -> {
                     boolean isAuthorizedUpload = (pair.second.code() != 403);
