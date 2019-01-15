@@ -40,7 +40,7 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
 
     @Override
     public Observable<Lookup> getLookups(String cookie, String locale, Boolean getAll) {
-        return getRepository(LookupRepository.class).getLookups(cookie, locale, getAll)
+        return getRepository(LookupRepository.class).getLookups(cookie, locale, getAll, true)
                 .map(response -> {
                     Lookup lookups = new Lookup();
                     lookups.setServerUrl(PrimeroAppConfiguration.getApiBaseUrl());

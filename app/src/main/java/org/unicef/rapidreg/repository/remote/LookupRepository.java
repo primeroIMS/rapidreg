@@ -14,5 +14,6 @@ public interface LookupRepository {
     Observable<Response<JsonElement>> getLookups(
             @Header("Cookie") String cookie,
             @Query("locale") String locale,
-            @Query("all") Boolean getAll);
+            @Query("all") Boolean getAll,
+            @Query("mobile") Boolean isMobile);
 }
