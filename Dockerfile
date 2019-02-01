@@ -4,29 +4,43 @@
 FROM openjdk:8-jdk-stretch
 
 MAINTAINER bfeng@thoughtworks.com
-ENV REFRESHED_AT 2018_06_06
+ENV REFRESHED_AT 2019_02_01
 
-# install wget lib32z1 lib32stdc++6 expect
-RUN apt-get update -qq && \
-    apt-get upgrade -qqy && \
-    apt-get install -qqy wget lib32stdc++6 lib32z1 expect
+# Install wget lib32z1 lib32stdc++6 expect
+RUN apt-get update -qq \
+    && apt-get upgrade -qqy \
+    && apt-get install -qqy wget lib32stdc++6 lib32z1 expect
 
-# set environment variables
-ENV ANDROID_SDK_VERSION android-sdk_r24.4.1-linux
+# Set environment variables
+ENV ANDROID_SDK_VERSION sdk-tools-linux-4333796
 ENV ANDROID_HOME /opt/android-sdk-linux
-ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools:$PATH
+ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools:$PATH
 
 RUN ln -s ${JAVA_HOME} /usr/lib/jvm/default-java
 
-# download Android SDK
+# Download Android SDK
 WORKDIR /opt
-RUN wget http://dl.google.com/android/${ANDROID_SDK_VERSION}.tgz && \
-    tar -zxf ${ANDROID_SDK_VERSION}.tgz && \
-    rm ${ANDROID_SDK_VERSION}.tgz && \
-    chmod -R 775 ${ANDROID_HOME}
 
-COPY ./android-accept-licenses.sh /opt/project/android-accept-licenses.sh
-COPY ./repositories.cfg /root/.android/repositories.cfg
+RUN wget -q https://dl.google.com/android/repository/${ANDROID_SDK_VERSION}.zip -O android-sdk-linux.zip \
+    && unzip -q android-sdk-linux.zip -d ${ANDROID_HOME} \
+    && rm android-sdk-linux.zip \
+    && chmod -R 775 ${ANDROID_HOME}
+
 WORKDIR /opt/project
 
-RUN ["./android-accept-licenses.sh", "android update sdk --all --force --no-ui --filter platform-tools,tools,build-tools-28.0.3,android-23,addon-google_apis_x86-google-21,extra-android-support,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services,sys-img-armeabi-v7a-android-21"]
+COPY ./repositories.cfg /root/.android/repositories.cfg
+
+RUN yes | sdkmanager --licenses
+
+#RUN sdkmanager --list
+
+RUN sdkmanager "tools" "platform-tools"
+
+RUN yes | sdkmanager \
+    "build-tools;28.0.3" \
+    "platforms;android-26" \
+    "add-ons;addon-google_apis-google-23" \
+    "extras;android;m2repository" \
+    "extras;google;m2repository" \
+    "extras;google;google_play_services" \
+    "system-images;android-24;default;armeabi-v7a"
