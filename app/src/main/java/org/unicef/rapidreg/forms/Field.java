@@ -80,7 +80,9 @@ public class Field {
     @SerializedName("subform")
     @Expose
     private Section subForm;
-
+    @SerializedName("date_validation")
+    @Expose
+    private String dateValidation;
     @SerializedName("show_on_minify_form")
     @Expose
     private boolean isShowOnMiniForm;
@@ -97,6 +99,12 @@ public class Field {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDateValidation() { return dateValidation; }
+
+    public void setDateValidation(String dateValidation) {
+        this.dateValidation = dateValidation;
     }
 
     public boolean isDisabled() {
@@ -305,6 +313,7 @@ public class Field {
         sb.append("displayName: ").append(displayName).append("\n");
         sb.append("helpText: ").append(helpText).append("\n");
         sb.append("optionStringsText: ").append(optionStringsText).append("\n");
+        sb.append("dateValidation: ").append(dateValidation).append("\n");
         sb.append("subForm: ").append(subForm).append("\n");
         sb.append("show_on_minify_form: ").append(isShowOnMiniForm).append("\n");
         sb.append("parent: ").append(parent).append("\n");
@@ -318,6 +327,7 @@ public class Field {
         newField.setDisabled(disabled);
         newField.setRequired(required);
         newField.setMultiSelect(multiSelect);
+        newField.setDateValidation(dateValidation);
         newField.setType(type);
         newField.setDisplayName(displayName);
         newField.setHelpText(helpText);
@@ -380,5 +390,9 @@ public class Field {
 
     public String getTranslatedDate(String date) {
        return Utils.parseDisplayDate(date, PrimeroAppConfiguration.getDefaultLanguage());
+    }
+
+    public boolean validate_date_not_future() {
+        return this.getDateValidation() != null && this.getDateValidation().equals("not_future_date");
     }
 }
