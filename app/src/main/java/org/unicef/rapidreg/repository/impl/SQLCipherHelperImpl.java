@@ -1,13 +1,8 @@
 package org.unicef.rapidreg.repository.impl;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.telephony.TelephonyManager;
 
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.structure.database.DatabaseHelperListener;
@@ -16,9 +11,6 @@ import com.raizlabs.dbflow.android.sqlcipher.SQLCipherOpenHelper;
 import org.unicef.rapidreg.BuildConfig;
 import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.utils.EncryptHelper;
-import android.provider.Settings.Secure;
-
-
 import org.unicef.rapidreg.utils.KeyStoreUtils;
 
 public class SQLCipherHelperImpl extends SQLCipherOpenHelper {
