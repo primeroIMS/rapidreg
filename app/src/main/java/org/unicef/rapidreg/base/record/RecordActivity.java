@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.BaseActivity;
 import org.unicef.rapidreg.base.Feature;
@@ -26,6 +26,7 @@ import org.unicef.rapidreg.widgets.dialog.MessageDialog;
 import org.unicef.rapidreg.widgets.viewholder.PhotoUploadViewHolder;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -85,7 +86,7 @@ public abstract class RecordActivity extends BaseActivity {
             onSelectFromGalleryResult(data);
 
         } else if (PhotoUploadViewHolder.REQUEST_CODE_CAMERA == requestCode) {
-            onCaptureImageResult();
+            onCaptureImageResult(data);
         }
     }
 
@@ -208,23 +209,29 @@ public abstract class RecordActivity extends BaseActivity {
         return mediaStorageDir.getPath() + File.separator + System.currentTimeMillis() + JPEG_FILE_SUFFIX;
     }
 
-    private void onCaptureImageResult() {
+    private void onCaptureImageResult(final Intent data) {
         try {
-            Bitmap compressedImage = ImageCompressUtil.compressImage(PhotoConfig
-                            .MEDIA_PATH_FOR_CAMERA,
-                    PhotoConfig.MAX_COMPRESS_WIDTH, PhotoConfig.MAX_COMPRESS_HEIGHT);
-            imagePath = getOutputMediaFilePath();
-            ImageCompressUtil.storeImage(compressedImage, imagePath);
-            clearTemporaryFile();
-            compressedImage.recycle();
-            postSelectedImagePath();
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            File cacheDir = PrimeroApplication.getAppContext().getCacheDir();
+            File tmpFile = File.createTempFile("primero_pic", "tmp", cacheDir);
+            try(FileOutputStream outStream =  new FileOutputStream(tmpFile)){
+                photo.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+                Bitmap compressedImage = ImageCompressUtil.compressImage(
+                        tmpFile.getPath(), PhotoConfig.MAX_COMPRESS_WIDTH,
+                                           PhotoConfig.MAX_COMPRESS_HEIGHT);
+                imagePath = getOutputMediaFilePath();
+                ImageCompressUtil.storeImage(compressedImage, imagePath);
+                clearTemporaryFile(tmpFile);
+                photo.recycle();
+                compressedImage.recycle();
+                postSelectedImagePath();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void clearTemporaryFile() {
-        File tempFile = new File(PhotoConfig.MEDIA_PATH_FOR_CAMERA);
+    private void clearTemporaryFile(final File tempFile) {
         if (tempFile.exists()) {
             tempFile.delete();
         }

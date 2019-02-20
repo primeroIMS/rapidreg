@@ -1,7 +1,9 @@
 package org.unicef.rapidreg.service.impl;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Patterns;
@@ -62,8 +64,9 @@ public class LoginServiceImpl extends BaseRetrofitService<LoginRepository> imple
                             String imei,
                             final LoginCallback callback) {
         //TODO change hard code to be value from param
-        final LoginRequestBody loginRequestBody = new LoginRequestBody(username, password, "15555215554",
-                "8fd2274a590497e9");
+        Context ctx = PrimeroApplication.getAppContext();
+        String androidId = Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
+        final LoginRequestBody loginRequestBody = new LoginRequestBody(username, password, "", androidId);
         Disposable disposable = getRepository(LoginRepository.class)
                 .login(loginRequestBody)
                 .subscribeOn(Schedulers.io())

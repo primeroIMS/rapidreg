@@ -116,9 +116,7 @@ public class PhotoUploadViewHolder extends BaseViewHolder<Field> {
     private void showAddPhotoOptionDialog() {
         PhotoUploadDialog photoUploadDialog = new PhotoUploadDialog(context);
         photoUploadDialog.setItemCameraOnClickLisener(v -> {
-            Uri saveUri = Uri.fromFile(new File(PhotoConfig.MEDIA_PATH_FOR_CAMERA));
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, saveUri);
             ((RecordActivity) context).startActivityForResult(intent, REQUEST_CODE_CAMERA);
             photoUploadDialog.dismiss();
         });
