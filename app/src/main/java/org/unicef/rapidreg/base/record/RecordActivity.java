@@ -1,6 +1,8 @@
 package org.unicef.rapidreg.base.record;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,9 +10,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.unicef.rapidreg.PrimeroApplication;
@@ -98,6 +103,74 @@ public abstract class RecordActivity extends BaseActivity {
             Utils.clearAudioFile(AUDIO_FILE_PATH);
             intentSender.showSyncActivity(this, true);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(final int requestCode,
+                                           final String permissions[],
+                                           final int[] grantResults) {
+        if (grantResults.length > 0) {
+            boolean hasDeniedPermission = false;
+            for(int grantResult : grantResults) {
+                if(grantResult == PackageManager.PERMISSION_DENIED) {
+                    hasDeniedPermission = true;
+                    break;
+                }
+            }
+            switch (requestCode) {
+                case PhotoUploadViewHolder.REQUEST_CODE_CAMERA: {
+                    if(!hasDeniedPermission) {
+                        this.captureImageFromCamera();
+                    }
+                } break;
+                case PhotoUploadViewHolder.REQUEST_CODE_GALLERY: {
+                    if(!hasDeniedPermission) {
+                        this.captureImageFromGallery();
+                    }
+                } break;
+            }
+        }
+    }
+
+    public void tryCaptureImageFromCamera() {
+        if(this.hasPermissions(Manifest.permission.CAMERA)) {
+            this.captureImageFromCamera();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    PhotoUploadViewHolder.REQUEST_CODE_CAMERA);
+        }
+    }
+
+    public void tryCaptureImageFromGallery() {
+        if(this.hasPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            this.captureImageFromGallery();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                 Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PhotoUploadViewHolder.REQUEST_CODE_GALLERY);
+        }
+    }
+
+    private void captureImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK,  MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        this.startActivityForResult(intent, PhotoUploadViewHolder.REQUEST_CODE_GALLERY);
+    }
+
+    private void captureImageFromCamera(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        this.startActivityForResult(intent, PhotoUploadViewHolder.REQUEST_CODE_CAMERA);
+    }
+
+    public boolean hasPermissions(final String... permissions) {
+        for(String permission : permissions) {
+            if(ContextCompat.checkSelfPermission(this,  permission) == PackageManager.PERMISSION_DENIED){
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean isDeleteMode() {

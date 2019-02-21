@@ -497,4 +497,9 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
             return message;
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult (int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }
