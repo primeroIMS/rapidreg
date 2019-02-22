@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 import org.greenrobot.eventbus.EventBus;
+import org.unicef.rapidreg.BuildConfig;
 import org.unicef.rapidreg.IntentSender;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.PrimeroApplication;
@@ -136,6 +137,9 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     @BindColor(R.color.black)
     protected ColorStateList syncColor;
 
+    @BindView(R.id.application_version)
+    protected TextView applicationVersion;
+
     protected IntentSender intentSender = new IntentSender();
 
     protected DetailState detailState = DetailState.VISIBILITY;
@@ -185,6 +189,7 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         initToolbar();
         initNavigationHeader();
         initNavigationItemMenu();
+        initVersion();
         drawer.openDrawer(GravityCompat.START);
 
         Configuration configuration = getResources().getConfiguration();
@@ -268,6 +273,10 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
                 findViewById(resId).setVisibility(VISIBLE);
             }
         }
+    }
+
+    protected void initVersion() {
+        applicationVersion.setText("v" + BuildConfig.VERSION_NAME);
     }
 
     public ActivityComponent getComponent() {

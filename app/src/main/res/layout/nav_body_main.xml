@@ -47,4 +47,21 @@
 
     <TextView style="@style/NavigationItemLine" />
 
+    <View android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/application_version_label"
+            style="@style/AppVersionLabel"
+            android:text="@string/app_version_label"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/application_version"
+            style="@style/AppVersionNumber"/>
+    </LinearLayout>
+
 </LinearLayout>

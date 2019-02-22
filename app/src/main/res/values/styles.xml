@@ -10,6 +10,27 @@
         <item name="android:textColor">@color/primero_font_dark</item>
     </style>
 
+    <style name="AppVersionLabel">
+        <item name="android:textColorPrimary">@color/primero_font_dark</item>
+        <item name="android:textColor">@color/primero_gray</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">@dimen/size_15</item>
+        <item name="android:paddingLeft">@dimen/size_15</item>
+    </style>
+
+    <style name="AppVersionNumber">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_marginLeft">@dimen/size_2</item>
+        <item name="android:textColorPrimary">@color/primero_gray</item>
+        <item name="android:textColor">@color/primero_gray</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <!--row in case list start-->
     <style name="Avatar">
         <item name="android:layout_width">@dimen/case_avatar_width</item>
