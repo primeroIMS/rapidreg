@@ -3,7 +3,6 @@ package org.unicef.rapidreg.widgets.viewholder;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -115,15 +114,13 @@ public class PhotoUploadViewHolder extends BaseViewHolder<Field> {
 
     private void showAddPhotoOptionDialog() {
         PhotoUploadDialog photoUploadDialog = new PhotoUploadDialog(context);
+        RecordActivity recordActivity = ((RecordActivity) context);
         photoUploadDialog.setItemCameraOnClickLisener(v -> {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            ((RecordActivity) context).startActivityForResult(intent, REQUEST_CODE_CAMERA);
+            recordActivity.tryCaptureImageFromCamera();
             photoUploadDialog.dismiss();
         });
         photoUploadDialog.setItemGalleryOnClickLisener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            ((RecordActivity) context).startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            recordActivity.tryCaptureImageFromGallery();
             photoUploadDialog.dismiss();
         });
         photoUploadDialog.setItemCancelOnClickLisener(v -> photoUploadDialog.dismiss());
