@@ -1,6 +1,5 @@
 package org.unicef.rapidreg.base.record.recordregister;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -8,22 +7,17 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
 
 import org.json.JSONException;
-import org.unicef.rapidreg.PrimeroApplication;
-import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterView.SaveRecordCallback;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.forms.RecordForm;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
-import org.unicef.rapidreg.utils.TextUtils;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -145,16 +139,6 @@ public abstract class RecordRegisterPresenter extends MvpBasePresenter<RecordReg
         }
 
         return getPhotoPathsByRecordId(getRecordId(bundle));
-    }
-
-    public void clearImagesCache() {
-        File mediaStorageDir = new File(PhotoConfig.IMAGES_DIR_NAME);
-        if (mediaStorageDir.exists()) {
-            File[] imageFiles = mediaStorageDir.listFiles();
-            for (File image : imageFiles) {
-                image.delete();
-            }
-        }
     }
 
     public abstract void saveRecord(ItemValuesMap itemValuesMap, List<String> photoPaths,

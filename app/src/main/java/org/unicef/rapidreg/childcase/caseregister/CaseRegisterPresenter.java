@@ -100,7 +100,6 @@ public class CaseRegisterPresenter extends RecordRegisterPresenter {
 
             addProfileItems(itemValuesMap, record.getRegistrationDate(), record.getUniqueId(),
                     record.getId());
-            clearImagesCache();
             callback.onSaveSuccessful(record.getId());
         } catch (IOException e) {
             callback.onSavedFail();
