@@ -122,8 +122,7 @@ public class CaseMiniFormFragment extends RecordRegisterFragment {
     protected RecordRegisterAdapter createRecordRegisterAdapter() {
         List<Field> fields = caseRegisterPresenter.getValidFields();
 
-        int position = caseRegisterPresenter.getCaseType().equals(MODULE_CASE_CP) ? 1 : 0;
-        addProfileFieldForDetailsPage(position, fields);
+        addProfileFieldForDetailsPage(0, fields);
 
         RecordRegisterAdapter recordRegisterAdapter = new RecordRegisterAdapter(getActivity(),
                 fields,
