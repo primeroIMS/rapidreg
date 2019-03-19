@@ -60,7 +60,7 @@ public class SubFormViewHolder extends BaseViewHolder<Field> {
         fieldParent = field.getName();
         displayParent = field.getDisplayName().get(PrimeroAppConfiguration.getServerLocale());
         addSubFormBtn.setText(String.format("%s %s", context.getString(R.string.add), displayParent));
-        addSubFormBtn.setVisibility(activity.getCurrentFeature().isEditMode() ?
+        addSubFormBtn.setVisibility(activity.getCurrentFeature().isEditMode() && !allFieldsDisabled(field.getSubForm().getFields()) ?
                 View.VISIBLE : GONE);
         if (field.getSubForm() == null) {
             return;
@@ -274,6 +274,19 @@ public class SubFormViewHolder extends BaseViewHolder<Field> {
                 disableContainer(parent.getChildAt(index));
             }
         }
+    }
+
+    private Boolean allFieldsDisabled(List<Field> fields) {
+        Boolean disabled = true;
+
+        for (int index = 0; index < fields.size(); index++) {
+            if (!fields.get(index).isDisabled()) {
+                disabled = false;
+                break;
+            }
+        }
+
+        return disabled;
     }
 
     public List<Boolean> getSubformStatusList() {
