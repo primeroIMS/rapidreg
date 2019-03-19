@@ -123,8 +123,12 @@ public class TracingService extends RecordService {
         Tracing tracing = updateTracingFromItemValues(itemValues);
         tracing.setSynced(false);
         tracing.setNoteAlerts("");
+
+        tracingPhotoDao.update(tracingDao.update(tracing), photoBitPaths);
+
         clearImagesCache();
-        return tracingPhotoDao.update(tracingDao.update(tracing), photoBitPaths);
+
+        return tracing;
     }
 
     public Tracing deleteByRecordId(long recordId) {
