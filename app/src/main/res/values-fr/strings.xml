@@ -67,6 +67,7 @@
     <string name="tracing">Demandes de traçage</string>
     <string name="tracing_details">Détails de la demande de traçage</string>
     <string name="sync">Synchronisation</string>
+    <string name="update_forms">Mettre à jour le formulaire</string>
     <string name="back">Retour</string>
     <!-- Title -->
     <string name="click_to_search">Cliquer pour chercher </string>
@@ -95,6 +96,8 @@
     <string name="delete_subform">Êtes-vous sûr de vouloir supprimer ce sous-formulaire</string>
     <string name="recording_is_too_short">L\'enregistrement est trop court</string>
     <string name="audio_file_not_exists">Aucun fichier audio n\'existe.</string>
+    <string name="case_reassigned">Cette casa été réaffectée à un autre agent. Veuillez le retirer de votre appareil.</string>
+
     <!--Sync-->
     <string name="last_sync_time">Dernière heure de synchronisation</string>
     <string name="record_count_for_last_sync">Nombre de cas à la dernière synchronisation</string>
@@ -127,6 +130,10 @@
     <string name="show_more_details">Afficher plus de détails</string>
     <string name="sync_forms">Synchroniser les formulaires </string>
     <string name="forms_is_syncing_msg">Synchronisation des formulaires, patienter s\'il vous plait </string>
+    <string name="sync_case_forms">Synchronisation des formulaires gestion des cas</string>
+    <string name="sync_incident_forms">Synchronisation des formulaires d\'incident</string>
+    <string name="sync_tracing_request_forms">Synchronisation des formulaires de demande de traçage</string>
+    <string name="sync_lookups">Synchronisation des références</string>
     <string name="sync_forms_message">les formulaires n\'ont pas été chargé avec succès, appuyez sur OK pour resynchroniser.</string>
     <string name="sync_forms_error">Erreur de la synchronisation des formulaires, essayez-la plus tard</string>
     <string name="sync_tracing_forms_error">Erreur de la synchronisation des formulaires, essayez-la plus tard</string>
@@ -141,6 +148,7 @@
     <string name="survivor_code">Code du survivant</string>
     <string name="type_of_violence">Type de violences</string>
     <string name="date_of_inquiry">Date de l\'enquête</string>
+    <string name="date_of_interview">Date de l\'entretien</string>
     <string name="toolbar_title_text_placeholder">Barre d\'outils; espace réservé au texte </string>
     <string name="fetching_case_amount_msg">Récupération du volume du cas sur le serveur Web ...</string>
     <string name="fetching_tracing_amount_msg">Récupération du volume des requêtes de suivi à partir du serveur Web ...</string>
@@ -197,4 +205,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Bonjour fragment vierge</string>
 
+    <string name="interview_date_asc">Date de l\'interview par ordre croissant</string>
+    <string name="interview_date_desc">Date de l\'interview par ordre décroissant </string>
+    <string name="inquiry_date_asc">Date de l\'enquête par ordre croissant</string>
+    <string name="inquiry_date_desc">Date de l\'enquête par ordre décroissant</string>
+    <string name="reg_date_asc">Date de l\'enregistrement par ordre croissant</string>
+    <string name="reg_date_desc">Date de l\'enregistrement par ordre décroissant</string>
+    <string name="age">âge</string>
+    <string name="age_asc">Age ordre décroissant</string>
+    <string name="age_desc">Age ordre croissant</string>
+    <string name="note_alerts">Notez les alertes</string>
+    <string name="note_alerts_recent">Notez les alertes les plus récentes</string>
+    <string name="note_alerts_less_recent">Notez les alertes les moins récentes</string>
 </resources>
