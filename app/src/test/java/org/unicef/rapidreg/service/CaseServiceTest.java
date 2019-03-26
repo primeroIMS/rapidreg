@@ -1,5 +1,6 @@
 package org.unicef.rapidreg.service;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.raizlabs.android.dbflow.data.Blob;
@@ -15,6 +16,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.forms.Section;
 import org.unicef.rapidreg.model.Case;
@@ -55,13 +57,14 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.verifyPrivate;
 import static org.powermock.api.mockito.PowerMockito.when;
+import static org.powermock.api.support.membermodification.MemberModifier.stub;
 import static org.unicef.rapidreg.service.CaseService.CASE_ID;
 import static org.unicef.rapidreg.service.RecordService.AGE;
 import static org.unicef.rapidreg.service.RecordService.REGISTRATION_DATE;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({UUID.class, PrimeroAppConfiguration.class,
-        ImageCompressUtil.class, Log.class})
+        ImageCompressUtil.class, Log.class, PrimeroApplication.class})
 public class CaseServiceTest {
 
     @Mock
@@ -73,6 +76,9 @@ public class CaseServiceTest {
     @Mock
     IncidentDao incidentDao;
 
+    @Mock
+    Context appContext;
+
     @InjectMocks
     CaseService caseService;
 
@@ -83,6 +89,7 @@ public class CaseServiceTest {
         PowerMockito.mockStatic(PrimeroAppConfiguration.class);
         PowerMockito.mockStatic(ImageCompressUtil.class);
         PowerMockito.mockStatic(Log.class);
+        stub(PowerMockito.method(PrimeroApplication.class, "getAppContext")).toReturn(appContext);
 
         UUID uuid = mock(UUID.class);
         when(uuid.toString()).thenReturn("anuuidwhichlengthis21");

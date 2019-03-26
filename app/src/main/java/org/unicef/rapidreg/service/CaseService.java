@@ -229,6 +229,8 @@ public class CaseService extends RecordService {
             casePhoto.setKey(UUID.randomUUID().toString());
             casePhotoDao.save(casePhoto);
         }
+
+        clearImagesCache();
     }
 
     public Case update(ItemValuesMap itemValues, List<String> photoBitPaths) throws IOException {
@@ -296,6 +298,8 @@ public class CaseService extends RecordService {
                 casePhoto.update();
             }
         }
+
+        clearImagesCache();
     }
 
     public Case deleteByRecordId(long recordId) {

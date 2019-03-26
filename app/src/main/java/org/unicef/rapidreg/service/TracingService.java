@@ -114,6 +114,7 @@ public class TracingService extends RecordService {
 
         tracingDao.save(tracing);
         tracingPhotoDao.save(tracing, photoPaths);
+        clearImagesCache();
         return tracing;
     }
 
@@ -122,7 +123,12 @@ public class TracingService extends RecordService {
         Tracing tracing = updateTracingFromItemValues(itemValues);
         tracing.setSynced(false);
         tracing.setNoteAlerts("");
-        return tracingPhotoDao.update(tracingDao.update(tracing), photoBitPaths);
+
+        tracingPhotoDao.update(tracingDao.update(tracing), photoBitPaths);
+
+        clearImagesCache();
+
+        return tracing;
     }
 
     public Tracing deleteByRecordId(long recordId) {

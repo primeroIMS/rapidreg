@@ -1,6 +1,8 @@
 package org.unicef.rapidreg.service;
 
 
+import android.content.Context;
+
 import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
 
 import org.junit.Before;
@@ -13,6 +15,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.forms.Section;
 import org.unicef.rapidreg.model.Tracing;
@@ -47,6 +50,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.verifyPrivate;
 import static org.powermock.api.mockito.PowerMockito.when;
+import static org.powermock.api.support.membermodification.MemberModifier.stub;
 import static org.unicef.rapidreg.service.RecordService.AGE;
 import static org.unicef.rapidreg.service.RecordService.CAREGIVER_NAME;
 import static org.unicef.rapidreg.service.RecordService.INQUIRY_DATE;
@@ -56,7 +60,7 @@ import static org.unicef.rapidreg.service.TracingService.TRACING_ID;
 import static org.unicef.rapidreg.service.TracingService.TRACING_PRIMARY_ID;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PrimeroAppConfiguration.class})
+@PrepareForTest({PrimeroAppConfiguration.class, PrimeroApplication.class})
 public class TracingServiceTest {
     private String url = "http://35.61.56.113:8443";
     private User user;
@@ -66,6 +70,9 @@ public class TracingServiceTest {
 
     @Mock
     private TracingPhotoDao tracingPhotoDao;
+
+    @Mock
+    Context appContext;
 
     @InjectMocks
     private TracingService tracingService;
@@ -78,6 +85,8 @@ public class TracingServiceTest {
         user = new User("userName");
         when(PrimeroAppConfiguration.getCurrentUser()).thenReturn(user);
         when(PrimeroAppConfiguration.getCurrentUsername()).thenReturn(user.getUsername());
+
+        stub(PowerMockito.method(PrimeroApplication.class, "getAppContext")).toReturn(appContext);
 
         Mockito.when(PrimeroAppConfiguration.getApiBaseUrl()).thenReturn(TextUtils.lintUrl(url));
     }

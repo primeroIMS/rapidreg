@@ -74,7 +74,6 @@ public class TracingRegisterPresenter extends RecordRegisterPresenter {
             Tracing record = tracingService.saveOrUpdate(itemValuesMap, photoPaths);
             addProfileItems(itemValuesMap, record.getRegistrationDate(), record.getUniqueId(),
                     record.getId());
-            clearImagesCache();
             callback.onSaveSuccessful(record.getId());
         } catch (IOException e) {
             callback.onSavedFail();

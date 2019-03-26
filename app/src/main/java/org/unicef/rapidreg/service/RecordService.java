@@ -7,6 +7,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLCondition;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
 import org.unicef.rapidreg.forms.Field;
 import org.unicef.rapidreg.forms.RecordForm;
 import org.unicef.rapidreg.forms.Section;
@@ -14,6 +15,7 @@ import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.TextUtils;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -174,6 +176,16 @@ public class RecordService {
                 PrimeroAppConfiguration.getDatabaseName()).getWritableDatabase();
         if (databaseWrapper != null) {
             databaseWrapper.execSQL(sqlEntry);
+        }
+    }
+
+    public void clearImagesCache() {
+        File mediaStorageDir = new File(PhotoConfig.IMAGES_DIR_NAME);
+        if (mediaStorageDir.exists()) {
+            File[] imageFiles = mediaStorageDir.listFiles();
+            for (File image : imageFiles) {
+                image.delete();
+            }
         }
     }
 
