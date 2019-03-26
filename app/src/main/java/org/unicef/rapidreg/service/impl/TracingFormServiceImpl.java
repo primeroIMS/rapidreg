@@ -25,6 +25,10 @@ public class TracingFormServiceImpl implements TracingFormService {
                 () != null;
     }
 
+    public boolean hasFields() {
+        return getCPTemplate().getSections().isEmpty();
+    }
+
     public TracingTemplateForm getCPTemplate() {
         Blob form = tracingFormDao.getTracingForm(PrimeroAppConfiguration.getApiBaseUrl(), PrimeroAppConfiguration.getServerLocale()).getForm();
         String formJson = new String(form.getBlob());

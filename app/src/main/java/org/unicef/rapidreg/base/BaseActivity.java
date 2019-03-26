@@ -270,7 +270,12 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         if (user != null) {
             User.Role role = user.getRoleType();
             for (int resId : role.getResIds()) {
-                findViewById(resId).setVisibility(VISIBLE);
+                // Hiding tracing request nav option if no fields
+                if (resId == navTracingTV.getId() && basePresenter.hasTracingForms()) {
+                    findViewById(resId).setVisibility(GONE);
+                } else {
+                    findViewById(resId).setVisibility(VISIBLE);
+                }
             }
         }
     }
