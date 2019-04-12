@@ -113,6 +113,7 @@ public class PrimeroAppConfiguration {
         Map<String, String> locales = new HashMap<>();
         locales.put("id", "in_ID");
         locales.put("bn", "bn_BD");
+        locales.put("pt", "pt_MZ");
         return locales;
     }
 }

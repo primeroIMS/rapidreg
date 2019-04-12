@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Primero</string>
+    <string name="app_version_label">Version:</string>
     <!--List Spinner-->
     <string name="spinner_order_by">Classer par</string>
 
@@ -20,26 +21,25 @@
     <string name="login_password_invalid_text">Entrer un mot de passe valide!</string>
     <string name="login_url_invalid_text">Entrer un URL valide</string>
     <string name="login_failed_credential">Désolé, veuillez vérifier votre nom d\'utilisateur, votre mot de passe et votre URL.</string>
-    <string name="login_failed_to_connect_prefix">Échec de la connexion
-</string>
-    <string name="login_failed_check_network_and_url">Désolé, vérifiez votre réseau et votre URL.</string>
-    <string name="login_out_successful_text">Déconnexion réussit.</string>
+    <string name="login_failed_to_connect_prefix">Échec de la connexion</string>
+    <string name="login_failed_check_network_and_url">Désolé, vérifiez votre connexion et votre URL.</string>
+    <string name="login_out_successful_text">Déconnexion réussie</string>
     <string name="login_unauthorized_message">Désolé, nom d\'utilisateur ou mot de passe incorrect.</string>
     <string name="login_service_unavailable_message">Service indisponible!</string>
-    <string name="login_not_find_code_message">Ne trouve pas le code du statut</string>
+    <string name="login_not_find_code_message">Ne retrouve pas le code du statut</string>
     <string name="login_success_message">Connexion réussie </string>
 
     <string name="login_user_label_key">Identification_utilisateur </string>
     <string name="syncing_forms_text">Synchronisation des formulaires, veuillez essayer plus tard</string>
-    <string name="order_by">Réorganiser par&#160;</string>
+    <string name="order_by">organisé par&#160;</string>
     <string name="case_id">ID:&#160;</string>
-    <string name="child_gender">Genre de l\'enfant</string>
+    <string name="child_gender">Sexe de l\'enfant</string>
 
 
     <string name="id">ID</string>
     <string name="name">Nom</string>
-    <string name="age_from">Age</string>
-    <string name="age_to">À</string>
+    <string name="age_from">Age de</string>
+    <string name="age_to">à</string>
     <string name="caregiver">Nom de la personne actuellement responsable de l\'enfant</string>
     <string name="registration_date">Date d\'enregistrement</string>
     <string name="inquiry_date">Date de l\'enquête</string>
@@ -47,7 +47,7 @@
     <string name="location">Lieu</string>
 
     <!-- Toolbar Start-->
-    <string name="toolbar_save_button_text">Sauvegardé </string>
+    <string name="toolbar_save_button_text">Enregistrer</string>
     <string name="toolbar_back_button_text">Mobile</string>
     <string name="toolbar_select_all_button_text">Tout sélectionner </string>
     <!-- Toolbar End-->
@@ -67,11 +67,11 @@
     <string name="tracing">Demandes de traçage</string>
     <string name="tracing_details">Détails de la demande de traçage</string>
     <string name="sync">Synchronisation</string>
-    <string name="update_forms">Mettre à jour le formulaire</string>
+    <string name="update_forms">Mettre à jour les formulaires</string>
     <string name="back">Retour</string>
     <!-- Title -->
     <string name="click_to_search">Cliquer pour chercher </string>
-    <string name="done">Termine</string>
+    <string name="done">Terminé</string>
     <string name="no_search_result">Désolé, aucun résultat trouvé pour ce critère de recherche.</string>
     <string name="no_records">Aucun enregistrement disponible.</string>
     <string name="remote_record_not_found">Enregistrement trouvé. Connectez-vous pour continuer la recherche sur le Web</string>
@@ -113,11 +113,11 @@
     <string name="not_now_button_text">Pas maintenant </string>
     <string name="confirm_button_text">Oui</string>
     <string name="stop_sync_button_text">Oui, arrêter maintenant </string>
-    <string name="continue_sync_button_text">Continuer la synchronisation </string>
+    <string name="continue_sync_button_text">Poursuivre la synchronisation </string>
     <string name="sync_upload_success_message">Félicitations! Votre demande de téléchargement est terminée.</string>
     <string name="sync_download_success_message">Félicitations! Votre demande de téléchargement est terminée.</string>
     <string name="sync_pull_form_success_message">Félicitations! Votre demande de synchronisation est terminée.</string>
-    <string name="sync_pull_lookups_success_message">Congrats! Completed downloading lookups</string>
+    <string name="sync_pull_lookups_success_message">Congrats! Recherches de téléchargement terminées</string>
     <string name="sync_error_message">Désolé, la demande de synchronisation ne peut pas continuer, veuillez contacter l\'équipe de support.</string>
     <string name="sync_request_time_out_error_message">Le réseau n\'est pas stable, vérifiez votre connexion Internet et réessayez.</string>
     <string name="sync_server_not_available_error_message">Le serveur Web n\'est pas disponible, veuillez contacter votre administrateur.</string>
@@ -133,14 +133,14 @@
     <string name="sync_case_forms">Synchronisation des formulaires gestion des cas</string>
     <string name="sync_incident_forms">Synchronisation des formulaires d\'incident</string>
     <string name="sync_tracing_request_forms">Synchronisation des formulaires de demande de traçage</string>
-    <string name="sync_lookups">Synchronisation des références</string>
-    <string name="sync_forms_message">les formulaires n\'ont pas été chargé avec succès, appuyez sur OK pour resynchroniser.</string>
+    <string name="sync_lookups">Synchronisation des recherches</string>
+    <string name="sync_forms_message">les formulaires n\'ont pas été chargés avec succès, appuyez sur OK pour synchroniser à nouveau.</string>
     <string name="sync_forms_error">Erreur de la synchronisation des formulaires, essayez-la plus tard</string>
     <string name="sync_tracing_forms_error">Erreur de la synchronisation des formulaires, essayez-la plus tard</string>
     <string name="sync_incident_forms_error">Erreur de la synchronisation des formulaires, essayez-la plus tard</string>
     <string name="tracing_request">Demande de traçage</string>
     <string name="not_sync_promote">Pas encore synchronisé</string>
-    <string name="produce_cases_successfully_msg">Produire des cas complets!</string>
+    <string name="produce_cases_successfully_msg">Creation des cas avec succès!</string>
     <string name="new_cp_case">Nouveau cas</string>
     <string name="new_gbv_case">Nouveau cas</string>
     <string name="cp_case_details">Détails du cas</string>
@@ -157,7 +157,7 @@
     <string name="downloading_tracings_sync_progress_msg">Téléchargement de la demande de traçage ... Veuillez patienter quelques instants.</string>
     <string name="downloading_incidents_sync_progress_msg">Téléchargement des incidents ... S\'il vous plaît attendez un moment.</string>
     <string name="fetching_form_msg">Récupérer des formulaires à partir du serveur Web ...</string>
-    <string name="uploading_sync_progress_msg">Téléchargement... S\'il vous plaît attendez un moment.</string>
+    <string name="uploading_sync_progress_msg">Téléchargement... S\'il vous plaît, veuillez patienter</string>
     <string name="network_not_available">Le réseau n\'est pas disponible, veuillez vérifier votre réseau.</string>
     <string name="sync_one_case_reassigned">Le gestionnaire du cas %s a changé. Veuillez le supprimer de votre appareil.</string>
     <string name="sync_many_case_reassigned">Le gestionnaires de ces cas %s a changé. Veuillez les supprimer de votre appareil.</string>
@@ -199,7 +199,7 @@
     <string name="cancel">Annuler </string>
     <string name="invalid_date_msg">La date ne devrait pas être dans le futur.</string>
     <string name="warning">Attention</string>
-    <string name="invalid_value">Valeur invalide</string>
+    <string name="invalid_value">Valeur incorrecte</string>
     <string name="no_filed_exists_in_subform">Aucun champ n\'existe dans le sous-formulaire actuel.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -214,7 +214,7 @@
     <string name="age">âge</string>
     <string name="age_asc">Age ordre décroissant</string>
     <string name="age_desc">Age ordre croissant</string>
-    <string name="note_alerts">Notez les alertes</string>
-    <string name="note_alerts_recent">Notez les alertes les plus récentes</string>
-    <string name="note_alerts_less_recent">Notez les alertes les moins récentes</string>
+    <string name="note_alerts">Les alertes de commentaires</string>
+    <string name="note_alerts_recent">les alertes de commentaires les plus récentes</string>
+    <string name="note_alerts_less_recent">les alertes de commentaire les moins récentes</string>
 </resources>
