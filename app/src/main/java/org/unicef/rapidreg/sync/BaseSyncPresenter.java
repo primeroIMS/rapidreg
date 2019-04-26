@@ -163,7 +163,7 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     protected abstract void downloadSecondFormByModule();
 
     protected void downloadLookups() {
-        downloadLookupsDisposable = lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getDefaultLanguage(), true)
+        downloadLookupsDisposable = lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale(), true)
                 .subscribe(lookup -> lookupService.saveOrUpdate(lookup, true),
                         throwable -> syncFail(throwable),
                         () -> syncPullLookupsSuccessfully());
