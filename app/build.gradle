@@ -16,7 +16,7 @@ android {
         targetSdkVersion 26
         versionCode 3007
         multiDexEnabled true
-        versionName "3.0.0.18"
+        versionName "3.0.0"
     }
     signingConfigs {
         release {
