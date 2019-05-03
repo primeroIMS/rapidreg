@@ -1,52 +1,220 @@
 <resources>
+    <string name="app_name">بريميرو</string>
+    <string name="app_version_label">نسخة:</string>
     <!--List Spinner-->
     <string name="spinner_order_by">ترتيب حسب</string>
 
+    <!--Loging activity layout string-->
+    <string name="app_banner_text">بريميرو</string>
     <string name="username_hint_text">اسم المستخدم</string>
     <string name="password_hint_text">كلمة المرور</string>
+    <string name="url_hint_text">عنوان URL</string>
+    <string name="text_view_change_url">تغيير عنوان URL</string>
     <string name="button_login_text">تسجيل الدخول</string>
+    <string name="login_loading_text">جاري تسجيل الدخول، يرجى الانتظار</string>
+    <string name="login_offline_no_user_text">عذراً، يجب أن تكون متصلاً بالانترنت عند تسجيل الدخول للمرة الأولى</string>
+    <string name="login_offline_success_text">تسجيل دخول ناجح من دون اتصال بالانترنت</string>
+    <string name="navigation_drawer_open">فتح درج التنقل</string>
+    <string name="navigation_drawer_close">إغلاق درج التنقل</string>
+    <string name="action_settings">إعدادات</string>
+    <string name="login_username_invalid_text">أدخل اسم مستخدم صالح</string>
+    <string name="login_password_invalid_text">أدخل كلمة مرور صالحة</string>
+    <string name="login_url_invalid_text">أدخل عنوان url صالح!</string>
+    <string name="login_failed_credential">عذراً، يرجى التحقق من اسم المستخدم وكلمة المرور وعنوان URL.</string>
+    <string name="login_failed_to_connect_prefix">فشل الاتصال \n</string>
+    <string name="login_failed_check_network_and_url">عذراً، يرجى التحقق من الشبكة وعنوان URL.</string>
+    <string name="login_out_successful_text">تم تسجيل الخروج بنجاح</string>
+    <string name="login_unauthorized_message">عذراً، اسم المستخدم غير صالح أو كلمة المرور غير صالحة</string>
+    <string name="login_service_unavailable_message">الخدمة غير متوفرة</string>
+    <string name="login_not_find_code_message">لم يتم العثور على رمز الحالة!</string>
+    <string name="login_success_message">تم تسجيل الدخول بنجاح</string>
+
+    <string name="login_user_label_key">تسجيل دخول المستخدم </string>
+    <string name="syncing_forms_text">جاري مزامنة النماذج، يرجى المحاولة لاحقاً</string>
+    <string name="order_by">ترتيب حسب &#160;</string>
+    <string name="case_id">المعرف &#160;</string>
+    <string name="child_gender">جنس الطفل</string>
+
+
+    <string name="id">المعرّف</string>
     <string name="name">الاسم</string>
+    <string name="age_from">العمر من </string>
     <string name="age_to">إلى</string>
+    <string name="caregiver">اسم مقدم الرعاية الحالي</string>
+    <string name="registration_date">تاريخ التسجيل</string>
     <string name="inquiry_date">تاريخ الاستعلام</string>
     <string name="date">تاريخ</string>
     <string name="location">الموقع</string>
 
+    <!-- Toolbar Start-->
+    <string name="toolbar_save_button_text">حفظ</string>
+    <string name="toolbar_back_button_text">محمول</string>
+    <string name="toolbar_select_all_button_text">اختيار الكل</string>
     <!-- Toolbar End-->
 
     <!-- Title -->
     <string name="search">بحث</string>
+    <string name="search_web">بحث في الانترنت</string>
     <string name="cases">حالات</string>
     <string name="child_case">حالات</string>
+    <string name="cp_case">حالات حماية الطفل</string>
+    <string name="gbv_case">حالات العنف القائم على اساس النوع الاجتماعي</string>
     <string name="edit">تعديل</string>
-    <string name="incidents">حادثات</string>
+    <string name="case_details">تفاصيل الحالة</string>
+    <string name="incidents">حوادث</string>
     <string name="child_incident">حادثة</string>
     <string name="incident_details">تفاصيل الحادثة</string>
     <string name="tracing">تتبع الطلبات</string>
-    <string name="done">تم عمله</string>
+    <string name="tracing_details">تتبع تفاصيل الطلب</string>
+    <string name="sync">مزامنة</string>
+    <string name="update_forms">تحديث الاستمارة</string>
+    <string name="back">رجوع</string>
+    <!-- Title -->
+    <string name="click_to_search">انقر للبحث</string>
+    <string name="done">تم </string>
+    <string name="no_search_result">عذراً، لا توجد نتائج مطابقة لخيارات البحث</string>
+    <string name="no_records">لا توجد سجلات متوفرة</string>
+    <string name="remote_record_not_found">تم العثور على السجل. تسجيل الدخول لمتابعة البحث في الانترنت</string>
+    <string name="remote_id_required">المعرّف المطلوب للبحث عن بعد</string>
+
     <string-array name="order_array">
+        <item>وقت الإنشاء</item>
         <item>السن</item>
     </string-array>
 
+    <string name="no_photo_promote_info">لا توجد صورة </string>
     <string name="delete">حذف</string>
     <string name="add">إضافة</string>
+    <string name="required_field_is_not_filled">عذراً، يرجى التأكد من إدخال جميع المعلومات المطلوبة</string>
+    <string name="show_hide">عرض/إخفاء</string>
     <string name="save">حفّظ</string>
     <string name="new_case">حالة جديدة</string>
     <string name="new_tracing">طلب تتبع جديد </string>
     <string name="new_incident">حادثة جديدة</string>
+    <string name="quit">خروج</string>
+    <string name="quit_without_saving">هل أنت متأكد أنك تريد الخروج دون حفظ التغييرات؟</string>
+    <string name="delete_subform">هل أنت متأكد من أنك تريد حذف هذا النموذج الفرعي؟</string>
+    <string name="recording_is_too_short">التسجيل قصير جداً</string>
+    <string name="audio_file_not_exists">لا يوجد ملف صوتي</string>
+    <string name="case_reassigned">تم إسناد ملف الحالة إلى جهة أخرى. يرجى حذفه من جهازك.</string>
+
+    <!--Sync-->
+    <string name="last_sync_time">وقت آخر مزامنة</string>
+    <string name="record_count_for_last_sync">عدد السجلات عند آخر مزامنة</string>
+    <string name="record_count_for_not_sync">عدد السجلات التي لم تتم مزامنة بياناتها</string>
+    <string name="place_holder_last_sync_time">06-15-2016 16:14</string>
+    <string name="place_holder_record_count_for_last_sync">49</string>
+    <string name="place_holder_record_count_for_not_sync">146</string>
+    <string name="button_sync_state_of_click_to_sync">مزامنة</string>
+    <string name="start_sync_message">جاري المزامنة، يرجى الانتظار</string>
+    <string name="confirm_cancel_sync_message">هل أنت متأكد أنك تريد إيقاف المزامنة؟</string>
     <string name="cancel_button_text">إلغاء</string>
     <string name="deny_button_text">لا</string>
+    <string name="not_now_button_text">ليس الآن</string>
     <string name="confirm_button_text">نعم</string>
+    <string name="stop_sync_button_text">نعم، إيقاف الآن</string>
+    <string name="continue_sync_button_text">متابعة المزامنة</string>
+    <string name="sync_upload_success_message">تهانينا! تم استكمال طلب التحميل.</string>
+    <string name="sync_download_success_message">تهانينا! تم استكمال طلب التنزيل.</string>
+    <string name="sync_pull_form_success_message">تهانينا! تم استكمال طلب المزامنة.</string>
+    <string name="sync_pull_lookups_success_message">تهانينا! تم استكمال تنزيل نتائج البحث</string>
+    <string name="sync_error_message">عذراً، لا يمكن مواصلة طلب المزامنة، يرجى الاتصال بفريق الدعم</string>
+    <string name="sync_request_time_out_error_message">الشبكة غير مستقرة، يرجى التحقق من الاتصال بالانترنت والمحاولة مرة ثانية</string>
+    <string name="sync_server_not_available_error_message">خادم الويب غير متوفر، يرجى الاتصال مع مدير النظام.</string>
+    <string name="try_to_sync_message">هل أنت متأكد أنك تريد مزامنة السجلات؟</string>
+    <string name="remove_photo_confirmation">هل أنت متأكد أنك تريد حذف هذه الصورة؟</string>
+    <string name="save_success">تم حفظ السجل</string>
+    <string name="save_failed">فشل حفظ السجل</string>
     <string name="filter">عامل التصفية</string>
+    <string name="show_short_form">عرض نموذج مختصر</string>
+    <string name="show_more_details">عرض مزيد من التفاصيل</string>
+    <string name="sync_forms">مزامنة النماذج</string>
+    <string name="forms_is_syncing_msg">جاري مزامنة النماذج، يرجى الانتظار لحظة</string>
+    <string name="sync_case_forms">مزامنة نماذج الحالة</string>
+    <string name="sync_incident_forms">مزامنة نماذج الحادثة</string>
+    <string name="sync_tracing_request_forms">مزامنة نماذج طلب المتابعة</string>
+    <string name="sync_lookups">مزامنة عمليات البحث</string>
+    <string name="sync_forms_message">لم يتم سحب النماذج بنجاح، اضغط على موافق لإعادة المزامنة.</string>
+    <string name="sync_forms_error">خطأ في مزامنة النماذج، يرجى المحاولة لاحقاً</string>
+    <string name="sync_tracing_forms_error">خطأ في مزامنة النماذج، يرجى المحاولة لاحقاً</string>
+    <string name="sync_incident_forms_error">خطأ في مزامنة النماذج، يرجى المحاولة لاحقاً</string>
     <string name="tracing_request">طلب التتبع</string>
+    <string name="not_sync_promote">لم تتم المزامنة بعد</string>
+    <string name="produce_cases_successfully_msg">تم استكمال إنتاج الحالات</string>
     <string name="new_cp_case">حالة جديدة</string>
     <string name="new_gbv_case">حالة جديدة</string>
-    <string name="survivor_code">رمز الناجي </string>
+    <string name="cp_case_details">تفاصيل الحالة</string>
+    <string name="gbv_case_details">تفاصيل الحالة</string>
+    <string name="survivor_code">رمز الناجي\ الناجية</string>
+    <string name="type_of_violence">نوع العنف</string>
     <string name="date_of_inquiry">تاريخ الاستعلام</string>
+    <string name="date_of_interview">تاريخ المقابلة</string>
+    <string name="toolbar_title_text_placeholder">عنصر نائب للنص في شريط الأدوات</string>
+    <string name="fetching_case_amount_msg">جلب مجموع الحالات من خادم الويب</string>
+    <string name="fetching_tracing_amount_msg">جلب مجموع طلبات المتابعة من خادم الويب</string>
+    <string name="fetching_incident_amount_msg">جلب مجموع الحوادث من خادم الويب</string>
+    <string name="downloading_cases_sync_progress_msg">جاري تنزيل الحالات، يرجى الانتظار </string>
+    <string name="downloading_tracings_sync_progress_msg">جاري تنزيل طلبات المتابعة، يرجى الانتظار </string>
+    <string name="downloading_incidents_sync_progress_msg">جاري تنزيل الحوادث، يرجى الانتظار </string>
+    <string name="fetching_form_msg">جلب النماذج من خادم الويب</string>
+    <string name="uploading_sync_progress_msg">جاري التحميل، يرجى الانتظار </string>
+    <string name="network_not_available">الشبكة غير مستقرة، يرجى التحقق من الشبكة</string>
+    <string name="sync_one_case_reassigned">تغير مالك السجل للحالة %s. يرجى حذفه من جهازك.</string>
+    <string name="sync_many_case_reassigned">تغير مالك السجل للحالات%s. يرجى حذفها من جهازك.</string>
+    <!--Sync-->
+
+    <!--Transparent theme-->
+    <style name="Transparent" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <!--Transparent theme-->
+
+    <!--Dialog start-->
+    <string name="dialog_title_text_placeholder">نص عنوان الحوار</string>
+    <string name="dialog_progress_message_text_placeholder">نص رسالة تقدم الحوار</string>
+    <string name="dialog_item_from_camera">من الكاميرا</string>
+    <string name="dialog_item_from_gallery">من المعرض</string>
     <string name="dialog_item_cancel">إلغاء</string>
     <string name="date_text">تاريخ</string>
     <string name="date_range">نطاق التاريخ</string>
+    <string name="date_hint">اختر التاريخ</string>
     <string name="date_from_hint">من</string>
     <string name="date_to_hint">إلى</string>
 
+    <!--List start-->
+    <string name="list_item_delete_button_text">حذف</string>
+    <string name="list_item_delete_cancel_button_text">إلغاء</string>
+    <string name="delete_title">تحذير</string>
+    <string name="delete_confirm_message">هل أنت متأكد أنك لم تعد بحاجة إلى البيانات في جهازك</string>
+    <string name="delete_success_info">تم حذف السجلات</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="cannot_save">لا يمكن الحفظ</string>
     <string name="ok">موافق</string>
-    </resources>
+    <string name="clear">مسح</string>
+    <string name="cancel">إلغاء</string>
+    <string name="invalid_date_msg">لا يمكن للتاريخ أن يكون تاريخا مستقبليا</string>
+    <string name="warning">تحذير</string>
+    <string name="invalid_value">قيمة غير صالحة</string>
+    <string name="no_filed_exists_in_subform">لا يوجد حقل في النموذج الفرعي الحالي.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">جزء فارغ للترحيب</string>
+
+    <string name="interview_date_asc">ترتيب تصاعدي حسب تاريخ المقابلة</string>
+    <string name="interview_date_desc">ترتيب تنازلي حسب تاريخ المقابلة</string>
+    <string name="inquiry_date_asc">ترتيب تصاعدي حسب تاريخ الاستعلام</string>
+    <string name="inquiry_date_desc">ترتيب تنازلي حسب تاريخ الاستعلام</string>
+    <string name="reg_date_asc">ترتيب تصاعدي حسب تاريخ التسجيل</string>
+    <string name="reg_date_desc">ترتيب تنازلي حسب تاريخ التسجيل</string>
+    <string name="age">العمر</string>
+    <string name="age_asc">ترتيب تنازلي حسب العمر</string>
+    <string name="age_desc">ترتيب تنازلي حسب العمر</string>
+    <string name="note_alerts">تنبيهات الملاحظات</string>
+    <string name="note_alerts_recent">أحدث تنبيهات الملاحظات</string>
+    <string name="note_alerts_less_recent">تنبيهات الملاحظات الأقل حداثة</string>
+</resources>

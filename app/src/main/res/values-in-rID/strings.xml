@@ -10,7 +10,7 @@
     <string name="url_hint_text">URL</string>
     <string name="text_view_change_url">Ganti URL</string>
     <string name="button_login_text">Login</string>
-    <string name="login_loading_text">Sedang Log-in, harap menunggu...</string>
+    <string name="login_loading_text">Sedang Log-in, harap menunggu…</string>
     <string name="login_offline_no_user_text">Maaf, Anda harus terhubung dengan internet untuk login pertama</string>
     <string name="login_offline_success_text">Log-in offline berhasil</string>
     <string name="navigation_drawer_open">Buka drawer navigasi</string>
@@ -152,11 +152,11 @@
     <string name="fetching_case_amount_msg">Menarik jumlah kasus dari web-server</string>
     <string name="fetching_tracing_amount_msg">Menarik jumlah permintaan penelusuran dari web-server</string>
     <string name="fetching_incident_amount_msg">Menarik jumlah kejadian dari web-server</string>
-    <string name="downloading_cases_sync_progress_msg">Sedang mengunduh kasus...mohon menunggu.</string>
-    <string name="downloading_tracings_sync_progress_msg">Sedang mengunduh  permintaan penelusuran...mohon menunggu.</string>
-    <string name="downloading_incidents_sync_progress_msg">Sedang mengunduh kejadian...mohon menunggu.</string>
+    <string name="downloading_cases_sync_progress_msg">Sedang mengunduh kasus…mohon menunggu.</string>
+    <string name="downloading_tracings_sync_progress_msg">Sedang mengunduh  permintaan penelusuran…mohon menunggu.</string>
+    <string name="downloading_incidents_sync_progress_msg">Sedang mengunduh kejadian…mohon menunggu.</string>
     <string name="fetching_form_msg">Mengambil form dari web-server</string>
-    <string name="uploading_sync_progress_msg">sedang upload...mohon menunggu.</string>
+    <string name="uploading_sync_progress_msg">sedang upload…mohon menunggu.</string>
     <string name="network_not_available">Jaringan tidak tersedia. Harap periksa jaringan Anda</string>
     <string name="sync_one_case_reassigned">Penanggungjawab catatan kasus %s telah diganti. Mohon hapus dari perangkat Anda.</string>
     <string name="sync_many_case_reassigned">Penanggungjawab catatan kasus %s telah diganti. Mohon hapus dari perangkat Anda.</string>
