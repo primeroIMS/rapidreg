@@ -1,0 +1,55 @@
+<resources>
+    <!--List Spinner-->
+    <string name="spinner_order_by">ترتيب حسب</string>
+
+    <string name="username_hint_text">اسم المستخدم</string>
+    <string name="password_hint_text">كلمة المرور</string>
+    <string name="button_login_text">تسجيل الدخول</string>
+    <string name="name">الاسم</string>
+    <string name="age_to">إلى</string>
+    <string name="registration_date">تاريخ التسجيل</string>
+    <string name="inquiry_date">تاريخ الإستعلام</string>
+    <string name="date">تاريخ</string>
+    <string name="location">الموقع</string>
+
+    <!-- Toolbar End-->
+
+    <!-- Title -->
+    <string name="search">بحث</string>
+    <string name="cases">الحالات</string>
+    <string name="child_case">الحالات</string>
+    <string name="edit">تعديل</string>
+    <string name="incidents">حوادث</string>
+    <string name="child_incident">حادثة</string>
+    <string name="incident_details">تفاصيل الحادثة</string>
+    <string name="tracing">تتبع الطلبات</string>
+    <string name="done">تمت</string>
+    <string-array name="order_array">
+        <item>العمر</item>
+    </string-array>
+
+    <string name="delete">حذف</string>
+    <string name="add">إضافة</string>
+    <string name="save">حفّظ</string>
+    <string name="new_case">حالة جديدة</string>
+    <string name="new_tracing">طلب تتبع جديد </string>
+    <string name="new_incident">حادثة جديدة</string>
+    <string name="cancel_button_text">إلغاء</string>
+    <string name="deny_button_text">لا</string>
+    <string name="confirm_button_text">نعم</string>
+    <string name="filter">عامل التصفية</string>
+    <string name="tracing_request">طلب التتبع</string>
+    <string name="new_cp_case">حالة جديدة</string>
+    <string name="new_gbv_case">حالة جديدة</string>
+    <string name="survivor_code">رمز الناجي </string>
+    <string name="date_of_inquiry">تاريخ الإستعلام</string>
+    <string name="date_of_interview">تاريخ المقابلة</string>
+    <string name="dialog_item_cancel">إلغاء</string>
+    <string name="date_text">تاريخ</string>
+    <string name="date_range">نطاق التاريخ</string>
+    <string name="date_from_hint">من</string>
+    <string name="date_to_hint">إلى</string>
+
+    <string name="ok">موافق</string>
+    <string name="age">العمر</string>
+    </resources>

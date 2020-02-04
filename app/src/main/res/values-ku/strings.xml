@@ -1,0 +1,220 @@
+<resources>
+    <string name="app_name">پریمێرو</string>
+    <!--List Spinner-->
+    <string name="spinner_order_by">راسپێردراوە لەلایەن</string>
+
+    <!--Loging activity layout string-->
+    <string name="app_banner_text">پریمێرو</string>
+    <string name="username_hint_text">ناوی بەکارهێنەر</string>
+    <string name="password_hint_text">ژمارەی نهێنی</string>
+    <string name="url_hint_text">URL</string>
+    <string name="text_view_change_url">URL بگۆرە</string>
+    <string name="button_login_text">چونەژورەوە</string>
+    <string name="login_loading_text">‌‌چونەژورەوە، تکایە چاوەرێکە</string>
+    <string name="login_offline_no_user_text">ببورە، بۆ یەکەم جار چونەژورەوە ئەبێت لەگەل ئینتەرنێت پەیوەندیت کردبێت</string>
+    <string name="login_offline_success_text">چونەژورەوەی بێ هێلی ئینتەرنێت سەرکەوتوبوو</string>
+    <string name="navigation_drawer_open">بەشی رێکخستی سەرەتای بکەوە</string>
+    <string name="navigation_drawer_close">بەشی رێکخستنی سەرەتای دابخە</string>
+    <string name="action_settings">رێکخستن</string>
+    <string name="login_username_invalid_text">ناوێکی کارپێکراو تۆمار بکە</string>
+    <string name="login_password_invalid_text">ژمارەیێکی نهێنی کارپێکراو تۆمار بکە</string>
+    <string name="login_url_invalid_text">URL ێکی کارپێکراو تۆمار بکە</string>
+    <string name="login_failed_credential">ببورە، تکایە پێداچونەوە بە ناوی بەکارهێنەر و ژمارەی نهێنی و URL بکە</string>
+    <string name="login_failed_to_connect_prefix">پەیوەندیکردن بۆ/ ن سەرکەوتوو نەبوو
+</string>
+    <string name="login_failed_check_network_and_url">ببورە، تکایە هێلی ئینتەرنێت و URL بپشکێنە</string>
+    <string name="login_out_successful_text">چوونەدەرەوە سەرکەوتوو بوو</string>
+    <string name="login_unauthorized_message">ببورە، ناوی بەکارهێنەر و ژمارەی نهێنی هەلەیە</string>
+    <string name="login_service_unavailable_message">خزمەتگوزاری بەردەست نی یە</string>
+    <string name="login_not_find_code_message">کۆدی دۆخەکە نەدۆزراوە</string>
+    <string name="login_success_message">چوونەژورەوە سەرکەوتوو بوو</string>
+
+    <string name="login_user_label_key">چوونەژورەوە_بەکارهێنەر</string>
+    <string name="syncing_forms_text">رێکخستنی فۆرمەکان،تکایە دواتر هەولبدە</string>
+    <string name="order_by">راسپێردراوە لە &#160;</string>
+    <string name="case_id">ناسنامە:&#160;</string>
+    <string name="child_gender">رەگەزی منداڵ</string>
+
+
+    <string name="id">ناسنامە</string>
+    <string name="name">ناو</string>
+    <string name="age_from">تەمەن له</string>
+    <string name="age_to">بۆ</string>
+    <string name="caregiver">ناوی پێشکەشکەری چاودێری ئێستا</string>
+    <string name="registration_date">رێککەوتی تۆمارکردن</string>
+    <string name="inquiry_date">بەرواری لێکۆلینەوە</string>
+    <string name="date">رێککەوت</string>
+    <string name="location">شوێن</string>
+
+    <!-- Toolbar Start-->
+    <string name="toolbar_save_button_text">خەزنکردن</string>
+    <string name="toolbar_back_button_text">مۆبایل</string>
+    <string name="toolbar_select_all_button_text">هەموویان دەستنیشان بکە</string>
+    <!-- Toolbar End-->
+
+    <!-- Title -->
+    <string name="search">لێگەریان</string>
+    <string name="search_web">لێگەریانى سایتى</string>
+    <string name="cases">کەیسەکان</string>
+    <string name="child_case">کەیسەکان</string>
+    <string name="cp_case">کەیسەکانى CP</string>
+    <string name="gbv_case">کەیسەکانى GBV</string>
+    <string name="edit">دەستکاریکرن</string>
+    <string name="case_details">ناوەرۆکی کەیس</string>
+    <string name="incidents">رووداوەکان</string>
+    <string name="child_incident">رووداو</string>
+    <string name="incident_details">ناوەرۆکی رووداوە</string>
+    <string name="tracing">داواکاریەکانی لێگەران</string>
+    <string name="tracing_details">ناوەرۆکی داواکاری لێگەران</string>
+    <string name="sync">رێکخستنی هاوکات</string>
+    <string name="update_forms">نوێکردنەوەی فۆرمەکان</string>
+    <string name="back">گەرانەوە</string>
+    <!-- Title -->
+    <string name="click_to_search">کلیک بکە بۆ گەران</string>
+    <string name="done">ئەنجامدرا</string>
+    <string name="no_search_result">ببورە، هیچ ئەنجامێک بۆ گەران بۆ ئەو بنچینەیانە نەدۆزرایەوە</string>
+    <string name="no_records">هیچ لە تۆمارکراوەکان بەردەست نی یە</string>
+    <string name="remote_record_not_found">تۆمارەکە دۆزرایەوە، تۆماربە بۆ ئەوەی بەردەوامی بدەیە گەران لە سایتەکە</string>
+    <string name="remote_id_required">ناسنامە پێویستە بۆ گەرانی دوور</string>
+
+    <string-array name="order_array">
+        <item>کات رێکبخە</item>
+        <item>ته مه ن</item>
+    </string-array>
+
+    <string name="no_photo_promote_info">هیچ فایلی وێنەیەک بەردەست نی یە</string>
+    <string name="delete">سرينەوه</string>
+    <string name="add">زیادبکە</string>
+    <string name="required_field_is_not_filled">ببورە، تکایە دوپاتیکە کەهەموو زانیاریە داواکراوەکان پرکراوەتەوە</string>
+    <string name="show_hide">دیاربکە/بشێرەوە</string>
+    <string name="save">خەزنکردن</string>
+    <string name="new_case">کەیسی نوێ</string>
+    <string name="new_tracing">داواکاری نوێ بۆ لێگەریان</string>
+    <string name="new_incident">رووداوی نوێ</string>
+    <string name="quit">دەرکەوتن</string>
+    <string name="quit_without_saving">ئایە تۆ دلنیای ئەتەوێت دەرکەویت بێ ئەوەی خەزنی بکەی</string>
+    <string name="delete_subform">ئایە تۆ دلنیای کە دەتەوێت ئەم بەشی فۆرمە بسریەوە</string>
+    <string name="recording_is_too_short">تۆمارکردن زۆر کورتە</string>
+    <string name="audio_file_not_exists">هیچ تۆمارێکی دەنگی بەردەست نی یە</string>
+    <string name="case_reassigned">ئەم کەیسە لە لایەن رێکخراوێکی ترەوە دیاریکراوە، تکایە لە ئامێرەکەی خۆت بسرەوە</string>
+
+    <!--Sync-->
+    <string name="last_sync_time">کۆتا رێکخستنی کات</string>
+    <string name="record_count_for_last_sync">ژمارەی تۆمار بۆ کۆتا رێکخستن</string>
+    <string name="record_count_for_not_sync">ژمارەی تۆمار بۆ زانیاری رێکنخستراو</string>
+    <string name="place_holder_last_sync_time">06-15-2016 16:14 </string>
+    <string name="place_holder_record_count_for_last_sync">49</string>
+    <string name="place_holder_record_count_for_not_sync">146</string>
+    <string name="button_sync_state_of_click_to_sync">رێکخستن</string>
+    <string name="start_sync_message">رێکخستن، تکایە چاوەرێکە ...</string>
+    <string name="confirm_cancel_sync_message">تۆ دلنیای کە دەتەوێت رێکخستن بوەستێت</string>
+    <string name="cancel_button_text">هەلوەشاندنەوە</string>
+    <string name="deny_button_text">نه خێر </string>
+    <string name="not_now_button_text">ئێستا نا</string>
+    <string name="confirm_button_text">به لێ</string>
+    <string name="stop_sync_button_text">بەلێ،ئێستا بوەستە</string>
+    <string name="continue_sync_button_text">بەردەوامبوون لە رێکخستن</string>
+    <string name="sync_upload_success_message">پیرۆزە! داواکاریکەت بۆ ئەپلۆد کۆتای هات</string>
+    <string name="sync_download_success_message">پیرۆزە! داواکاریکەت بۆ دابەزاندن کۆتای هات</string>
+    <string name="sync_pull_form_success_message">پیرۆزە! داواکاریەکەت بۆ رێکخستن کۆتای هات</string>
+    <string name="sync_pull_lookups_success_message">پیرۆزە، کاری دابەزاندن کۆتای هات</string>
+    <string name="sync_error_message">ببورە، داواکاری رێکخست ناتوانێت بەردەوام بێت، تکایە پەیوەندی بە تیمی خزمەتگوزاری بکە</string>
+    <string name="sync_request_time_out_error_message">هێلی ئینتەرنێت جێگیر نی یە، تکایە دوبارە پەیوەندیکردن بە ئینتەرنێت بپشکێنە وە دووبارە هەولدە</string>
+    <string name="sync_server_not_available_error_message">خزمەتگوزاری سایت بەردەست نی یە، تکایە پەیوەندی بە بەرێوبەرەکەت بکە</string>
+    <string name="try_to_sync_message">تۆ دلنیای کە دەتەوێت رێکخستن بکەی لە تۆمارەکان</string>
+    <string name="remove_photo_confirmation">تۆ دلنیای کە ئەتەوێت ئەم وێنەیە لاببەی؟</string>
+    <string name="save_success">تۆمارەکە خەزنکرا</string>
+    <string name="save_failed">خەزنکردنی تۆمارەکە سەرکەوتوو نەبوو</string>
+    <string name="filter">فلتەر</string>
+    <string name="show_short_form">فۆرمی کورت دیاربکە</string>
+    <string name="show_more_details">ناوەرۆکی زیاتر دیاربکە</string>
+    <string name="sync_forms">رێکخستی فۆرمەکان</string>
+    <string name="forms_is_syncing_msg">رێکخستنی فۆرمەکان، تکایە کەمێک چاوەرێکە</string>
+    <string name="sync_case_forms">رێکخستنی فۆرمەکانی کەیس</string>
+    <string name="sync_incident_forms">رێکخستنی فۆرمەکانی رووداو</string>
+    <string name="sync_tracing_request_forms">رێکخستی فۆرمەکانی داواکاری لێگەریان</string>
+    <string name="sync_lookups">رێکخستنی گەران بەدوای</string>
+    <string name="sync_forms_message">فۆرمەکان سەرکەوتوانە هەلنەگیراوە، Ok بکە بۆ دووبارە ئەنجامدانی</string>
+    <string name="sync_forms_error">هەلەی رێکخستنی فۆرمەکان، تکایە دواتر هەولبدە</string>
+    <string name="sync_tracing_forms_error">هەلەی رێکخستنی فۆرمەکان، تکایە دواتر هەولبدە</string>
+    <string name="sync_incident_forms_error">هەلەی رێکخستنی فۆرمەکان، تکایە دواتر هەولبدە</string>
+    <string name="tracing_request">داواکاری لێگەران</string>
+    <string name="not_sync_promote">هێشتا رێکخستن ئەنجام نەدراوە</string>
+    <string name="produce_cases_successfully_msg">کەیسەکان تەواوبکە</string>
+    <string name="new_cp_case">کەیسی نوێ</string>
+    <string name="new_gbv_case">کەیسی نوێ</string>
+    <string name="cp_case_details">ناوەرۆکی کەیس</string>
+    <string name="gbv_case_details">ناوەرۆکی کەیس</string>
+    <string name="survivor_code">کۆدی رزگاربوو</string>
+    <string name="type_of_violence">جۆری توندوتیژی</string>
+    <string name="date_of_inquiry">رێککەوتی لێکۆلینەوە</string>
+    <string name="date_of_interview">رێککەوتی چاوپێکەوتن</string>
+    <string name="toolbar_title_text_placeholder">ئامرازەکانی هاوکاری تێکست جێگاراگرتن</string>
+    <string name="fetching_case_amount_msg">هێنانی سەرجەمی کەیس لە سایتی بەرێوبردن</string>
+    <string name="fetching_tracing_amount_msg">هێنانی سەرجەمی داواکاری لێگەریان لە سایتی بەرێوبردن</string>
+    <string name="fetching_incident_amount_msg">هێنانی سەرجەمی رووداو لە سایتی بەرێوبردن</string>
+    <string name="downloading_cases_sync_progress_msg">دابەزاندنی کەیسەکان... تکایە کەمێک چاوەرێکە</string>
+    <string name="downloading_tracings_sync_progress_msg">دابەزاندنی داواکاری لێگەریان... تکایە کەمێک چاوەرێکە</string>
+    <string name="downloading_incidents_sync_progress_msg">دابەزاندنی رووداو... تکایە کەمێک چاوەرێکە</string>
+    <string name="fetching_form_msg">هێنانی فۆرمەکان لە بەرێوبەری سایت</string>
+    <string name="uploading_sync_progress_msg">داگرتن... تکایە کەمێک چاوەرێکە</string>
+    <string name="network_not_available">هێلی ئینتەرنێت بەردەست نی یە. تکایە هێلی ئینتەرنێتەکەت بپشکێنە</string>
+    <string name="sync_one_case_reassigned">تۆماری خاوەن کەیسەکه %s گۆردراوە. تکایە بيسرەوە لە ئامێرەکەت</string>
+    <string name="sync_many_case_reassigned">تۆماری خاوەن کەیسەکان %s گۆردراوە. تکایە بیانسرەوە لە ئامێرەکەت</string>
+    <!--Sync-->
+
+    <!--Transparent theme-->
+    <style name="Transparent" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <!--Transparent theme-->
+
+    <!--Dialog start-->
+    <string name="dialog_title_text_placeholder">گفتوگۆ ناونیشان تێکست</string>
+    <string name="dialog_progress_message_text_placeholder">گفتوگۆ پێشکەوتن نامە و تێکست</string>
+    <string name="dialog_item_from_camera">لە کامێراوە</string>
+    <string name="dialog_item_from_gallery">لە گەلەریەوە</string>
+    <string name="dialog_item_cancel">هەلوەشاندنەوە</string>
+    <string name="date_text">رێککەوت</string>
+    <string name="date_range">زنجیرەی بەروار</string>
+    <string name="date_hint">رێککەوت هەلبژێرە</string>
+    <string name="date_from_hint">له</string>
+    <string name="date_to_hint">بۆ</string>
+
+    <!--List start-->
+    <string name="list_item_delete_button_text">سرینەوە</string>
+    <string name="list_item_delete_cancel_button_text">هەلوەشاندنەوە</string>
+    <string name="delete_title">هۆشیارکردنەوە</string>
+    <string name="delete_confirm_message">تۆ دلنیای کە زیاتر پێویستت بە زانیاریەکان نی یە لە ناو ئامێرەکەت</string>
+    <string name="delete_success_info">تۆمارەکان سراوەتەوە</string>
+    <string name="yes">بەلێ</string>
+    <string name="no">نەخێر</string>
+    <string name="cannot_save">ناتوانرێت خەزنبکرێت</string>
+    <string name="ok">باشە</string>
+    <string name="clear">لابردن</string>
+    <string name="cancel">هەلوەشاندنەوە</string>
+    <string name="invalid_date_msg">پێویست ناکات زانیاری لە داهاتوو هەبێت</string>
+    <string name="warning">هۆشیارکردنەوە</string>
+    <string name="invalid_value">بەهای کارپێنەکراو</string>
+    <string name="no_filed_exists_in_subform">هیچ شوێنی دیاریکراو نی یە لە فۆرمی ئێستای ناسەرەکی</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">سلاو بەشی بەتاڵ</string>
+
+    <string name="interview_date_asc">لە دوای رێککەوتی چاوپێکەوتنی لە هەموو نزیکتر</string>
+    <string name="interview_date_desc">لە دوای رێککەوتی چاوپێکەوتنی لە هەموو دوورتر</string>
+    <string name="inquiry_date_asc">لە دوای رێککەوتی لێکۆلینەوەی لە هەموو نزیکتر</string>
+    <string name="inquiry_date_desc">لە دوای رێککەوتی لێکۆلینەوەی لە هەموو دوورتر</string>
+    <string name="reg_date_asc">لە دوای رێککەوتی تۆمارکردنی لە هەموو نزیکتر</string>
+    <string name="reg_date_desc">لەدوای رێککەوتی تۆمارکردنی لە هەموو دوورتر</string>
+    <string name="age">تەمەن</string>
+    <string name="age_asc">لە دوای تەمەنی بچوکتر</string>
+    <string name="age_desc">لە دوای تەمەنی بچوکتر</string>
+    <string name="note_alerts">تێبینی هۆشیارکردنەوە</string>
+    <string name="note_alerts_recent">تێبینی نوێترین هۆشیارکردنەوە بکە</string>
+    <string name="note_alerts_less_recent">تێبینی کۆتا هۆشیارکردنەوە بکە</string>
+</resources>
