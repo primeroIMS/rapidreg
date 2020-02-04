@@ -1,0 +1,220 @@
+<resources>
+    <string name="app_name">Primero</string>
+    <string name="app_version_label">កំណែ៖</string>
+    <!--List Spinner-->
+    <string name="spinner_order_by">តម្រៀបតាម</string>
+
+    <!--Loging activity layout string-->
+    <string name="app_banner_text">Primero</string>
+    <string name="username_hint_text">ឈ្មោះអ្នកប្រើប្រាស់</string>
+    <string name="password_hint_text">ពាក្យសម្ងាត់</string>
+    <string name="url_hint_text">URL</string>
+    <string name="text_view_change_url">ផ្លាស់ប្តូរ URL</string>
+    <string name="button_login_text">ចូល</string>
+    <string name="login_loading_text">កំពុង​ចូល សូម​រង់ចាំ...</string>
+    <string name="login_offline_no_user_text">សូម​ទោស អ្នកចាំបាច់​ត្រូវភ្ជាប់​អ៊ីនធឺណិត ដើម្បីចូលប្រើប្រាស់ជាលើក​ដំបូង។</string>
+    <string name="login_offline_success_text">ការ​ចូលនៅពេល​គ្មាន​អ៊ីនធឺណិត​បាន​ជោគជ័យ</string>
+    <string name="navigation_drawer_open">បើក​ថត​រុករក</string>
+    <string name="navigation_drawer_close">បិទ​ថត​រុករក</string>
+    <string name="action_settings">ការកំណត់</string>
+    <string name="login_username_invalid_text">សូមបញ្ចូល​ឈ្មោះ​អ្នក​ប្រើប្រាស់ដែលត្រឹមត្រូវ!</string>
+    <string name="login_password_invalid_text">សូមបញ្ចូល​ពាក្យសម្ងាត់ដែលត្រឹមត្រូវ!</string>
+    <string name="login_url_invalid_text">សូមបញ្ចូល​​ URL​ ដែលបានត្រឹមត្រូវ!</string>
+    <string name="login_failed_credential">សូមទោស​ សូមពិនិត្យមើលឈ្មោះអ្នកប្រើប្រាស់ ពាក្យសម្ងាត់ និង URL របស់​អ្នក។</string>
+    <string name="login_failed_to_connect_prefix">មិន​អាច​តភ្ជាប់បាន​ទេ \n</string>
+    <string name="login_failed_check_network_and_url">សូម​ទោស សូម​ពិនិត្យ​មើល​បណ្ដាញ និង​ URL របស់​អ្នក។ </string>
+    <string name="login_out_successful_text">ការ​​ចេញបានដោយជោគជ័យ។</string>
+    <string name="login_unauthorized_message">សូម​ទោស ឈ្មោះ​អ្នក​ប្រើប្រាស់ ឬ​ពាក្យសម្ងាត់​មិន​ត្រឹមត្រូវ។</string>
+    <string name="login_service_unavailable_message">សេវាកម្មមិនមាន!</string>
+    <string name="login_not_find_code_message">រកមិនឃើញលេខ​កូដស្ថានភាពទេ!</string>
+    <string name="login_success_message">ការ​ចូលបានដោយជោគជ័យ។</string>
+
+    <string name="login_user_label_key">login_user</string>
+    <string name="syncing_forms_text">កំពុង​ធ្វើ​សមកាលកម្ម​ទម្រង់ សូម​ព្យាយា​ម្ដង​ទៀត​នៅ​ពេលក្រោយ</string>
+    <string name="order_by">តម្រៀបតាម&#160;</string>
+    <string name="case_id">លេខ​សម្គាល់៖&#160;</string>
+    <string name="child_gender">ភេទរបស់កុមារ</string>
+
+
+    <string name="id">លេខ​សម្គាល់</string>
+    <string name="name">ឈ្មោះ</string>
+    <string name="age_from">អាយុចាប់ពី</string>
+    <string name="age_to">ដល់</string>
+    <string name="caregiver">ឈ្មោះអ្នក​ថែទាំ​បច្ចុប្បន្ន</string>
+    <string name="registration_date">កាលបរិច្ឆេទ​ចុះឈ្មោះ</string>
+    <string name="inquiry_date">កាលបរិច្ឆេទ​សាកសួរ</string>
+    <string name="date">កាលបរិច្ឆេទ</string>
+    <string name="location">ទីតាំង</string>
+
+    <!-- Toolbar Start-->
+    <string name="toolbar_save_button_text">រក្សាទុក</string>
+    <string name="toolbar_back_button_text">ឧបករណ៍​ចល័ត</string>
+    <string name="toolbar_select_all_button_text">ជ្រើសរើសទាំងអស់</string>
+    <!-- Toolbar End-->
+
+    <!-- Title -->
+    <string name="search">ស្វែងរក</string>
+    <string name="search_web">ស្វែងរកតាម​បណ្ដាញ</string>
+    <string name="cases">ករណី</string>
+    <string name="child_case">ករណី</string>
+    <string name="cp_case">ករណីការការពារ​កុមារ</string>
+    <string name="gbv_case">ករណី GBV</string>
+    <string name="edit">កែសម្រួល</string>
+    <string name="case_details">ព័ត៌មានលម្អិត​អំពី​ករណី</string>
+    <string name="incidents">ឧប្បត្តិហេតុ</string>
+    <string name="child_incident">ឧប្បត្តិហេតុ</string>
+    <string name="incident_details">ព័ត៌មាន​លម្អិត​អំពី​ឧប្បត្តិហេតុ</string>
+    <string name="tracing">សំណើ​ស្វែងរក</string>
+    <string name="tracing_details">ព័ត៌មាន​លម្អិត​អំពី​សំណើ​ស្វែងរក</string>
+    <string name="sync">ការ​ធ្វើសមកាលកម្ម</string>
+    <string name="update_forms">ធ្វើ​បច្ចុប្បន្នភាពទម្រង់</string>
+    <string name="back">ត្រឡប់ក្រោយ</string>
+    <!-- Title -->
+    <string name="click_to_search">ចុច ដើម្បីស្វែងរក</string>
+    <string name="done">រួចរាល់</string>
+    <string name="no_search_result">សូម​ទោស រក​មិន​ឃើញ​លទ្ធផល​សម្រាប់​លក្ខខណ្ឌ​ស្វែងរក​នេះ​ទេ។</string>
+    <string name="no_records">មិនមាន​កំណត់ត្រាទេ។</string>
+    <string name="remote_record_not_found">បាន​រក​ឃើញ​កំណត់ត្រា។ សូមចូល ដើម្បី​បន្ត​​ស្វែងរកតាមបណ្តាញ</string>
+    <string name="remote_id_required">តម្រូវ​ឲ្យ​មាន​លេខ​សម្គាល់​សម្រាប់ការ​ស្វែងរក​ពី​ចម្ងាយ</string>
+
+    <string-array name="order_array">
+        <item>ពេលវេលា​បង្កើត</item>
+        <item>អាយុ</item>
+    </string-array>
+
+    <string name="no_photo_promote_info">មិនមាន​ឯកសារ​រូបថត​ទេ។</string>
+    <string name="delete">លុប</string>
+    <string name="add">បញ្ចូល</string>
+    <string name="required_field_is_not_filled">សូមទោស សូម​​ឲ្យ​ប្រាកដ​ថា​ ព័ត៌មាន​ដែល​បាន​ទាមទារ​ទាំងអស់​ត្រូវ​បានបញ្ចូល។</string>
+    <string name="show_hide">បង្ហាញ/លាក់</string>
+    <string name="save">រក្សាទុក</string>
+    <string name="new_case">ករណីថ្មី</string>
+    <string name="new_tracing">សំណើ​ស្វែងរក​ថ្មី</string>
+    <string name="new_incident">ឧប្បត្តិហេតុ​​ថ្មី</string>
+    <string name="quit">បិទ</string>
+    <string name="quit_without_saving">តើអ្នកពិតជាចង់បិទដោយមិនរក្សាទុកមែនទេ?</string>
+    <string name="delete_subform">តើអ្នកពិតជាចង់លុបទម្រង់រងនេះមែន​ទេ?</string>
+    <string name="recording_is_too_short">ការ​ថត​គឺ​​មាន​រយៈពេល​ខ្លីពេក</string>
+    <string name="audio_file_not_exists">ពុំមានឯកសារសំឡេង​ទេ។</string>
+    <string name="case_reassigned">ករណីនេះត្រូវបានផ្តល់ទៅឲ្យភ្នាក់ងារ​ផ្សេងទៀត។ សូមដក​​វាចេញពីឧបករណ៍​របស់​អ្នក។</string>
+
+    <!--Sync-->
+    <string name="last_sync_time">ពេលវេលា​ធ្វើ​សមកាលកម្ម​ចុងក្រោយ</string>
+    <string name="record_count_for_last_sync">ចំនួន​កំណត់​ត្រា​សម្រាប់​ការ​ធ្វើ​សមកាលកម្ម​ចុងក្រោយ</string>
+    <string name="record_count_for_not_sync">ចំនួន​កំណត់ត្រា​សម្រាប់​ទិន្នន័យ​មិន​បាន​ធ្វើ​សមកាលកម្ម</string>
+    <string name="place_holder_last_sync_time">06-15-2016 16:14</string>
+    <string name="place_holder_record_count_for_last_sync">49</string>
+    <string name="place_holder_record_count_for_not_sync">146</string>
+    <string name="button_sync_state_of_click_to_sync">ធ្វើសមកាលកម្ម</string>
+    <string name="start_sync_message">កំពុង​ធ្វើ​សមកាលកម្ម សូម​រង់ចាំ...</string>
+    <string name="confirm_cancel_sync_message">តើ​អ្នក​ប្រាកដ​ជា​ចង់​បញ្ឈប់​ការ​ធ្វើ​សមកាលកម្ម​មែនទេ?</string>
+    <string name="cancel_button_text">បោះបង់</string>
+    <string name="deny_button_text">ទេ</string>
+    <string name="not_now_button_text">កុំទាន់</string>
+    <string name="confirm_button_text">បាទ/ចាស</string>
+    <string name="stop_sync_button_text">បាទ/ចាស បញ្ឈប់ឥឡូវនេះ</string>
+    <string name="continue_sync_button_text">បន្ត​ធ្វើសមកាលកម្ម</string>
+    <string name="sync_upload_success_message">សូម​អបអរសាទរ! សំណើ​បង្ហោះ​របស់​​អ្នក​​បានបញ្ចប់​ហើយ។</string>
+    <string name="sync_download_success_message">សូម​អបអរសាទរ! សំណើ​​ទាញយក​​របស់​អ្នក​បានបញ្ចប់​ហើយ។</string>
+    <string name="sync_pull_form_success_message">សូម​អបអរសាទរ! សំណើ​ធ្វើសមកាលកម្ម​​​របស់​អ្នក​បានបញ្ចប់​ហើយ។</string>
+    <string name="sync_pull_lookups_success_message">សូម​អបអរសាទរ! បាន​បញ្ចប់​ការ​រកមើល​ការ​ទាញយក​ហើយ</string>
+    <string name="sync_error_message">សូម​ទោស មិន​អាច​បន្ត​សំណើ​ធ្វើ​សមកាលកម្ម​បាន​ទេ សូម​ទាក់ទង​ក្រុម​ជំនួយ។</string>
+    <string name="sync_request_time_out_error_message">បណ្ដាញ​មិន​ដំណើរការ​ល្អទេ សូម​ពិនិត្យ​មើល​ការត​ភ្ជាប់​អ៊ីនធឺណិត​របស់​អ្នក រួច​ព្យាយាម​ម្ដង​ទៀត។</string>
+    <string name="sync_server_not_available_error_message">ម៉ាស៊ីន​មេ​បណ្ដាញ​មិន​អាច​ប្រើប្រាស់​បាន​ទេ សូម​ទាក់ទង​អ្នក​គ្រប់គ្រង​របស់​អ្នក។</string>
+    <string name="try_to_sync_message">តើ​អ្នក​ប្រាកដ​ជា​ចង់​ធ្វើ​សមកាលកម្ម​កំណត់​ត្រា​មែនទេ?</string>
+    <string name="remove_photo_confirmation">តើ​អ្នក​ប្រាកដ​ជា​ចង់​ដក​រូបថត​នេះ​ចេញ​មែនទេ?</string>
+    <string name="save_success">បាន​រក្សាទុក​កំណត់​ត្រា</string>
+    <string name="save_failed">មិន​អាច​រក្សាទុក​កំណត់​ត្រា​បាន​ទេ</string>
+    <string name="filter">តម្រង</string>
+    <string name="show_short_form">បង្ហាញ​ទម្រង់​ខ្លី</string>
+    <string name="show_more_details">បង្ហាញ​ព័ត៌មាន​លម្អិត​ច្រើន​ទៀត</string>
+    <string name="sync_forms">ធ្វើសមកាលកម្ម​ទម្រង់</string>
+    <string name="forms_is_syncing_msg">កំពុង​ធ្វើ​សមកាលកម្ម​ទម្រង់ សូម​រង់​ចាំ​បន្តិច</string>
+    <string name="sync_case_forms">ធ្វើសមកាលកម្ម​ទម្រង់​ករណី</string>
+    <string name="sync_incident_forms">ធ្វើសមកាលកម្ម​ទម្រង់​ឧប្បត្តិហេតុ</string>
+    <string name="sync_tracing_request_forms">ធ្វើសមកាលកម្ម​ទម្រង់​​សំណើ​ស្វែងរក​</string>
+    <string name="sync_lookups">ធ្វើសមកាលកម្ម​ការ​រក​មើល</string>
+    <string name="sync_forms_message">មិន​អាច​ទាញយក​ទម្រង់​ដោយ​ជោគជ័យ​ទេ សូមចុច​យល់ព្រម ដើម្បី​ធ្វើសមកាលកម្ម​ម្ដងទៀត។</string>
+    <string name="sync_forms_error">មាន​បញ្ហា​ក្នុងការ​ធ្វើសមកាលកម្ម​ទម្រង់ សូម​ព្យាយាម​ម្ដង​ទៀត​នៅ​ពេល​ក្រោយ</string>
+    <string name="sync_tracing_forms_error">មាន​បញ្ហា​ក្នុងការ​ធ្វើសមកាលកម្ម​ទម្រង់ សូម​ព្យាយាម​ម្ដង​ទៀត​នៅ​ពេល​ក្រោយ</string>
+    <string name="sync_incident_forms_error">មាន​បញ្ហា​ក្នុងការ​ធ្វើសមកាលកម្ម​ទម្រង់ សូម​ព្យាយាម​ម្ដង​ទៀត​នៅ​ពេល​ក្រោយ</string>
+    <string name="tracing_request">សំណើ​ស្វែងរក</string>
+    <string name="not_sync_promote">មិន​ទាន់បាន​ធ្វើសមកាលកម្ម​នៅ​ឡើយទេ</string>
+    <string name="produce_cases_successfully_msg">បញ្ចប់ការ​ផលិត​ករណី!</string>
+    <string name="new_cp_case">ករណីថ្មី</string>
+    <string name="new_gbv_case">ករណីថ្មី</string>
+    <string name="cp_case_details">ព័ត៌មានលំអិតរបស់ករណី</string>
+    <string name="gbv_case_details">ព័ត៌មានលំអិតរបស់ករណី</string>
+    <string name="survivor_code">លេខកូដ​អ្នកនៅ​មាន​ជីវិត</string>
+    <string name="type_of_violence">ប្រភេទ​អំពើហិង្សា</string>
+    <string name="date_of_inquiry">កាលបរិច្ឆេទ​សាកសួរ</string>
+    <string name="date_of_interview">ថ្ងៃខែឆ្នាំសម្ភាសន៍</string>
+    <string name="toolbar_title_text_placeholder">របារ​ឧបករណ៍ កន្លែង​ជំនួស​អត្ថបទ</string>
+    <string name="fetching_case_amount_msg">កំពុង​ទាញយក​ចំនួន​ករណី​ពី​ម៉ាស៊ីន​មេ​បណ្ដាញ...</string>
+    <string name="fetching_tracing_amount_msg">កំពុង​ទាញយក​ចំនួន​សំណើ​ស្វែងរក​ពី​ម៉ាស៊ីន​មេ​បណ្ដាញ...</string>
+    <string name="fetching_incident_amount_msg">កំពុង​ទាញយក​ចំនួន​ឧប្បត្តិហេតុ​ពី​ម៉ាស៊ីន​មេ​បណ្ដាញ...</string>
+    <string name="downloading_cases_sync_progress_msg">កំពុង​ទាញយក​ករណី... សូម​រង់ចាំ​បន្តិច។</string>
+    <string name="downloading_tracings_sync_progress_msg">កំពុង​ទាញយក​សំណើ​ស្វែងរក... សូម​រង់ចាំ​បន្តិច។</string>
+    <string name="downloading_incidents_sync_progress_msg">កំពុង​ទាញយក​ឧប្បត្តិហេតុ... សូម​រង់ចាំ​បន្តិច។</string>
+    <string name="fetching_form_msg">កំពុង​ទាញយក​ទម្រង់​ពី​ម៉ាស៊ីន​មេ​បណ្ដាញ...</string>
+    <string name="uploading_sync_progress_msg">កំពុង​បង្ហោះ... សូម​រង់ចាំ​បន្តិច។</string>
+    <string name="network_not_available">ម៉ាស៊ីន​មេ​បណ្ដាញ​មិន​អាច​ប្រើប្រាស់​បាន​ទេ សូម​ពិនិត្យ​មើល​បណ្ដាញ​របស់​អ្នក។</string>
+    <string name="sync_one_case_reassigned">ម្ចាស់​កំណត់ត្រា​សម្រាប់​ករណី %s បាន​ផ្លាស់ប្ដូរ។ សូម​លុប​វាចេញ​ពី​ឧបករណ៍​របស់​អ្នក។</string>
+    <string name="sync_many_case_reassigned">ម្ចាស់​កំណត់ត្រា​សម្រាប់​ករណី %s បាន​ផ្លាស់ប្ដូរ។ សូម​លុប​​ពួកវា​ចេញ​ពី​ឧបករណ៍​របស់​អ្នក។</string>
+    <!--Sync-->
+
+    <!--Transparent theme-->
+    <style name="Transparent" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <!--Transparent theme-->
+
+    <!--Dialog start-->
+    <string name="dialog_title_text_placeholder">អត្ថបទ​ចំណង​ជើង​ប្រអប់</string>
+    <string name="dialog_progress_message_text_placeholder">អត្ថបទ​សារ​វឌ្ឍនភាព​ប្រអប់</string>
+    <string name="dialog_item_from_camera">ពី​កាមេរ៉ា</string>
+    <string name="dialog_item_from_gallery">ពី​​សាលរូបថត</string>
+    <string name="dialog_item_cancel">បោះបង់</string>
+    <string name="date_text">ថ្ងៃខែឆ្នាំ</string>
+    <string name="date_range">ចន្លោះ​កាលបរិច្ឆេទ</string>
+    <string name="date_hint">ជ្រើសរើស​កាលបរិច្ឆេទ</string>
+    <string name="date_from_hint">ពី</string>
+    <string name="date_to_hint">ទៅ</string>
+
+    <!--List start-->
+    <string name="list_item_delete_button_text">លុប</string>
+    <string name="list_item_delete_cancel_button_text">បោះបង់</string>
+    <string name="delete_title">សូម​ប្រុង​ប្រយ័ត្ន</string>
+    <string name="delete_confirm_message">តើ​អ្នក​ប្រាកដ​ថា លែង​ត្រូវ​ការ​ទិន្នន័យ​នៅ​លើ​ឧបករណ៍​របស់​អ្នក​ទៀត​ហើយ?</string>
+    <string name="delete_success_info">កំណត់ត្រា​ត្រូវ​បាន​លុប</string>
+    <string name="yes">បាទ/ចាស</string>
+    <string name="no">ទេ</string>
+    <string name="cannot_save">មិន​អាច​រក្សាទុក​បាន​ទេ</string>
+    <string name="ok">យល់ព្រម</string>
+    <string name="clear">សម្អាត</string>
+    <string name="cancel">បោះបង់</string>
+    <string name="invalid_date_msg">កាលបរិច្ឆេទ​មិនគួរ​ស្ថិត​ក្នុង​ពេល​អនាគត​ទេ។</string>
+    <string name="warning">សូម​ប្រុងប្រយ័ត្ន</string>
+    <string name="invalid_value">តម្លៃ​មិន​ត្រឹមត្រូវ</string>
+    <string name="no_filed_exists_in_subform">មិនមាន​កន្លែង​បញ្ចូលនៅ​ក្នុង​ទម្រង់​រង​បច្ចុប្បន្ន​ទេ។</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">សួស្ដីបំណែក​ទទេ</string>
+
+    <string name="interview_date_asc">កាលបរិច្ឆេទ​សម្ភាសន៍​តាម​​លំដាប់​ឡើង</string>
+    <string name="interview_date_desc">កាលបរិច្ឆេទ​សម្ភាសន៍​តាម​លំដាប់​ចុះ</string>
+    <string name="inquiry_date_asc">កាលបរិច្ឆេទ​សាកសួរ​​តាម​​លំដាប់​ឡើង</string>
+    <string name="inquiry_date_desc">កាលបរិច្ឆេទ​សាកសួរ​​តាម​​លំដាប់​ចុះ</string>
+    <string name="reg_date_asc">កាលបរិច្ឆេទ​ចុះឈ្មោះ​​តាម​​លំដាប់​ឡើង</string>
+    <string name="reg_date_desc">កាលបរិច្ឆេទ​ចុះឈ្មោះ​​តាម​លំដាប់​ចុះ</string>
+    <string name="age">អាយុ</string>
+    <string name="age_asc">អាយុ​តាមលំដាប់ឡើង</string>
+    <string name="age_desc">អាយុ​តាមលំដាប់ចុះ</string>
+    <string name="note_alerts">ការ​ជូនដំណឹង​អំពី​កំណត់​សម្គាល់</string>
+    <string name="note_alerts_recent">ការ​ជូន​ដំណឹង​អំពី​កំណត់សម្គាល់​ថ្មី​បំផុត</string>
+    <string name="note_alerts_less_recent">ការ​ជូនដំណឹង​អំពី​កំណត់​សម្គាល់​ចាស់</string>
+</resources>
