@@ -1,0 +1,52 @@
+<resources>
+    <!--List Spinner-->
+    <string name="spinner_order_by">Ordenar por</string>
+
+    <string name="username_hint_text">Nombre de usuario</string>
+    <string name="password_hint_text">Contraseña</string>
+    <string name="button_login_text">Inicio de sesión</string>
+    <string name="name">Nombre</string>
+    <string name="age_to">Hasta</string>
+    <string name="inquiry_date">Fecha de la consulta</string>
+    <string name="date">Fecha</string>
+    <string name="location">Localidad</string>
+
+    <!-- Toolbar End-->
+
+    <!-- Title -->
+    <string name="search">Buscar</string>
+    <string name="cases">Casos</string>
+    <string name="child_case">Casos</string>
+    <string name="edit">Editar</string>
+    <string name="incidents">Incidentes</string>
+    <string name="child_incident">Incidente</string>
+    <string name="tracing">Solicitudes de localización</string>
+    <string-array name="order_array">
+        <item>Edad</item>
+    </string-array>
+
+    <string name="delete">Eliminar</string>
+    <string name="add">Agregar</string>
+    <string name="save">Guardar</string>
+    <string name="new_case">Nuevo caso</string>
+    <string name="new_tracing">Nueva solicitud de localización</string>
+    <string name="new_incident">Nuevo incidente</string>
+    <string name="cancel_button_text">Cancelar</string>
+    <string name="deny_button_text">No</string>
+    <string name="confirm_button_text">Sí</string>
+    <string name="filter">Filtro</string>
+    <string name="tracing_request">Localizando solicitud</string>
+    <string name="new_cp_case">Nuevo caso</string>
+    <string name="new_gbv_case">Nuevo caso</string>
+    <string name="survivor_code">Código de sobreviviente</string>
+    <string name="date_of_inquiry">Fecha de la consulta</string>
+    <string name="date_of_interview">Fecha de la entrevista</string>
+    <string name="dialog_item_cancel">Cancelar</string>
+    <string name="date_text">Fecha</string>
+    <string name="date_range">Rango de fecha</string>
+    <string name="date_from_hint">Desde</string>
+    <string name="date_to_hint">Hasta</string>
+
+    <string name="ok">OK</string>
+    <string name="age">Edad</string>
+    </resources>

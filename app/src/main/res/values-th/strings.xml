@@ -1,0 +1,180 @@
+<resources>
+    <string name="app_name">Primero</string>
+    <string name="app_version_label">รุ่น:</string>
+    <!--List Spinner-->
+    <string name="spinner_order_by">จัดลำดับตาม</string>
+
+    <!--Loging activity layout string-->
+    <string name="app_banner_text">Primero</string>
+    <string name="username_hint_text">ชื่อผู้ใช้งาน</string>
+    <string name="password_hint_text">รหัสผ่าน</string>
+    <string name="url_hint_text">URL</string>
+    <string name="text_view_change_url">เปลี่ยน URL</string>
+    <string name="button_login_text">เข้าใช้งาน</string>
+    <string name="login_loading_text">กำลังเข้าใช้งาน โปรดรอ...</string>
+    <string name="login_offline_no_user_text">ขออภัย คุณต้องเชื่อมต่อกับอินเตอร์เน็ตเพื่อการเข้าใช้งานครั้งแรก</string>
+    <string name="login_offline_success_text">การเข้าใช้งานแบบออฟไลน์สำเร็จ</string>
+    <string name="action_settings">การตั้งค่า</string>
+    <string name="login_username_invalid_text">ใส่ชื่อผู้ใช้งานที่ถูกต้อง!</string>
+    <string name="login_password_invalid_text">ใส่รหัสผ่านที่ถูกต้อง!</string>
+    <string name="login_url_invalid_text">ใส่ URL ที่ถูกต้อง</string>
+    <string name="login_failed_credential">ขออภัย กรุณาตรวจสอบชื่อผู้ใช้งาน รหัสผ่าน และ URL ของท่าน</string>
+    <string name="login_failed_to_connect_prefix">เชื่อมต่อ \n ล้มเหลว</string>
+    <string name="login_failed_check_network_and_url">ขออภัย กรุณาตรวจสอบเครือข่าย และ URL ของท่าน</string>
+    <string name="login_out_successful_text">ออกจากระบบสำเร็จ</string>
+    <string name="login_unauthorized_message">ขออภัย ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง</string>
+    <string name="login_service_unavailable_message">ไม่สามารถให้บริการได้!</string>
+    <string name="login_not_find_code_message">ไม่พบรหัสสถานะ</string>
+    <string name="login_success_message">เข้าใช้งานสำเร็จ</string>
+
+    <string name="child_gender">เพศเด็ก</string>
+
+
+    <string name="id">เลขประจำตัว</string>
+    <string name="name">ชื่อ</string>
+    <string name="age_from">อายุจาก</string>
+    <string name="age_to">ถึง</string>
+    <string name="caregiver">ชื่อของผู้ให้ความดูแลปัจจุบัน</string>
+    <string name="registration_date">วันที่ลงทะเบียน</string>
+    <string name="inquiry_date">วันที่ร้องขอ</string>
+    <string name="date">วันที่</string>
+    <string name="location">ตำแหน่งที่ตั้ง</string>
+
+    <!-- Toolbar Start-->
+    <string name="toolbar_save_button_text">บันทึก</string>
+    <string name="toolbar_back_button_text">มือถือ</string>
+    <string name="toolbar_select_all_button_text">เลือกทั้งหมด</string>
+    <!-- Toolbar End-->
+
+    <!-- Title -->
+    <string name="search">ค้นหา</string>
+    <string name="search_web">ค้นหาเว็บ</string>
+    <string name="cases">กรณี</string>
+    <string name="child_case">กรณี</string>
+    <string name="cp_case">กรณีการคุ้มครองเด็ก</string>
+    <string name="gbv_case">กรณี GBV</string>
+    <string name="edit">แก้ไข</string>
+    <string name="case_details">รายละเอียดของรายกรณี</string>
+    <string name="incidents">เหตุการณ์</string>
+    <string name="child_incident">เหตุการณ์</string>
+    <string name="incident_details">รายละเอียดเหตุการณ์</string>
+    <string name="tracing">ติดตามคำร้อง</string>
+    <string name="tracing_details">รายละเอียดความร้องให้มีการติดตามตัว</string>
+    <string name="update_forms">ปรับปรุงแบบฟอร์ม</string>
+    <string name="back">กลับคืน</string>
+    <!-- Title -->
+    <string name="click_to_search">กดเพื่อค้นหา</string>
+    <string name="done">ดำเนินการเสร็จสิ้น</string>
+    <string name="no_search_result">ขออภัย ไม่พบผลลัพธ์สำหรับเกณฑ์การค้นหานี้</string>
+    <string name="no_records">ไม่พบบันทึก</string>
+    <string name="remote_record_not_found">พบบันทึก เข้าสู่ระบบเพื่อค้นหาเว็บต่อ</string>
+    <string name="remote_id_required">จำเป็นต้องมี ID เพื่อการค้นหาระยะไกล</string>
+
+    <string-array name="order_array">
+        <item>สร้างเวลา</item>
+        <item>อายุ</item>
+    </string-array>
+
+    <string name="no_photo_promote_info">ไม่มีไฟล์รูปภาพ</string>
+    <string name="delete">ลบทิ้ง</string>
+    <string name="add">เพิ่ม</string>
+    <string name="required_field_is_not_filled">ขออภัย กรุณาตรวจสอบให้แน่ใจว่าได้กรอกข้อมูลที่จำเป็นครบถ้วนแล้ว</string>
+    <string name="show_hide">แสดง/ซ่อน</string>
+    <string name="save">บันทึก</string>
+    <string name="new_case">กรณีใหม่</string>
+    <string name="new_tracing">คำขอการติดตามใหม่</string>
+    <string name="new_incident">เหตุการณืใหม่</string>
+    <string name="quit">ออก</string>
+    <string name="quit_without_saving">คุณแน่ใจว่าต้องการออกโดยไม่บันทึกข้อมูลใช่หรือไม่?</string>
+    <string name="delete_subform">คุณแน่ใจว่าต้องการลบแบบฟอร์มย่อยนี้ใช่หรือไม่?</string>
+    <string name="recording_is_too_short">การบันทึกสั้นเกินไป</string>
+    <string name="audio_file_not_exists">ไม่มีไฟล์เสียง</string>
+    <string name="case_reassigned">รายกรณีนี้ได้ถูแมอบหมายให้เจ้าหน้าที่ท่านอื่นแล้ว กรุณาเอาออกจากอุปกรณ์ของคุณ</string>
+
+    <string name="place_holder_last_sync_time">06-15-2559 16:14</string>
+    <string name="place_holder_record_count_for_last_sync">49</string>
+    <string name="place_holder_record_count_for_not_sync">146</string>
+    <string name="cancel_button_text">ยกเลิก</string>
+    <string name="deny_button_text">ไม่ใช่</string>
+    <string name="not_now_button_text">ไม่ใช่ตอนนี้</string>
+    <string name="confirm_button_text">ใช่</string>
+    <string name="stop_sync_button_text">ใช่ หยุดตอนนี้</string>
+    <string name="sync_error_message">ขออภัย คำขอการซิงโครไนซ์ไม่สามารถดำเนินการต่อได้โปรดติดต่อทีมสนับสนุน</string>
+    <string name="sync_request_time_out_error_message">เครือข่ายไม่เสถียร กรุณาตรวจสอบการเชื่อมต่ออินเตอร์เน็ต และลองอีกครั้ง</string>
+    <string name="remove_photo_confirmation">คุณแน่ใจว่าต้องการเอารูปนี้ออกใช่หรือไม่?</string>
+    <string name="save_success">บันทึกข้อมูลแล้ว</string>
+    <string name="save_failed">บันทึกข้อมูลล้มเหลว</string>
+    <string name="filter">ตัวกรอง</string>
+    <string name="show_short_form">แสดงแบบฟอร์มสั้น</string>
+    <string name="show_more_details">แสดงรายละเอียดมากกว่านี้</string>
+    <string name="sync_forms">ซิงค์แบบฟอร์ม</string>
+    <string name="forms_is_syncing_msg">กำลังซิงค์แบบฟอร์ม โปรดรอสักครู่</string>
+    <string name="sync_case_forms">กำลังซิงค์แบบฟอร์มรายกรณี</string>
+    <string name="sync_incident_forms">กำลังซิงค์แบบฟอร์มเหตุการณ์</string>
+    <string name="sync_tracing_request_forms">กำลังซิงค์แบบฟอร์มคำร้องให้มีการติดตามตัว</string>
+    <string name="sync_lookups">กำลังซิงค์การค้นหา</string>
+    <string name="sync_forms_message">ดึงแบบฟอร์มลงมาไม่สำเร็จ กด \"ตกลง\" เพื่อซิงค์ใหม่</string>
+    <string name="sync_forms_error">ซิงค์แบบฟอร์มผิดพลาด กรุณาลองใหม่ภายหลัง</string>
+    <string name="sync_tracing_forms_error">ซิงค์แบบฟอร์มผิดพลาด กรุณาลองใหม่ภายหลัง</string>
+    <string name="sync_incident_forms_error">ซิงค์แบบฟอร์มผิดพลาด กรุณาลองใหม่ภายหลัง</string>
+    <string name="tracing_request">การติดตามคำร้อง</string>
+    <string name="not_sync_promote">ยังไม่ได้ซิงค์</string>
+    <string name="produce_cases_successfully_msg">ผลิตรายการณีเสร็จสมบูรณ์</string>
+    <string name="new_cp_case">กรณีใหม่</string>
+    <string name="new_gbv_case">กรณีใหม่</string>
+    <string name="cp_case_details">รายละเอียดของรายกรณี</string>
+    <string name="gbv_case_details">รายละเอียดของรายกรณี</string>
+    <string name="survivor_code">รหัสผู้รอดชีวิต</string>
+    <string name="type_of_violence">ประเภทของความรุนแรง</string>
+    <string name="date_of_inquiry">วันที่ไต่สวน</string>
+    <string name="date_of_interview">วันที่สัมภาษณ์</string>
+    <string name="toolbar_title_text_placeholder">แถบเครื่องมือตัวยึดข้อความ</string>
+    <string name="fetching_case_amount_msg">กำลังดึงจำนวนเคสจากเว็บเซิร์ฟเวอร์ ...</string>
+    <string name="fetching_tracing_amount_msg">กำลังดึงจำนวนคำขอการติดตามตัวจากเว็บเซิร์ฟเวอร์ ...</string>
+    <string name="fetching_incident_amount_msg">กำลังดึงจำนวนเหตุการณ์จากเว็บเซิร์ฟเวอร์ ...</string>
+    <string name="downloading_cases_sync_progress_msg">กำลังดาวน์โหลดรายกรณี ... โปรดรอสักครู่</string>
+    <string name="downloading_tracings_sync_progress_msg">กำลังดาวน์โหลดคำขอการติดตามตัว... โปรดรอสักครู่</string>
+    <string name="downloading_incidents_sync_progress_msg">กำลังดาวน์โหลดเหตุการณ์... โปรดรอสักครู่</string>
+    <string name="fetching_form_msg">กำลังดึงแบบฟอร์มจากเว็บเซิร์ฟเวอร์ ...</string>
+    <string name="uploading_sync_progress_msg">กำลังอัปโหลด... โปรดรอสักครู่</string>
+    <string name="network_not_available">เครือข่ายไม่พร้อมใช้งาน โปรดตรวจสอบเครือข่ายของคุณ</string>
+    <string name="sync_one_case_reassigned">เจ้าของบันทึกสำหรับรายกรณี %s มีการเปลี่ยนแปลง โปรดลบออกจากอุปกรณ์ของคุณ</string>
+    <string name="sync_many_case_reassigned">เจ้าของบันทึกสำหรับรายกรณี %s มีการเปลี่ยนแปลง โปรดลบออกจากอุปกรณ์ของคุณ</string>
+    <string name="dialog_item_from_camera">จากกล้อง</string>
+    <string name="dialog_item_from_gallery">จากแฟ้มรูปถ่าย</string>
+    <string name="dialog_item_cancel">ยกเลิก</string>
+    <string name="date_text">วันที่</string>
+    <string name="date_range">ช่วงวันที่</string>
+    <string name="date_hint">เลือกวันที่</string>
+    <string name="date_from_hint">จาก</string>
+    <string name="date_to_hint">ไปถึง</string>
+
+    <!--List start-->
+    <string name="list_item_delete_button_text">ลบ</string>
+    <string name="list_item_delete_cancel_button_text">ยกเลิก</string>
+    <string name="delete_title">คำเตือน</string>
+    <string name="delete_confirm_message">คุณแน่ใจว่าไม่ต้องการข้อมูลนี้บนอุปกรณ์ของคุณอีกต่อไปใช่หรือไม่?</string>
+    <string name="delete_success_info">บันทึกถูกลบแล้ว</string>
+    <string name="yes">ใช่</string>
+    <string name="no">ไม่ใช่</string>
+    <string name="cannot_save">ไม่สามารถบันทึกข้อมูล</string>
+    <string name="ok">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="invalid_date_msg">วันที่ไม่ควรอยู่ในอนาคต</string>
+    <string name="warning">คำเตือน</string>
+    <string name="invalid_value">ค่าไม่ถูกต้อง</string>
+    <string name="no_filed_exists_in_subform">ไม่มีช่องข้อมูลในแบบฟอร์มย่อยปัจจุบัน</string>
+
+    <string name="interview_date_asc">วันที่สัมภาษณ์เรียงลำดับจากน้อยไปมาก</string>
+    <string name="interview_date_desc">วันที่สัมภาษณ์เรียงลำดับจากมากไปน้อย</string>
+    <string name="inquiry_date_asc">วันที่ร้องขอเรียงลำดับจากน้อยไปหามาก</string>
+    <string name="inquiry_date_desc">วันที่ร้องขอเรียงลำดับจากมากไปหาน้อย</string>
+    <string name="reg_date_asc">วันที่ลงทะเบียนเรียงลำดับจากน้อยไปหามาก</string>
+    <string name="reg_date_desc">วันที่ลงทะเบียนเรียงลำดับจากมากไปหาน้อย</string>
+    <string name="age">อายุ</string>
+    <string name="age_asc">อายุเรียงลำดับจากมากไปหาน้อย</string>
+    <string name="age_desc">อายุเรียงลำดับจากมากไปหาน้อย</string>
+    <string name="note_alerts">ข้อความแจ้งเตือน</string>
+    <string name="note_alerts_recent">ข้อความแจ้งเตือนล่าสุด</string>
+    <string name="note_alerts_less_recent">ข้อความแจ้งเตือนหลังสุด</string>
+</resources>
