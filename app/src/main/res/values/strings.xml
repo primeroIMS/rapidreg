@@ -212,8 +212,9 @@
     <string name="reg_date_asc">Registration date ascending order</string>
     <string name="reg_date_desc">Registration date descending order</string>
     <string name="age">Age</string>
-    <string name="age_asc">Age descending order</string>
+    <string name="age_asc">Age ascending order</string>
     <string name="age_desc">Age descending order</string>
+    <string name="invalid_age_msg">Age must be between 0 - 130</string>
     <string name="note_alerts">"Notes Alerts"</string>
     <string name="note_alerts_recent">"Note alerts most recent"</string>
     <string name="note_alerts_less_recent">"Note alerts less recent"</string>

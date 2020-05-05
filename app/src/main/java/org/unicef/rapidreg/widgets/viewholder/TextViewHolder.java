@@ -170,7 +170,7 @@ public class TextViewHolder extends BaseTextViewHolder {
         boolean isAgeField = field.isNumericField() && field.getName().contains(Field.ValidationKeywords.AGE_KEY);
 
         if (isAgeField) {
-            return isAgeValid(value) ? "" : "Age must be between 0 - 130";
+            return isAgeValid(value) ? "" : context.getString(R.string.invalid_age_msg);
         }
 
         return null;
