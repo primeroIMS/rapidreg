@@ -17,6 +17,7 @@ public class RecordModel extends BaseModel {
     public static final String ALERT_NOTE_TYPE = "notes";
     public static final String ALERT_KEY = "alerts";
     public static final String ALERT_PROP = "form_sidebar_id";
+    public static final String ALERT_PROP_DATE = "date";
 
     public static final int EMPTY_AGE = -1;
     public static final String COLUMN_UNIQUE_ID = "unique_id";

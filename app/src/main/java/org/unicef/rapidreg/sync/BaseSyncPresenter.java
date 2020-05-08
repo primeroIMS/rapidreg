@@ -300,8 +300,8 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
         String lastNoteAlertDate = "";
         if (alertList != null){
             for(JsonElement alert: alertList.getAsJsonArray()) {
-                if (alert.getAsJsonObject().get(RecordModel.ALERT_PROP).getAsString().equals("notes")){
-                    lastNoteAlertDate = alert.getAsJsonObject().get("date").getAsString().replace("-", "/");
+                if (alert.getAsJsonObject().get(RecordModel.ALERT_PROP).getAsString().equals(RecordModel.ALERT_NOTE_TYPE)){
+                    lastNoteAlertDate = alert.getAsJsonObject().get(RecordModel.ALERT_PROP_DATE).getAsString().replace("-", "/");
                     break;
                 }
             }
