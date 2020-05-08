@@ -295,4 +295,20 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
             return "";
         }
     }
+
+    protected String parseLastNoteAlertDate(JsonElement alertList){
+        String lastNoteAlertDate = "";
+        if (alertList != null){
+            for(JsonElement alert: alertList.getAsJsonArray()) {
+                if (alert.getAsJsonObject().get(RecordModel.ALERT_PROP).getAsString().equals("notes")){
+                    lastNoteAlertDate = alert.getAsJsonObject().get("date").getAsString().replace("-", "/");
+                    break;
+                }
+            }
+        } else {
+            return lastNoteAlertDate;
+        }
+        return lastNoteAlertDate;
+
+    }
 }

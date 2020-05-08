@@ -156,6 +156,7 @@ public class CaseDaoImpl implements CaseDao {
     private List<Case> getCasesByDateASCAndNoteAlerts(String ownedBy, String url) {
         return getCurrentServerUserCondition(ownedBy, url)
                 .and(Case_Table.note_alerts.like("%notes%"))
+                .orderBy(Case_Table.last_note_alert_date, true)
                 .orderBy(Case_Table.registration_date, true)
                 .queryList();
     }
@@ -163,6 +164,7 @@ public class CaseDaoImpl implements CaseDao {
     private List<Case> getCasesByDateDESAndNoteAlerts(String ownedBy, String url) {
         return getCurrentServerUserCondition(ownedBy, url)
                 .and(Case_Table.note_alerts.like("%notes%"))
+                .orderBy(Case_Table.last_note_alert_date, false)
                 .orderBy(Case_Table.registration_date, false)
                 .queryList();
     }
@@ -180,7 +182,8 @@ public class CaseDaoImpl implements CaseDao {
                 Case_Table.owned_by,
                 Case_Table.type,
                 Case_Table.is_invalidated,
-                Case_Table.note_alerts
+                Case_Table.note_alerts,
+                Case_Table.last_note_alert_date
         };
 
         return SQLite
