@@ -83,9 +83,6 @@ public class RecordModel extends BaseModel {
     @Column(name = "note_alerts")
     private String noteAlerts;
 
-    @Column(name = "last_note_alert_date")
-    private Date lastNoteAlertDate;
-
     public RecordModel(long id) {
         this.id = id;
     }
@@ -288,13 +285,7 @@ public class RecordModel extends BaseModel {
 
         return hasNoteAlert;
     }
-    public Date getLastNoteAlertDate() {
-        return lastNoteAlertDate;
-    }
 
-    public void setLastNoteAlertDate(Date lastNoteAlertDate) {
-        this.lastNoteAlertDate = lastNoteAlertDate;
-    }
 
     @Override
     public String toString() {

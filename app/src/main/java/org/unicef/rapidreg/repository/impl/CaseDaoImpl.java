@@ -157,6 +157,7 @@ public class CaseDaoImpl implements CaseDao {
         return getCurrentServerUserCondition(ownedBy, url)
                 .and(Case_Table.note_alerts.like("%notes%"))
                 .orderBy(Case_Table.last_note_alert_date, true)
+                .orderBy(Case_Table.last_updated_date, true)
                 .orderBy(Case_Table.registration_date, true)
                 .queryList();
     }
@@ -165,6 +166,7 @@ public class CaseDaoImpl implements CaseDao {
         return getCurrentServerUserCondition(ownedBy, url)
                 .and(Case_Table.note_alerts.like("%notes%"))
                 .orderBy(Case_Table.last_note_alert_date, false)
+                .orderBy(Case_Table.last_updated_date, false)
                 .orderBy(Case_Table.registration_date, false)
                 .queryList();
     }
