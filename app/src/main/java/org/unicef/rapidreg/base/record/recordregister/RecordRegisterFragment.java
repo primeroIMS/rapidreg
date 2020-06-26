@@ -38,6 +38,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import org.unicef.rapidreg.widgets.dialog.MessageDialog;
 
@@ -71,6 +72,8 @@ public abstract class RecordRegisterFragment extends MvpFragment<RecordRegisterV
 
     Bundle savedState;
 
+    private Unbinder unbinder;
+
     public FragmentComponent getComponent() {
         return DaggerFragmentComponent.builder()
                 .applicationComponent(PrimeroApplication.get(getActivity()).getComponent())
@@ -81,7 +84,7 @@ public abstract class RecordRegisterFragment extends MvpFragment<RecordRegisterV
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        this.unbinder = ButterKnife.bind(this, view);
         onInitViewContent();
     }
 
@@ -203,6 +206,7 @@ public abstract class RecordRegisterFragment extends MvpFragment<RecordRegisterV
     public void onDestroyView() {
         super.onDestroyView();
         saveStateToArguments();
+        this.unbinder.unbind();
     }
 
     @Override

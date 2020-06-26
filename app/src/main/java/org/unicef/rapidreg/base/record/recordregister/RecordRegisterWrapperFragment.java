@@ -5,15 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import com.duolingo.open.rtlviewpager.RtlViewPager;
 
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -33,7 +31,6 @@ import org.unicef.rapidreg.forms.Section;
 import org.unicef.rapidreg.injection.component.DaggerFragmentComponent;
 import org.unicef.rapidreg.injection.component.FragmentComponent;
 import org.unicef.rapidreg.injection.module.FragmentModule;
-import org.unicef.rapidreg.model.RecordModel;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.widgets.dialog.MessageDialog;
@@ -47,6 +44,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRegisterView,
         RecordRegisterPresenter>
@@ -68,10 +66,11 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
     protected RecordForm form;
     protected List<Section> sections;
 
-    protected RecordPhotoAdapter recordPhotoAdapter;
+    private RecordPhotoPageChangeListener recordPhotoPageChangeListener;
 
     private ItemValuesMap itemValues;
-    private ItemValuesMap itemValuesVerifyList;
+    private Unbinder unbinder;
+    private RecordTabProvider recordTabProvider;
 
     public FragmentComponent getComponent() {
         return DaggerFragmentComponent.builder()
@@ -87,7 +86,8 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
                              @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_register_wrapper, container, false);
-        ButterKnife.bind(this, view);
+        this.recordPhotoPageChangeListener = new RecordPhotoPageChangeListener();
+        this.unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -104,7 +104,6 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
 
     @Override
     public void onInitViewContent() {
-        recordPhotoAdapter = createRecordPhotoAdapter();
     }
 
     @Override
@@ -114,15 +113,15 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
 
     @Override
     public void setPhotoPathsData(List<String> photoPaths) {
-        recordPhotoAdapter.setItems(photoPaths);
+        this.getCurrentPhotoAdapter().setItems(photoPaths);
     }
 
     @Override
     public List<String> getPhotoPathsData() {
-        if (recordPhotoAdapter == null) {
-            return Collections.EMPTY_LIST;
+        if (this.getCurrentPhotoAdapter() == null) {
+            return Collections.emptyList();
         }
-        return recordPhotoAdapter.getAllItems();
+        return this.getCurrentPhotoAdapter().getAllItems();
     }
 
     @Override
@@ -132,15 +131,12 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
 
     @Override
     public void setFieldValueVerifyResult(ItemValuesMap fieldValueVerifyResult) {
-        this.itemValuesVerifyList = fieldValueVerifyResult;
+        this.recordPhotoPageChangeListener.setItemValuesVerifyList(fieldValueVerifyResult);
     }
 
     @Override
     public ItemValuesMap getFieldValueVerifyResult() {
-        if (itemValuesVerifyList == null) {
-            itemValuesVerifyList = new ItemValuesMap();
-        }
-        return itemValuesVerifyList;
+        return this.recordPhotoPageChangeListener.getFieldValueVerifyResult();
     }
 
 
@@ -168,9 +164,13 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 1)
     public void updateImageAdapter(UpdateImageEvent event) {
-        recordPhotoAdapter.addItem(event.getImagePath());
-        recordPhotoAdapter.notifyDataSetChanged();
+        this.getCurrentPhotoAdapter().addItem(event.getImagePath());
+        this.getCurrentPhotoAdapter().notifyDataSetChanged();
         EventBus.getDefault().removeStickyEvent(event);
+    }
+
+    protected RecordPhotoAdapter getCurrentPhotoAdapter() {
+        return this.recordPhotoPageChangeListener.getRecordPhotoAdapter();
     }
 
     protected void initFloatingActionButton() {
@@ -187,47 +187,17 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
         final FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(
                 getActivity().getSupportFragmentManager(), getPages());
 
-        viewPagerTab.setCustomTabView(new SmartTabLayout.TabProvider() {
-            @Override
-            public View createTabView(ViewGroup container, int position, PagerAdapter adapter) {
-                View itemView = getActivity().getLayoutInflater().inflate(R.layout.custom_tab_icon_and_text, container, false);
-                TextView text = (TextView) itemView.findViewById(R.id.tab_text);
-                text.setText(adapter.getPageTitle(position));
-                ImageView icon = (ImageView) itemView.findViewById(R.id.tab_icon);
-                boolean showAlert = sections.get(position).getUniqueId().equals(RecordModel.ALERT_NOTE_TYPE) && itemValues.hasNoteAlerts();
-
-                icon.setVisibility(showAlert ? View.VISIBLE : View.GONE);
-
-                return itemView;
-            }
-        });
+        this.recordTabProvider = new RecordTabProvider(
+                this.getActivity().getLayoutInflater(),
+                this.sections,
+                this.itemValues);
+        viewPagerTab.setCustomTabView(this.recordTabProvider);
 
         viewPager.setAdapter(adapter);
         viewPagerTab.setViewPager(viewPager);
 
-        viewPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int
-                    positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                RecordRegisterFragment currentPage = (RecordRegisterFragment) adapter.getPage
-                        (position);
-                // ensure we are not trying to ask pages before they are loaded
-                if (recordPhotoAdapter != null && currentPage != null) {
-                    currentPage.setFieldValueVerifyResult(itemValuesVerifyList);
-                    recordPhotoAdapter = currentPage.getPhotoAdapter();
-                    recordPhotoAdapter.setItems(currentPage.getPhotoPathsData());
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
+        this.recordPhotoPageChangeListener.setAdapter(adapter);
+        this.recordPhotoPageChangeListener.setRecordPhotoAdapter(createRecordPhotoAdapter());
     }
 
     @Override
@@ -282,4 +252,24 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
     protected abstract void initFormData();
 
     protected abstract FragmentPagerItems getPages();
+
+    @Override
+    public void onDestroyView() {
+        Log.d(TAG, "Cleaning          ... Resources ...onDestroyView");
+        super.onDestroyView();
+        // TODO: I don't think this null assignments will do a significant difference but need to test it.
+        this.viewPagerTab.setOnPageChangeListener(null);
+        this.viewPagerTab.setCustomTabView(null);
+        this.viewPagerTab.setViewPager(null);
+        this.form = null;
+        this.sections.clear();
+        this.sections = null;
+        this.recordPhotoPageChangeListener = null;
+        this.viewPager = null;
+        this.viewPagerTab = null;
+        this.itemValues = null;
+        this.editButton = null;
+        this.recordTabProvider = null;
+        this.unbinder.unbind();
+    }
 }

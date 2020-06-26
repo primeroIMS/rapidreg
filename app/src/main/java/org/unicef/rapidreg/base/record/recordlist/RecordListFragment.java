@@ -31,15 +31,17 @@ import org.unicef.rapidreg.injection.module.FragmentModule;
 import org.unicef.rapidreg.model.User;
 import org.unicef.rapidreg.widgets.dialog.MessageDialog;
 
+import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public abstract class RecordListFragment extends MvpFragment<RecordListView, RecordListPresenter>
-        implements RecordListView, RecordListAdapter.OnViewUpdateListener {
+        implements RecordListView{
 
     public static final int HAVE_RESULT_LIST = 0;
     public static final int HAVE_NO_RESULT = 1;
@@ -71,6 +73,8 @@ public abstract class RecordListFragment extends MvpFragment<RecordListView, Rec
 
     protected RecordListAdapter recordListAdapter;
     protected LinearLayoutManager layoutManager;
+    private RecordListViewUpdateListener recordListViewUpdateListener;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
@@ -83,14 +87,17 @@ public abstract class RecordListFragment extends MvpFragment<RecordListView, Rec
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        this.recordListViewUpdateListener = new RecordListViewUpdateListener(
+                new WeakReference<RecordActivity>((RecordActivity) getActivity()),
+                this.listItemDeleteBtn);
+        this.unbinder = ButterKnife.bind(this, view);
         onInitViewContent();
     }
 
     @Override
     public void onInitViewContent() {
         recordListAdapter = createRecordListAdapter();
-        recordListAdapter.setOnViewUpdateListener(this);
+        recordListAdapter.setOnViewUpdateListener(this.recordListViewUpdateListener);
         initListContainer(recordListAdapter);
         initOrderSpinner(recordListAdapter);
         enableShowHideSwitcherForCPUser();
@@ -157,23 +164,12 @@ public abstract class RecordListFragment extends MvpFragment<RecordListView, Rec
         orderSpinner.setAdapter(new SpinnerAdapter(getActivity(),
                 R.layout.record_list_spinner_opened, Arrays.asList(spinnerStates)));
         orderSpinner.setSelection(defaultSpinnerStatePosition);
-        orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                List<Long> filterRecords = presenter.getRecordsByFilter(spinnerStates[position]);
-                if (filterRecords == null || filterRecords.isEmpty()) {
-                    return;
-                }
-                adapter.setRecordList(filterRecords);
-                adapter.setSyncedListCount(presenter.getSyncedRecordsCount());
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        orderSpinner.setOnItemSelectedListener(new RecordItemSelectedListener(
+                    this.presenter,
+                    adapter,
+                    spinnerStates
+                )
+            );
     }
 
     public void enableShowHideSwitcherForCPUser() {
@@ -213,16 +209,9 @@ public abstract class RecordListFragment extends MvpFragment<RecordListView, Rec
     }
 
     @Override
-    public void onRecordsDeletable(boolean isDeletable) {
-        listItemDeleteBtn.setEnabled(isDeletable);
-        listItemDeleteBtn.setBackgroundResource(isDeletable ? R.color.red_a200 : R.color.gray);
-    }
-
-    @Override
-    public void onSelectedAllButtonCheckable(boolean isChecked) {
-        ((RecordActivity) getActivity()).toggleSelectAllButtonState(isChecked);
-        ((RecordActivity) getActivity()).setSelectAll(isChecked);
-        Log.e("RecordListFragment", "onSelectedAllButtonCheckable: isSelectAll - > " + isChecked);
+    public void onDestroyView() {
+        super.onDestroyView();
+        this.unbinder.unbind();
     }
 
 
