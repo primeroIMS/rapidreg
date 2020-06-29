@@ -18,10 +18,13 @@ import org.unicef.rapidreg.incident.IncidentFeature;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.forms.Field;
+
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static org.unicef.rapidreg.forms.Field.TYPE_INCIDENT_MINI_FORM_PROFILE;
@@ -41,6 +44,16 @@ public class IncidentRegisterFragment extends RecordRegisterFragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.formSwitcher.setOnClickListener(new IncidentFormSwitcherClickListener(
+                new WeakReference<>(this),
+                ANIM_TO_MINI
+        ));
+    }
+
+
+    @Override
     protected RecordRegisterAdapter createRecordRegisterAdapter() {
         List<Field> fields = incidentRegisterPresenter.getValidFields(FragmentPagerItem.getPosition(getArguments()));
         addProfileFieldForDetailsPage(0, TYPE_INCIDENT_MINI_FORM_PROFILE, fields);
@@ -56,20 +69,6 @@ public class IncidentRegisterFragment extends RecordRegisterFragment {
     @Override
     public IncidentRegisterPresenter createPresenter() {
         return incidentRegisterPresenter;
-    }
-
-    @OnClick(R.id.form_switcher)
-    public void onSwitcherChecked() {
-        Bundle args = new Bundle();
-        args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
-        args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
-        args.putString(CASE_ID, getArguments().getString(CASE_ID, null));
-
-        Feature feature = ((RecordActivity) getActivity()).getCurrentFeature().isDetailMode() ?
-                IncidentFeature.DETAILS_MINI : ((RecordActivity) getActivity()).getCurrentFeature()
-                .isAddMode() ?
-                IncidentFeature.ADD_MINI : IncidentFeature.EDIT_MINI;
-        ((RecordActivity) getActivity()).turnToFeature(feature, args, ANIM_TO_MINI);
     }
 
     @Override

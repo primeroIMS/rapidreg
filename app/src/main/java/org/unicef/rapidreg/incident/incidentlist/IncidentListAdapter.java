@@ -20,6 +20,7 @@ import org.unicef.rapidreg.utils.StreamUtil;
 import org.unicef.rapidreg.utils.Utils;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,19 +58,11 @@ public class IncidentListAdapter extends RecordListAdapter {
                 recordWillBeDeletedList,
                 syncedRecordsCount
         );
-        holder.setViewOnClickListener(v -> {
-            Bundle args = new Bundle();
-            args.putLong(IncidentService.INCIDENT_PRIMARY_ID, recordId);
-            ((RecordActivity) context).turnToFeature(IncidentFeature.DETAILS_MINI, args, null);
-            try {
-                Utils.clearAudioFile(AUDIO_FILE_PATH);
-                if (record.getAudio() != null) {
-                    StreamUtil.writeFile(record.getAudio().getBlob(), RecordService
-                            .AUDIO_FILE_PATH);
-                }
-            } catch (IOException e) {
-            }
-        });
+        holder.setViewOnClickListener(new IncidentListClickListener(
+                new WeakReference<>(((RecordActivity) context)),
+                recordId,
+                record)
+            );
         holder.disableRecordGenderView();
         toggleTextArea(holder);
         toggleDeleteArea(holder, record.isSynced());
