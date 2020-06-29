@@ -54,6 +54,7 @@ public abstract class BaseRetrofitService<T> {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.readTimeout(90, TimeUnit.SECONDS);
         builder.writeTimeout(90, TimeUnit.SECONDS);
+        builder.connectTimeout(90, TimeUnit.SECONDS);
         builder.connectionSpecs(Collections.singletonList(spec));
         builder.sslSocketFactory(getSSLContext().getSocketFactory(), trustManager);
 

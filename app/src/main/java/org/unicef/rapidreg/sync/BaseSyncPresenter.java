@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -208,6 +209,8 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
         } else if (throwable instanceof ConnectException || cause instanceof ConnectException
                 || throwable instanceof IOException || cause instanceof IOException) {
             getView().showServerNotAvailableSyncErrorMessage();
+        } else if (throwable instanceof TimeoutException) {
+            getView().showSyncTimeoutErrorMessage();
         } else {
             getView().showSyncErrorMessage();
         }
