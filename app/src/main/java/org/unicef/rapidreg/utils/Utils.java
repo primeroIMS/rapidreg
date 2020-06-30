@@ -122,12 +122,12 @@ public class Utils {
     }
 
     public static void showMessageByToast(Context context, int ResId, int duration) {
-        Toast toast = Toast.makeText(context, ResId, duration);
+        Toast toast = Toast.makeText(context.getApplicationContext(), ResId, duration);
         initToastStyle(context, toast);
     }
 
     public static void showMessageByToast(Context context, String message, int duration) {
-        Toast toast = Toast.makeText(context, message, duration);
+        Toast toast = Toast.makeText(context.getApplicationContext(), message, duration);
         initToastStyle(context, toast);
     }
 
