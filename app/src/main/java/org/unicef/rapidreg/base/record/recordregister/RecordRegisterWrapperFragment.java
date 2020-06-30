@@ -184,10 +184,10 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
     protected void initTopWarning() {}
 
     private void initRegisterContainer() {
-        this.recordPhotoPageChangeListener.setRecordPhotoAdapter(createRecordPhotoAdapter());
 
+        this.recordPhotoPageChangeListener.setRecordPhotoAdapter(createRecordPhotoAdapter());
         final FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(
-                getActivity().getSupportFragmentManager(), getPages());
+                this.getChildFragmentManager(), getPages());
 
         this.recordPhotoPageChangeListener.setAdapter(adapter);
 
@@ -196,7 +196,6 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
                 this.sections,
                 this.itemValues);
         viewPagerTab.setCustomTabView(this.recordTabProvider);
-
         viewPager.setAdapter(adapter);
         viewPagerTab.setViewPager(viewPager);
     }
@@ -256,21 +255,7 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
 
     @Override
     public void onDestroyView() {
-        Log.d(TAG, "Cleaning          ... Resources ...onDestroyView");
         super.onDestroyView();
-        // TODO: I don't think this null assignments will do a significant difference but need to test it.
-        this.viewPagerTab.setOnPageChangeListener(null);
-        this.viewPagerTab.setCustomTabView(null);
-        this.viewPagerTab.setViewPager(null);
-        this.form = null;
-        this.sections.clear();
-        this.sections = null;
-        this.recordPhotoPageChangeListener = null;
-        this.viewPager = null;
-        this.viewPagerTab = null;
-        this.itemValues = null;
-        this.editButton = null;
-        this.recordTabProvider = null;
         this.unbinder.unbind();
     }
 }
