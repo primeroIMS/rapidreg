@@ -184,8 +184,12 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
     protected void initTopWarning() {}
 
     private void initRegisterContainer() {
+        this.recordPhotoPageChangeListener.setRecordPhotoAdapter(createRecordPhotoAdapter());
+
         final FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(
                 getActivity().getSupportFragmentManager(), getPages());
+
+        this.recordPhotoPageChangeListener.setAdapter(adapter);
 
         this.recordTabProvider = new RecordTabProvider(
                 this.getActivity().getLayoutInflater(),
@@ -195,9 +199,6 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
 
         viewPager.setAdapter(adapter);
         viewPagerTab.setViewPager(viewPager);
-
-        this.recordPhotoPageChangeListener.setAdapter(adapter);
-        this.recordPhotoPageChangeListener.setRecordPhotoAdapter(createRecordPhotoAdapter());
     }
 
     @Override
