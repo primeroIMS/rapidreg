@@ -33,6 +33,7 @@ import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.childcase.CaseActivity;
+import org.unicef.rapidreg.childcase.FormDownloadProgressRequestReceiver;
 import org.unicef.rapidreg.event.CreateIncidentThruGBVCaseEvent;
 import org.unicef.rapidreg.exception.StringResourceException;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
@@ -151,25 +152,7 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
 
     private Unbinder unbinder;
 
-    private BroadcastReceiver formDownloadProgressRequestReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int progress = intent.getIntExtra("progress", 0);
-
-            if (formSyncProgressBar != null && formSyncTxt != null) {
-                formSyncProgressBar.setProgress(progress);
-                formSyncTxt.setText(getProgressMessageStringID(intent.getStringExtra("resource")));
-            }
-
-            if (progress == 100) {
-                if (syncFormsProgressDialog != null) {
-                    syncFormsProgressDialog.dismiss();
-                }
-
-                showToast(R.string.sync_pull_form_success_message);
-            }
-        }
-    };
+    private BroadcastReceiver formDownloadProgressRequestReceiver;
 
     @Inject
     BasePresenter basePresenter;
@@ -198,6 +181,10 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         Configuration configuration = getResources().getConfiguration();
         configuration.setLayoutDirection(parseLocale());
         getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+        this.formDownloadProgressRequestReceiver = new FormDownloadProgressRequestReceiver(
+                                                        this.formSyncProgressBar,
+                                                        this.formSyncTxt,
+                                                        this.syncFormsProgressDialog);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(formDownloadProgressRequestReceiver,
                 new IntentFilter("sync_form_progress"));
@@ -504,15 +491,6 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
 
     protected void showToast(int message) {
         Utils.showMessageByToast(this, message, Toast.LENGTH_LONG);
-    }
-
-    protected String getProgressMessageStringID(String message) {
-        try {
-            @StringRes int resID = getResources().getIdentifier(message, "string", getPackageName());
-            return getString(resID);
-        } catch(Exception e) {
-            return message;
-        }
     }
 
     @Override
