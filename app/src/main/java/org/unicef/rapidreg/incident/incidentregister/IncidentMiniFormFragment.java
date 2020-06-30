@@ -25,6 +25,7 @@ import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -54,6 +55,17 @@ public class IncidentMiniFormFragment extends RecordRegisterFragment {
         getComponent().inject(this);
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.fragment_register, container, false);
+    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.formSwitcher.setOnClickListener(new IncidentFormSwitcherClickListener(
+                new WeakReference<>(this),
+                IncidentFeature.DETAILS_FULL,
+                IncidentFeature.EDIT_FULL,
+                IncidentFeature.ADD_FULL,
+                ANIM_TO_FULL
+        ));
     }
 
     @Override
@@ -114,18 +126,5 @@ public class IncidentMiniFormFragment extends RecordRegisterFragment {
         args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
         args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
         ((IncidentActivity) getActivity()).turnToFeature(IncidentFeature.EDIT_MINI, args, null);
-    }
-
-    @OnClick(R.id.form_switcher)
-    public void onSwitcherChecked() {
-        Bundle args = new Bundle();
-        args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
-        args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
-        args.putString(CASE_ID, getArguments().getString(CASE_ID, null));
-        Feature feature = ((RecordActivity) getActivity()).getCurrentFeature().isDetailMode() ?
-                IncidentFeature.DETAILS_FULL : ((RecordActivity) getActivity()).getCurrentFeature()
-                .isAddMode() ?
-                IncidentFeature.ADD_FULL : IncidentFeature.EDIT_FULL;
-        ((RecordActivity) getActivity()).turnToFeature(feature, args, ANIM_TO_FULL);
     }
 }
