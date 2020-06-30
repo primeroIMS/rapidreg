@@ -50,6 +50,7 @@ import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -148,6 +149,8 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     protected TextView formSyncTxt;
     protected AlertDialog syncFormsProgressDialog;
 
+    private Unbinder unbinder;
+
     private BroadcastReceiver formDownloadProgressRequestReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -184,7 +187,7 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        this.unbinder = ButterKnife.bind(this);
 
         initToolbar();
         initNavigationHeader();
@@ -495,8 +498,8 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
             this.unregisterReceiver(formDownloadProgressRequestReceiver);
         } catch (Exception e) {
         }
-
         super.onDestroy();
+        this.unbinder.unbind();
     }
 
     protected void showToast(int message) {
