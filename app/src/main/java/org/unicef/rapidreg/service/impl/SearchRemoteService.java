@@ -26,7 +26,7 @@ public class SearchRemoteService extends BaseRetrofitService<SearchRepository> i
         return getRepository(SearchRepository.class)
                 .searchRemoteCases(cookie, showIds, query, idSearch)
                 .retry(3)
-                .timeout(60, TimeUnit.SECONDS)
+                .timeout(90, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

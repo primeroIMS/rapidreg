@@ -57,7 +57,7 @@ public class FormRemoteServiceImpl extends BaseRetrofitService<FormRepository> i
                     }
                 })
                 .retry(3)
-                .timeout(60, TimeUnit.SECONDS)
+                .timeout(90, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -77,7 +77,7 @@ public class FormRemoteServiceImpl extends BaseRetrofitService<FormRepository> i
                     }
                 })
                 .retry(3)
-                .timeout(60, TimeUnit.SECONDS)
+                .timeout(90, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
