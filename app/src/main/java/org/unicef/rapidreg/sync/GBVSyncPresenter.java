@@ -291,8 +291,9 @@ public class GBVSyncPresenter extends BaseSyncPresenter {
             item.setUniqueId(casesJsonObject.get("case_id").getAsString());
             item.setShortId(casesJsonObject.get("short_id").getAsString());
             item.setInternalId(casesJsonObject.get("_id").getAsString());
-            item.setRegistrationDate(
-                    Utils.getRegisterDateByYyyyMmDd(casesJsonObject.get("registration_date").getAsString()));
+            if (casesJsonObject.has("registration_date")){
+                item.setRegistrationDate(Utils.getRegisterDateByYyyyMmDd(casesJsonObject.get("registration_date").getAsString()));
+            }
             item.setCreatedBy(casesJsonObject.get("created_by").getAsString());
 
             item.setLastSyncedDate(Calendar.getInstance().getTime());
