@@ -87,15 +87,15 @@ public abstract class RecordListFragment extends MvpFragment<RecordListView, Rec
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.recordListViewUpdateListener = new RecordListViewUpdateListener(
-                new WeakReference<RecordActivity>((RecordActivity) getActivity()),
-                this.listItemDeleteBtn);
         this.unbinder = ButterKnife.bind(this, view);
         onInitViewContent();
     }
 
     @Override
     public void onInitViewContent() {
+        this.recordListViewUpdateListener = new RecordListViewUpdateListener(
+                new WeakReference<RecordActivity>((RecordActivity) getActivity()),
+                this.listItemDeleteBtn);
         recordListAdapter = createRecordListAdapter();
         recordListAdapter.setOnViewUpdateListener(this.recordListViewUpdateListener);
         initListContainer(recordListAdapter);
