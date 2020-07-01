@@ -3,7 +3,6 @@ package org.unicef.rapidreg.sync;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v4.util.Pair;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
