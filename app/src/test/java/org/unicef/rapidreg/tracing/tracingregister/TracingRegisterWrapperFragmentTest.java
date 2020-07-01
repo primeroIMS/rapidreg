@@ -16,11 +16,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.record.recordphoto.RecordPhotoAdapter;
+import org.unicef.rapidreg.base.record.recordregister.RecordPhotoPageChangeListener;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterAdapter;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterWrapperFragment;
 import org.unicef.rapidreg.event.SaveTracingEvent;
@@ -92,9 +94,11 @@ public class TracingRegisterWrapperFragmentTest {
         initMocks(this);
         PowerMockito.mockStatic(Utils.class);
         doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
+        stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getCurrentPhotoAdapter")).toReturn(recordPhotoAdapter);
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getComponent")).toReturn(fragmentComponent);
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getActivity")).toReturn(tracingActivity);
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getArguments")).toReturn(arguments);
+        stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getFieldValueVerifyResult")).toReturn(new ItemValuesMap());
     }
 
     @Test
@@ -141,7 +145,8 @@ public class TracingRegisterWrapperFragmentTest {
     }
 
     @Test
-    public void test_on_init_item_values() {
+    public void test_on_init_item_values() throws IllegalAccessException {
+        Whitebox.setInternalState(tracingRegisterWrapperFragment, "recordPhotoPageChangeListener", new RecordPhotoPageChangeListener());
         tracingRegisterWrapperFragment.initItemValues();
         verify(tracingRegisterWrapperFragment, times(1)).setRecordRegisterData(any());
         verify(tracingRegisterWrapperFragment, times(1)).setFieldValueVerifyResult(any());

@@ -103,6 +103,7 @@ public class UtilsTest {
         when(group.getChildAt(anyInt())).thenReturn(textView);
         when(context.getResources()).thenReturn(resources);
         when(resources.getDimension(anyInt())).thenReturn(0f);
+        when(context.getApplicationContext()).thenReturn(context);
 
         Utils.showMessageByToast(context, 0, Toast.LENGTH_SHORT);
 
@@ -127,6 +128,7 @@ public class UtilsTest {
         when(group.getChildAt(anyInt())).thenReturn(textView);
         when(context.getResources()).thenReturn(resources);
         when(resources.getDimension(anyInt())).thenReturn(0f);
+        when(context.getApplicationContext()).thenReturn(context);
 
         Utils.showMessageByToast(context, "", Toast.LENGTH_SHORT);
 

@@ -17,6 +17,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordlist.RecordListAdapter;
+import org.unicef.rapidreg.base.record.recordlist.RecordListViewHolder;
 import org.unicef.rapidreg.model.Case;
 import org.unicef.rapidreg.model.User;
 import org.unicef.rapidreg.service.CaseService;
@@ -65,7 +66,7 @@ public class CaseListAdapterTest {
     User user;
 
     @InjectMocks
-    RecordListAdapter.RecordListViewHolder holder = PowerMockito.mock(RecordListAdapter.RecordListViewHolder.class);
+    RecordListViewHolder holder = PowerMockito.mock(RecordListViewHolder.class);
 
     RecyclerView.Adapter adapter = PowerMockito.mock(RecyclerView.Adapter.class);
 

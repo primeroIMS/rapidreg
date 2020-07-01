@@ -16,10 +16,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.unicef.rapidreg.R;
+import org.unicef.rapidreg.base.record.recordphoto.RecordPhotoAdapter;
+import org.unicef.rapidreg.base.record.recordregister.RecordPhotoPageChangeListener;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterWrapperFragment;
 import org.unicef.rapidreg.event.SaveIncidentEvent;
 import org.unicef.rapidreg.forms.RecordForm;
@@ -59,6 +62,9 @@ public class IncidentRegisterWrapperFragmentTest {
     FragmentComponent fragmentComponent;
 
     @Mock
+    RecordPhotoAdapter recordPhotoAdapter;
+
+    @Mock
     Bundle arguments;
 
     @Mock
@@ -85,6 +91,8 @@ public class IncidentRegisterWrapperFragmentTest {
         stub(PowerMockito.method(IncidentRegisterWrapperFragment.class, "getComponent")).toReturn(fragmentComponent);
         stub(PowerMockito.method(IncidentRegisterWrapperFragment.class, "getActivity")).toReturn(incidentActivity);
         stub(PowerMockito.method(IncidentRegisterWrapperFragment.class, "getArguments")).toReturn(arguments);
+        stub(PowerMockito.method(IncidentRegisterWrapperFragment.class, "getCurrentPhotoAdapter")).toReturn(recordPhotoAdapter);
+        stub(PowerMockito.method(IncidentRegisterWrapperFragment.class, "getFieldValueVerifyResult")).toReturn(new ItemValuesMap());
     }
 
     @Test
@@ -113,7 +121,7 @@ public class IncidentRegisterWrapperFragmentTest {
     }
 
     @Test
-    public void test_save_incident() {
+    public void test_save_incident() throws IllegalAccessException {
         String caseId = "123";
         ItemValuesMap recordRegisterData = PowerMockito.mock(ItemValuesMap.class);
         stub(PowerMockito.method(IncidentRegisterWrapperFragment.class, "getRecordRegisterData")).toReturn(recordRegisterData);
@@ -125,12 +133,14 @@ public class IncidentRegisterWrapperFragmentTest {
 
     @Test
     public void test_on_edit_clicked() {
+        when(incidentRegisterWrapperFragment.getFieldValueVerifyResult()).thenReturn(new ItemValuesMap());
         incidentRegisterWrapperFragment.onEditClicked();
         verify(incidentActivity, times(1)).turnToFeature(any(IncidentFeature.class), any(Bundle.class), any());
     }
 
     @Test
-    public void test_on_init_item_values() {
+    public void test_on_init_item_values() throws IllegalAccessException {
+        Whitebox.setInternalState(incidentRegisterWrapperFragment, "recordPhotoPageChangeListener", new RecordPhotoPageChangeListener());
         incidentRegisterWrapperFragment.initItemValues();
         verify(incidentRegisterWrapperFragment, times(1)).setRecordRegisterData(any());
         verify(incidentRegisterWrapperFragment, times(1)).setFieldValueVerifyResult(any());
