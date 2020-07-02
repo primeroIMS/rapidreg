@@ -14,18 +14,9 @@ import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.utils.Utils;
 
 public class FormDownloadProgressRequestReceiver extends BroadcastReceiver {
-    private final ProgressBar formSyncProgressBar;
-    private final TextView formSyncTxt;
-    private final AlertDialog syncFormsProgressDialog;
-
-    public FormDownloadProgressRequestReceiver(
-            final ProgressBar formSyncProgressBar,
-            final TextView formSyncTxt,
-            final AlertDialog syncFormsProgressDialog) {
-        this.formSyncProgressBar = formSyncProgressBar;
-        this.formSyncTxt = formSyncTxt;
-        this.syncFormsProgressDialog = syncFormsProgressDialog;
-    }
+    private ProgressBar formSyncProgressBar;
+    private TextView formSyncTxt;
+    private AlertDialog syncFormsProgressDialog;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -53,5 +44,29 @@ public class FormDownloadProgressRequestReceiver extends BroadcastReceiver {
         } catch(Exception e) {
             return message;
         }
+    }
+
+    public ProgressBar getFormSyncProgressBar() {
+        return formSyncProgressBar;
+    }
+
+    public void setFormSyncProgressBar(ProgressBar formSyncProgressBar) {
+        this.formSyncProgressBar = formSyncProgressBar;
+    }
+
+    public TextView getFormSyncTxt() {
+        return formSyncTxt;
+    }
+
+    public void setFormSyncTxt(TextView formSyncTxt) {
+        this.formSyncTxt = formSyncTxt;
+    }
+
+    public AlertDialog getSyncFormsProgressDialog() {
+        return syncFormsProgressDialog;
+    }
+
+    public void setSyncFormsProgressDialog(AlertDialog syncFormsProgressDialog) {
+        this.syncFormsProgressDialog = syncFormsProgressDialog;
     }
 }

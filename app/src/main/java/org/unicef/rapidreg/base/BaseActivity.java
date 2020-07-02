@@ -152,7 +152,7 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
 
     private Unbinder unbinder;
 
-    private BroadcastReceiver formDownloadProgressRequestReceiver;
+    private final FormDownloadProgressRequestReceiver formDownloadProgressRequestReceiver = new FormDownloadProgressRequestReceiver();
 
     @Inject
     BasePresenter basePresenter;
@@ -181,10 +181,6 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         Configuration configuration = getResources().getConfiguration();
         configuration.setLayoutDirection(parseLocale());
         getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
-        this.formDownloadProgressRequestReceiver = new FormDownloadProgressRequestReceiver(
-                                                        this.formSyncProgressBar,
-                                                        this.formSyncTxt,
-                                                        this.syncFormsProgressDialog);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(formDownloadProgressRequestReceiver,
                 new IntentFilter("sync_form_progress"));
@@ -328,6 +324,10 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         syncFormsProgressDialogBuilder.create();
         syncFormsProgressDialogBuilder.setCancelable(false);
         syncFormsProgressDialog = syncFormsProgressDialogBuilder.show();
+
+        this.formDownloadProgressRequestReceiver.setFormSyncProgressBar(this.formSyncProgressBar);
+        this.formDownloadProgressRequestReceiver.setFormSyncTxt(this.formSyncTxt);
+        this.formDownloadProgressRequestReceiver.setSyncFormsProgressDialog(this.syncFormsProgressDialog);
 
         presenter.syncFormData();
     }
