@@ -13,13 +13,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordlist.RecordListAdapter;
+import org.unicef.rapidreg.base.record.recordlist.RecordListViewHolder;
 import org.unicef.rapidreg.model.Incident;
 import org.unicef.rapidreg.service.IncidentService;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Matchers.any;
@@ -35,7 +38,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(PowerMockRunner.class)
 public class IncidentListAdapterTest {
     @Mock
-    Context context;
+    RecordActivity context;
 
     @Mock
     IncidentService incidentService;
@@ -56,7 +59,7 @@ public class IncidentListAdapterTest {
     CheckBox deleteStateCheckBox;
 
     @InjectMocks
-    RecordListAdapter.RecordListViewHolder holder = PowerMockito.mock(RecordListAdapter.RecordListViewHolder.class);
+    RecordListViewHolder holder = PowerMockito.mock(RecordListViewHolder.class);
 
     @Before
     public void setUp() throws Exception {
@@ -84,7 +87,7 @@ public class IncidentListAdapterTest {
 
         incidentListAdapter.onBindViewHolder(holder, position);
         verify(holder, times(1)).disableRecordImageView();
-        verify(holder, times(1)).setValues(sex, shortUUID, age, record);
+        verify(holder, times(1)).setValues(sex, shortUUID, age, record, recordList, Collections.emptyList(), 0);
         verify(holder, times(1)).setViewOnClickListener(any());
         verify(holder, times(1)).disableRecordGenderView();
     }

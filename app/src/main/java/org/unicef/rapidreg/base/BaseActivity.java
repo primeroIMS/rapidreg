@@ -33,6 +33,7 @@ import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.PrimeroApplication;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.childcase.CaseActivity;
+import org.unicef.rapidreg.childcase.FormDownloadProgressRequestReceiver;
 import org.unicef.rapidreg.event.CreateIncidentThruGBVCaseEvent;
 import org.unicef.rapidreg.exception.StringResourceException;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
@@ -50,6 +51,7 @@ import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -148,25 +150,9 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
     protected TextView formSyncTxt;
     protected AlertDialog syncFormsProgressDialog;
 
-    private BroadcastReceiver formDownloadProgressRequestReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int progress = intent.getIntExtra("progress", 0);
+    private Unbinder unbinder;
 
-            if (formSyncProgressBar != null && formSyncTxt != null) {
-                formSyncProgressBar.setProgress(progress);
-                formSyncTxt.setText(getProgressMessageStringID(intent.getStringExtra("resource")));
-            }
-
-            if (progress == 100) {
-                if (syncFormsProgressDialog != null) {
-                    syncFormsProgressDialog.dismiss();
-                }
-
-                showToast(R.string.sync_pull_form_success_message);
-            }
-        }
-    };
+    private final FormDownloadProgressRequestReceiver formDownloadProgressRequestReceiver = new FormDownloadProgressRequestReceiver();
 
     @Inject
     BasePresenter basePresenter;
@@ -184,7 +170,7 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        this.unbinder = ButterKnife.bind(this);
 
         initToolbar();
         initNavigationHeader();
@@ -338,6 +324,10 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         syncFormsProgressDialogBuilder.create();
         syncFormsProgressDialogBuilder.setCancelable(false);
         syncFormsProgressDialog = syncFormsProgressDialogBuilder.show();
+
+        this.formDownloadProgressRequestReceiver.setFormSyncProgressBar(this.formSyncProgressBar);
+        this.formDownloadProgressRequestReceiver.setFormSyncTxt(this.formSyncTxt);
+        this.formDownloadProgressRequestReceiver.setSyncFormsProgressDialog(this.syncFormsProgressDialog);
 
         presenter.syncFormData();
     }
@@ -495,21 +485,12 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
             this.unregisterReceiver(formDownloadProgressRequestReceiver);
         } catch (Exception e) {
         }
-
         super.onDestroy();
+        this.unbinder.unbind();
     }
 
     protected void showToast(int message) {
         Utils.showMessageByToast(this, message, Toast.LENGTH_LONG);
-    }
-
-    protected String getProgressMessageStringID(String message) {
-        try {
-            @StringRes int resID = getResources().getIdentifier(message, "string", getPackageName());
-            return getString(resID);
-        } catch(Exception e) {
-            return message;
-        }
     }
 
     @Override

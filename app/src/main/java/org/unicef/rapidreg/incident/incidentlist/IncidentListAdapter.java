@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 
 import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordlist.RecordListAdapter;
+import org.unicef.rapidreg.base.record.recordlist.RecordListViewHolder;
 import org.unicef.rapidreg.incident.IncidentFeature;
 import org.unicef.rapidreg.injection.ActivityContext;
 import org.unicef.rapidreg.model.RecordModel;
@@ -19,6 +20,7 @@ import org.unicef.rapidreg.utils.StreamUtil;
 import org.unicef.rapidreg.utils.Utils;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,7 +38,7 @@ public class IncidentListAdapter extends RecordListAdapter {
     }
 
     @Override
-    public void onBindViewHolder(final RecordListAdapter.RecordListViewHolder holder, int
+    public void onBindViewHolder(final RecordListViewHolder holder, int
             position) {
         final long recordId = recordList.get(position);
         final RecordModel record = incidentService.getById(recordId);
@@ -47,20 +49,20 @@ public class IncidentListAdapter extends RecordListAdapter {
         final String shortUUID = incidentService.getShortUUID(record.getUniqueId());
         String age = itemValues.getAsString(RecordService.AGE);
         holder.disableRecordImageView();
-        holder.setValues(itemValues.getAsString(RecordService.SEX), shortUUID, age, record);
-        holder.setViewOnClickListener(v -> {
-            Bundle args = new Bundle();
-            args.putLong(IncidentService.INCIDENT_PRIMARY_ID, recordId);
-            ((RecordActivity) context).turnToFeature(IncidentFeature.DETAILS_MINI, args, null);
-            try {
-                Utils.clearAudioFile(AUDIO_FILE_PATH);
-                if (record.getAudio() != null) {
-                    StreamUtil.writeFile(record.getAudio().getBlob(), RecordService
-                            .AUDIO_FILE_PATH);
-                }
-            } catch (IOException e) {
-            }
-        });
+        holder.setValues(
+                itemValues.getAsString(RecordService.SEX),
+                shortUUID,
+                age,
+                record,
+                recordList,
+                recordWillBeDeletedList,
+                syncedRecordsCount
+        );
+        holder.setViewOnClickListener(new IncidentListClickListener(
+                new WeakReference<>(((RecordActivity) context)),
+                recordId,
+                record)
+            );
         holder.disableRecordGenderView();
         toggleTextArea(holder);
         toggleDeleteArea(holder, record.isSynced());

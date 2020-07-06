@@ -117,7 +117,7 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
         args.putString(MODULE, caseRegisterPresenter.getCaseType());
         args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
         args.putSerializable(RecordService.VERIFY_MESSAGE, new ItemValuesMap());
-        args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) recordPhotoAdapter.getAllItems());
+        args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) getCurrentPhotoAdapter().getAllItems());
 
         ((CaseActivity) getActivity()).turnToFeature(EDIT_FULL, args, null);
     }
@@ -145,7 +145,7 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
             args.putString(MODULE, caseRegisterPresenter.getCaseType());
             args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
             args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
-            args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) recordPhotoAdapter.getAllItems());
+            args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) getCurrentPhotoAdapter().getAllItems());
             pages.add(FragmentPagerItem.of(values[0], CaseRegisterFragment.class, args));
         }
         return pages;

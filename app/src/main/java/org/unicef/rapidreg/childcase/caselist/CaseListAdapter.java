@@ -10,6 +10,7 @@ import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.Feature;
 import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordlist.RecordListAdapter;
+import org.unicef.rapidreg.base.record.recordlist.RecordListViewHolder;
 import org.unicef.rapidreg.childcase.CaseFeature;
 import org.unicef.rapidreg.injection.ActivityContext;
 import org.unicef.rapidreg.model.RecordModel;
@@ -55,7 +56,15 @@ public class CaseListAdapter extends RecordListAdapter {
             holder.disableRecordImageView();
         }
         String age = itemValues.getAsString(RecordService.AGE);
-        holder.setValues(itemValues.getAsString(RecordService.SEX), shortUUID, age, record);
+        holder.setValues(
+                itemValues.getAsString(RecordService.SEX),
+                shortUUID,
+                age,
+                record,
+                recordList,
+                recordWillBeDeletedList,
+                syncedRecordsCount
+        );
         holder.setViewOnClickListener(v -> {
             Bundle args = new Bundle();
             String moduleId = itemValues.getAsString(MODULE);

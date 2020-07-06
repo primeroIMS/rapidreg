@@ -68,7 +68,7 @@ public class TracingRegisterWrapperFragment extends RecordRegisterWrapperFragmen
     public void onEditClicked() {
         Bundle args = new Bundle();
         args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
-        args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) recordPhotoAdapter.getAllItems());
+        args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) getCurrentPhotoAdapter().getAllItems());
         args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
         ((TracingActivity) getActivity()).turnToFeature(TracingFeature.EDIT_FULL, args, null);
     }
@@ -95,7 +95,7 @@ public class TracingRegisterWrapperFragment extends RecordRegisterWrapperFragmen
             Bundle args = new Bundle();
             args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
             args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
-            args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) recordPhotoAdapter.getAllItems());
+            args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) getCurrentPhotoAdapter().getAllItems());
             pages.add(FragmentPagerItem.of(values[0], TracingRegisterFragment.class, args));
         }
         return pages;

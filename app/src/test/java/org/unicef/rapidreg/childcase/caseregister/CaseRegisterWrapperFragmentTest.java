@@ -1,21 +1,29 @@
 package org.unicef.rapidreg.childcase.caseregister;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordphoto.RecordPhotoAdapter;
@@ -30,24 +38,13 @@ import org.unicef.rapidreg.injection.component.FragmentComponent;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.Utils;
 
-
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -106,7 +103,6 @@ public class CaseRegisterWrapperFragmentTest {
     @InjectMocks
     CaseRegisterWrapperFragment caseRegisterWrapperFragment = new CaseRegisterWrapperFragment();
 
-
     @Before
     public void setUp() throws Exception {
         initMocks(this);
@@ -119,6 +115,10 @@ public class CaseRegisterWrapperFragmentTest {
         when(recordPhotoAdapter.getAllItems()).thenReturn(new ArrayList<String>(){{add("test");}});
         PowerMockito.mockStatic(Utils.class);
         doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
+
+        stub(PowerMockito.method(CaseRegisterWrapperFragment.class, "getPhotoPathsData")).toReturn(Collections.emptyList());
+        stub(PowerMockito.method(CaseRegisterWrapperFragment.class, "getCurrentPhotoAdapter")).toReturn(recordPhotoAdapter);
+        stub(PowerMockito.method(CaseRegisterWrapperFragment.class, "getFieldValueVerifyResult")).toReturn(new ItemValuesMap());
         stub(PowerMockito.method(CaseRegisterWrapperFragment.class, "getActivity")).toReturn(recordActivity);
         stub(PowerMockito.method(CaseRegisterWrapperFragment.class, "getArguments")).toReturn(bundle);
         stub(PowerMockito.method(CaseRegisterWrapperFragment.class, "getComponent")).toReturn(fragmentComponent);

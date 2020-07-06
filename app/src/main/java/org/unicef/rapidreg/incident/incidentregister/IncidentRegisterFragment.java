@@ -10,22 +10,18 @@ import android.widget.Toast;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 
 import org.unicef.rapidreg.R;
-import org.unicef.rapidreg.base.Feature;
-import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterAdapter;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterFragment;
-import org.unicef.rapidreg.incident.IncidentFeature;
-import org.unicef.rapidreg.service.RecordService;
-import org.unicef.rapidreg.utils.Utils;
 import org.unicef.rapidreg.forms.Field;
+import org.unicef.rapidreg.incident.IncidentFeature;
+import org.unicef.rapidreg.utils.Utils;
+
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.OnClick;
-
 import static org.unicef.rapidreg.forms.Field.TYPE_INCIDENT_MINI_FORM_PROFILE;
-import static org.unicef.rapidreg.service.CaseService.CASE_ID;
 
 public class IncidentRegisterFragment extends RecordRegisterFragment {
     @Inject
@@ -39,6 +35,19 @@ public class IncidentRegisterFragment extends RecordRegisterFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.fragment_register, container, false);
     }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.formSwitcher.setOnClickListener(new IncidentFormSwitcherClickListener(
+                new WeakReference<>(this),
+                IncidentFeature.DETAILS_MINI,
+                IncidentFeature.EDIT_MINI,
+                IncidentFeature.ADD_MINI,
+                ANIM_TO_MINI
+        ));
+    }
+
 
     @Override
     protected RecordRegisterAdapter createRecordRegisterAdapter() {
@@ -56,20 +65,6 @@ public class IncidentRegisterFragment extends RecordRegisterFragment {
     @Override
     public IncidentRegisterPresenter createPresenter() {
         return incidentRegisterPresenter;
-    }
-
-    @OnClick(R.id.form_switcher)
-    public void onSwitcherChecked() {
-        Bundle args = new Bundle();
-        args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
-        args.putSerializable(RecordService.VERIFY_MESSAGE, getFieldValueVerifyResult());
-        args.putString(CASE_ID, getArguments().getString(CASE_ID, null));
-
-        Feature feature = ((RecordActivity) getActivity()).getCurrentFeature().isDetailMode() ?
-                IncidentFeature.DETAILS_MINI : ((RecordActivity) getActivity()).getCurrentFeature()
-                .isAddMode() ?
-                IncidentFeature.ADD_MINI : IncidentFeature.EDIT_MINI;
-        ((RecordActivity) getActivity()).turnToFeature(feature, args, ANIM_TO_MINI);
     }
 
     @Override
