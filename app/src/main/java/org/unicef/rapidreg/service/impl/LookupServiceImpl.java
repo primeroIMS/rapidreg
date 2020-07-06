@@ -64,7 +64,7 @@ public class LookupServiceImpl extends BaseRetrofitService<LookupRepository> imp
                     }
                 })
                 .retry(3)
-                .timeout(60, TimeUnit.SECONDS)
+                .timeout(PrimeroAppConfiguration.getTimeout(), TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

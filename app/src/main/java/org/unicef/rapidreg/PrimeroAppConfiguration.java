@@ -33,6 +33,10 @@ public class PrimeroAppConfiguration {
 
     private static String currentLanguage = "en";
 
+    private static int timeout = 90;
+
+    public static int getTimeout() {return timeout;}
+
     public static String getApiBaseUrl() {
         return apiBaseUrl;
     }

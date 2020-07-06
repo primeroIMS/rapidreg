@@ -3,6 +3,7 @@ package org.unicef.rapidreg.service;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.unicef.rapidreg.BuildConfig;
+import org.unicef.rapidreg.PrimeroAppConfiguration;
 
 import java.security.KeyStore;
 import java.security.SecureRandom;
@@ -52,8 +53,9 @@ public abstract class BaseRetrofitService<T> {
         buildTrustManager();
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.readTimeout(90, TimeUnit.SECONDS);
-        builder.writeTimeout(90, TimeUnit.SECONDS);
+        builder.readTimeout(PrimeroAppConfiguration.getTimeout(), TimeUnit.SECONDS);
+        builder.writeTimeout(PrimeroAppConfiguration.getTimeout(), TimeUnit.SECONDS);
+        builder.connectTimeout(PrimeroAppConfiguration.getTimeout(), TimeUnit.SECONDS);
         builder.connectionSpecs(Collections.singletonList(spec));
         builder.sslSocketFactory(getSSLContext().getSocketFactory(), trustManager);
 
