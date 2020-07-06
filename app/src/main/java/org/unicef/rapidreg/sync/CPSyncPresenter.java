@@ -412,8 +412,9 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         item.setContent(new Blob(casesJsonObject.toString().getBytes()));
         item.setCaregiver(casesJsonObject.has(CAREGIVER_NAME) ? casesJsonObject.get(CAREGIVER_NAME).getAsString() :
                 null);
-        item.setRegistrationDate(Utils.getRegisterDateByYyyyMmDd(casesJsonObject.get("registration_date")
-                .getAsString()));
+        if (casesJsonObject.has("registration_date")){
+            item.setRegistrationDate(Utils.getRegisterDateByYyyyMmDd(casesJsonObject.get("registration_date").getAsString()));
+        }
         setAgeIfExists(item, casesJsonObject);
     }
 
@@ -573,7 +574,9 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         tracingsJsonObject.remove("histories");
         String newRev = tracingsJsonObject.get("_rev").getAsString();
         item.setInternalRev(newRev);
-        item.setRegistrationDate(Utils.getRegisterDateByYyyyMmDd(tracingsJsonObject.get("inquiry_date").getAsString()));
+        if (tracingsJsonObject.has("inquiry_date")){
+            item.setRegistrationDate(Utils.getRegisterDateByYyyyMmDd(tracingsJsonObject.get("inquiry_date").getAsString()));
+        }
         item.setCreatedBy(tracingsJsonObject.get("created_by").getAsString());
         item.setOwnedBy(tracingsJsonObject.get("owned_by").getAsString());
         item.setServerUrl(TextUtils.lintUrl(PrimeroAppConfiguration.getApiBaseUrl()));
