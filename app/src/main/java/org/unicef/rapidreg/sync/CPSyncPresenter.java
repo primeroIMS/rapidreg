@@ -385,11 +385,19 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         if (item != null) {
             setCaseProperties(casesJsonObject, item);
             item.setNoteAlerts(parseAlerts(casesJsonObject.get(RecordModel.ALERT_KEY)));
+            if (item.hasNoteAlerts()){
+                String lastNoteAlertDate = parseLastNoteAlertDate(casesJsonObject.get(RecordModel.ALERT_KEY));
+                item.setLastNoteAlertDate(Utils.getRegisterDateByYyyyMmDd(lastNoteAlertDate));
+            }
             item.update();
             casePhotoService.deleteByCaseId(item.getId());
         } else {
             item = new Case();
             item.setNoteAlerts(parseAlerts(casesJsonObject.get(RecordModel.ALERT_KEY)));
+            if (item.hasNoteAlerts()){
+                String lastNoteAlertDate = parseLastNoteAlertDate(casesJsonObject.get(RecordModel.ALERT_KEY));
+                item.setLastNoteAlertDate(Utils.getRegisterDateByYyyyMmDd(lastNoteAlertDate));
+            }
             item.setUniqueId(casesJsonObject.get("case_id").getAsString());
             item.setShortId(casesJsonObject.get("short_id").getAsString());
             item.setInternalId(casesJsonObject.get("_id").getAsString());
