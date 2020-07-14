@@ -32,23 +32,7 @@ public class AppRuntimeReceiver extends BroadcastReceiver {
         switch (action) {
             case Intent.ACTION_CLOSE_SYSTEM_DIALOGS:
                 String reason = intent.getStringExtra(SYSTEM_DIALOG_REASON_KEY);
-
                 Log.d(TAG, "Action reason: " + reason);
-                if (reason != null) {
-                    switch (reason) {
-                        case SYSTEM_DIALOG_REASON_DREAM:
-                        case SYSTEM_DIALOG_REASON_HOME_KEY:
-                            dealOnNougat();
-                            break;
-                        case SYSTEM_DIALOG_REASON_LOCK:
-                        case SYSTEM_DIALOG_REASON_ASSIST:
-                            AccountManager.doSignOut();
-                            break;
-                    }
-                }
-                break;
-            case Intent.ACTION_SCREEN_OFF:
-                AccountManager.doSignOut();
                 break;
         }
 
