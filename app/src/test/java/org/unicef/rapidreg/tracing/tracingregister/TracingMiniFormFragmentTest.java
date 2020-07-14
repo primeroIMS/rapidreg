@@ -3,9 +3,11 @@ package org.unicef.rapidreg.tracing.tracingregister;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -22,7 +24,9 @@ import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import org.unicef.rapidreg.R;
+import org.unicef.rapidreg.base.Feature;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterAdapter;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterFragment;
 import org.unicef.rapidreg.event.SaveTracingEvent;
@@ -40,6 +44,7 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -74,6 +79,11 @@ public class TracingMiniFormFragmentTest {
     @Mock
     RecordRegisterAdapter recordRegisterAdapter;
 
+    @Mock
+    Feature featureMock;
+
+    @Mock
+    TextView topInfoMessage;
 
     @InjectMocks
     TracingMiniFormFragment tracingMiniFormFragment = PowerMockito.spy(new TracingMiniFormFragment());
@@ -146,8 +156,12 @@ public class TracingMiniFormFragmentTest {
 
     @Test
     public void test_on_init_view_content() {
-        doNothing().when((RecordRegisterFragment)tracingMiniFormFragment).onInitViewContent();
-        stub(PowerMockito.method(TracingFeature.class, "isDetailMode")).toReturn(true);
+//        doNothing().when((RecordRegisterFragment)tracingMiniFormFragment).onInitViewContent();
+//        stub(PowerMockito.method(TracingFeature.class, "isDetailMode")).toReturn(true);
+        Whitebox.setInternalState(tracingMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
+        when(featureMock.isDetailMode()).thenReturn(true);
+        when(tracingActivity.getCurrentFeature()).thenReturn(featureMock);
+        doNothing().when((RecordRegisterFragment)tracingMiniFormFragment).addProfileFieldForDetailsPage(anyInt(), anyList());
         tracingMiniFormFragment.onInitViewContent();
         verify((RecordRegisterFragment)tracingMiniFormFragment, times(1)).onInitViewContent();
         verify(editButton, times(1)).setVisibility(View.VISIBLE);
