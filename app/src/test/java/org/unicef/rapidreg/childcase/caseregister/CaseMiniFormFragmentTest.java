@@ -153,7 +153,6 @@ public class CaseMiniFormFragmentTest {
 
     @Test
     public void test_on_init_view_content() {
-        //doNothing().when((RecordRegisterFragment)caseMiniFormFragment).onInitViewContent();
         Whitebox.setInternalState(caseMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
         when(featureMock.isDetailMode()).thenReturn(false);
         when(caseActivity.getCurrentFeature()).thenReturn(featureMock);

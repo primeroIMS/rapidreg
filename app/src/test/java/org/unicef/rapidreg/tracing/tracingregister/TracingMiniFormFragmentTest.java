@@ -156,8 +156,6 @@ public class TracingMiniFormFragmentTest {
 
     @Test
     public void test_on_init_view_content() {
-        //doNothing().when((RecordRegisterFragment)tracingMiniFormFragment).onInitViewContent();
-        //stub(PowerMockito.method(TracingFeature.class, "isDetailMode")).toReturn(true);
         Whitebox.setInternalState(tracingMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
         when(featureMock.isDetailMode()).thenReturn(true);
         when(tracingActivity.getCurrentFeature()).thenReturn(featureMock);

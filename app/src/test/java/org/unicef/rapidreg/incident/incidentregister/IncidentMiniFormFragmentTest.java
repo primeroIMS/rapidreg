@@ -104,8 +104,6 @@ public class IncidentMiniFormFragmentTest {
 
     @Test
     public void test_on_init_view_content() {
-        //doNothing().when((RecordRegisterFragment)incidentMiniFormFragment).onInitViewContent();
-        //stub(PowerMockito.method(IncidentFeature.class, "isDetailMode")).toReturn(true);
         Whitebox.setInternalState(incidentMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
         when(featureMock.isDetailMode()).thenReturn(true);
         when(incidentActivity.getCurrentFeature()).thenReturn(featureMock);
