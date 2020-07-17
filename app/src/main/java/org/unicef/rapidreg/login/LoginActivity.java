@@ -72,6 +72,19 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
         usernameEditView.requestFocus();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        closeIfAlreadyLogin();
+    }
+
+    private void closeIfAlreadyLogin() {
+        if (AccountManager.isSignIn()) {
+            finish();
+            return;
+        }
+    }
+
     @OnClick(R.id.login)
     public void onLoginButtonClicked() {
         presenter.doLogin(
