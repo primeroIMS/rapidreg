@@ -14,9 +14,9 @@ android {
         applicationId "org.unicef.rapidreg"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 3009
+        versionCode 3010
         multiDexEnabled true
-        versionName "3.0.2"
+        versionName "3.0.3"
     }
     signingConfigs {
         release {
