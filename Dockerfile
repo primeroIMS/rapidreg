@@ -16,8 +16,6 @@ ENV ANDROID_SDK_VERSION sdk-tools-linux-4333796
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools:$PATH
 
-RUN ln -s ${JAVA_HOME} /usr/lib/jvm/default-java
-
 # Download Android SDK
 WORKDIR /opt
 
