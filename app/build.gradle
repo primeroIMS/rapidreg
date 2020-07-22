@@ -15,7 +15,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 3010
-        multiDexEnabled trues
+        multiDexEnabled true
         versionName "3.0.3"
     }
     signingConfigs {
