@@ -16,11 +16,10 @@ import java.io.IOException;
 import static com.raizlabs.android.dbflow.sql.language.SQLite.*;
 
 public class LookupDaoImpl implements LookupDao {
+    final private int CHUNK_SIZE = 100000;
+
     @Override
     public Lookup getByServerUrlAndLocale(String apiBaseUrl, String locale) {
-        final int CHUNK_SIZE = 100000;
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
         LookupResponse lookupResult = select(Lookup_Table.id, new Method("LENGTH", Lookup_Table.lookups_json).as("blobSize"))
                 .from(Lookup.class)
                 .where(new Method("LENGTH", Lookup_Table.lookups_json).greaterThan(CHUNK_SIZE))
@@ -28,15 +27,40 @@ public class LookupDaoImpl implements LookupDao {
                 .and(Lookup_Table.locale.eq(locale))
                 .queryCustomSingle(LookupResponse.class);
 
-        int remainingChunks = lookupResult.getBlobSize();
+        if (lookupResult != null) {
+            return buildLookups(lookupResult);
+        }
 
+        return null;
+    }
+
+    private Lookup buildLookups(LookupResponse lookupResult) {
+        ByteArrayOutputStream outputStream = lookupsOutputStream(lookupResult);
+        Blob lookupsBlob = new Blob(outputStream.toByteArray());
+
+        Lookup lookup = new Lookup();
+        lookup.setLookupsJson(lookupsBlob);
+
+        return lookup;
+    }
+
+    private ByteArrayOutputStream lookupsOutputStream(LookupResponse lookupResult) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        int remainingChunks = lookupResult.getBlobSize();
         int i = 0;
+
         while(remainingChunks > 0) {
             int chunkSize = remainingChunks > CHUNK_SIZE ? CHUNK_SIZE : remainingChunks;
-            StringQuery query = new StringQuery(Lookup.class, "SELECT substr(lookups_json," + (i * CHUNK_SIZE + 1) + "," +  chunkSize + ") as lookupsJson from Lookup WHERE id=" + lookupResult.getId());
+
+            String queryString = "SELECT substr(lookups_json," + (i * CHUNK_SIZE + 1) + "," +  chunkSize + ") as lookupsJson from Lookup WHERE id=" + lookupResult.getId();
+
+            StringQuery query = new StringQuery(Lookup.class, queryString);
+
             query.execute();
 
             LookupResponse results  = (LookupResponse) query.queryCustomSingle(LookupResponse.class);
+
             try {
                 outputStream.write(results.getLookupsJson().getBlob());
             } catch (IOException e) {
@@ -46,16 +70,8 @@ public class LookupDaoImpl implements LookupDao {
             i++;
             remainingChunks -= chunkSize;
         }
-        Blob lookupsBlob = new Blob(outputStream.toByteArray());
 
-        Lookup lookup = new Lookup();
-        lookup.setLookupsJson(lookupsBlob);
-
-        return lookup;
-    }
-
-    public void streamLookups() {
-
+        return outputStream;
     }
 
     @Override
