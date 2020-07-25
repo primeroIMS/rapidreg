@@ -12,6 +12,5 @@
         android:layout_height="90dp"
         android:paddingStart="@dimen/case_register_label_padding_left_right"
         android:paddingEnd="@dimen/case_register_label_padding_left_right"
-        android:contentDescription="@drawable/photo_camera"
         android:src="@drawable/photo_camera" />
 </LinearLayout>

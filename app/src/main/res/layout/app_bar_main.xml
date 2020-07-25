@@ -52,6 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/size_10"
+                    android:contentDescription="@string/delete"
                     android:background="@drawable/ic_delete_white_24dp" />
 
                 <ImageButton
@@ -108,11 +109,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/size_10"
+                    android:contentDescription="@string/search"
                     android:background="@drawable/ic_search_white_24dp" />
                 <ImageButton
                     android:id="@+id/web_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/search_web"
                     android:background="@drawable/ic_search_web"/>
 
             </LinearLayout>

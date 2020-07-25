@@ -22,8 +22,7 @@
             android:layout_height="@dimen/camera_photo_size"
             android:paddingStart="@dimen/case_register_label_padding_left_right"
             android:paddingEnd="@dimen/case_register_label_padding_left_right"
-            android:src="@drawable/mic_rec_210"
-            android:contentDescription="@drawable/mic_rec_210" />
+            android:src="@drawable/mic_rec_210"/>
 
         <ImageView
             android:id="@+id/play_button"
@@ -32,7 +31,6 @@
             android:paddingStart="@dimen/case_register_label_padding_left_right"
             android:paddingEnd="@dimen/case_register_label_padding_left_right"
             android:src="@drawable/play_210"
-            android:contentDescription="@drawable/play_210"
             android:visibility="gone"/>
 
         <TextView
@@ -55,7 +53,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/case_register_field_padding_left_right"
             android:src="@drawable/recycle_bin"
-            android:contentDescription="@drawable/recycle_bin"
             android:visibility="gone"/>
 
     </LinearLayout>
