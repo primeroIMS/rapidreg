@@ -3,8 +3,10 @@ package org.unicef.rapidreg.childcase.caseregister;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.transition.Visibility;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +26,10 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.BaseActivity;
+import org.unicef.rapidreg.base.Feature;
 import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterAdapter;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterFragment;
@@ -43,6 +47,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -102,6 +107,9 @@ public class CaseMiniFormFragmentTest {
     @InjectMocks
     CaseMiniFormFragment caseMiniFormFragment = PowerMockito.spy(new CaseMiniFormFragment());
 
+    @Mock
+    Feature featureMock;
+
 
     @Before
     public void setUp() throws Exception {
@@ -145,7 +153,10 @@ public class CaseMiniFormFragmentTest {
 
     @Test
     public void test_on_init_view_content() {
-        doNothing().when((RecordRegisterFragment)caseMiniFormFragment).onInitViewContent();
+        Whitebox.setInternalState(caseMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
+        when(featureMock.isDetailMode()).thenReturn(false);
+        when(caseActivity.getCurrentFeature()).thenReturn(featureMock);
+        doNothing().when((RecordRegisterFragment)caseMiniFormFragment).addProfileFieldForDetailsPage(anyInt(), anyList());
         caseMiniFormFragment.onInitViewContent();
         verify((RecordRegisterFragment)caseMiniFormFragment, times(1)).onInitViewContent();
         verify(editButton, times(1)).setVisibility(anyInt());
