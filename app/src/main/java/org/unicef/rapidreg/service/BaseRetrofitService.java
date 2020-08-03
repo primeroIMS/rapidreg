@@ -1,6 +1,8 @@
 package org.unicef.rapidreg.service;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.unicef.rapidreg.BuildConfig;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
@@ -27,6 +29,7 @@ public abstract class BaseRetrofitService<T> {
     private T repository;
     private Retrofit retrofit;
     private X509TrustManager trustManager;
+    Gson gson = new GsonBuilder().setLenient().create();
 
     ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
             .tlsVersions(TlsVersion.TLS_1_2)
@@ -40,7 +43,7 @@ public abstract class BaseRetrofitService<T> {
         retrofit = new Retrofit.Builder()
                 .baseUrl(getBaseUrl())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(getClient())
                 .build();
 
@@ -57,6 +60,7 @@ public abstract class BaseRetrofitService<T> {
         builder.writeTimeout(PrimeroAppConfiguration.getTimeout(), TimeUnit.SECONDS);
         builder.connectTimeout(PrimeroAppConfiguration.getTimeout(), TimeUnit.SECONDS);
         builder.connectionSpecs(Collections.singletonList(spec));
+        builder.addInterceptor(new TokenInterceptor());
         builder.sslSocketFactory(getSSLContext().getSocketFactory(), trustManager);
 
         if (BuildConfig.DEBUG) {

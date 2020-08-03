@@ -1,16 +1,16 @@
 package org.unicef.rapidreg.service.impl;
 
-import android.app.IntentService;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.PrimeroApplication;
+import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.forms.RecordForm;
 import org.unicef.rapidreg.model.CaseForm;
 import org.unicef.rapidreg.model.IncidentForm;
@@ -23,9 +23,11 @@ import org.unicef.rapidreg.service.IncidentFormService;
 import org.unicef.rapidreg.service.LookupService;
 import org.unicef.rapidreg.service.SystemSettingsService;
 import org.unicef.rapidreg.service.TracingFormService;
+import org.unicef.rapidreg.utils.Utils;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import retrofit2.HttpException;
 
 import static org.unicef.rapidreg.PrimeroAppConfiguration.MODULE_ID_CP;
 import static org.unicef.rapidreg.PrimeroAppConfiguration.MODULE_ID_GBV;
@@ -91,6 +93,7 @@ public class AppDataServiceImpl implements AppDataService {
                 .subscribe(caseForm -> {
                     saveCaseForm(caseForm, moduleId);
                 }, throwable -> {
+                    loadFail(throwable);
                     Log.e(TAG, "Case Form Error -> " + throwable.getMessage());
                     callback.onFailure();
                 }, () -> {
@@ -122,6 +125,7 @@ public class AppDataServiceImpl implements AppDataService {
                     saveTracingForm(tracingForm);
                 }, throwable -> {
                     Log.e(TAG, "Tracing Form Error -> " + throwable.getMessage());
+                    loadFail(throwable);
                     callback.onFailure();
                 }, () -> {
                     loadLookups();
@@ -146,6 +150,7 @@ public class AppDataServiceImpl implements AppDataService {
                         saveIncidentForm(incidentForm);
                     }, throwable -> {
                         Log.e(TAG, "Incident Form Error -> " + throwable.getMessage());
+                        loadFail(throwable);
                         callback.onFailure();
                     }, () -> {
                         loadLookups();
@@ -170,6 +175,7 @@ public class AppDataServiceImpl implements AppDataService {
                     lookupService.saveOrUpdate(lookup, false);
                 }, throwable -> {
                     Log.e(TAG, "Lookups Error -> " + throwable.getMessage());
+                    loadFail(throwable);
                     callback.onFailure();
                 }, () -> {
                     callback.onSuccess();
@@ -187,6 +193,7 @@ public class AppDataServiceImpl implements AppDataService {
                     systemSettingsService.saveOrUpdateSystemSettings(systemSettings);
                 }, throwable -> {
                     Log.e(TAG, "Init system settings error -> " + throwable.getMessage());
+                    loadFail( throwable);
                     callback.onFailure();
                 }, () -> {
                     systemSettingsService.setGlobalSystemSettings();
@@ -194,6 +201,18 @@ public class AppDataServiceImpl implements AppDataService {
                     sendProgress("progress", 25);
                 });
         getCompositeDisposable().add(systemSettingsDisposable);
+    }
+
+    public void loadFail(Throwable throwable) {
+        if (throwable instanceof HttpException) {
+            HttpException httpException = (HttpException) throwable;
+            if (httpException.code() == 401)
+            {
+                PrimeroAppConfiguration.setAuthorized(false);
+                Utils.showMessageByToast(PrimeroApplication.getAppContext(), R.string.sync_pull_unauthorized_error_message, Toast.LENGTH_SHORT);
+                sendProgress("progress", 110);
+            }
+        }
     }
 
     private static CompositeDisposable getCompositeDisposable() {

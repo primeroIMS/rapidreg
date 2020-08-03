@@ -6,12 +6,14 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.PrimeroApplication;
+import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.model.Case;
 import org.unicef.rapidreg.model.CaseForm;
 import org.unicef.rapidreg.model.Incident;
@@ -21,7 +23,6 @@ import org.unicef.rapidreg.service.CaseFormService;
 import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.FormRemoteService;
 import org.unicef.rapidreg.service.LookupService;
-import org.unicef.rapidreg.R;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -35,6 +36,7 @@ import java.util.concurrent.TimeoutException;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import retrofit2.HttpException;
 
 public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     protected Context context;
@@ -211,6 +213,18 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
             getView().showServerNotAvailableSyncErrorMessage();
         } else if (throwable instanceof TimeoutException) {
             getView().showSyncTimeoutErrorMessage();
+        } else if (throwable instanceof HttpException || throwable instanceof JsonIOException){
+            if (throwable instanceof JsonIOException)
+            {
+                getView().showSyncUnauthorized();
+            } else
+                {
+                HttpException httpException = (HttpException) throwable;
+                if (httpException.code() == 401){
+                    getView().showSyncUnauthorized();
+                }
+            }
+            PrimeroAppConfiguration.setAuthorized(false);
         } else {
             getView().showSyncErrorMessage();
         }
@@ -249,7 +263,7 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     protected void syncUploadSuccessfully() {
         if (getView() != null && isViewAttached()) {
             updateDataViews();
-            getView().showSyncUploadSuccessMessage();
+            //getView().showSyncUploadSuccessMessage();
             getView().hideSyncProgressDialog();
         }
     }
@@ -257,7 +271,7 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     protected void syncDownloadSuccessfully() {
         if (getView() != null && isViewAttached()) {
             updateDataViews();
-            getView().showSyncDownloadSuccessMessage();
+            //getView().showSyncDownloadSuccessMessage();
             getView().hideSyncProgressDialog();
         }
     }
