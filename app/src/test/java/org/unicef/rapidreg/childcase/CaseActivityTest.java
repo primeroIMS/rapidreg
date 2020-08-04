@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+
 import android.widget.Toast;
 
 import junit.framework.Assert;
@@ -191,7 +193,7 @@ public class CaseActivityTest {
     public void test_get_record_list_fragment() {
         FragmentManager fragmentManager = PowerMockito.mock(FragmentManager.class);
         PowerMockito.stub(PowerMockito.method(CaseActivity.class, "getSupportFragmentManager")).toReturn(fragmentManager);
-        android.support.v4.app.Fragment fragment = new CaseListFragment();
+        Fragment fragment = new CaseListFragment();
         doReturn(fragment).when(fragmentManager).findFragmentByTag(anyString());
 
         RecordListFragment recordListFragment = caseActivity.getRecordListFragment();
@@ -203,7 +205,7 @@ public class CaseActivityTest {
     public void test_get_case_search_fragment() {
         FragmentManager fragmentManager = PowerMockito.mock(FragmentManager.class);
         PowerMockito.stub(PowerMockito.method(CaseActivity.class, "getSupportFragmentManager")).toReturn(fragmentManager);
-        android.support.v4.app.Fragment fragment = new CaseSearchFragment();
+        Fragment fragment = new CaseSearchFragment();
         doReturn(fragment).when(fragmentManager).findFragmentByTag(anyString());
 
         CaseSearchFragment caseSearchFragment = caseActivity.getCaseSearchFragment();

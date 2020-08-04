@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.service.impl;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.raizlabs.android.dbflow.data.Blob;
 
-import org.reactivestreams.Subscriber;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
 import org.unicef.rapidreg.exception.ObservableNullResponseException;
@@ -25,7 +24,6 @@ import java.util.List;
 
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
 import io.reactivex.functions.Function;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;

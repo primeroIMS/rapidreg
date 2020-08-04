@@ -3,8 +3,8 @@ package org.unicef.rapidreg.tracing;
 import android.app.FragmentManager;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.drawerlayout.widget.DrawerLayout;
 import android.widget.Toast;
 
 import junit.framework.Assert;
@@ -30,7 +30,6 @@ import org.unicef.rapidreg.base.record.recordlist.RecordListFragment;
 import org.unicef.rapidreg.event.LoadTracingFormEvent;
 import org.unicef.rapidreg.event.SaveTracingEvent;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
-import org.unicef.rapidreg.model.Tracing;
 import org.unicef.rapidreg.tracing.tracinglist.TracingListFragment;
 import org.unicef.rapidreg.utils.KeyboardUtils;
 import org.unicef.rapidreg.utils.Utils;

@@ -1,20 +1,17 @@
 package org.unicef.rapidreg.base;
 
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.design.widget.NavigationView;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import com.google.android.material.navigation.NavigationView;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -35,7 +32,6 @@ import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.childcase.CaseActivity;
 import org.unicef.rapidreg.childcase.FormDownloadProgressRequestReceiver;
 import org.unicef.rapidreg.event.CreateIncidentThruGBVCaseEvent;
-import org.unicef.rapidreg.exception.StringResourceException;
 import org.unicef.rapidreg.injection.component.ActivityComponent;
 import org.unicef.rapidreg.injection.component.DaggerActivityComponent;
 import org.unicef.rapidreg.injection.module.ActivityModule;
@@ -317,8 +313,8 @@ public abstract class BaseActivity extends MvpActivity<BaseView, BasePresenter> 
         AlertDialog.Builder syncFormsProgressDialogBuilder = new AlertDialog.Builder(this);
         View inflator = LayoutInflater.from(getContext()).inflate(R.layout.load_forms, null);
 
-        formSyncProgressBar = ButterKnife.findById(inflator, R.id.load_forms_progress_bar);
-        formSyncTxt = ButterKnife.findById(inflator, R.id.load_forms_txt);
+        formSyncProgressBar = inflator.findViewById(R.id.load_forms_progress_bar);
+        formSyncTxt = inflator.findViewById(R.id.load_forms_txt);
 
         syncFormsProgressDialogBuilder.setView(inflator);
         syncFormsProgressDialogBuilder.create();

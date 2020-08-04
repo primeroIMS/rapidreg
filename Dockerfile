@@ -38,7 +38,7 @@ RUN sdkmanager "tools" "platform-tools"
 
 RUN yes | sdkmanager \
     "build-tools;28.0.3" \
-    "platforms;android-28" \
+    "platforms;android-29" \
     "add-ons;addon-google_apis-google-23" \
     "extras;android;m2repository" \
     "extras;google;m2repository" \

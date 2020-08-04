@@ -2,7 +2,7 @@ package org.unicef.rapidreg.base.record.recordregister;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +28,6 @@ import org.unicef.rapidreg.widgets.viewholder.TickBoxViewHolder;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static java.util.Collections.EMPTY_LIST;
 

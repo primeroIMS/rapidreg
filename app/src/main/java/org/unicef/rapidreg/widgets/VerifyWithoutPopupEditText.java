@@ -3,7 +3,7 @@ package org.unicef.rapidreg.widgets;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.support.v7.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatEditText;
 
 public class VerifyWithoutPopupEditText extends AppCompatEditText {
     public VerifyWithoutPopupEditText(Context context, AttributeSet attrs) {
