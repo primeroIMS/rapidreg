@@ -143,7 +143,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12',
             'org.robolectric:robolectric:4.0-beta-1',
-            'org.robolectric:shadows-support-v4:3.4-rc2',
+            'com.github.nimbl3:robolectric.shadows-supportv4:4.1-SNAPSHOT',
             'org.easymock:easymock:3.4',
             "org.powermock:powermock:${powerMockVersion}",
             "org.powermock:powermock-module-junit4:${powerMockVersion}",
