@@ -30,8 +30,6 @@ COPY ./repositories.cfg /root/.android/repositories.cfg
 
 RUN yes | sdkmanager --licenses
 
-#RUN sdkmanager --list
-
 RUN sdkmanager "tools" "platform-tools"
 
 RUN yes | sdkmanager \
