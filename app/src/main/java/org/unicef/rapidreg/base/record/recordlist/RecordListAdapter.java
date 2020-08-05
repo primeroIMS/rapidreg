@@ -1,7 +1,7 @@
 package org.unicef.rapidreg.base.record.recordlist;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 
 import android.view.ViewGroup;
@@ -9,11 +9,8 @@ import android.view.ViewGroup;
 import org.unicef.rapidreg.R;
 
 import java.lang.ref.WeakReference;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public abstract class RecordListAdapter extends RecyclerView.Adapter<RecordListViewHolder> {
     public static final String TAG = RecordListAdapter.class.getSimpleName();

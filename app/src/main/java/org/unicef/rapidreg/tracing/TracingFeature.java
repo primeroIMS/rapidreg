@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.tracing;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.Feature;

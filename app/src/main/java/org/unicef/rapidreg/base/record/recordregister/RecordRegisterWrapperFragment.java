@@ -1,8 +1,8 @@
 package org.unicef.rapidreg.base.record.recordregister;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.duolingo.open.rtlviewpager.RtlViewPager;
 
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;

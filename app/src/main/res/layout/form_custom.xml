@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_1" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_list"
         android:paddingStart="@dimen/size_10"
         android:layout_width="match_parent"

@@ -1,11 +1,10 @@
 package org.unicef.rapidreg.childcase.caseregister;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 import org.unicef.rapidreg.R;
@@ -16,7 +15,6 @@ import org.unicef.rapidreg.base.record.recordregister.RecordRegisterFragment;
 import org.unicef.rapidreg.childcase.CaseActivity;
 import org.unicef.rapidreg.childcase.CaseFeature;
 import org.unicef.rapidreg.childcase.casephoto.CasePhotoAdapter;
-import org.unicef.rapidreg.service.CaseService;
 import org.unicef.rapidreg.service.RecordService;
 import org.unicef.rapidreg.forms.Field;
 
@@ -32,7 +30,6 @@ import static org.unicef.rapidreg.childcase.CaseFeature.DETAILS_CP_MINI;
 import static org.unicef.rapidreg.childcase.CaseFeature.DETAILS_GBV_MINI;
 import static org.unicef.rapidreg.childcase.CaseFeature.EDIT_MINI;
 import static org.unicef.rapidreg.service.RecordService.MODULE;
-import static org.unicef.rapidreg.childcase.caseregister.CaseRegisterPresenter.MODULE_CASE_CP;
 
 public class CaseRegisterFragment extends RecordRegisterFragment {
     @Inject

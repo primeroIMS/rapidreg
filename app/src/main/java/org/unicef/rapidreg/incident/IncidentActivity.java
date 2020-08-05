@@ -1,10 +1,10 @@
 package org.unicef.rapidreg.incident;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.GravityCompat;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,7 +17,6 @@ import org.unicef.rapidreg.base.record.RecordActivity;
 import org.unicef.rapidreg.base.record.recordlist.RecordListFragment;
 import org.unicef.rapidreg.event.LoadGBVIncidentFormEvent;
 import org.unicef.rapidreg.event.SaveIncidentEvent;
-import org.unicef.rapidreg.exception.FragmentSwitchException;
 import org.unicef.rapidreg.incident.incidentlist.IncidentListFragment;
 import org.unicef.rapidreg.utils.KeyboardUtils;
 import org.unicef.rapidreg.utils.Utils;

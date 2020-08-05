@@ -16,8 +16,6 @@ ENV ANDROID_SDK_VERSION sdk-tools-linux-4333796
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools:$PATH
 
-RUN ln -s ${JAVA_HOME} /usr/lib/jvm/default-java
-
 # Download Android SDK
 WORKDIR /opt
 
@@ -32,13 +30,11 @@ COPY ./repositories.cfg /root/.android/repositories.cfg
 
 RUN yes | sdkmanager --licenses
 
-#RUN sdkmanager --list
-
 RUN sdkmanager "tools" "platform-tools"
 
 RUN yes | sdkmanager \
-    "build-tools;28.0.3" \
-    "platforms;android-28" \
+    "build-tools;29.0.2" \
+    "platforms;android-29" \
     "add-ons;addon-google_apis-google-23" \
     "extras;android;m2repository" \
     "extras;google;m2repository" \

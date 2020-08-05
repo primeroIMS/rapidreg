@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.repository;
 
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 
 import org.unicef.rapidreg.model.Incident;
 
@@ -16,7 +16,7 @@ public interface IncidentDao {
 
     List<Incident> getAllIncidentsOrderByAge(boolean isASC, String ownedBy, String url);
 
-    List<Incident> getIncidentListByConditionGroup(String ownedBy, String url, ConditionGroup conditionGroup);
+    List<Incident> getIncidentListByOperatorGroup(String ownedBy, String url, OperatorGroup operatorGroup);
 
     Incident getIncidentById(long incidentId);
 

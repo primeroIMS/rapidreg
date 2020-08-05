@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.repository.impl;
 
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.language.Where;
 import com.raizlabs.android.dbflow.sql.language.property.IProperty;
@@ -75,9 +75,9 @@ public class TracingDaoImpl implements TracingDao {
     }
 
     @Override
-    public List<Tracing> getAllTracingsByConditionGroup(String ownedBy, String url, ConditionGroup conditionGroup) {
+    public List<Tracing> getAllTracingsByOperatorGroup(String ownedBy, String url, OperatorGroup operatorGroup) {
         return SQLite.select(selectFields).from(Tracing.class)
-                .where(conditionGroup)
+                .where(operatorGroup)
                 .and(Tracing_Table.owned_by.eq(ownedBy))
                 .and(Tracing_Table.server_url.eq(url))
                 .orderBy(Tracing_Table.registration_date, false)

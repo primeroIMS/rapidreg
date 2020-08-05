@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.repository.impl;
 
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.language.Where;
 import com.raizlabs.android.dbflow.sql.language.property.IProperty;
@@ -70,9 +70,9 @@ public class IncidentDaoImpl implements IncidentDao {
     }
 
     @Override
-    public List<Incident> getIncidentListByConditionGroup(String ownedBy, String url, ConditionGroup conditionGroup) {
+    public List<Incident> getIncidentListByOperatorGroup(String ownedBy, String url, OperatorGroup operatorGroup) {
         return SQLite.select(selectFields).from(Incident.class)
-                .where(conditionGroup)
+                .where(operatorGroup)
                 .and(Incident_Table.owned_by.eq(ownedBy))
                 .and(Incident_Table.server_url.eq(url))
                 .orderBy(Incident_Table.registration_date, false)
@@ -112,7 +112,7 @@ public class IncidentDaoImpl implements IncidentDao {
         return SQLite
                 .select(selectFields)
                 .from(Incident.class)
-                .where(ConditionGroup.clause().and(Incident_Table.case_unique_id.eq(caseUniqueId)))
+                .where(OperatorGroup.clause().and(Incident_Table.case_unique_id.eq(caseUniqueId)))
                 .orderBy(Incident_Table.registration_date, false)
                 .queryList();
     }
