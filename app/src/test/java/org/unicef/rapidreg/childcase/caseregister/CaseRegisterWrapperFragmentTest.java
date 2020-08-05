@@ -207,7 +207,7 @@ public class CaseRegisterWrapperFragmentTest {
         when(caseRegisterPresenter.getCaseType()).thenReturn(CaseRegisterPresenter.MODULE_CASE_CP);
         stub(PowerMockito.method(CaseRegisterWrapperFragment.class, "getPhotoPathsData")).toReturn(new ArrayList<String>());
         caseRegisterWrapperFragment.onSaveSuccessful(1l);
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(recordActivity, R.string.save_success, Toast.LENGTH_SHORT);
         Mockito.verify(caseRegisterPresenter, Mockito.times(2)).getCaseType();
         Mockito.verify(recordActivity, Mockito.times(1)).turnToFeature(any(), any(), any());

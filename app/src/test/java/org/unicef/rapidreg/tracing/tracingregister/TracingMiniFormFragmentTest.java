@@ -177,7 +177,7 @@ public class TracingMiniFormFragmentTest {
     @Test
     public void test_on_save_successful() {
         tracingMiniFormFragment.onSaveSuccessful(1);
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(tracingActivity, R.string.save_success, Toast.LENGTH_SHORT);
         verify(tracingActivity, times(1)).turnToFeature(any(TracingFeature.class), any(Bundle.class), any());
     }

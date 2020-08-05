@@ -165,7 +165,7 @@ public class IncidentMiniFormFragmentTest {
     @Test
     public void test_on_save_successful() {
         incidentMiniFormFragment.onSaveSuccessful(1);
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class,times(1));
         Utils.showMessageByToast(incidentActivity, R.string.save_success, Toast.LENGTH_SHORT);
         verify(incidentActivity, times(1)).turnToFeature(any(IncidentFeature.class), any(Bundle.class), any());
     }

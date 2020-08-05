@@ -118,7 +118,7 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
     @Override
     public List<String> getPhotoPathsData() {
         if (this.getCurrentPhotoAdapter() == null) {
-            return Collections.emptyList();
+            return new ArrayList<String>();
         }
         return this.getCurrentPhotoAdapter().getAllItems();
     }
