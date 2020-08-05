@@ -3,7 +3,7 @@ apply from: './jacoco.gradle'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
         def buildNumber = System.getenv("BUILD_NUMBER") == null ? '' : System.getenv("BUILD_NUMBER")
@@ -97,9 +97,9 @@ dependencies {
 
     implementation 'androidx.multidex:multidex:2.0.0'
 
-    implementation 'com.google.dagger:dagger:2.4'
+    implementation 'com.google.dagger:dagger:2.12'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.12'
     implementation 'com.jakewharton:butterknife:10.2.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.2'
 
@@ -111,7 +111,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
-    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.2.0'
     implementation 'com.hannesdorfmann.mosby:mvp:2.0.1'
     implementation 'com.hannesdorfmann.mosby:viewstate:2.0.1'
     implementation 'id.zelory:compressor:1.0.4'
