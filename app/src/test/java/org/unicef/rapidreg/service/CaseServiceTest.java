@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.raizlabs.android.dbflow.data.Blob;
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -165,7 +165,7 @@ public class CaseServiceTest {
     }
 
     @Test
-    public void should_get_CP_search_result_by_condition_group() throws Exception {
+    public void should_get_CP_search_result_by_operator_group() throws Exception {
         Case searchCaseOne = new Case(10000L);
         Case searchCaseTwo = new Case(10001L);
         Case searchCaseThree = new Case(10002L);
@@ -175,7 +175,7 @@ public class CaseServiceTest {
                 searchCaseTwo,
                 searchCaseThree,
                 searchCaseFour});
-        when(caseDao.getCaseListByConditionGroup(anyString(), anyString(), any(ConditionGroup
+        when(caseDao.getCaseListByOperatorGroup(anyString(), anyString(), any(OperatorGroup
                 .class))).thenReturn
                 (searchResult);
 
@@ -215,10 +215,10 @@ public class CaseServiceTest {
     }
 
     @Test
-    public void should_get_GBV_search_result_by_condition_group() throws Exception {
+    public void should_get_GBV_search_result_by_operator_group() throws Exception {
         List<Case> searchResult = new ArrayList<>();
 
-        when(caseDao.getCaseListByConditionGroup(anyString(), anyString(), any(ConditionGroup.class)))
+        when(caseDao.getCaseListByOperatorGroup(anyString(), anyString(), any(OperatorGroup.class)))
                 .thenReturn(searchResult);
 
         List<Long> actual = caseService.getGBVSearchResult("", "", "", null);

@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.repository.impl;
 
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.language.Where;
 import com.raizlabs.android.dbflow.sql.language.property.IProperty;
@@ -72,9 +72,9 @@ public class CaseDaoImpl implements CaseDao {
     }
 
     @Override
-    public List<Case> getCaseListByConditionGroup(String ownedBy, String url, ConditionGroup conditionGroup) {
+    public List<Case> getCaseListByOperatorGroup(String ownedBy, String url, OperatorGroup operatorGroup) {
         return SQLite.select(selectFields).from(Case.class)
-                .where(conditionGroup)
+                .where(operatorGroup)
                 .and(Case_Table.owned_by.eq(ownedBy))
                 .and(Case_Table.server_url.eq(url))
                 .orderBy(Case_Table.registration_date, false)

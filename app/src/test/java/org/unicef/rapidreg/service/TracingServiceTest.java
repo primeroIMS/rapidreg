@@ -3,7 +3,7 @@ package org.unicef.rapidreg.service;
 
 import android.content.Context;
 
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -146,7 +146,7 @@ public class TracingServiceTest {
         Tracing[] orders = new Tracing[]{new Tracing(3), new Tracing(2), new Tracing(1)};
         List<Tracing> orderList = Arrays.asList(orders);
 
-        when(tracingDao.getAllTracingsByConditionGroup(anyString(), anyString(), any(ConditionGroup.class)))
+        when(tracingDao.getAllTracingsByOperatorGroup(anyString(), anyString(), any(OperatorGroup.class)))
                 .thenReturn(orderList);
 
         assertThat("When call getCPSearchResult() should return search result depends on search " +

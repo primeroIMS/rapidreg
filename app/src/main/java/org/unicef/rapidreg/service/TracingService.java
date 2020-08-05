@@ -2,10 +2,10 @@ package org.unicef.rapidreg.service;
 
 import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.data.Blob;
-import com.raizlabs.android.dbflow.sql.language.Condition;
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.Operator;
 import com.raizlabs.android.dbflow.sql.language.NameAlias;
-import com.raizlabs.android.dbflow.sql.language.SQLCondition;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
+import com.raizlabs.android.dbflow.sql.language.SQLOperator;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.model.RecordModel;
@@ -66,35 +66,35 @@ public class TracingService extends RecordService {
 
     public List<Long> getSearchResult(String uniqueId, String name, int ageFrom, int ageTo, Date
             date) {
-        ConditionGroup searchCondition = getSearchCondition(uniqueId, name, ageFrom, ageTo, date);
-        return extractIds(tracingDao.getAllTracingsByConditionGroup(PrimeroAppConfiguration.getCurrentUsername(),
+        OperatorGroup searchCondition = getSearchCondition(uniqueId, name, ageFrom, ageTo, date);
+        return extractIds(tracingDao.getAllTracingsByOperatorGroup(PrimeroAppConfiguration.getCurrentUsername(),
                 PrimeroAppConfiguration.getApiBaseUrl(),
                 searchCondition));
     }
 
-    private ConditionGroup getSearchCondition(String shortId, String name, int ageFrom, int
+    private OperatorGroup getSearchCondition(String shortId, String name, int ageFrom, int
             ageTo, Date date) {
-        ConditionGroup conditionGroup = ConditionGroup.clause();
-        conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_CREATED_BY).build())
+        OperatorGroup operatorGroup = OperatorGroup.clause();
+        operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_CREATED_BY).build())
                 .eq(PrimeroAppConfiguration.getCurrentUser().getUsername()));
 
-        SQLCondition ageSearchCondition = generateAgeSearchCondition(ageFrom, ageTo);
+        SQLOperator ageSearchCondition = generateAgeSearchCondition(ageFrom, ageTo);
         if (!TextUtils.isEmpty(shortId)) {
-            conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
+            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
                     .like(getWrappedCondition(shortId)));
         }
         if (ageSearchCondition != null) {
-            conditionGroup.and(ageSearchCondition);
+            operatorGroup.and(ageSearchCondition);
         }
         if (!TextUtils.isEmpty(name)) {
-            conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_NAME).build())
+            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_NAME).build())
                     .like(getWrappedCondition(name)));
         }
         if (date != null) {
-            conditionGroup.and(Condition.column(
+            operatorGroup.and(Operator.column(
                     NameAlias.builder(RecordModel.COLUMN_REGISTRATION_DATE).build()).eq(date));
         }
-        return conditionGroup;
+        return operatorGroup;
     }
 
     public Tracing saveOrUpdate(ItemValuesMap itemValues, List<String> photoPaths) throws

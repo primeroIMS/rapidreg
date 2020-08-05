@@ -5,10 +5,10 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.data.Blob;
-import com.raizlabs.android.dbflow.sql.language.Condition;
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.Operator;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.NameAlias;
-import com.raizlabs.android.dbflow.sql.language.SQLCondition;
+import com.raizlabs.android.dbflow.sql.language.SQLOperator;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.model.Case;
@@ -109,34 +109,34 @@ public class CaseService extends RecordService {
 
     public List<Long> getCPSearchResult(String shortId, String name, int ageFrom, int ageTo,
                                         String caregiver, Date date) {
-        ConditionGroup conditionGroup = ConditionGroup.clause();
-        SQLCondition ageSearchCondition = generateAgeSearchCondition(ageFrom, ageTo);
+        OperatorGroup operatorGroup = OperatorGroup.clause();
+        SQLOperator ageSearchCondition = generateAgeSearchCondition(ageFrom, ageTo);
         if (ageSearchCondition != null) {
-            conditionGroup.and(ageSearchCondition);
+            operatorGroup.and(ageSearchCondition);
         }
-        conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
+        operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
                 .eq(PrimeroAppConfiguration.getCurrentUser().getUsername()));
 
         if(!TextUtils.isEmpty(caregiver)){
-            conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_CAREGIVER).build())
+            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_CAREGIVER).build())
                     .like(getWrappedCondition(caregiver)));
         }
         if(!TextUtils.isEmpty(shortId)){
-            conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
+            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
                     .like(getWrappedCondition(shortId)));
         }
         if(!TextUtils.isEmpty(name)){
-            conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_NAME).build())
+            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_NAME).build())
                     .like(getWrappedCondition(name)));
         }
         if (date != null) {
-            conditionGroup.and(Condition.column(NameAlias.builder(Case.COLUMN_REGISTRATION_DATE)
+            operatorGroup.and(Operator.column(NameAlias.builder(Case.COLUMN_REGISTRATION_DATE)
                     .build()).eq(date));
         }
 
-        return extractIds(caseDao.getCaseListByConditionGroup(PrimeroAppConfiguration.getCurrentUsername(),
+        return extractIds(caseDao.getCaseListByOperatorGroup(PrimeroAppConfiguration.getCurrentUsername(),
                 PrimeroAppConfiguration.getApiBaseUrl(),
-                conditionGroup));
+                operatorGroup));
     }
 
     public List<Long> getAllSyncedRecordsId() {
@@ -144,29 +144,29 @@ public class CaseService extends RecordService {
     }
 
     public List<Long> getGBVSearchResult(String shortId, String name, String location, Date registrationDate) {
-        ConditionGroup conditionGroup = ConditionGroup.clause();
-        conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
+        OperatorGroup operatorGroup = OperatorGroup.clause();
+        operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
                 .eq(PrimeroAppConfiguration.getCurrentUser().getUsername()));
 
         if (!TextUtils.isEmpty(shortId)) {
-            conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
+            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
                     .like(getWrappedCondition(shortId)));
         }
         //      TODO
         if (!TextUtils.isEmpty(location)) {
-            conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_LOCATION).build())
+            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_LOCATION).build())
                     .like(getWrappedCondition(location)));
         }
         if (registrationDate != null) {
-            conditionGroup.and(Condition.column(NameAlias.builder(Case.COLUMN_REGISTRATION_DATE)
+            operatorGroup.and(Operator.column(NameAlias.builder(Case.COLUMN_REGISTRATION_DATE)
                     .build()).eq(registrationDate));
         }
         if (!TextUtils.isEmpty(name)) {
-            conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_NAME).build())
+            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_NAME).build())
                     .like(getWrappedCondition(name)));
         }
-        return extractIds(caseDao.getCaseListByConditionGroup(PrimeroAppConfiguration.getCurrentUsername(),
-                PrimeroAppConfiguration.getApiBaseUrl(), conditionGroup));
+        return extractIds(caseDao.getCaseListByOperatorGroup(PrimeroAppConfiguration.getCurrentUsername(),
+                PrimeroAppConfiguration.getApiBaseUrl(), operatorGroup));
     }
 
     public Case saveOrUpdate(ItemValuesMap itemValues, List<String> photoPaths) throws IOException {

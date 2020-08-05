@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.repository;
 
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 
 import org.unicef.rapidreg.model.Case;
 
@@ -17,7 +17,7 @@ public interface CaseDao {
 
     List<Case> getAllCasesOrderByAge(boolean isASC, String ownedBy, String url);
 
-    List<Case> getCaseListByConditionGroup(String ownedBy, String url, ConditionGroup conditionGroup);
+    List<Case> getCaseListByOperatorGroup(String ownedBy, String url, OperatorGroup operatorGroup);
 
     Case getCaseById(long caseId);
 

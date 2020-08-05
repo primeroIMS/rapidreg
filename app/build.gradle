@@ -85,7 +85,7 @@ android {
 
 def androidSupportVersion = '29.0.0'
 def powerMockVersion = '1.6.5'
-def dbflowVersion = '4.0.0-beta5'
+def dbflowVersion = '4.2.4'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
