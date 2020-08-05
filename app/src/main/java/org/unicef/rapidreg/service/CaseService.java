@@ -114,23 +114,23 @@ public class CaseService extends RecordService {
         if (ageSearchCondition != null) {
             operatorGroup.and(ageSearchCondition);
         }
-        operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
+        operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
                 .eq(PrimeroAppConfiguration.getCurrentUser().getUsername()));
 
         if(!TextUtils.isEmpty(caregiver)){
-            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_CAREGIVER).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_CAREGIVER).build())
                     .like(getWrappedCondition(caregiver)));
         }
         if(!TextUtils.isEmpty(shortId)){
-            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
                     .like(getWrappedCondition(shortId)));
         }
         if(!TextUtils.isEmpty(name)){
-            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_NAME).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_NAME).build())
                     .like(getWrappedCondition(name)));
         }
         if (date != null) {
-            operatorGroup.and(Operator.column(NameAlias.builder(Case.COLUMN_REGISTRATION_DATE)
+            operatorGroup.and(Operator.op(NameAlias.builder(Case.COLUMN_REGISTRATION_DATE)
                     .build()).eq(date));
         }
 
@@ -145,24 +145,24 @@ public class CaseService extends RecordService {
 
     public List<Long> getGBVSearchResult(String shortId, String name, String location, Date registrationDate) {
         OperatorGroup operatorGroup = OperatorGroup.clause();
-        operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
+        operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
                 .eq(PrimeroAppConfiguration.getCurrentUser().getUsername()));
 
         if (!TextUtils.isEmpty(shortId)) {
-            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
                     .like(getWrappedCondition(shortId)));
         }
         //      TODO
         if (!TextUtils.isEmpty(location)) {
-            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_LOCATION).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_LOCATION).build())
                     .like(getWrappedCondition(location)));
         }
         if (registrationDate != null) {
-            operatorGroup.and(Operator.column(NameAlias.builder(Case.COLUMN_REGISTRATION_DATE)
+            operatorGroup.and(Operator.op(NameAlias.builder(Case.COLUMN_REGISTRATION_DATE)
                     .build()).eq(registrationDate));
         }
         if (!TextUtils.isEmpty(name)) {
-            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_NAME).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_NAME).build())
                     .like(getWrappedCondition(name)));
         }
         return extractIds(caseDao.getCaseListByOperatorGroup(PrimeroAppConfiguration.getCurrentUsername(),

@@ -86,7 +86,7 @@ public class IncidentService extends RecordService {
             typeOfViolence, String location) {
         OperatorGroup operatorGroup = OperatorGroup.clause();
 
-        operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
+        operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
                 .eq(PrimeroAppConfiguration.getCurrentUser().getUsername()));
 
         SQLOperator ageSearchCondition = generateAgeSearchCondition(ageFrom, ageTo);
@@ -95,19 +95,19 @@ public class IncidentService extends RecordService {
         }
 
         if (!TextUtils.isEmpty(shortId)) {
-            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
                     .like(getWrappedCondition(shortId)));
         }
         if (!TextUtils.isEmpty(typeOfViolence)) {
-            operatorGroup.and(Operator.column(NameAlias.builder(Incident.COLUMN_TYPE_OF_VIOLENCE).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(Incident.COLUMN_TYPE_OF_VIOLENCE).build())
                     .eq(typeOfViolence));
         }
         if (!TextUtils.isEmpty(location)) {
-            operatorGroup.and(Operator.column(NameAlias.builder(Incident.COLUMN_LOCATION).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(Incident.COLUMN_LOCATION).build())
                     .eq(location));
         }
         if (!TextUtils.isEmpty(survivorCode)) {
-            operatorGroup.and(Operator.column(NameAlias.builder(Incident.COLUMN_SURVIVOR_CODE).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(Incident.COLUMN_SURVIVOR_CODE).build())
                     .like(getWrappedCondition(survivorCode)));
         }
         return operatorGroup;

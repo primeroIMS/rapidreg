@@ -158,16 +158,16 @@ public class RecordService {
         }
 
         if (ageFrom == EMPTY_AGE && ageTo != EMPTY_AGE) {
-            return Operator.column(NameAlias.builder(RecordModel.COLUMN_AGE).build())
+            return Operator.op(NameAlias.builder(RecordModel.COLUMN_AGE).build())
                     .lessThan(ageTo + 1);
         }
 
         if (ageFrom != EMPTY_AGE && ageTo == EMPTY_AGE) {
-            return Operator.column(NameAlias.builder(RecordModel.COLUMN_AGE).build())
+            return Operator.op(NameAlias.builder(RecordModel.COLUMN_AGE).build())
                     .greaterThan(ageFrom - 1);
         }
 
-        return Operator.column(NameAlias.builder(RecordModel.COLUMN_AGE).build())
+        return Operator.op(NameAlias.builder(RecordModel.COLUMN_AGE).build())
                 .between(ageFrom).and(ageTo);
     }
 

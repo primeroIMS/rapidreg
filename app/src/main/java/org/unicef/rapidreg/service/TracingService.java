@@ -75,23 +75,23 @@ public class TracingService extends RecordService {
     private OperatorGroup getSearchCondition(String shortId, String name, int ageFrom, int
             ageTo, Date date) {
         OperatorGroup operatorGroup = OperatorGroup.clause();
-        operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_CREATED_BY).build())
+        operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_CREATED_BY).build())
                 .eq(PrimeroAppConfiguration.getCurrentUser().getUsername()));
 
         SQLOperator ageSearchCondition = generateAgeSearchCondition(ageFrom, ageTo);
         if (!TextUtils.isEmpty(shortId)) {
-            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
                     .like(getWrappedCondition(shortId)));
         }
         if (ageSearchCondition != null) {
             operatorGroup.and(ageSearchCondition);
         }
         if (!TextUtils.isEmpty(name)) {
-            operatorGroup.and(Operator.column(NameAlias.builder(RecordModel.COLUMN_NAME).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_NAME).build())
                     .like(getWrappedCondition(name)));
         }
         if (date != null) {
-            operatorGroup.and(Operator.column(
+            operatorGroup.and(Operator.op(
                     NameAlias.builder(RecordModel.COLUMN_REGISTRATION_DATE).build()).eq(date));
         }
         return operatorGroup;
