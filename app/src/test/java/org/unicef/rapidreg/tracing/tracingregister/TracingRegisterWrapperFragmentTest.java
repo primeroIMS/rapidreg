@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.util.reflection.Whitebox;
+import org.mockito.internal.util.reflection.FieldSetter;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -86,6 +86,9 @@ public class TracingRegisterWrapperFragmentTest {
     @Mock
     Bundle arguments;
 
+    @Mock
+    RecordPhotoPageChangeListener recordPhotoPageChangeListener;
+
     @InjectMocks
     TracingRegisterWrapperFragment tracingRegisterWrapperFragment = PowerMockito.spy(new TracingRegisterWrapperFragment());
 
@@ -145,8 +148,8 @@ public class TracingRegisterWrapperFragmentTest {
     }
 
     @Test
-    public void test_on_init_item_values() throws IllegalAccessException {
-        Whitebox.setInternalState(tracingRegisterWrapperFragment, "recordPhotoPageChangeListener", new RecordPhotoPageChangeListener());
+    public void test_on_init_item_values() throws IllegalAccessException, NoSuchFieldException {
+        FieldSetter.setField(tracingRegisterWrapperFragment, tracingRegisterWrapperFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("recordPhotoPageChangeListener"),recordPhotoPageChangeListener);
         tracingRegisterWrapperFragment.initItemValues();
         verify(tracingRegisterWrapperFragment, times(1)).setRecordRegisterData(any());
         verify(tracingRegisterWrapperFragment, times(1)).setFieldValueVerifyResult(any());
@@ -184,8 +187,7 @@ public class TracingRegisterWrapperFragmentTest {
     public void test_on_save_successful() {
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getPhotoPathsData")).toReturn(new ArrayList<String>());
         tracingRegisterWrapperFragment.onSaveSuccessful(1l);
-
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(tracingActivity, R.string.save_success, Toast.LENGTH_SHORT);
         Mockito.verify(tracingActivity, Mockito.times(1)).turnToFeature(any(), any(), any());
     }

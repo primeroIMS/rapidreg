@@ -254,7 +254,7 @@ public class CaseActivityTest {
         PowerMockito.doNothing().when(caseActivity).turnToFeature(CaseFeature.LIST, null, null);
 
         caseActivity.processBackButton();
-        PowerMockito.verifyStatic();
+        PowerMockito.verifyStatic(Utils.class);
         Utils.clearAudioFile(AUDIO_FILE_PATH);
         Mockito.verify(caseActivity, times(1)).turnToFeature(CaseFeature.LIST, null, null);
     }
@@ -366,7 +366,7 @@ public class CaseActivityTest {
     public void test_promote_sync_forms_error() {
         caseActivity.promoteSyncFormsError();
 
-        PowerMockito.verifyStatic(Mockito.times(1));
+        PowerMockito.verifyStatic(Utils.class, Mockito.times(1));
         Utils.showMessageByToast(caseActivity, R.string.sync_forms_error, Toast.LENGTH_SHORT);
     }
 
@@ -416,7 +416,7 @@ public class CaseActivityTest {
 
         caseActivity.onRedirectIncidentEvent(redirectIncidentEvent);
 
-        verifyStatic();
+        verifyStatic(Utils.class);
         Utils.showMessageByToast(caseActivity, R.string.forms_is_syncing_msg, Toast.LENGTH_SHORT);
     }
 }

@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.util.reflection.Whitebox;
+import org.mockito.internal.util.reflection.FieldSetter;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -139,8 +139,8 @@ public class IncidentRegisterWrapperFragmentTest {
     }
 
     @Test
-    public void test_on_init_item_values() throws IllegalAccessException {
-        Whitebox.setInternalState(incidentRegisterWrapperFragment, "recordPhotoPageChangeListener", new RecordPhotoPageChangeListener());
+    public void test_on_init_item_values() throws IllegalAccessException, NoSuchFieldException {
+        FieldSetter.setField(incidentRegisterWrapperFragment, incidentRegisterWrapperFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("recordPhotoPageChangeListener"), new RecordPhotoPageChangeListener());
         incidentRegisterWrapperFragment.initItemValues();
         verify(incidentRegisterWrapperFragment, times(1)).setRecordRegisterData(any());
         verify(incidentRegisterWrapperFragment, times(1)).setFieldValueVerifyResult(any());
@@ -177,7 +177,7 @@ public class IncidentRegisterWrapperFragmentTest {
         stub(PowerMockito.method(IncidentRegisterWrapperFragment.class, "getPhotoPathsData")).toReturn(new ArrayList<String>());
         incidentRegisterWrapperFragment.onSaveSuccessful(1l);
 
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(incidentActivity, R.string.save_success, Toast.LENGTH_SHORT);
         Mockito.verify(incidentActivity, Mockito.times(1)).turnToFeature(any(), any(), any());
 

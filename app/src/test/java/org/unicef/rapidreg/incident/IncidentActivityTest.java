@@ -188,7 +188,7 @@ public class IncidentActivityTest {
         PowerMockito.doNothing().when(incidentActivity).turnToFeature(IncidentFeature.LIST, null, null);
 
         incidentActivity.processBackButton();
-        PowerMockito.verifyStatic();
+        PowerMockito.verifyStatic(Utils.class);
         Utils.clearAudioFile(AUDIO_FILE_PATH);
         Mockito.verify(incidentActivity, times(1)).turnToFeature(IncidentFeature.LIST, null, null);
 

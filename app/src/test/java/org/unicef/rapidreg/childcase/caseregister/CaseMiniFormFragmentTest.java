@@ -209,7 +209,7 @@ public class CaseMiniFormFragmentTest {
     public void test_on_save_successful() {
         when(caseRegisterPresenter.getCaseType()).thenReturn(MODULE_CASE_CP);
         caseMiniFormFragment.onSaveSuccessful(1);
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(caseActivity, R.string.save_success, Toast.LENGTH_SHORT);
         Mockito.verify(caseRegisterPresenter, Mockito.times(1)).getCaseType();
         Mockito.verify(caseActivity, Mockito.times(1)).turnToFeature(any(), any(), any());
