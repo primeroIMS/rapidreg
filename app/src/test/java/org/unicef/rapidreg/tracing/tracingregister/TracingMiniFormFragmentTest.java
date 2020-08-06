@@ -93,7 +93,7 @@ public class TracingMiniFormFragmentTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        stub(PowerMockito.method(TracingMiniFormFragment.class, "getComponent")).toReturn(fragmentComponent);
+        doReturn(fragmentComponent).when(tracingMiniFormFragment).getComponent();
         stub(PowerMockito.method(TracingMiniFormFragment.class, "getActivity")).toReturn(tracingActivity);
         stub(PowerMockito.method(TracingMiniFormFragment.class, "getArguments")).toReturn(arguments);
         mockStatic(Utils.class);

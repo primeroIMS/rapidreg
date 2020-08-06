@@ -45,6 +45,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -98,7 +99,7 @@ public class TracingRegisterWrapperFragmentTest {
         PowerMockito.mockStatic(Utils.class);
         doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getCurrentPhotoAdapter")).toReturn(recordPhotoAdapter);
-        stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getComponent")).toReturn(fragmentComponent);
+        doReturn(fragmentComponent).when(tracingRegisterWrapperFragment).getComponent();
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getActivity")).toReturn(tracingActivity);
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getArguments")).toReturn(arguments);
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getFieldValueVerifyResult")).toReturn(new ItemValuesMap());

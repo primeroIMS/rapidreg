@@ -73,7 +73,7 @@ public class TracingActivityTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        stub(PowerMockito.method(TracingActivity.class, "getComponent")).toReturn(activityComponent);
+        doReturn(activityComponent).when(tracingActivity).getComponent();
         PowerMockito.mockStatic(EventBus.class);
         when(EventBus.getDefault()).thenReturn(eventBus);
         PowerMockito.mockStatic(Utils.class);
