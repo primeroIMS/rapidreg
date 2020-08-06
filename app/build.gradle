@@ -137,15 +137,15 @@ dependencies {
     implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
 
-    implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    implementation 'com.facebook.stetho:stetho-js-rhino:1.5.0'
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+    implementation 'com.facebook.stetho:stetho-js-rhino:1.5.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
 
     testImplementation 'junit:junit:4.13',
             'org.robolectric:robolectric:4.3.1',
-//            'com.github.nimbl3:robolectric.shadows-supportv4:4.1-SNAPSHOT',
+            'com.github.nimbl3:robolectric.shadows-supportv4:4.1-SNAPSHOT',
             'org.easymock:easymock:3.4',
             "org.powermock:powermock-core:${powerMockVersion}",
             "org.powermock:powermock-module-junit4:${powerMockVersion}",

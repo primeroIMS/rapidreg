@@ -38,10 +38,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyChar;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Matchers.anyList;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
@@ -265,6 +264,7 @@ public class TracingServiceTest {
 
         TracingService tracingServiceSpy = spy(tracingService);
         Tracing tracing = new Tracing();
+        tracing.setUniqueId("123451234512345");
         when(tracingDao.getTracingByUniqueId(anyString())).thenReturn(tracing);
         when(tracingDao.update(any(Tracing.class))).thenReturn(tracing);
         when(tracingPhotoDao.update(any(Tracing.class), any())).thenReturn(tracing);

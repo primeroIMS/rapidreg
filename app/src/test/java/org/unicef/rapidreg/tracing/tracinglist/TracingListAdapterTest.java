@@ -26,9 +26,12 @@ import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyInt;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -70,15 +73,15 @@ public class TracingListAdapterTest {
     public void test_on_bind_viewholder() {
         int position = 0;
         tracingListAdapter.setRecordList(recordList);
-        when(recordList.get(Matchers.anyInt())).thenReturn(1l);
-        when(tracingService.getById(Matchers.anyLong())).thenReturn(record);
+        when(recordList.get(anyInt())).thenReturn(1l);
+        when(tracingService.getById(anyLong())).thenReturn(record);
         when(record.getContent()).thenReturn(new Blob("{\"sex\": \"M\", \"relation_age\": \"10\"}".getBytes()));
         String shortUUID = "abc";
-        when(tracingService.getShortUUID(Matchers.anyString())).thenReturn(shortUUID);
+        when(tracingService.getShortUUID(any())).thenReturn(shortUUID);
 
-        PowerMockito.doNothing().when(viewSwitcher).setDisplayedChild(Matchers.anyInt());
+        PowerMockito.doNothing().when(viewSwitcher).setDisplayedChild(anyInt());
         when(deleteStateCheckBox.getTag()).thenReturn(new Object());
-        PowerMockito.doNothing().when(deleteStateCheckBox).setChecked(Matchers.anyBoolean());
+        PowerMockito.doNothing().when(deleteStateCheckBox).setChecked(anyBoolean());
 
         ItemValuesMap itemValues = PowerMockito.mock(ItemValuesMap.class);
 

@@ -75,7 +75,7 @@ public class IncidentListAdapterTest {
         when(incidentService.getById(anyLong())).thenReturn(record);
         when(record.getContent()).thenReturn(new Blob("{\"sex\": \"M\", \"age\": \"10\"}".getBytes()));
         String shortUUID = "abc";
-        when(incidentService.getShortUUID(anyString())).thenReturn(shortUUID);
+        when(incidentService.getShortUUID(any())).thenReturn(shortUUID);
         PowerMockito.doNothing().when(viewSwitcher).setDisplayedChild(anyInt());
         when(deleteStateCheckBox.getTag()).thenReturn(new Object());
         PowerMockito.doNothing().when(deleteStateCheckBox).setChecked(anyBoolean());
