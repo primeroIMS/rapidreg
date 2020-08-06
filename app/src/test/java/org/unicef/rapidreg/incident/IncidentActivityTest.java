@@ -80,9 +80,9 @@ public class IncidentActivityTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        stub(PowerMockito.method(IncidentActivity.class, "getComponent")).toReturn(activityComponent);
+        doReturn(activityComponent).when(incidentActivity).getComponent();
         Intent intent = PowerMockito.mock(Intent.class);
-        stub(PowerMockito.method(IncidentActivity.class, "getIntent")).toReturn(intent);
+        doReturn(intent).when(incidentActivity).getIntent();
         when(intent.getBundleExtra(BUNDLE_EXTRA)).thenReturn(bundleExtra);
         stub(PowerMockito.method(IncidentActivity.class, "getResources")).toReturn(resources);
         PowerMockito.mockStatic(Utils.class);
