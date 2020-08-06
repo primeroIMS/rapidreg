@@ -190,6 +190,7 @@ public class TracingActivityTest {
 
     @Test
     public void test_nav_tracing_action_show_quit() {
+        doNothing().when(tracingActivity).setShowHideSwitcherToShowState();
         when(currentFeature.isEditMode()).thenReturn(true);
 
         tracingActivity.navTracingAction();
@@ -201,6 +202,7 @@ public class TracingActivityTest {
 
     @Test
     public void test_nav_tracing_action_go_to_tracing() {
+        doNothing().when(tracingActivity).setShowHideSwitcherToShowState();
         when(currentFeature.isEditMode()).thenReturn(false);
         PowerMockito.doNothing().when(intentSender).showTracingActivity(tracingActivity, true);
 
