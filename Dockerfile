@@ -33,6 +33,7 @@ RUN yes | sdkmanager --licenses
 RUN sdkmanager "tools" "platform-tools"
 
 RUN yes | sdkmanager \
+    "ndk;21.0.6113669" \
     "build-tools;29.0.2" \
     "platforms;android-29" \
     "add-ons;addon-google_apis-google-23" \
