@@ -25,7 +25,8 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -134,7 +135,7 @@ public class CaseFormServiceImplTest {
     public void should_get_cp_case_form() throws IOException {
         CaseForm caseForm = new CaseForm();
         caseForm.setForm(new Blob(formForm.getBytes()));
-        when(caseFormDao.getCaseForm(anyString(), anyString(), anyString())).thenReturn(caseForm);
+        when(caseFormDao.getCaseForm(any(), any(), any())).thenReturn(caseForm);
         CaseTemplateForm form = caseFormService.getCPTemplate();
 
         assertThat(form.getSections().size(), is(1));
@@ -159,7 +160,7 @@ public class CaseFormServiceImplTest {
     public void should_get_gbv_case_form() throws Exception {
         CaseForm caseForm = new CaseForm();
         caseForm.setForm(new Blob(formForm.getBytes()));
-        when(caseFormDao.getCaseForm(anyString(), anyString(), anyString())).thenReturn(caseForm);
+        when(caseFormDao.getCaseForm(any(), any(), any())).thenReturn(caseForm);
 
         CaseTemplateForm form = caseFormService.getGBVTemplate();
 

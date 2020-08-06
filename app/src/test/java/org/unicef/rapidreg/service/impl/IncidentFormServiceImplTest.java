@@ -23,6 +23,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -146,7 +147,7 @@ public class IncidentFormServiceImplTest {
     @Test
     public void should_update_when_existing_incident_form_is_not_null() {
         IncidentForm existingIncidentForm = mock(IncidentForm.class);
-        when(incidentFormDao.getIncidentForm(anyString(), anyString(), anyString())).thenReturn(existingIncidentForm);
+        when(incidentFormDao.getIncidentForm(any(), any(), any())).thenReturn(existingIncidentForm);
         IncidentForm incidentForm = mock(IncidentForm.class);
         incidentFormService.saveOrUpdate(incidentForm);
         verify(existingIncidentForm,times(1)).setForm(incidentForm.getForm());
