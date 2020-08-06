@@ -42,11 +42,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -121,15 +123,15 @@ public class TracingMiniFormFragmentTest {
             e.printStackTrace();
         }
         List<String> photosPaths = new ArrayList<>();
-        PowerMockito.stub(PowerMockito.method(TracingRegisterPresenter.class, "getDefaultPhotoPaths")).toReturn(photosPaths);
+        doReturn(photosPaths).when(tracingRegisterPresenter).getDefaultPhotoPaths();
         ItemValuesMap itemValues = PowerMockito.mock(ItemValuesMap.class);
-        PowerMockito.stub(PowerMockito.method(TracingMiniFormFragment.class, "getFieldValueVerifyResult")).toReturn(itemValues);
+        doReturn(itemValues).when(tracingMiniFormFragment).getFieldValueVerifyResult();
         RecordRegisterAdapter recordRegisterAdapter = tracingMiniFormFragment.createRecordRegisterAdapter();
 
         Assert.assertThat(recordRegisterAdapter, CoreMatchers.instanceOf(RecordRegisterAdapter.class));
         verify(tracingPhotoAdapter, times(1)).setItems(photosPaths);
         assertEquals(tracingPhotoAdapter, recordRegisterAdapter.getPhotoAdapter());
-        assertEquals(itemValues, recordRegisterAdapter.getFieldValueVerifyResult());
+        assertSame(itemValues, recordRegisterAdapter.getFieldValueVerifyResult());
     }
 
     @Test
@@ -185,8 +187,7 @@ public class TracingMiniFormFragmentTest {
     @Test
     public void test_on_edit_clicked() {
         List<String> paths = new ArrayList<String>();
-        stub(PowerMockito.method(TracingMiniFormFragment.class, "getPhotoPathsData")).toReturn(paths);
-
+        doReturn(paths).when(tracingMiniFormFragment).getPhotoPathsData();
         tracingMiniFormFragment.onEditClicked();
         verify(tracingActivity, times(1)).turnToFeature(any(TracingFeature.class), any(Bundle.class), any());
     }
