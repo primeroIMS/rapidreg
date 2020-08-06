@@ -50,6 +50,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -118,6 +119,7 @@ public class CaseMiniFormFragmentTest {
 
         when(recordRegisterAdapter.getItemValues()).thenReturn(new ItemValuesMap());
         stub(PowerMockito.method(CaseMiniFormFragment.class, "getComponent")).toReturn(fragmentComponent);
+        doReturn(fragmentComponent).when(caseMiniFormFragment).getComponent();
         stub(PowerMockito.method(CaseMiniFormFragment.class, "getActivity")).toReturn(caseActivity);
         stub(PowerMockito.method(RecordRegisterFragment.class, "onCreateView")).toReturn(PowerMockito.mock(View.class));
     }
@@ -217,7 +219,7 @@ public class CaseMiniFormFragmentTest {
 
     @Test
     public void test_on_edit_clicked() {
-        stub(PowerMockito.method(CaseMiniFormFragment.class, "getPhotoPathsData")).toReturn(new ArrayList<String>());
+        doReturn(new ArrayList<String>()).when(caseMiniFormFragment).getPhotoPathsData();
         caseMiniFormFragment.onEditClicked();
         Mockito.verify(caseActivity, Mockito.times(1)).turnToFeature(any(), any(), any());
     }

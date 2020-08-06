@@ -21,10 +21,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.internal.util.reflection.FieldSetter;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.Feature;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterAdapter;
@@ -45,6 +46,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -85,9 +87,9 @@ public class IncidentMiniFormFragmentTest {
 
     @Before
     public void setUp() throws Exception {
-        stub(PowerMockito.method(IncidentMiniFormFragment.class, "getComponent")).toReturn(fragmentComponent);
-        stub(PowerMockito.method(IncidentMiniFormFragment.class, "getActivity")).toReturn(incidentActivity);
-        stub(PowerMockito.method(IncidentMiniFormFragment.class, "getArguments")).toReturn(arguments);
+        doReturn(fragmentComponent).when(incidentMiniFormFragment).getComponent();
+        doReturn(incidentActivity).when(incidentMiniFormFragment).getActivity();
+        doReturn(arguments).when(incidentMiniFormFragment).getArguments();
         mockStatic(Utils.class);
         PowerMockito.doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
     }
@@ -103,8 +105,8 @@ public class IncidentMiniFormFragmentTest {
     }
 
     @Test
-    public void test_on_init_view_content() {
-        Whitebox.setInternalState(incidentMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
+    public void test_on_init_view_content() throws NoSuchFieldException {
+        FieldSetter.setField(incidentMiniFormFragment, incidentMiniFormFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("fieldList"), PowerMockito.mock(RecyclerView.class));
         when(featureMock.isDetailMode()).thenReturn(true);
         when(incidentActivity.getCurrentFeature()).thenReturn(featureMock);
         doNothing().when((RecordRegisterFragment)incidentMiniFormFragment).addProfileFieldForDetailsPage(anyInt(), anyList());
@@ -153,8 +155,8 @@ public class IncidentMiniFormFragmentTest {
     @Test
     public void test_save_incident() {
         String caseId = "123";
-        ItemValuesMap recordRegisterData = PowerMockito.mock(ItemValuesMap.class);
-        stub(PowerMockito.method(IncidentMiniFormFragment.class, "getRecordRegisterData")).toReturn(recordRegisterData);
+        ItemValuesMap recordRegisterData = Mockito.mock(ItemValuesMap.class);
+        doReturn(recordRegisterData).when(incidentMiniFormFragment).getRecordRegisterData();
         when(recordRegisterAdapter.getItemValues()).thenReturn(new ItemValuesMap());
         when(arguments.getString(CASE_ID)).thenReturn(caseId);
         incidentMiniFormFragment.saveIncident(new SaveIncidentEvent());
