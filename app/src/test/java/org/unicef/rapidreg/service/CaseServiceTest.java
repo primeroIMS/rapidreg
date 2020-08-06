@@ -40,15 +40,18 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertSame;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -175,15 +178,14 @@ public class CaseServiceTest {
                 searchCaseTwo,
                 searchCaseThree,
                 searchCaseFour});
-        when(caseDao.getCaseListByOperatorGroup(anyString(), anyString(), any(OperatorGroup
-                .class))).thenReturn
-                (searchResult);
+
+        doReturn(searchResult).when(caseDao).getCaseListByOperatorGroup(any(), any(), any());
 
         List<Long> actual = caseService.getCPSearchResult("", "", 0, 0, "",
                 null);
 
-        assertThat("Should return id list", actual, is(Arrays.asList(new Long[]{10000L, 10001L,
-                10002L, 10003L})));
+        assertEquals("Should return id list", actual, Arrays.asList(new Long[]{10000L, 10001L,
+                10002L, 10003L}));
     }
 
     private Field makeCaseField(String name, boolean required) {
