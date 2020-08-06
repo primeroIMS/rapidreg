@@ -111,7 +111,7 @@ public class IncidentListFragmentTest {
 
         incidentListFragment.onIncidentAddClicked();
         verify(incidentListPresenter, times(1)).clearAudioFile();
-        verifyStatic();
+        verifyStatic(Utils.class);
         Utils.showMessageByToast(recordActivity, R.string.forms_is_syncing_msg, Toast.LENGTH_SHORT);
     }
 

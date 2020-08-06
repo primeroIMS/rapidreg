@@ -163,7 +163,7 @@ public class TracingActivityTest {
         PowerMockito.doNothing().when(tracingActivity).turnToFeature(TracingFeature.LIST, null, null);
 
         tracingActivity.processBackButton();
-        PowerMockito.verifyStatic();
+        //PowerMockito.verifyStatic();
         Utils.clearAudioFile(AUDIO_FILE_PATH);
         Mockito.verify(tracingActivity, times(1)).turnToFeature(TracingFeature.LIST, null, null);
     }
@@ -255,7 +255,7 @@ public class TracingActivityTest {
     public void test_promote_sync_forms_error() {
         tracingActivity.promoteSyncFormsError();
 
-        PowerMockito.verifyStatic(Mockito.times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(tracingActivity, R.string.sync_forms_error, Toast.LENGTH_SHORT);
     }
 }

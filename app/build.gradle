@@ -86,7 +86,7 @@ android {
 }
 
 def androidSupportVersion = '29.0.0'
-def powerMockVersion = '1.6.5'
+def powerMockVersion = '2.0.2'
 def dbflowVersion = '4.2.4'
 
 dependencies {
@@ -143,21 +143,21 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
 
-    testImplementation 'junit:junit:4.12',
-            'org.robolectric:robolectric:4.0-beta-1',
+    testImplementation 'junit:junit:4.13',
+            'org.robolectric:robolectric:4.3.1',
             'com.github.nimbl3:robolectric.shadows-supportv4:4.1-SNAPSHOT',
             'org.easymock:easymock:3.4',
-            "org.powermock:powermock:${powerMockVersion}",
+            "org.powermock:powermock-core:${powerMockVersion}",
             "org.powermock:powermock-module-junit4:${powerMockVersion}",
             "org.powermock:powermock-module-junit4-rule:${powerMockVersion}",
-            "org.powermock:powermock-api-mockito:${powerMockVersion}",
+            "org.powermock:powermock-api-mockito2:${powerMockVersion}",
             "org.powermock:powermock-api-easymock:${powerMockVersion}",
             "org.powermock:powermock-classloading-xstream:${powerMockVersion}"
 
-    androidTestImplementation 'junit:junit:4.12',
+    androidTestImplementation 'junit:junit:4.13',
             "org.robolectric:robolectric-gradle-plugin:1.1.0",
             "org.powermock:powermock-module-junit4:${powerMockVersion}",
-            "org.powermock:powermock-api-mockito:${powerMockVersion}",
+            "org.powermock:powermock-api-mockito2:${powerMockVersion}",
             'com.google.dagger:dagger:2.4'
 
     androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.4'
