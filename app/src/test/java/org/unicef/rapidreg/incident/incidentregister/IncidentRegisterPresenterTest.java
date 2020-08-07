@@ -34,6 +34,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -100,7 +101,7 @@ public class IncidentRegisterPresenterTest {
         incidentRegisterPresenter.saveRecord(itemValuesMap, new ArrayList<String>(), callback);
 
         verify(incidentService, times(1)).saveOrUpdate(itemValuesMap);
-        verify(callback, times(1)).onSaveSuccessful(anyInt());
+        verify(callback, times(1)).onSaveSuccessful(anyLong());
     }
 
     @Test
