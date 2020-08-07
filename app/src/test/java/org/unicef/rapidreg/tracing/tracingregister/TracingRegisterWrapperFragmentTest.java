@@ -141,9 +141,11 @@ public class TracingRegisterWrapperFragmentTest {
     }
 
     @Test
-    public void test_on_edit_clicked() {
+    public void test_on_edit_clicked() throws NoSuchFieldException {
         List<String> allItems = new ArrayList<String>();
-        when(recordPhotoAdapter.getAllItems()).thenReturn(allItems);
+        doReturn(allItems).when(recordPhotoAdapter).getAllItems();
+        doReturn(recordPhotoAdapter).when(recordPhotoPageChangeListener).getRecordPhotoAdapter();
+        FieldSetter.setField(tracingRegisterWrapperFragment, tracingRegisterWrapperFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("recordPhotoPageChangeListener"),recordPhotoPageChangeListener);
         tracingRegisterWrapperFragment.onEditClicked();
         verify(tracingActivity, times(1)).turnToFeature(any(TracingFeature.class), any(Bundle.class), any());
     }
@@ -165,7 +167,9 @@ public class TracingRegisterWrapperFragmentTest {
     }
 
     @Test
-    public void test_get_pages() {
+    public void test_get_pages() throws NoSuchFieldException {
+        doReturn(recordPhotoAdapter).when(recordPhotoPageChangeListener).getRecordPhotoAdapter();
+        FieldSetter.setField(tracingRegisterWrapperFragment, tracingRegisterWrapperFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("recordPhotoPageChangeListener"),recordPhotoPageChangeListener);
         when(form.getSections()).thenReturn(sections);
         Iterator<Section> sectionsIterator = PowerMockito.mock(Iterator.class);
         when(sections.iterator()).thenReturn(sectionsIterator);
