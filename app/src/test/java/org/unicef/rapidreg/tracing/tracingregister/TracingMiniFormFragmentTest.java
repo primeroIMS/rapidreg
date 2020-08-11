@@ -21,10 +21,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.internal.util.reflection.FieldSetter;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.Feature;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterAdapter;
@@ -82,6 +82,9 @@ public class TracingMiniFormFragmentTest {
     RecordRegisterAdapter recordRegisterAdapter;
 
     @Mock
+    TextView formSwitcher;
+
+    @Mock
     Feature featureMock;
 
     @Mock
@@ -94,8 +97,10 @@ public class TracingMiniFormFragmentTest {
     public void setUp() throws Exception {
         initMocks(this);
         doReturn(fragmentComponent).when(tracingMiniFormFragment).getComponent();
-        stub(PowerMockito.method(TracingMiniFormFragment.class, "getActivity")).toReturn(tracingActivity);
-        stub(PowerMockito.method(TracingMiniFormFragment.class, "getArguments")).toReturn(arguments);
+        doReturn(tracingActivity).when(tracingMiniFormFragment).getActivity();
+        doReturn(arguments).when(tracingMiniFormFragment).getArguments();
+        when(recordRegisterAdapter.getItemValues()).thenReturn(new ItemValuesMap());
+
         mockStatic(Utils.class);
         PowerMockito.doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
     }
@@ -157,10 +162,11 @@ public class TracingMiniFormFragmentTest {
     }
 
     @Test
-    public void test_on_init_view_content() {
-        Whitebox.setInternalState(tracingMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
-        when(featureMock.isDetailMode()).thenReturn(true);
-        when(tracingActivity.getCurrentFeature()).thenReturn(featureMock);
+    public void test_on_init_view_content() throws NoSuchFieldException {
+        FieldSetter.setField(tracingMiniFormFragment, tracingMiniFormFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("fieldList"), PowerMockito.mock(RecyclerView.class));
+        doReturn(true).when(featureMock).isDetailMode();
+        doReturn(featureMock).when(tracingActivity).getCurrentFeature();
+        doNothing().when(formSwitcher).setText(anyInt());
         doNothing().when((RecordRegisterFragment)tracingMiniFormFragment).addProfileFieldForDetailsPage(anyInt(), anyList());
         tracingMiniFormFragment.onInitViewContent();
         verify((RecordRegisterFragment)tracingMiniFormFragment, times(1)).onInitViewContent();

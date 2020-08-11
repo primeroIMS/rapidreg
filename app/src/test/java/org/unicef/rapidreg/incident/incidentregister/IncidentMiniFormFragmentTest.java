@@ -50,6 +50,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.support.membermodification.MemberModifier.stub;
 import static org.unicef.rapidreg.service.CaseService.CASE_ID;
@@ -82,11 +83,15 @@ public class IncidentMiniFormFragmentTest {
     @Mock
     TextView topInfoMessage;
 
+    @Mock
+    TextView formSwitcher;
+
     @InjectMocks
     IncidentMiniFormFragment incidentMiniFormFragment = PowerMockito.spy(new IncidentMiniFormFragment());
 
     @Before
     public void setUp() throws Exception {
+        initMocks(this);
         doReturn(fragmentComponent).when(incidentMiniFormFragment).getComponent();
         doReturn(incidentActivity).when(incidentMiniFormFragment).getActivity();
         doReturn(arguments).when(incidentMiniFormFragment).getArguments();
@@ -107,8 +112,9 @@ public class IncidentMiniFormFragmentTest {
     @Test
     public void test_on_init_view_content() throws NoSuchFieldException {
         FieldSetter.setField(incidentMiniFormFragment, incidentMiniFormFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("fieldList"), PowerMockito.mock(RecyclerView.class));
-        when(featureMock.isDetailMode()).thenReturn(true);
-        when(incidentActivity.getCurrentFeature()).thenReturn(featureMock);
+        doReturn(true).when(featureMock).isDetailMode();
+        doReturn(featureMock).when(incidentActivity).getCurrentFeature();
+        doNothing().when(formSwitcher).setText(anyInt());
         doNothing().when((RecordRegisterFragment)incidentMiniFormFragment).addProfileFieldForDetailsPage(anyInt(), anyList());
         incidentMiniFormFragment.onInitViewContent();
         verify((RecordRegisterFragment)incidentMiniFormFragment, times(1)).onInitViewContent();

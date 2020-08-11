@@ -31,6 +31,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.spy;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.support.membermodification.MemberModifier.stub;
@@ -47,9 +48,8 @@ public class IncidentListFragmentTest {
     @Mock
     AppRuntime appRuntime;
 
-    @Spy
     @InjectMocks
-    IncidentListFragment incidentListFragment= new IncidentListFragment();
+    IncidentListFragment incidentListFragment = spy(new IncidentListFragment());
 
     @Mock
     RecordActivity recordActivity;
@@ -61,7 +61,7 @@ public class IncidentListFragmentTest {
         mockStatic(PrimeroApplication.class);
         mockStatic(Utils.class);
         stub(PowerMockito.method(PrimeroApplication.class, "getAppRuntime")).toReturn(appRuntime);
-        stub(PowerMockito.method(IncidentListFragment.class, "getActivity")).toReturn(recordActivity);
+        doReturn(recordActivity).when(incidentListFragment).getActivity();
         doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
     }
 

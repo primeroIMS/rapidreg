@@ -29,6 +29,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.spy;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.support.membermodification.MemberModifier.stub;
 
@@ -46,9 +47,8 @@ public class TracingListFragmentTest {
     @Mock
     AppRuntime appRuntime;
 
-    @Spy
     @InjectMocks
-    TracingListFragment tracingListFragment = new TracingListFragment();
+    TracingListFragment tracingListFragment = spy(new TracingListFragment());
 
 
     @Mock

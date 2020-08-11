@@ -1,10 +1,7 @@
 # This docker image is just an Android test environment used for Jenkins
 # Codebase need to be mounted to docker container
 
-FROM openjdk:11-jdk-slim
-
-MAINTAINER bfeng@thoughtworks.com
-ENV REFRESHED_AT 2019_02_01
+FROM openjdk:11-jdk-stretch
 
 # Install wget lib32z1 lib32stdc++6 expect
 RUN apt-get update -qq \
@@ -12,7 +9,6 @@ RUN apt-get update -qq \
     && apt-get install -qqy wget lib32stdc++6 lib32z1 expect unzip
 
 # Set environment variables
-ENV ANDROID_SDK_VERSION sdk-tools-linux-4333796
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/cmdline-tools/tools/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools:$PATH
 

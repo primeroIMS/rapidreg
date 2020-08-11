@@ -3,7 +3,6 @@ package org.unicef.rapidreg.childcase.caseregister;
 import android.content.Context;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.transition.Visibility;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,10 +22,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.util.reflection.FieldSetter;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.BaseActivity;
 import org.unicef.rapidreg.base.Feature;
@@ -109,6 +108,8 @@ public class CaseMiniFormFragmentTest {
     @Mock
     Feature featureMock;
 
+    @Mock
+    TextView formSwitcher;
 
     @Before
     public void setUp() throws Exception {
@@ -152,10 +153,10 @@ public class CaseMiniFormFragmentTest {
     }
 
     @Test
-    public void test_on_init_view_content() {
-        Whitebox.setInternalState(caseMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
-        when(featureMock.isDetailMode()).thenReturn(false);
+    public void test_on_init_view_content() throws NoSuchFieldException {
+        FieldSetter.setField(caseMiniFormFragment, caseMiniFormFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("fieldList"), PowerMockito.mock(RecyclerView.class));        when(featureMock.isDetailMode()).thenReturn(false);
         when(caseActivity.getCurrentFeature()).thenReturn(featureMock);
+        doNothing().when(formSwitcher).setText(anyInt());
         doNothing().when((RecordRegisterFragment)caseMiniFormFragment).addProfileFieldForDetailsPage(anyInt(), anyList());
         caseMiniFormFragment.onInitViewContent();
         verify((RecordRegisterFragment)caseMiniFormFragment, times(1)).onInitViewContent();
