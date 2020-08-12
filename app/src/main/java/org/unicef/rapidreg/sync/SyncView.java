@@ -13,6 +13,8 @@ public interface SyncView extends MvpView {
 
     void showSyncTimeoutErrorMessage();
 
+    void showSyncUnauthorized ();
+
     void showSyncDownloadSuccessMessage();
 
     void setDataViews(String syncDate, String hasSyncAmount, String notSyncAmount);

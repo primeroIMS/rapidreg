@@ -121,7 +121,12 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
             @Override
             public void onSuccess() {
                 getView().showLoading(false);
-                getView().showOnlineLoginSuccessful();
+                if (PrimeroAppConfiguration.isAuthorized()){
+                    getView().showOnlineLoginSuccessful();
+                } else{
+                    getView().showOnlineLoginSuccessfulAgain();
+                    PrimeroAppConfiguration.setAuthorized(true);
+                }
                 getView().navigateToLoginSucceedPage();
             }
 

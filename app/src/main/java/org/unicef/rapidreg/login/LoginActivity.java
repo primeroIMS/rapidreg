@@ -168,6 +168,11 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
     }
 
     @Override
+    public void showOnlineLoginSuccessfulAgain() {
+        Utils.showMessageByToast(this, R.string.login_success_after_login, Toast.LENGTH_SHORT);
+    }
+
+    @Override
     public void showOfflineLoginSuccessful() {
         Utils.showMessageByToast(this, R.string.login_offline_success_text, Toast.LENGTH_SHORT);
     }

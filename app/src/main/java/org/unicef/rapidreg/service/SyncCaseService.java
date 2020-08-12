@@ -8,6 +8,7 @@ import org.unicef.rapidreg.model.RecordModel;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.HttpException;
 import retrofit2.Response;
 import io.reactivex.Observable;
 

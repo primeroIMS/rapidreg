@@ -34,6 +34,12 @@ public class FormDownloadProgressRequestReceiver extends BroadcastReceiver {
 
             Utils.showMessageByToast(context, R.string.sync_pull_form_success_message, Toast.LENGTH_LONG);
         }
+
+        if (progress == 110) {
+            if (syncFormsProgressDialog != null) {
+                syncFormsProgressDialog.dismiss();
+            }
+        }
     }
 
     protected String getProgressMessageStringID(final Context context, final String message) {

@@ -331,6 +331,12 @@ public class SyncFragment extends MvpFragment<SyncView, BaseSyncPresenter> imple
         Utils.showMessageByToast(getActivity(), R.string.sync_timeout_error_message, Toast.LENGTH_LONG);
     }
 
+    @Override
+    public void showSyncUnauthorized(){
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        Utils.showMessageByToast(getActivity(), R.string.sync_pull_unauthorized_error_message, Toast.LENGTH_LONG);
+    }
+
     public FragmentComponent getComponent() {
         return DaggerFragmentComponent.builder()
                 .applicationComponent(PrimeroApplication.get(getActivity()).getComponent())

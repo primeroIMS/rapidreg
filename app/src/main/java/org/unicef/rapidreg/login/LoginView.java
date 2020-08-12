@@ -9,6 +9,8 @@ import retrofit2.Call;
 public interface LoginView extends MvpLceView<Call<LoginResponse>> {
     void showOnlineLoginSuccessful();
 
+    void showOnlineLoginSuccessfulAgain();
+
     void showOfflineLoginSuccessful();
 
     void showLoginErrorByToast(String message);
