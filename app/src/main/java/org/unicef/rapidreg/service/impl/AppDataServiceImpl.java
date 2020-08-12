@@ -167,7 +167,7 @@ public class AppDataServiceImpl implements AppDataService {
         sendProgress("resource", "sync_lookups");
         lookupDisposable = lookupService.getLookups(PrimeroAppConfiguration.getCookie(), PrimeroAppConfiguration.getServerLocale(), true)
                 .subscribe(lookup -> {
-                    lookupService.saveOrUpdate(lookup, false);
+                    lookupService.saveOrUpdate(lookup, true);
                 }, throwable -> {
                     Log.e(TAG, "Lookups Error -> " + throwable.getMessage());
                     callback.onFailure();
