@@ -2,8 +2,8 @@ package org.unicef.rapidreg.tracing.tracingregister;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +21,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.internal.util.reflection.FieldSetter;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.Feature;
 import org.unicef.rapidreg.base.record.recordregister.RecordRegisterAdapter;
@@ -42,11 +42,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -80,6 +82,9 @@ public class TracingMiniFormFragmentTest {
     RecordRegisterAdapter recordRegisterAdapter;
 
     @Mock
+    TextView formSwitcher;
+
+    @Mock
     Feature featureMock;
 
     @Mock
@@ -91,9 +96,11 @@ public class TracingMiniFormFragmentTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        stub(PowerMockito.method(TracingMiniFormFragment.class, "getComponent")).toReturn(fragmentComponent);
-        stub(PowerMockito.method(TracingMiniFormFragment.class, "getActivity")).toReturn(tracingActivity);
-        stub(PowerMockito.method(TracingMiniFormFragment.class, "getArguments")).toReturn(arguments);
+        doReturn(fragmentComponent).when(tracingMiniFormFragment).getComponent();
+        doReturn(tracingActivity).when(tracingMiniFormFragment).getActivity();
+        doReturn(arguments).when(tracingMiniFormFragment).getArguments();
+        when(recordRegisterAdapter.getItemValues()).thenReturn(new ItemValuesMap());
+
         mockStatic(Utils.class);
         PowerMockito.doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
     }
@@ -121,15 +128,15 @@ public class TracingMiniFormFragmentTest {
             e.printStackTrace();
         }
         List<String> photosPaths = new ArrayList<>();
-        PowerMockito.stub(PowerMockito.method(TracingRegisterPresenter.class, "getDefaultPhotoPaths")).toReturn(photosPaths);
+        doReturn(photosPaths).when(tracingRegisterPresenter).getDefaultPhotoPaths();
         ItemValuesMap itemValues = PowerMockito.mock(ItemValuesMap.class);
-        PowerMockito.stub(PowerMockito.method(TracingMiniFormFragment.class, "getFieldValueVerifyResult")).toReturn(itemValues);
+        doReturn(itemValues).when(tracingMiniFormFragment).getFieldValueVerifyResult();
         RecordRegisterAdapter recordRegisterAdapter = tracingMiniFormFragment.createRecordRegisterAdapter();
 
         Assert.assertThat(recordRegisterAdapter, CoreMatchers.instanceOf(RecordRegisterAdapter.class));
         verify(tracingPhotoAdapter, times(1)).setItems(photosPaths);
         assertEquals(tracingPhotoAdapter, recordRegisterAdapter.getPhotoAdapter());
-        assertEquals(itemValues, recordRegisterAdapter.getFieldValueVerifyResult());
+        assertSame(itemValues, recordRegisterAdapter.getFieldValueVerifyResult());
     }
 
     @Test
@@ -155,10 +162,11 @@ public class TracingMiniFormFragmentTest {
     }
 
     @Test
-    public void test_on_init_view_content() {
-        Whitebox.setInternalState(tracingMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
-        when(featureMock.isDetailMode()).thenReturn(true);
-        when(tracingActivity.getCurrentFeature()).thenReturn(featureMock);
+    public void test_on_init_view_content() throws NoSuchFieldException {
+        FieldSetter.setField(tracingMiniFormFragment, tracingMiniFormFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("fieldList"), PowerMockito.mock(RecyclerView.class));
+        doReturn(true).when(featureMock).isDetailMode();
+        doReturn(featureMock).when(tracingActivity).getCurrentFeature();
+        doNothing().when(formSwitcher).setText(anyInt());
         doNothing().when((RecordRegisterFragment)tracingMiniFormFragment).addProfileFieldForDetailsPage(anyInt(), anyList());
         tracingMiniFormFragment.onInitViewContent();
         verify((RecordRegisterFragment)tracingMiniFormFragment, times(1)).onInitViewContent();
@@ -177,7 +185,7 @@ public class TracingMiniFormFragmentTest {
     @Test
     public void test_on_save_successful() {
         tracingMiniFormFragment.onSaveSuccessful(1);
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(tracingActivity, R.string.save_success, Toast.LENGTH_SHORT);
         verify(tracingActivity, times(1)).turnToFeature(any(TracingFeature.class), any(Bundle.class), any());
     }
@@ -185,8 +193,7 @@ public class TracingMiniFormFragmentTest {
     @Test
     public void test_on_edit_clicked() {
         List<String> paths = new ArrayList<String>();
-        stub(PowerMockito.method(TracingMiniFormFragment.class, "getPhotoPathsData")).toReturn(paths);
-
+        doReturn(paths).when(tracingMiniFormFragment).getPhotoPathsData();
         tracingMiniFormFragment.onEditClicked();
         verify(tracingActivity, times(1)).turnToFeature(any(TracingFeature.class), any(Bundle.class), any());
     }

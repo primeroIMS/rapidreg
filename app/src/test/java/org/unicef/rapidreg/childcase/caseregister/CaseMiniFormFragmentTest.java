@@ -2,11 +2,10 @@ package org.unicef.rapidreg.childcase.caseregister;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.transition.Visibility;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +22,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.util.reflection.FieldSetter;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.BaseActivity;
 import org.unicef.rapidreg.base.Feature;
@@ -48,7 +47,6 @@ import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyList;
-import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -110,6 +108,8 @@ public class CaseMiniFormFragmentTest {
     @Mock
     Feature featureMock;
 
+    @Mock
+    TextView formSwitcher;
 
     @Before
     public void setUp() throws Exception {
@@ -120,6 +120,7 @@ public class CaseMiniFormFragmentTest {
 
         when(recordRegisterAdapter.getItemValues()).thenReturn(new ItemValuesMap());
         stub(PowerMockito.method(CaseMiniFormFragment.class, "getComponent")).toReturn(fragmentComponent);
+        doReturn(fragmentComponent).when(caseMiniFormFragment).getComponent();
         stub(PowerMockito.method(CaseMiniFormFragment.class, "getActivity")).toReturn(caseActivity);
         stub(PowerMockito.method(RecordRegisterFragment.class, "onCreateView")).toReturn(PowerMockito.mock(View.class));
     }
@@ -152,10 +153,10 @@ public class CaseMiniFormFragmentTest {
     }
 
     @Test
-    public void test_on_init_view_content() {
-        Whitebox.setInternalState(caseMiniFormFragment, "fieldList", PowerMockito.mock(RecyclerView.class));
-        when(featureMock.isDetailMode()).thenReturn(false);
+    public void test_on_init_view_content() throws NoSuchFieldException {
+        FieldSetter.setField(caseMiniFormFragment, caseMiniFormFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("fieldList"), PowerMockito.mock(RecyclerView.class));        when(featureMock.isDetailMode()).thenReturn(false);
         when(caseActivity.getCurrentFeature()).thenReturn(featureMock);
+        doNothing().when(formSwitcher).setText(anyInt());
         doNothing().when((RecordRegisterFragment)caseMiniFormFragment).addProfileFieldForDetailsPage(anyInt(), anyList());
         caseMiniFormFragment.onInitViewContent();
         verify((RecordRegisterFragment)caseMiniFormFragment, times(1)).onInitViewContent();
@@ -211,7 +212,7 @@ public class CaseMiniFormFragmentTest {
     public void test_on_save_successful() {
         when(caseRegisterPresenter.getCaseType()).thenReturn(MODULE_CASE_CP);
         caseMiniFormFragment.onSaveSuccessful(1);
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(caseActivity, R.string.save_success, Toast.LENGTH_SHORT);
         Mockito.verify(caseRegisterPresenter, Mockito.times(1)).getCaseType();
         Mockito.verify(caseActivity, Mockito.times(1)).turnToFeature(any(), any(), any());
@@ -219,7 +220,7 @@ public class CaseMiniFormFragmentTest {
 
     @Test
     public void test_on_edit_clicked() {
-        stub(PowerMockito.method(CaseMiniFormFragment.class, "getPhotoPathsData")).toReturn(new ArrayList<String>());
+        doReturn(new ArrayList<String>()).when(caseMiniFormFragment).getPhotoPathsData();
         caseMiniFormFragment.onEditClicked();
         Mockito.verify(caseActivity, Mockito.times(1)).turnToFeature(any(), any(), any());
     }

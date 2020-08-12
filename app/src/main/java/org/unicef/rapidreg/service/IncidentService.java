@@ -2,10 +2,10 @@ package org.unicef.rapidreg.service;
 
 import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.data.Blob;
-import com.raizlabs.android.dbflow.sql.language.Condition;
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.Operator;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.NameAlias;
-import com.raizlabs.android.dbflow.sql.language.SQLCondition;
+import com.raizlabs.android.dbflow.sql.language.SQLOperator;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.model.Incident;
@@ -75,42 +75,42 @@ public class IncidentService extends RecordService {
 
     public List<Long> getSearchResult(String uniqueId, String survivorCode, int ageFrom, int ageTo, String
             typeOfViolence, String location) {
-        ConditionGroup searchCondition = getSearchCondition(uniqueId, survivorCode, ageFrom, ageTo, typeOfViolence,
+        OperatorGroup searchCondition = getSearchCondition(uniqueId, survivorCode, ageFrom, ageTo, typeOfViolence,
                 location);
-        return extractIds(incidentDao.getIncidentListByConditionGroup(PrimeroAppConfiguration.getCurrentUsername(),
+        return extractIds(incidentDao.getIncidentListByOperatorGroup(PrimeroAppConfiguration.getCurrentUsername(),
                 PrimeroAppConfiguration.getApiBaseUrl(),
                 searchCondition));
     }
 
-    private ConditionGroup getSearchCondition(String shortId, String survivorCode, int ageFrom, int ageTo, String
+    private OperatorGroup getSearchCondition(String shortId, String survivorCode, int ageFrom, int ageTo, String
             typeOfViolence, String location) {
-        ConditionGroup conditionGroup = ConditionGroup.clause();
+        OperatorGroup operatorGroup = OperatorGroup.clause();
 
-        conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
+        operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_OWNED_BY).build())
                 .eq(PrimeroAppConfiguration.getCurrentUser().getUsername()));
 
-        SQLCondition ageSearchCondition = generateAgeSearchCondition(ageFrom, ageTo);
+        SQLOperator ageSearchCondition = generateAgeSearchCondition(ageFrom, ageTo);
         if (ageSearchCondition != null) {
-            conditionGroup.and(ageSearchCondition);
+            operatorGroup.and(ageSearchCondition);
         }
 
         if (!TextUtils.isEmpty(shortId)) {
-            conditionGroup.and(Condition.column(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(RecordModel.COLUMN_SHORT_ID).build())
                     .like(getWrappedCondition(shortId)));
         }
         if (!TextUtils.isEmpty(typeOfViolence)) {
-            conditionGroup.and(Condition.column(NameAlias.builder(Incident.COLUMN_TYPE_OF_VIOLENCE).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(Incident.COLUMN_TYPE_OF_VIOLENCE).build())
                     .eq(typeOfViolence));
         }
         if (!TextUtils.isEmpty(location)) {
-            conditionGroup.and(Condition.column(NameAlias.builder(Incident.COLUMN_LOCATION).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(Incident.COLUMN_LOCATION).build())
                     .eq(location));
         }
         if (!TextUtils.isEmpty(survivorCode)) {
-            conditionGroup.and(Condition.column(NameAlias.builder(Incident.COLUMN_SURVIVOR_CODE).build())
+            operatorGroup.and(Operator.op(NameAlias.builder(Incident.COLUMN_SURVIVOR_CODE).build())
                     .like(getWrappedCondition(survivorCode)));
         }
-        return conditionGroup;
+        return operatorGroup;
     }
 
     public Incident saveOrUpdate(ItemValuesMap itemValues) throws IOException {

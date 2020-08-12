@@ -2,6 +2,7 @@ package org.unicef.rapidreg;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 
 import com.akaita.java.rxjava2debug.RxJava2Debug;
 import com.facebook.stetho.Stetho;
@@ -30,7 +31,7 @@ public class PrimeroApplication extends Application {
         context = getApplicationContext();
         appRuntime = new AppRuntime(context);
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG && isRoboUnitTest()) {
             Stetho.initializeWithDefaults(context);
             RxJava2Debug.enableRxJava2AssemblyTracking(new String[]{"org.unicef.rapidreg"});
         }
@@ -66,6 +67,10 @@ public class PrimeroApplication extends Application {
 
     public void setApplicationComponent(ApplicationComponent applicationComponent) {
         this.applicationComponent = applicationComponent;
+    }
+
+    private static boolean isRoboUnitTest() {
+        return "robolectric".equals(Build.FINGERPRINT);
     }
 
     public static AppRuntime getAppRuntime() {

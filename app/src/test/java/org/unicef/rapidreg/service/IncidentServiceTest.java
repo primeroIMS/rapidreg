@@ -1,7 +1,7 @@
 package org.unicef.rapidreg.service;
 
 import com.raizlabs.android.dbflow.data.Blob;
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -243,8 +243,8 @@ public class IncidentServiceTest {
         Incident[] orders = new Incident[]{new Incident(3), new Incident(2), new Incident(1)};
         List<Incident> orderList = Arrays.asList(orders);
 
-        when(incidentDao.getIncidentListByConditionGroup(anyString(), anyString(), any
-                (ConditionGroup.class))).thenReturn
+        when(incidentDao.getIncidentListByOperatorGroup(anyString(), anyString(), any
+                (OperatorGroup.class))).thenReturn
                 (orderList);
 
         Assert.assertThat("When call getCPSearchResult() should return search result depends on " +

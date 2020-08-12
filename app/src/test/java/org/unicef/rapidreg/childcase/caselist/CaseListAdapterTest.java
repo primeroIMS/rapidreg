@@ -1,7 +1,7 @@
 package org.unicef.rapidreg.childcase.caselist;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.CheckBox;
 import android.widget.ViewSwitcher;
 
@@ -30,6 +30,7 @@ import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 
 import static junit.framework.Assert.assertNotNull;
@@ -97,11 +98,13 @@ public class CaseListAdapterTest {
 
     @Test
     public void test_on_bind_viewholder() {
+        doReturn(1L).when(recordList).get(anyInt());
+        doReturn(record).when(caseService).getById(anyLong());
         caseListAdapter.setRecordList(recordList);
         caseListAdapter.toggleViews(true);
         caseListAdapter.onBindViewHolder(holder, 0);
         verify(recordList, times(1)).get(anyInt());
-        verify(caseService, times(1)).getById(anyInt());
+        verify(caseService, times(1)).getById(anyLong());
     }
 
     @Test

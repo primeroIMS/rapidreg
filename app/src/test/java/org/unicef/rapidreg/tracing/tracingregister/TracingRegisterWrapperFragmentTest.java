@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.util.reflection.Whitebox;
+import org.mockito.internal.util.reflection.FieldSetter;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -45,6 +45,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -86,6 +87,9 @@ public class TracingRegisterWrapperFragmentTest {
     @Mock
     Bundle arguments;
 
+    @Mock
+    RecordPhotoPageChangeListener recordPhotoPageChangeListener;
+
     @InjectMocks
     TracingRegisterWrapperFragment tracingRegisterWrapperFragment = PowerMockito.spy(new TracingRegisterWrapperFragment());
 
@@ -95,7 +99,7 @@ public class TracingRegisterWrapperFragmentTest {
         PowerMockito.mockStatic(Utils.class);
         doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getCurrentPhotoAdapter")).toReturn(recordPhotoAdapter);
-        stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getComponent")).toReturn(fragmentComponent);
+        doReturn(fragmentComponent).when(tracingRegisterWrapperFragment).getComponent();
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getActivity")).toReturn(tracingActivity);
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getArguments")).toReturn(arguments);
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getFieldValueVerifyResult")).toReturn(new ItemValuesMap());
@@ -137,16 +141,18 @@ public class TracingRegisterWrapperFragmentTest {
     }
 
     @Test
-    public void test_on_edit_clicked() {
+    public void test_on_edit_clicked() throws NoSuchFieldException {
         List<String> allItems = new ArrayList<String>();
-        when(recordPhotoAdapter.getAllItems()).thenReturn(allItems);
+        doReturn(allItems).when(recordPhotoAdapter).getAllItems();
+        doReturn(recordPhotoAdapter).when(recordPhotoPageChangeListener).getRecordPhotoAdapter();
+        FieldSetter.setField(tracingRegisterWrapperFragment, tracingRegisterWrapperFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("recordPhotoPageChangeListener"),recordPhotoPageChangeListener);
         tracingRegisterWrapperFragment.onEditClicked();
         verify(tracingActivity, times(1)).turnToFeature(any(TracingFeature.class), any(Bundle.class), any());
     }
 
     @Test
-    public void test_on_init_item_values() throws IllegalAccessException {
-        Whitebox.setInternalState(tracingRegisterWrapperFragment, "recordPhotoPageChangeListener", new RecordPhotoPageChangeListener());
+    public void test_on_init_item_values() throws IllegalAccessException, NoSuchFieldException {
+        FieldSetter.setField(tracingRegisterWrapperFragment, tracingRegisterWrapperFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("recordPhotoPageChangeListener"),recordPhotoPageChangeListener);
         tracingRegisterWrapperFragment.initItemValues();
         verify(tracingRegisterWrapperFragment, times(1)).setRecordRegisterData(any());
         verify(tracingRegisterWrapperFragment, times(1)).setFieldValueVerifyResult(any());
@@ -161,7 +167,9 @@ public class TracingRegisterWrapperFragmentTest {
     }
 
     @Test
-    public void test_get_pages() {
+    public void test_get_pages() throws NoSuchFieldException {
+        doReturn(recordPhotoAdapter).when(recordPhotoPageChangeListener).getRecordPhotoAdapter();
+        FieldSetter.setField(tracingRegisterWrapperFragment, tracingRegisterWrapperFragment.getClass().getSuperclass().getSuperclass().getDeclaredField("recordPhotoPageChangeListener"),recordPhotoPageChangeListener);
         when(form.getSections()).thenReturn(sections);
         Iterator<Section> sectionsIterator = PowerMockito.mock(Iterator.class);
         when(sections.iterator()).thenReturn(sectionsIterator);
@@ -184,8 +192,7 @@ public class TracingRegisterWrapperFragmentTest {
     public void test_on_save_successful() {
         stub(PowerMockito.method(TracingRegisterWrapperFragment.class, "getPhotoPathsData")).toReturn(new ArrayList<String>());
         tracingRegisterWrapperFragment.onSaveSuccessful(1l);
-
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(tracingActivity, R.string.save_success, Toast.LENGTH_SHORT);
         Mockito.verify(tracingActivity, Mockito.times(1)).turnToFeature(any(), any(), any());
     }

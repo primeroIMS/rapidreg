@@ -2,9 +2,9 @@ package org.unicef.rapidreg.childcase.caseregister;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -207,7 +207,7 @@ public class CaseRegisterWrapperFragmentTest {
         when(caseRegisterPresenter.getCaseType()).thenReturn(CaseRegisterPresenter.MODULE_CASE_CP);
         stub(PowerMockito.method(CaseRegisterWrapperFragment.class, "getPhotoPathsData")).toReturn(new ArrayList<String>());
         caseRegisterWrapperFragment.onSaveSuccessful(1l);
-        PowerMockito.verifyStatic(times(1));
+        PowerMockito.verifyStatic(Utils.class, times(1));
         Utils.showMessageByToast(recordActivity, R.string.save_success, Toast.LENGTH_SHORT);
         Mockito.verify(caseRegisterPresenter, Mockito.times(2)).getCaseType();
         Mockito.verify(recordActivity, Mockito.times(1)).turnToFeature(any(), any(), any());

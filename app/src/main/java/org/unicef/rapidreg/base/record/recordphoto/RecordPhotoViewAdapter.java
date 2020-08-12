@@ -1,11 +1,9 @@
 package org.unicef.rapidreg.base.record.recordphoto;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.unicef.rapidreg.injection.ActivityContext;
 
 import java.util.List;
 

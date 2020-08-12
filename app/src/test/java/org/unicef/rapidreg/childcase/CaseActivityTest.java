@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+
 import android.widget.Toast;
 
 import junit.framework.Assert;
@@ -100,8 +102,8 @@ public class CaseActivityTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        stub(PowerMockito.method(CaseActivity.class, "getComponent")).toReturn(activityComponent);
-        stub(PowerMockito.method(CaseActivity.class, "getIntent")).toReturn(intent);
+        doReturn(activityComponent).when(caseActivity).getComponent();
+        doReturn(intent).when(caseActivity).getIntent();
         when(intent.getBundleExtra(BUNDLE_EXTRA)).thenReturn(bundleExtra);
         PowerMockito.suppress(PowerMockito.method(DrawerLayout.class, "openDrawer", int.class));
         PowerMockito.suppress(PowerMockito.method(DrawerLayout.class, "closeDrawer", int.class));
@@ -134,6 +136,7 @@ public class CaseActivityTest {
     public void test_on_create_open_drawer() {
         on_create_supporting_code();
         when(intent.getBooleanExtra(IntentSender.IS_FROM_LOGIN, false)).thenReturn(true);
+
 
         caseActivity.onCreate(savedInstanceState);
         Mockito.verify(intent, times(1)).getBooleanExtra(IntentSender.IS_FROM_LOGIN, false);
@@ -191,7 +194,7 @@ public class CaseActivityTest {
     public void test_get_record_list_fragment() {
         FragmentManager fragmentManager = PowerMockito.mock(FragmentManager.class);
         PowerMockito.stub(PowerMockito.method(CaseActivity.class, "getSupportFragmentManager")).toReturn(fragmentManager);
-        android.support.v4.app.Fragment fragment = new CaseListFragment();
+        Fragment fragment = new CaseListFragment();
         doReturn(fragment).when(fragmentManager).findFragmentByTag(anyString());
 
         RecordListFragment recordListFragment = caseActivity.getRecordListFragment();
@@ -203,7 +206,7 @@ public class CaseActivityTest {
     public void test_get_case_search_fragment() {
         FragmentManager fragmentManager = PowerMockito.mock(FragmentManager.class);
         PowerMockito.stub(PowerMockito.method(CaseActivity.class, "getSupportFragmentManager")).toReturn(fragmentManager);
-        android.support.v4.app.Fragment fragment = new CaseSearchFragment();
+        Fragment fragment = new CaseSearchFragment();
         doReturn(fragment).when(fragmentManager).findFragmentByTag(anyString());
 
         CaseSearchFragment caseSearchFragment = caseActivity.getCaseSearchFragment();
@@ -252,14 +255,14 @@ public class CaseActivityTest {
         PowerMockito.doNothing().when(caseActivity).turnToFeature(CaseFeature.LIST, null, null);
 
         caseActivity.processBackButton();
-        PowerMockito.verifyStatic();
+        PowerMockito.verifyStatic(Utils.class);
         Utils.clearAudioFile(AUDIO_FILE_PATH);
         Mockito.verify(caseActivity, times(1)).turnToFeature(CaseFeature.LIST, null, null);
     }
 
     @Test
     public void test_nav_case_action_show_quit() {
-        stub(PowerMockito.method(RecordActivity.class, "setShowHideSwitcherToShowState")).toReturn(null);
+        doNothing().when(caseActivity).setShowHideSwitcherToShowState();
         when(currentFeature.isEditMode()).thenReturn(true);
         try {
             PowerMockito.suppress(CaseActivity.class.getDeclaredMethod("showQuitDialog", int.class));
@@ -275,7 +278,7 @@ public class CaseActivityTest {
 
     @Test
     public void test_nav_case_action_go_to_list() {
-        stub(PowerMockito.method(RecordActivity.class, "setShowHideSwitcherToShowState")).toReturn(null);
+        doNothing().when(caseActivity).setShowHideSwitcherToShowState();
         when(currentFeature.isEditMode()).thenReturn(false);
         PowerMockito.doNothing().when(caseActivity).turnToFeature(CaseFeature.LIST, null, null);
 
@@ -364,7 +367,7 @@ public class CaseActivityTest {
     public void test_promote_sync_forms_error() {
         caseActivity.promoteSyncFormsError();
 
-        PowerMockito.verifyStatic(Mockito.times(1));
+        PowerMockito.verifyStatic(Utils.class, Mockito.times(1));
         Utils.showMessageByToast(caseActivity, R.string.sync_forms_error, Toast.LENGTH_SHORT);
     }
 
@@ -414,7 +417,7 @@ public class CaseActivityTest {
 
         caseActivity.onRedirectIncidentEvent(redirectIncidentEvent);
 
-        verifyStatic();
+        verifyStatic(Utils.class);
         Utils.showMessageByToast(caseActivity, R.string.forms_is_syncing_msg, Toast.LENGTH_SHORT);
     }
 }

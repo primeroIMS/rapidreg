@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.service.impl;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

@@ -3,19 +3,17 @@ package org.unicef.rapidreg.sync;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.text.InputType;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +37,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 
 public class SyncFragment extends MvpFragment<SyncView, BaseSyncPresenter> implements SyncView {
     private BaseProgressDialog syncProgressDialog;

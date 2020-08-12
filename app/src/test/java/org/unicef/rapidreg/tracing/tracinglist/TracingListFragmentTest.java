@@ -23,11 +23,13 @@ import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.spy;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.support.membermodification.MemberModifier.stub;
 
@@ -45,9 +47,8 @@ public class TracingListFragmentTest {
     @Mock
     AppRuntime appRuntime;
 
-    @Spy
     @InjectMocks
-    TracingListFragment tracingListFragment = new TracingListFragment();
+    TracingListFragment tracingListFragment = spy(new TracingListFragment());
 
 
     @Mock
@@ -88,10 +89,10 @@ public class TracingListFragmentTest {
         Resources resources = PowerMockito.mock(Resources.class);
         when(tracingListPresenter.isFormReady()).thenReturn(false);
         when(appRuntime.isTracingFormSyncFail()).thenReturn(true);
-        stub(PowerMockito.method(TracingListFragment.class, "getResources")).toReturn(resources);
-        when(resources.getString(R.string.tracing_request)).thenReturn("");
-        stub(PowerMockito.method(TracingListFragment.class, "showSyncFormDialog")).toReturn(null);;
 
+        doReturn(resources).when(tracingListFragment).getResources();
+        when(resources.getString(R.string.tracing_request)).thenReturn("");
+        doNothing().when(tracingListFragment).showSyncFormDialog(any());
         tracingListFragment.onTracingAddClicked();
         verify(tracingListPresenter, times(1)).clearAudioFile();
         verify(tracingListFragment, times(1)).showSyncFormDialog(anyString());

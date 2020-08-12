@@ -6,7 +6,7 @@ import android.provider.Settings;
 
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.structure.database.DatabaseHelperListener;
-import com.raizlabs.dbflow.android.sqlcipher.SQLCipherOpenHelper;
+import com.raizlabs.android.dbflow.sqlcipher.SQLCipherOpenHelper;
 
 import org.unicef.rapidreg.BuildConfig;
 import org.unicef.rapidreg.PrimeroApplication;

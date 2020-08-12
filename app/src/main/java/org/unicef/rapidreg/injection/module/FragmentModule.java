@@ -1,7 +1,7 @@
 package org.unicef.rapidreg.injection.module;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import org.unicef.rapidreg.injection.ActivityContext;
 

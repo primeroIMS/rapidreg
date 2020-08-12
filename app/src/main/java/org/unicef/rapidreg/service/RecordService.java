@@ -1,9 +1,9 @@
 package org.unicef.rapidreg.service;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.sql.language.Condition;
+import com.raizlabs.android.dbflow.sql.language.Operator;
 import com.raizlabs.android.dbflow.sql.language.NameAlias;
-import com.raizlabs.android.dbflow.sql.language.SQLCondition;
+import com.raizlabs.android.dbflow.sql.language.SQLOperator;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
@@ -152,22 +152,22 @@ public class RecordService {
         return true;
     }
 
-    protected SQLCondition generateAgeSearchCondition(int ageFrom, int ageTo) {
+    protected SQLOperator generateAgeSearchCondition(int ageFrom, int ageTo) {
         if (ageFrom == EMPTY_AGE && ageTo == EMPTY_AGE) {
             return null;
         }
 
         if (ageFrom == EMPTY_AGE && ageTo != EMPTY_AGE) {
-            return Condition.column(NameAlias.builder(RecordModel.COLUMN_AGE).build())
+            return Operator.op(NameAlias.builder(RecordModel.COLUMN_AGE).build())
                     .lessThan(ageTo + 1);
         }
 
         if (ageFrom != EMPTY_AGE && ageTo == EMPTY_AGE) {
-            return Condition.column(NameAlias.builder(RecordModel.COLUMN_AGE).build())
+            return Operator.op(NameAlias.builder(RecordModel.COLUMN_AGE).build())
                     .greaterThan(ageFrom - 1);
         }
 
-        return Condition.column(NameAlias.builder(RecordModel.COLUMN_AGE).build())
+        return Operator.op(NameAlias.builder(RecordModel.COLUMN_AGE).build())
                 .between(ageFrom).and(ageTo);
     }
 

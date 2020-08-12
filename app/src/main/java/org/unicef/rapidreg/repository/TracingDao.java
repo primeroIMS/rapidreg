@@ -1,6 +1,6 @@
 package org.unicef.rapidreg.repository;
 
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 
 import org.unicef.rapidreg.model.Tracing;
 
@@ -17,7 +17,7 @@ public interface TracingDao {
 
     List<Tracing> getAllTracingsOrderByDate(boolean isASC, String ownedBy, String url);
 
-    List<Tracing> getAllTracingsByConditionGroup(String ownedBy, String url, ConditionGroup conditionGroup);
+    List<Tracing> getAllTracingsByOperatorGroup(String ownedBy, String url, OperatorGroup operatorGroup);
 
     Tracing getTracingById(long tracingId);
 

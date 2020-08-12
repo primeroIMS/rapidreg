@@ -25,11 +25,13 @@ import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.spy;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.support.membermodification.MemberModifier.stub;
@@ -46,9 +48,8 @@ public class IncidentListFragmentTest {
     @Mock
     AppRuntime appRuntime;
 
-    @Spy
     @InjectMocks
-    IncidentListFragment incidentListFragment= new IncidentListFragment();
+    IncidentListFragment incidentListFragment = spy(new IncidentListFragment());
 
     @Mock
     RecordActivity recordActivity;
@@ -60,7 +61,7 @@ public class IncidentListFragmentTest {
         mockStatic(PrimeroApplication.class);
         mockStatic(Utils.class);
         stub(PowerMockito.method(PrimeroApplication.class, "getAppRuntime")).toReturn(appRuntime);
-        stub(PowerMockito.method(IncidentListFragment.class, "getActivity")).toReturn(recordActivity);
+        doReturn(recordActivity).when(incidentListFragment).getActivity();
         doNothing().when(Utils.class, "showMessageByToast", any(Context.class),anyInt(),anyInt());
     }
 
@@ -92,9 +93,9 @@ public class IncidentListFragmentTest {
         Resources resources = PowerMockito.mock(Resources.class);
         when(incidentListPresenter.isFormReady()).thenReturn(false);
         when(appRuntime.isIncidentFormSyncFail()).thenReturn(true);
-        stub(PowerMockito.method(IncidentListFragment.class, "getResources")).toReturn(resources);
+        doReturn(resources).when(incidentListFragment).getResources();
         when(resources.getString(anyInt())).thenReturn("");
-        stub(PowerMockito.method(IncidentListFragment.class, "showSyncFormDialog")).toReturn(null);;
+        doNothing().when(incidentListFragment).showSyncFormDialog(any());
         incidentListFragment.onIncidentAddClicked();
         verify(incidentListPresenter, times(1)).clearAudioFile();
         verify(incidentListFragment, times(1)).showSyncFormDialog(anyString());
@@ -111,7 +112,7 @@ public class IncidentListFragmentTest {
 
         incidentListFragment.onIncidentAddClicked();
         verify(incidentListPresenter, times(1)).clearAudioFile();
-        verifyStatic();
+        verifyStatic(Utils.class);
         Utils.showMessageByToast(recordActivity, R.string.forms_is_syncing_msg, Toast.LENGTH_SHORT);
     }
 

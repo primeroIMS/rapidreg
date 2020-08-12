@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import junit.framework.Assert;
 
@@ -80,9 +80,9 @@ public class IncidentActivityTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        stub(PowerMockito.method(IncidentActivity.class, "getComponent")).toReturn(activityComponent);
+        doReturn(activityComponent).when(incidentActivity).getComponent();
         Intent intent = PowerMockito.mock(Intent.class);
-        stub(PowerMockito.method(IncidentActivity.class, "getIntent")).toReturn(intent);
+        doReturn(intent).when(incidentActivity).getIntent();
         when(intent.getBundleExtra(BUNDLE_EXTRA)).thenReturn(bundleExtra);
         stub(PowerMockito.method(IncidentActivity.class, "getResources")).toReturn(resources);
         PowerMockito.mockStatic(Utils.class);
@@ -188,7 +188,7 @@ public class IncidentActivityTest {
         PowerMockito.doNothing().when(incidentActivity).turnToFeature(IncidentFeature.LIST, null, null);
 
         incidentActivity.processBackButton();
-        PowerMockito.verifyStatic();
+        PowerMockito.verifyStatic(Utils.class);
         Utils.clearAudioFile(AUDIO_FILE_PATH);
         Mockito.verify(incidentActivity, times(1)).turnToFeature(IncidentFeature.LIST, null, null);
 
