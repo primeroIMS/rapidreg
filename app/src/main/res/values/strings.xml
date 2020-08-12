@@ -28,6 +28,8 @@
     <string name="login_service_unavailable_message">Service Unavailable!</string>
     <string name="login_not_find_code_message">Not find status code!</string>
     <string name="login_success_message">Login successful.</string>
+    <string name="login_success_after_login">Thank you for logging in. Please try your sync again.</string>
+
 
     <string name="login_user_label_key">login_user</string>
     <string name="syncing_forms_text">Syncing forms, please try it later</string>
@@ -118,6 +120,7 @@
     <string name="sync_download_success_message">Congrats! Your download request is completed.</string>
     <string name="sync_pull_form_success_message">"Congrats! Your synchronisation request is completed."</string>
     <string name="sync_pull_lookups_success_message">"Congrats! Completed downloading lookups"</string>
+    <string name="sync_pull_unauthorized_error_message">You must sign in again in order to sync.</string>
     <string name="sync_error_message">Sorry, the synchronization request can not proceed, please contact the support team.</string>
     <string name="sync_timeout_error_message">Your records took too long to sync. Please try again later.</string>
     <string name="sync_request_time_out_error_message">The network is not stable, please check your internet connection and try again.</string>

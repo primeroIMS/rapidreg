@@ -33,6 +33,8 @@ public class PrimeroAppConfiguration {
 
     private static String currentLanguage = "en";
 
+    private static boolean authorized = true;
+
     private static int timeout = 90;
 
     public static int getTimeout() {return timeout;}
@@ -119,6 +121,14 @@ public class PrimeroAppConfiguration {
         locales.put("bn", "bn_BD");
         locales.put("pt", "pt_MZ");
         return locales;
+    }
+
+    public static boolean isAuthorized() {
+        return authorized;
+    }
+
+    public static void setAuthorized(boolean authorized) {
+        PrimeroAppConfiguration.authorized = authorized;
     }
 }
 

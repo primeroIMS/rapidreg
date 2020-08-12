@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.raizlabs.android.dbflow.data.Blob;
 
-import org.reactivestreams.Subscriber;
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
 import org.unicef.rapidreg.exception.ObservableNullResponseException;
@@ -23,17 +22,17 @@ import org.unicef.rapidreg.utils.TextUtils;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
 import io.reactivex.functions.Function;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.HttpException;
 import retrofit2.Response;
-import io.reactivex.Observable;
 
 import static org.unicef.rapidreg.service.RecordService.CAREGIVER_NAME;
 
@@ -98,6 +97,8 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
         if (!response.isSuccessful()) {
             if (response.code() == 403) {
                 return response;
+            } else if (response.code() == 401){
+                throw new HttpException(response);
             } else {
                 throw new ObservableNullResponseException(response.errorBody().toString());
             }
