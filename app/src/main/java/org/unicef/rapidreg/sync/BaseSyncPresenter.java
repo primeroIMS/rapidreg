@@ -263,7 +263,6 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     protected void syncUploadSuccessfully() {
         if (getView() != null && isViewAttached()) {
             updateDataViews();
-            //getView().showSyncUploadSuccessMessage();
             getView().hideSyncProgressDialog();
         }
     }
@@ -271,7 +270,6 @@ public abstract class BaseSyncPresenter extends MvpBasePresenter<SyncView> {
     protected void syncDownloadSuccessfully() {
         if (getView() != null && isViewAttached()) {
             updateDataViews();
-            //getView().showSyncDownloadSuccessMessage();
             getView().hideSyncProgressDialog();
         }
     }
