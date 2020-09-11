@@ -288,7 +288,7 @@ public class Field {
 
         List<Option> items = new ArrayList<>();
 
-        if (getOptionStringSource() != null) {
+        if (getOptionStringSource() != null && !getOptionStringSource().equals("")) {
             items = GlobalLookupCache.getLookup(getOptionStringSource().replaceAll("lookup\\s", ""));
         } else {
             List<Map<String, String>> list = getOptionStringsText().get(language);
