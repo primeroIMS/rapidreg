@@ -126,6 +126,8 @@
     <string name="sync_request_time_out_error_message">The network is not stable, please check your internet connection and try again.</string>
     <string name="sync_server_not_available_error_message">Web server is not available, please contact your admin.</string>
     <string name="try_to_sync_message">Are you sure you want to sync records?</string>
+    <string name="sync_case_record_error">Failed to upload photos. Please contact your administrator for support.</string>
+    <string name="sync_photos_error">Failed to sync photos. Please contact your administrator for support.</string>
     <string name="remove_photo_confirmation">Are you sure you want to remove this photo?</string>
     <string name="save_success">Record saved</string>
     <string name="save_failed">Record saved failed</string>

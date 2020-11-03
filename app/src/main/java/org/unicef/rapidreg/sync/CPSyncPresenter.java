@@ -128,6 +128,12 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     }
                     return isAuthorizedUpload;
                 })
+                .map(pair ->{
+                    if (pair.second.code() != 402){
+                        getView().showSyncCaseRecordErrorMessage();
+                    }
+                    return  pair;
+                })
                 .map(pair -> {
                     syncCaseService.uploadAudio(pair.first);
                     return pair;

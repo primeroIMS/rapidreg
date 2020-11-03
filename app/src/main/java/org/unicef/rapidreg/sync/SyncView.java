@@ -39,6 +39,10 @@ public interface SyncView extends MvpView {
 
     void showRequestTimeoutSyncErrorMessage();
 
+    void showSyncCaseRecordErrorMessage();
+
+    void showSyncPhotoErrorMessage();
+
     void showServerNotAvailableSyncErrorMessage();
 
     void showReassignedCasesWarningMessage(String message);

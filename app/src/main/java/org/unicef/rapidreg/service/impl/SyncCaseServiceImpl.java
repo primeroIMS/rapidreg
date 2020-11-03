@@ -1,5 +1,7 @@
 package org.unicef.rapidreg.service.impl;
 
+import android.widget.Toast;
+
 import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
@@ -9,6 +11,8 @@ import com.google.gson.JsonObject;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import org.unicef.rapidreg.PrimeroAppConfiguration;
+import org.unicef.rapidreg.PrimeroApplication;
+import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.base.record.recordphoto.PhotoConfig;
 import org.unicef.rapidreg.exception.ObservableNullResponseException;
 import org.unicef.rapidreg.model.CasePhoto;
@@ -19,6 +23,7 @@ import org.unicef.rapidreg.service.BaseRetrofitService;
 import org.unicef.rapidreg.service.SyncCaseService;
 import org.unicef.rapidreg.service.cache.ItemValuesMap;
 import org.unicef.rapidreg.utils.TextUtils;
+import org.unicef.rapidreg.utils.Utils;
 
 import java.util.List;
 
@@ -99,7 +104,10 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                 return response;
             } else if (response.code() == 401){
                 throw new HttpException(response);
-            } else {
+            } else if (response.code() == 402){
+                return response;
+            }
+            else {
                 throw new ObservableNullResponseException(response.errorBody().toString());
             }
         }
@@ -166,7 +174,6 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                                         .postCaseMediaData(PrimeroAppConfiguration.getCookie(),
                                                 record.getInternalId(), body);
                                 Response<JsonElement> response = observable.blockingFirst();
-                                verifyResponse(response);
                                 emitter.onNext(new Pair<>(casePhoto, response));
                                 emitter.onComplete();
                             }
@@ -199,7 +206,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
 
     private void verifyResponse(Response<JsonElement> response) throws ObservableNullResponseException {
         if (!response.isSuccessful()) {
-            throw new ObservableNullResponseException();
+            Utils.showMessageByToast(PrimeroApplication.getAppContext(), R.string.sync_photos_error, Toast.LENGTH_SHORT);
         }
     }
 }
