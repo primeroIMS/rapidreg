@@ -3,8 +3,6 @@ package org.unicef.rapidreg.login;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,26 +72,6 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
 
         usernameEditView.requestFocus();
 
-        usernameEditView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                String s=arg0.toString();
-
-               if(!s.equals(s.toLowerCase().replace(" ","_").trim()))
-                {
-                    s=s.toLowerCase().replace(" ","_").trim();
-                    usernameEditView.setText(s);
-                    usernameEditView.setSelection(usernameEditView.getText().length());
-
-                }
-            }
-        });
     }
 
     @Override
@@ -112,7 +90,7 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
     @OnClick(R.id.login)
     public void onLoginButtonClicked() {
         presenter.doLogin(
-                usernameEditView.getText().toString().trim(),
+                usernameEditView.getText().toString().trim().toLowerCase().replace(' ','_'),
                 passwordEditView.getText().toString().trim(),
                 urlEditView.getText().toString().trim(),
                 PrimeroAppConfiguration.getAndroidId());
