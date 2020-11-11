@@ -2,6 +2,8 @@ package org.unicef.rapidreg.sync;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
+
 import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
@@ -128,12 +130,6 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     }
                     return isAuthorizedUpload;
                 })
-                .map(pair ->{
-                    if (pair.second.code() != 402){
-                        getView().showSyncCaseRecordErrorMessage();
-                    }
-                    return  pair;
-                })
                 .map(pair -> {
                     syncCaseService.uploadAudio(pair.first);
                     return pair;
@@ -141,22 +137,19 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                 .map(caseResponsePair -> {
                     try {
                         Response<JsonElement> jsonElementResponse = caseResponsePair.second;
-                        JsonElement photoKeysElement = jsonElementResponse.body().getAsJsonObject()
-                                .get("photo_keys");
+                        JsonElement photoKeysElement = jsonElementResponse.body().getAsJsonObject().get("photo_keys");
                         JsonArray photoKeys = null;
                         if(photoKeysElement != null) {
                             photoKeys = photoKeysElement.getAsJsonArray();
                         }
-                        String id = jsonElementResponse.body().getAsJsonObject().get("_id")
-                                .getAsString();
+                        String id = jsonElementResponse.body().getAsJsonObject().get("_id").getAsString();
                         okhttp3.Response response = null;
-                        if (photoKeys != null && photoKeys.size() != 0) {
-                            Call<Response<JsonElement>> call = syncCaseService.deleteCasePhotos
-                                    (id, photoKeys);
+                        if (photoKeys != null && photoKeys.size() != 0 && jsonElementResponse.code() != 402) {
+                            Call<Response<JsonElement>> call = syncCaseService.deleteCasePhotos(id, photoKeys);
                             response = call.execute().raw();
                         }
 
-                        if (response == null || response.isSuccessful()) {
+                        if ((response == null || response.isSuccessful()) && jsonElementResponse.code() != 402) {
                             syncCaseService.uploadCasePhotos(caseResponsePair.first);
                         }
                     } catch (Exception e) {

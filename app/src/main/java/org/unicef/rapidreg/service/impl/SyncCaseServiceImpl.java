@@ -206,7 +206,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
 
     private void verifyResponse(Response<JsonElement> response) throws ObservableNullResponseException {
         if (!response.isSuccessful()) {
-            Utils.showMessageByToast(PrimeroApplication.getAppContext(), R.string.sync_photos_error, Toast.LENGTH_SHORT);
+            throw new ObservableNullResponseException();
         }
     }
 }
