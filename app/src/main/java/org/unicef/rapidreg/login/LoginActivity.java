@@ -90,7 +90,7 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
     @OnClick(R.id.login)
     public void onLoginButtonClicked() {
         presenter.doLogin(
-                usernameEditView.getText().toString().trim().toLowerCase().replace(' ','_'),
+                usernameEditView.getText().toString().trim().toLowerCase(),
                 passwordEditView.getText().toString().trim(),
                 urlEditView.getText().toString().trim(),
                 PrimeroAppConfiguration.getAndroidId());
