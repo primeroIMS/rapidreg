@@ -104,7 +104,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                 return response;
             } else if (response.code() == 401){
                 throw new HttpException(response);
-            } else if (response.code() == 402){
+            } else if (Utils.isErrorCode(response.code())){
                 return response;
             }
             else {

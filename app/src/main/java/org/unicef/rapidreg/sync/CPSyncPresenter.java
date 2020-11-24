@@ -144,12 +144,12 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                         }
                         String id = jsonElementResponse.body().getAsJsonObject().get("_id").getAsString();
                         okhttp3.Response response = null;
-                        if (photoKeys != null && photoKeys.size() != 0 && jsonElementResponse.code() != 402) {
+                        if (photoKeys != null && photoKeys.size() != 0 && Utils.isErrorCode(jsonElementResponse.code())) {
                             Call<Response<JsonElement>> call = syncCaseService.deleteCasePhotos(id, photoKeys);
                             response = call.execute().raw();
                         }
 
-                        if ((response == null || response.isSuccessful()) && jsonElementResponse.code() != 402) {
+                        if ((response == null || response.isSuccessful()) && Utils.isErrorCode(jsonElementResponse.code())) {
                             syncCaseService.uploadCasePhotos(caseResponsePair.first);
                         }
                     } catch (Exception e) {

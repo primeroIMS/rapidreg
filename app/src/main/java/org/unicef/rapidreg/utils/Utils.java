@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.primitives.Ints;
+
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.exception.LocaleNotFoundException;
@@ -24,6 +26,7 @@ import java.util.Map;
 
 public class Utils {
     private static final String TAG = Utils.class.getSimpleName();
+    private static final int[] errorCodes = {422, 500};
 
     public static String toStringResult(List<String> result) {
         String res = "";
@@ -136,6 +139,10 @@ public class Utils {
         TextView messageTextView = (TextView) group.getChildAt(0);
         messageTextView.setTextSize(context.getResources().getDimension(R.dimen.toast_text_size));
         toast.show();
+    }
+
+    public static boolean isErrorCode(final int key) {
+        return Ints.contains(errorCodes, key);
     }
 
 }
