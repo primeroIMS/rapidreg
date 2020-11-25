@@ -2,6 +2,7 @@ package org.unicef.rapidreg.login;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,6 +71,7 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
         loginProgressDialog = new BaseProgressDialog(this, R.style.ProgressDialogTheme);
 
         usernameEditView.requestFocus();
+
     }
 
     @Override
@@ -88,7 +90,7 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
     @OnClick(R.id.login)
     public void onLoginButtonClicked() {
         presenter.doLogin(
-                usernameEditView.getText().toString().trim(),
+                usernameEditView.getText().toString().trim().toLowerCase(),
                 passwordEditView.getText().toString().trim(),
                 urlEditView.getText().toString().trim(),
                 PrimeroAppConfiguration.getAndroidId());

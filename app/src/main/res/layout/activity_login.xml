@@ -38,6 +38,7 @@
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:textColor="@color/primero_font_dark"
+            android:textAllCaps = "false"
             android:textSize="@dimen/text_size_18" />
 
         <EditText
