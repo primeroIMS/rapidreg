@@ -26,6 +26,8 @@ import org.unicef.rapidreg.service.SystemSettingsService;
 import org.unicef.rapidreg.service.TracingFormService;
 import org.unicef.rapidreg.utils.Utils;
 
+import java.net.UnknownHostException;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
@@ -194,7 +196,7 @@ public class AppDataServiceImpl implements AppDataService {
                     systemSettingsService.saveOrUpdateSystemSettings(systemSettings);
                 }, throwable -> {
                     Log.e(TAG, "Init system settings error -> " + throwable.getMessage());
-                    loadFail( throwable);
+                    loadFail(throwable);
                     callback.onFailure();
                 }, () -> {
                     systemSettingsService.setGlobalSystemSettings();
@@ -211,9 +213,11 @@ public class AppDataServiceImpl implements AppDataService {
             {
                 PrimeroAppConfiguration.setAuthorized(false);
                 Utils.showMessageByToast(PrimeroApplication.getAppContext(), R.string.sync_pull_unauthorized_error_message, Toast.LENGTH_SHORT);
-                sendProgress("progress", 110);
             }
+        } else if (throwable instanceof UnknownHostException) {
+            Utils.showMessageByToast(PrimeroApplication.getAppContext(), R.string.network_not_available, Toast.LENGTH_SHORT);
         }
+        sendProgress("progress", 110);
     }
 
     private static CompositeDisposable getCompositeDisposable() {
