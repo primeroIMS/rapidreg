@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:allowBackup="false"
         android:fullBackupOnly="false"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="org.unicef.rapidreg.PrimeroGlideModule"
@@ -37,6 +38,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:requestLegacyExternalStorage="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".tracing.TracingActivity"
@@ -59,6 +61,7 @@
         <activity
             android:name=".childcase.casephoto.CasePhotoViewActivity"
             android:launchMode="singleInstance"
+            android:requestLegacyExternalStorage="true"
             android:theme="@style/Transparent" />
         <activity
             android:name=".tracing.tracingphoto.TracingPhotoViewActivity"
@@ -66,6 +69,7 @@
             android:theme="@style/Transparent" />
         <activity
             android:name=".base.record.AudioRecorderActivity"
+            android:requestLegacyExternalStorage="true"
             android:launchMode="singleInstance"
             android:theme="@style/Transparent" />
 

@@ -161,7 +161,7 @@ public class CaseRegisterWrapperFragment extends RecordRegisterWrapperFragment {
         args.putLong(CaseService.CASE_PRIMARY_ID, recordId);
         args.putString(MODULE, caseRegisterPresenter.getCaseType());
         args.putSerializable(RecordService.ITEM_VALUES, getRecordRegisterData());
-        args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) getPhotoPathsData());
+        args.putStringArrayList(RecordService.RECORD_PHOTOS, (ArrayList<String>) caseRegisterPresenter.getPhotoPathsByRecordId(recordId));
 
         ((RecordActivity) getActivity()).turnToFeature(feature, args, null);
     }

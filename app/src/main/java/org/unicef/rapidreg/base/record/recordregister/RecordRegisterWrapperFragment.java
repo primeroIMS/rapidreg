@@ -165,6 +165,11 @@ public abstract class RecordRegisterWrapperFragment extends MvpFragment<RecordRe
     public void updateImageAdapter(UpdateImageEvent event) {
         this.getCurrentPhotoAdapter().addItem(event.getImagePath());
         this.getCurrentPhotoAdapter().notifyDataSetChanged();
+        final FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(
+                this.getChildFragmentManager(), getPages());
+        int currentTab = viewPager.getCurrentItem();
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(currentTab);
         EventBus.getDefault().removeStickyEvent(event);
     }
 
