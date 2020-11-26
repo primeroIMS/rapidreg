@@ -51,6 +51,7 @@ import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -204,6 +205,7 @@ public class CaseRegisterWrapperFragmentTest {
 
     @Test
     public void test_on_save_successful() {
+        doReturn(new ArrayList<String>()).when(caseRegisterPresenter).getPhotoPathsByRecordId(1l);
         when(caseRegisterPresenter.getCaseType()).thenReturn(CaseRegisterPresenter.MODULE_CASE_CP);
         stub(PowerMockito.method(CaseRegisterWrapperFragment.class, "getPhotoPathsData")).toReturn(new ArrayList<String>());
         caseRegisterWrapperFragment.onSaveSuccessful(1l);
