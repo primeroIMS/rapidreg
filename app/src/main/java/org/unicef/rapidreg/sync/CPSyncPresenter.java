@@ -135,12 +135,12 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     return pair;
                 })
                 .map(caseResponsePair -> {
-                    if (!Utils.isErrorCode(caseResponsePair.second.code())) {
-                        try {
-                            Response<JsonElement> jsonElementResponse = caseResponsePair.second;
+                    try {
+                        Response<JsonElement> jsonElementResponse = caseResponsePair.second;
+                        if (!Utils.isErrorCode(jsonElementResponse.code())) {
                             JsonElement photoKeysElement = jsonElementResponse.body().getAsJsonObject().get("photo_keys");
                             JsonArray photoKeys = null;
-                            if(photoKeysElement != null) {
+                            if (photoKeysElement != null) {
                                 photoKeys = photoKeysElement.getAsJsonArray();
                             }
                             String id = jsonElementResponse.body().getAsJsonObject().get("_id").getAsString();
@@ -153,10 +153,10 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                             if (response == null || response.isSuccessful()) {
                                 syncCaseService.uploadCasePhotos(caseResponsePair.first);
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            throw new JsonParseException(e);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        throw new JsonParseException(e);
                     }
                     return caseResponsePair;
                 })
