@@ -1,5 +1,6 @@
 package org.unicef.rapidreg.service.impl;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.util.Pair;
@@ -44,6 +45,7 @@ import static org.unicef.rapidreg.service.RecordService.CAREGIVER_NAME;
 
 public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository> implements SyncCaseService {
     private CasePhotoDao casePhotoDao;
+    private static final String TAG = SyncCaseServiceImpl.class.getSimpleName();
 
     @Override
     protected String getBaseUrl() {
@@ -100,11 +102,10 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
         }
         Response<JsonElement> response = responseObservable.blockingFirst();
         if (!response.isSuccessful()) {
-            if (response.code() == 403) {
-                return response;
-            } else if (response.code() == 401){
+            if (response.code() == 401){
                 throw new HttpException(response);
             } else if (Utils.isErrorCode(response.code())){
+                Log.d(TAG, "Response Code" + response.code());
                 return response;
             }
             else {

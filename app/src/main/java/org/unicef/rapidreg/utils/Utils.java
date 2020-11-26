@@ -26,7 +26,6 @@ import java.util.Map;
 
 public class Utils {
     private static final String TAG = Utils.class.getSimpleName();
-    private static final int[] errorCodes = {422, 500};
 
     public static String toStringResult(List<String> result) {
         String res = "";
@@ -141,8 +140,8 @@ public class Utils {
         toast.show();
     }
 
-    public static boolean isErrorCode(final int key) {
-        return Ints.contains(errorCodes, key);
+    public static boolean isErrorCode(final int errorCode) {
+        return (errorCode >= 400 && errorCode <= 600);
     }
 
 }
