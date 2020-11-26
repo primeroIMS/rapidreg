@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.primitives.Ints;
+
 import org.unicef.rapidreg.PrimeroAppConfiguration;
 import org.unicef.rapidreg.R;
 import org.unicef.rapidreg.exception.LocaleNotFoundException;
@@ -136,6 +138,10 @@ public class Utils {
         TextView messageTextView = (TextView) group.getChildAt(0);
         messageTextView.setTextSize(context.getResources().getDimension(R.dimen.toast_text_size));
         toast.show();
+    }
+
+    public static boolean isErrorCode(final int errorCode) {
+        return (errorCode >= 400 && errorCode <= 600);
     }
 
 }
