@@ -55,6 +55,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.HttpException;
 import retrofit2.Response;
 
 import static org.unicef.rapidreg.PrimeroAppConfiguration.MODULE_ID_CP;
@@ -120,24 +121,40 @@ public class CPSyncPresenter extends BaseSyncPresenter {
         uploadCasesDisposable =  Observable.fromIterable(caseList)
                 .filter(item -> isSyncing && !item.isSynced())
                 .map(item -> {
-                    return new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item));
+                    try {
+                        return new Pair<>(item, syncCaseService.uploadCaseJsonProfile(item));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return new Pair<>(item, new Exception("case_sync_error", e));
+                    }
                 })
                 .filter(pair -> {
-                    boolean isAuthorizedUpload = (pair.second.code() != 403);
-                    if (!isAuthorizedUpload) {
-                        caseShortIdsReasigned.add(pair.first.getShortId());
-                        updateRecordInvalidated(pair.first, true);
+                    if (pair.second instanceof Response) {
+                        boolean isAuthorizedUpload = (((Response) pair.second).code() != 403);
+                        if (!isAuthorizedUpload) {
+                            caseShortIdsReasigned.add(pair.first.getShortId());
+                            updateRecordInvalidated(pair.first, true);
+                        }
+                        return isAuthorizedUpload;
                     }
-                    return isAuthorizedUpload;
+                    return true;
                 })
                 .map(pair -> {
-                    syncCaseService.uploadAudio(pair.first);
+                    if (pair.second instanceof Response && !Utils.isErrorCode( ((Response) pair.second).code())){
+                        try {
+                            syncCaseService.uploadAudio(pair.first);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return new Pair<>(pair.first, new Exception("audio_sync_error", e));
+                        }
+                    }
                     return pair;
                 })
                 .map(caseResponsePair -> {
-                    try {
-                        Response<JsonElement> jsonElementResponse = caseResponsePair.second;
-                        if (!Utils.isErrorCode(jsonElementResponse.code())) {
+                    if (caseResponsePair.second instanceof Response && !Utils.isErrorCode( ((Response) caseResponsePair.second).code())){
+                        try {
+                            Response<JsonElement> jsonElementResponse = (Response<JsonElement>) caseResponsePair.second;
+
                             JsonElement photoKeysElement = jsonElementResponse.body().getAsJsonObject().get("photo_keys");
                             JsonArray photoKeys = null;
                             if (photoKeysElement != null) {
@@ -153,11 +170,13 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                             if (response == null || response.isSuccessful()) {
                                 syncCaseService.uploadCasePhotos(caseResponsePair.first);
                             }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return new Pair<>(caseResponsePair.first, new Exception("photo_sync_error", e));
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        throw new JsonParseException(e);
                     }
+
                     return caseResponsePair;
                 })
                 .subscribeOn(Schedulers.io())
@@ -165,9 +184,21 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                 .subscribe(pair -> {
                     if (getView() != null) {
                         getView().setProgressIncrease();
-                        increaseSyncNumber();
-                        setCaseProperties(pair.second.body().getAsJsonObject(), pair.first);
-                        updateRecordSynced(pair.first, true);
+                        if (pair.second instanceof Throwable ){
+                            if (((Throwable) pair.second).getMessage() == "photo_sync_error"){
+                                getView().showSyncPhotoErrorMessage();
+                            } else if (((Throwable) pair.second).getMessage() == "case_sync_error"){
+                                getView().showSyncCaseRecordErrorMessage();
+                            }
+                        }else if (pair.second instanceof Response) {
+                            if (Utils.isErrorCode(((Response) pair.second).code())) {
+                                getView().showSyncCaseRecordErrorMessage();
+                            } else {
+                                increaseSyncNumber();
+                                setCaseProperties(((Response<JsonElement>) pair.second).body().getAsJsonObject(), pair.first);
+                                updateRecordSynced(pair.first, true);
+                            }
+                        }
                     }
                 }, throwable -> {
                     try {

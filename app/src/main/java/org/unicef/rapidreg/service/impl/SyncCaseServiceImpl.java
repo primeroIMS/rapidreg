@@ -175,6 +175,7 @@ public class SyncCaseServiceImpl extends BaseRetrofitService<SyncCaseRepository>
                                         .postCaseMediaData(PrimeroAppConfiguration.getCookie(),
                                                 record.getInternalId(), body);
                                 Response<JsonElement> response = observable.blockingFirst();
+                                verifyResponse(response);
                                 emitter.onNext(new Pair<>(casePhoto, response));
                                 emitter.onComplete();
                             }
