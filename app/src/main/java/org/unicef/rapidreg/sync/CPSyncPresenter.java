@@ -185,9 +185,12 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                     if (getView() != null) {
                         getView().setProgressIncrease();
                         if (pair.second instanceof Throwable ){
-                            if (((Throwable) pair.second).getMessage() == "photo_sync_error"){
+                            Throwable error = (Throwable) pair.second;
+                            if (error.getMessage() == "audio_sync_error"){
+                                getView().showSyncAudioErrorMessage();
+                            } else if (error.getMessage() == "photo_sync_error"){
                                 getView().showSyncPhotoErrorMessage();
-                            } else if (((Throwable) pair.second).getMessage() == "case_sync_error"){
+                            } else if (error.getMessage() == "case_sync_error"){
                                 getView().showSyncCaseRecordErrorMessage();
                             }
                         }else if (pair.second instanceof Response) {

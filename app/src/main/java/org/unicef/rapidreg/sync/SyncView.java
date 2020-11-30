@@ -43,6 +43,8 @@ public interface SyncView extends MvpView {
 
     void showSyncPhotoErrorMessage();
 
+    void showSyncAudioErrorMessage();
+
     void showServerNotAvailableSyncErrorMessage();
 
     void showReassignedCasesWarningMessage(String message);

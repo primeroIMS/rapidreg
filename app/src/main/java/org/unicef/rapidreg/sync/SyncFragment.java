@@ -252,6 +252,10 @@ public class SyncFragment extends MvpFragment<SyncView, BaseSyncPresenter> imple
         Utils.showMessageByToast(getActivity(), R.string.sync_photos_error, Toast.LENGTH_SHORT);
     }
 
+    @Override
+    public void showSyncAudioErrorMessage() {
+        Utils.showMessageByToast(getActivity(), R.string.sync_audio_error ,Toast.LENGTH_SHORT);
+    }
 
     @Override
     public void showServerNotAvailableSyncErrorMessage() {
