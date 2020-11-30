@@ -194,11 +194,12 @@ public class CPSyncPresenter extends BaseSyncPresenter {
                                 getView().showSyncCaseRecordErrorMessage();
                             }
                         }else if (pair.second instanceof Response) {
-                            if (Utils.isErrorCode(((Response) pair.second).code())) {
+                            Response<JsonElement> caseResponse = (Response<JsonElement>) pair.second;
+                            if (Utils.isErrorCode(caseResponse.code())) {
                                 getView().showSyncCaseRecordErrorMessage();
                             } else {
                                 increaseSyncNumber();
-                                setCaseProperties(((Response<JsonElement>) pair.second).body().getAsJsonObject(), pair.first);
+                                setCaseProperties(caseResponse.body().getAsJsonObject(), pair.first);
                                 updateRecordSynced(pair.first, true);
                             }
                         }
