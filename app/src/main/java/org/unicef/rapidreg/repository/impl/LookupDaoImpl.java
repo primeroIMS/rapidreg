@@ -16,7 +16,7 @@ import java.io.IOException;
 import static com.raizlabs.android.dbflow.sql.language.SQLite.*;
 
 public class LookupDaoImpl implements LookupDao {
-    final private int CHUNK_SIZE = 100000;
+    final private int CHUNK_SIZE = 50000;
 
     @Override
     public Lookup getByServerUrlAndLocale(String apiBaseUrl, String locale) {
