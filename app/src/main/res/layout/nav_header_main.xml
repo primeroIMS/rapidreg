@@ -64,6 +64,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:clickable="true"
+                android:contentDescription="@string/quit"
                 android:paddingTop="@dimen/size_15"
                 android:src="@drawable/ic_exit_to_app_white_24dp" />
 

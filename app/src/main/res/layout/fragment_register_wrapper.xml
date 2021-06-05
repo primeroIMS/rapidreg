@@ -68,6 +68,7 @@
         android:layout_height="@dimen/fa_button_width"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/edit_white"
+        android:contentDescription="@string/add"
         app:layout_anchor="@id/viewpager"
         app:layout_anchorGravity="bottom|right|end" />
 
